@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_schr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,19 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strchr(const char *str, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	char	temp;
 
 	temp = (char)c;
-	while (*str)
+	while (*s)
 	{
-		if (*str == temp)
-			return (str);
-		str++;
+		if (*s == temp)
+			return (s);
+		s++;
 	}
-	if (*str == temp)
-		return (str);
+	if (*s == temp)
+		return (s);
 	else
 		return (0);
 }

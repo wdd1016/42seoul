@@ -6,36 +6,36 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 22:34:41 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/11/11 20:41:09 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/11/13 21:50:27 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t count)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	unsigned char		*temp_dest;
+	unsigned char		*temp_dst;
 	const unsigned char	*temp_src;
 	size_t				i;
 
 	i = 0;
-	if (!dest && !src)
-		return (dest);
-	temp_dest = (unsigned char *)dest;
+	if (!dst && !src)
+		return (dst);
+	temp_dst = (unsigned char *)dst;
 	temp_src = (const unsigned char *)src;
-	if (dest < src)
+	if (dst < src)
 	{
-		while (i < count)
+		while (i < len)
 		{
-			temp_dest[i] = temp_src[i];
+			temp_dst[i] = temp_src[i];
 			i++;
 		}
 	}
-	else if (dest > src)
+	else if (dst > src)
 	{
-		i = count;
+		i = len;
 		while (i-- > 0)
-			temp_dest[i] = temp_src[i];
+			temp_dst[i] = temp_src[i];
 	}
-	return (dest);
+	return (dst);
 }

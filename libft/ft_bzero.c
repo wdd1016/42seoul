@@ -6,20 +6,20 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:52:00 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/11/10 20:26:46 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/11/13 21:36:03 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *ptr, size_t len)
+void	ft_bzero(void *s, size_t n)
 {
 	size_t	i;
 
 	i = 0;
-	while (i < len)
+	while (i < n)
 	{
-		*((char *)ptr + i) = 0;
+		*((char *)s + i) = 0;
 		i++;
 	}
 }
