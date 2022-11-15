@@ -22,11 +22,11 @@ char	*ft_strrchr(const char *s, int c)
 	while (s_len > 0)
 	{
 		if (s[s_len] == temp)
-			return (s + s_len);
+			return ((char *)s + s_len);
 		s_len--;
 	}
 	if (*s == temp)
-		return (s);
+		return ((char *)s);
 	else
 		return (0);
 }

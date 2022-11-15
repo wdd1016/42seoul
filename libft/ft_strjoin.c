@@ -1,43 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/11 14:53:16 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/11/16 00:27:49 by juyojeon         ###   ########.fr       */
+/*   Created: 2022/11/15 17:38:06 by juyojeon          #+#    #+#             */
+/*   Updated: 2022/11/15 20:44:58 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	i;
+	char	*str;
+	char	*temp;
 
-	i = 0;
-	if (n == 0)
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!str)
 		return (0);
-	while (*s1 && *s2 && i + 1 < n)
+	temp = str;
+	while (*s1)
 	{
-		if (*(unsigned char *)s1 != *(unsigned char *)s2)
-			break ;
-		i++;
+		*temp = *s1;
+		temp++;
 		s1++;
+	}
+	while (*s2)
+	{
+		*temp = *s2;
+		temp++;
 		s2++;
 	}
-	return (*(unsigned char *)s1 - *(unsigned char *)s2);
+	*temp = '\0';
+	return (str);
 }
-/*
-#include <stdio.h>
-#include <string.h>
-int	main(void)
-{
-	char str1[] = "str\0";
-	char str2[] = "str\0";
-	str1[3] = -106;
-	printf("%d\n", ft_strncmp(str1, str2, 5));
-	return 0;
-}
-*/

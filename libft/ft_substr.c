@@ -1,43 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/11 14:53:16 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/11/16 00:27:49 by juyojeon         ###   ########.fr       */
+/*   Created: 2022/11/15 17:16:50 by juyojeon          #+#    #+#             */
+/*   Updated: 2022/11/15 22:01:59 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	i;
+	size_t		len_str;
+	size_t		i;
+	char		*n_str;
 
-	i = 0;
-	if (n == 0)
+	len_str = ft_strlen(s);
+	if (len_str <= start)
+		len = 0;
+	else
+		len_str -= start;
+	if (len_str < len)
+		len = len_str;
+	n_str = (char *)malloc(sizeof(char) * (len + 1));
+	if (!n_str)
 		return (0);
-	while (*s1 && *s2 && i + 1 < n)
+	i = 0;
+	while (i < len)
 	{
-		if (*(unsigned char *)s1 != *(unsigned char *)s2)
-			break ;
+		n_str[i] = s[start + i];
 		i++;
-		s1++;
-		s2++;
 	}
-	return (*(unsigned char *)s1 - *(unsigned char *)s2);
+	n_str[i] = '\0';
+	return (n_str);
 }
-/*
-#include <stdio.h>
-#include <string.h>
-int	main(void)
-{
-	char str1[] = "str\0";
-	char str2[] = "str\0";
-	str1[3] = -106;
-	printf("%d\n", ft_strncmp(str1, str2, 5));
-	return 0;
-}
-*/

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 17:23:34 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/11/11 20:56:14 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/11/15 17:37:33 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	unsigned char		temp;
+	unsigned char	temp;
 	unsigned char	*ptr_temp;
-	size_t				i;
+	size_t			i;
 
 	temp = (unsigned char)c;
 	ptr_temp = (unsigned char *)s;
