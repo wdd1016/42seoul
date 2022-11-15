@@ -1,6 +1,7 @@
 {
     "42norminette.command": "norminette -R CheckForbiddenSourceHeader",
     "files.associations": {
-        "ctype.h": "c"
+        "ctype.h": "c",
+        "libft.h": "c"
     }
 }
