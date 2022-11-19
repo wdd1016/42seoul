@@ -6,43 +6,54 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 07:02:07 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/11/16 07:51:36 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/11/19 21:23:04 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+static t_list	*ft_clear_zero(t_list **lst, void (*del)(void *))
+{
+	ft_lstclear(lst, del);
+	return (0);
+}
+
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*temp;
 	t_list	*new;
-	t_list	*new_const;
+	void	*temp_c;
 
 	if (!lst)
 		return (0);
-	new = ft_lstnew(f(lst->content));
-	if (!new)
-		return (0);
-	new_const = new;
-	while (lst->next)
+	new = 0;
+	while (lst)
 	{
-		del(lst->content);
-		temp = lst->next;
-		free(lst);
-		lst = temp;
-		temp = ft_lstnew(f(lst->content));
+		temp_c = f(lst->content);
+		if (!temp_c)
+			return (ft_clear_zero(&new, del));
+		temp = ft_lstnew(temp_c);
 		if (!temp)
-			return (0);
-		new->next = temp;
-		new = temp;
+		{
+			del(temp_c);
+			return (ft_clear_zero(&new, del));
+		}
+		ft_lstadd_back(&new, temp);
+		lst = lst->next;
 	}
-	return (new_const);
+	return (new);
 }
 /*
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}	t_list;
+
 int main(void)
 {
-	t_list *l = lstnew(strdup(" 1 2 3 "));
- 	t_list *ret;
-
+ft_lstmap(<list: {node: "one"}->{node: "two"}->{node:
+"three"}->{node: "four"}->{node: "five"}->(null)>, [s => strlen(s)], [x =>
+free(x)]);
 }
 */
