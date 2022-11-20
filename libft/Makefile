@@ -6,7 +6,7 @@
 #    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/10 16:38:01 by juyojeon          #+#    #+#              #
-#    Updated: 2022/11/19 21:27:40 by juyojeon         ###   ########.fr        #
+#    Updated: 2022/11/20 22:52:20 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,17 +27,21 @@ INC = .
 
 all : $(NAME)
 
-$(NAME) : $(OBJS)
-	ar -rcs $@ $(OBJS)
+bonus : $(NAME)
 
-bonus : $(OBJS) $(OBJS_BOUNS)
-	ar -rcs $(NAME) $(OBJS) $(OBJS_BOUNS)
+ifneq ($(MAKECMDGOALS), bonus)
+$(NAME): $(OBJS)
+	ar -rcs $@ $(OBJS)
+else
+$(NAME): $(OBJS) $(OBJS_BOUNS)
+	ar -rcs $@ $(OBJS) $(OBJS_BOUNS)
+endif
 
 %.o : %.c
 	cc -c $(CFLAGS) $< -o $@ -I $(INC)
 
 clean :
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(OBJS_BOUNS)
 
 fclean : clean
 	rm -f $(NAME)

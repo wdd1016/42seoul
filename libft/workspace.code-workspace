@@ -1,16 +1,11 @@
 {
 	"folders": [
 		{
-			"path": "."
+			"path": ".."
 		},
 		{
-			"path": "../acmicpc"
+			"path": "../../test"
 		}
 	],
-	"settings": {
-		"files.associations": {
-			"ctype.h": "c",
-			"libft.h": "c"
-		}
-	}
+	"settings": {}
 }
