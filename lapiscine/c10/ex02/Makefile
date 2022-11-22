@@ -5,40 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/11/20 23:17:46 by juyojeon          #+#    #+#              #
-#    Updated: 2022/11/20 23:20:04 by juyojeon         ###   ########.fr        #
+#    Created: 2022/10/20 18:01:54 by juyojeon          #+#    #+#              #
+#    Updated: 2022/10/20 18:01:54 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS = -Wall -Wextra -Werror
-NAME = libftprintf.a
-SRCS = ft_printf.c
-OBJS = $(SRCS:.c=.o)
-SRCS_BONUS = 
-OBJS_BOUNS = $(SRCS_BONUS:.c=.o)
-INC = .
-
-all : $(NAME)
-
-bonus : $(NAME)
-
-ifneq ($(MAKECMDGOALS), bonus)
-$(NAME): $(OBJS)
-	ar -rcs $@ $(OBJS)
-else
-$(NAME): $(OBJS) $(OBJS_BOUNS)
-	ar -rcs $@ $(OBJS) $(OBJS_BOUNS)
-endif
-
-%.o : %.c
-	cc -c $(CFLAGS) $< -o $@ -I $(INC)
-
-clean :
-	rm -f $(OBJS) $(OBJS_BOUNS)
-
-fclean : clean
-	rm -f $(NAME)
-
-re : fclean all
-
-.PHONY : all bonus clean fclean re

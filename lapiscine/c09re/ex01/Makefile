@@ -5,40 +5,32 @@
 #                                                     +:+ +:+         +:+      #
 #    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/11/20 23:17:46 by juyojeon          #+#    #+#              #
-#    Updated: 2022/11/20 23:20:04 by juyojeon         ###   ########.fr        #
+#    Created: 2022/10/18 17:38:25 by juyojeon          #+#    #+#              #
+#    Updated: 2022/10/19 15:26:01 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-NAME = libftprintf.a
-SRCS = ft_printf.c
+NAME = libft.a
+SRCS = srcs/ft_putchar.c srcs/ft_swap.c srcs/ft_putstr.c srcs/ft_strlen.c srcs/ft_strcmp.c
 OBJS = $(SRCS:.c=.o)
-SRCS_BONUS = 
-OBJS_BOUNS = $(SRCS_BONUS:.c=.o)
-INC = .
+INC = includes
 
 all : $(NAME)
 
-bonus : $(NAME)
-
-ifneq ($(MAKECMDGOALS), bonus)
-$(NAME): $(OBJS)
+$(NAME) : $(OBJS)
 	ar -rcs $@ $(OBJS)
-else
-$(NAME): $(OBJS) $(OBJS_BOUNS)
-	ar -rcs $@ $(OBJS) $(OBJS_BOUNS)
-endif
 
 %.o : %.c
-	cc -c $(CFLAGS) $< -o $@ -I $(INC)
+	$(CC) -c $(CFLAGS) $< -o $@ -I $(INC)
 
 clean :
-	rm -f $(OBJS) $(OBJS_BOUNS)
+	rm -f $(OBJS)
 
 fclean : clean
 	rm -f $(NAME)
 
 re : fclean all
 
-.PHONY : all bonus clean fclean re
+.PHONY : clean
