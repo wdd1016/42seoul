@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../libft"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"stdarg.h": "c",
+			"ft_printf.h": "c"
+		}
+	}
+}

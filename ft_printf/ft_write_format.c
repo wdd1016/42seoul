@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_anyway.c                                      :+:      :+:    :+:   */
+/*   ft_write_format.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/22 17:08:06 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/11/24 00:21:40 by juyojeon         ###   ########.fr       */
+/*   Created: 2022/11/23 23:14:08 by juyojeon          #+#    #+#             */
+/*   Updated: 2022/11/23 23:18:28 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
+#include "ft_printf.h"
 
-static int	ft_write_str_count(const char *str, int *count)
+int	ft_write_char(va_list ap, t_para *para, int *print_count)
 {
-	if (write(1, *str, 1) < 0)
-		return (-1);
-	(*count)++;
-	return (1);
 }
 
-int main()
+int	ft_write_string(va_list ap, t_para *para, int *print_count)
 {
-	int	i;
-	char str[3] = {'a', 'g'};
+}
 
-	ft_write_str_count(str++, &i);
-//	i = printf("%2147483647d", 30);
-	printf("%d", i);
+int	ft_write_int(va_list ap, t_para *para, int *print_count)
+{
+}
+
+int	ft_write_unsigned(va_list ap, t_para *para, int *print_count)
+{
+}
+
+int	ft_write_ptr(va_list ap, t_para *para, int *print_count)
+{
 }
