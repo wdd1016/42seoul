@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 19:04:12 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/11/13 20:11:15 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/11/23 21:30:35 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*ft_calloc(size_t count, size_t size)
 #include <stdio.h>
 int	main(void)
 {
-	printf("%p\n", ft_calloc(5000,100));
-	return 0;
+	printf("%p\n", ft_calloc(9872313134452358,5890412344134));
+		return 0;
 }
 */
