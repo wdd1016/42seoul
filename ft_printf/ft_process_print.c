@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 21:46:11 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/11/23 23:48:42 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/11/26 17:09:52 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,19 @@ int	ft_process_print(va_list ap, const char *str, t_para *para, int *p_count)
 		return (0);
 	else if (*str == '%')
 	{
-		write(1, "%", 1);
-		(*p_count)++;
-		return (1);
+		if (ft_write_str_count("%", p_count) == -1)
+			return (-1);
+		else
+			return (1);
 	}
-	temp = ft_make_struct(str, para, &len_count);
-	if (!temp)
-		return (0);
-	temp = ft_print_format(ap, para, p_count);
-	if (!temp)
-		return (0);
+	para->flag = 0;
+	para->width = 0;
+	para->precision = -1;
+	para->format = 0;
+	temp = ft_make_struct(ap, str, para, &len_count);
+	if (temp != -1)
+		temp = ft_print_format(ap, para, p_count);
+	if (temp == -1)
+		return (-1);
 	return (len_count);
 }

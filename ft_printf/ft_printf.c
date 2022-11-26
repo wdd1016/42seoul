@@ -6,13 +6,13 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 23:20:35 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/11/24 00:26:32 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/11/26 17:01:27 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_write_str_count(const char *str, int *count)
+int	ft_write_str_count(const char *str, int *count)
 {
 	if (write(1, *str, 1) < 0)
 		return (-1);
@@ -34,13 +34,13 @@ int	ft_printf(const char *str, ...)
 		if (*str == '%')
 		{
 			temp = ft_process_print(ap, str + 1, &parameter, &count);
-			if (!temp)
+			if (temp == -1)
 				return (-1);
 			str += temp;
 		}
 		else
 		{
-			if (ft_write_str_count(str, &count) == 0)
+			if (ft_write_str_count(str, &count) == -1)
 				return (-1);
 			str++;
 		}
