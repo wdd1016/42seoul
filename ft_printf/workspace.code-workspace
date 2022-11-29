@@ -1,16 +1,16 @@
 {
 	"folders": [
 		{
-			"path": "."
+			"path": "../libft"
 		},
 		{
-			"path": "../libft"
+			"path": "."
 		}
 	],
 	"settings": {
 		"files.associations": {
-			"stdarg.h": "c",
-			"ft_printf.h": "c"
+			"ctype.h": "c",
+			"libft.h": "c"
 		}
 	}
 }

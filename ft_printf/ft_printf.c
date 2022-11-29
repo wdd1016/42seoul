@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 23:20:35 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/11/26 17:01:27 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/11/28 20:51:56 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	ft_printf(const char *str, ...)
 	va_list	ap;
 	t_para	parameter;
 	int		count;
-	int		temp;
 
 	count = 0;
 	va_start(ap, str);
@@ -33,10 +32,9 @@ int	ft_printf(const char *str, ...)
 	{
 		if (*str == '%')
 		{
-			temp = ft_process_print(ap, str + 1, &parameter, &count);
-			if (temp == -1)
+			str++;
+			if (ft_process_print(ap, &str, &parameter, &count) == -1)
 				return (-1);
-			str += temp;
 		}
 		else
 		{

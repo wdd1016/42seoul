@@ -1,19 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_anyway.c                                      :+:      :+:    :+:   */
+/*   ft_atollu.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/22 17:08:06 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/11/29 02:43:37 by juyojeon         ###   ########.fr       */
+/*   Created: 2022/11/29 02:33:00 by juyojeon          #+#    #+#             */
+/*   Updated: 2022/11/29 02:35:00 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
 
 int	ft_isspace(int c)
 {
@@ -23,35 +18,27 @@ int	ft_isspace(int c)
 		return (0);
 }
 
-int	ft_atoi(const char *str)
+unsigned long long	ft_atollu(const char *str)
 {
-	int	minus;
-	int	sum;
+	unsigned long long	sum;
 
-	minus = 1;
 	while (ft_isspace(*str))
-		str++;
-	if (*str == '-')
-	{
-		minus = -1;
-		str++;
-	}
-	else if (*str == '+')
 		str++;
 	sum = 0;
 	while (*str >= '0' && *str <= '9')
 	{
-		sum = (sum * 10) + minus * (*str - '0');
+		sum = (sum * 10) + (*str - '0');
 		str++;
 	}
 	return (sum);
 }
-// 9223372039002259500
-int main()
+
+#include <ctype.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+int	main(void)
 {
-//	char	*str = "214748364915";
-	int i = 1;
-	i = printf("%p\n", &i);
-	printf("%d", i);
-	i++;
+	printf("%llu\n", ft_atollu("922337203685477580789"));
+	return 0;
 }
