@@ -1,40 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_slen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 04:36:14 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/11/28 21:06:55 by juyojeon         ###   ########.fr       */
+/*   Created: 2022/11/10 17:33:38 by juyojeon          #+#    #+#             */
+/*   Updated: 2022/11/13 21:33:46 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_recursion_putnbr(int n, int fd)
+size_t	ft_strlen(const char *s)
 {
-	char	temp;
+	const char	*copy;
 
-	if (n > 0)
-	{
-		ft_recursion_putnbr(n / 10, fd);
-		temp = '0' + n % 10;
-		write(fd, &temp, 1);
-	}
-	else if (n < 0)
-	{
-		ft_recursion_putnbr(n / 10, fd);
-		temp = '0' - n % 10;
-		write(fd, &temp, 1);
-	}
-}
-
-void	ft_putnbr_fd(int n, int fd)
-{
-	if (n < 0)
-		write(fd, "-", 1);
-	ft_recursion_putnbr(n, fd);
-	if (n == 0)
-		write(fd, "0", 1);
+	copy = s;
+	while (*s)
+		s++;
+	return ((size_t)s - (size_t)copy);
 }

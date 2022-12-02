@@ -1,16 +1,20 @@
 {
 	"folders": [
 		{
-			"path": "../libft"
+			"path": "."
 		},
 		{
-			"path": "."
+			"path": "../temp"
+		},
+		{
+			"path": "../acmicpc"
 		}
 	],
 	"settings": {
 		"files.associations": {
-			"ctype.h": "c",
-			"libft.h": "c"
+			"stdarg.h": "c",
+			"ft_printf.h": "c",
+			"sstream": "c"
 		}
 	}
 }

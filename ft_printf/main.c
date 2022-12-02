@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 20:05:15 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/11/28 19:34:35 by juyojeon         ###   ########.fr       */
+/*   Created: 2022/08/10 21:37:26 by myko              #+#    #+#             */
+/*   Updated: 2022/12/02 23:43:39 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+int	main(void)
 {
-	unsigned char		*temp_dst;
-	const unsigned char	*temp_src;
-	size_t				i;
+	int	cnt;
+	int	ft_cnt;
 
-	i = 0;
-	if (!dst && !src)
-		return (dst);
-	temp_dst = (unsigned char *)dst;
-	temp_src = (const unsigned char *)src;
-	if (dst < src)
-	{
-		while (i < n)
-		{
-			temp_dst[i] = temp_src[i];
-			i++;
-		}
-	}
-	else if (dst > src)
-	{
-		i = n;
-		while (i-- > 0)
-			temp_dst[i] = temp_src[i];
-	}
-	return (dst);
+	ft_cnt = 0;
+	cnt = 0;
+	ft_printf("----test----\n");
+	ft_cnt = ft_printf("%d", 53245);
+	ft_cnt = ft_printf("%d%s %c%s %X %i", 42, "Seoul", 'K', "delphinus", -2147483647, 0x2a);
+	printf("\n");
+	cnt = printf("%d%s %c%s %X %i", 42, "Seoul", 'K', "delphinus", -2147483647, 0x2a);
+	printf("\n");
+	printf("ft_printf cnt: %d\n", ft_cnt);
+	printf("printf cnt: %d\n", cnt);
 }

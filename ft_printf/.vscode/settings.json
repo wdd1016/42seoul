@@ -30,6 +30,7 @@
   ],
   "files.associations": {
     "stdarg.h": "c",
-    "ft_printf.h": "c"
+    "ft_printf.h": "c",
+    "sstream": "c"
   }
 }
