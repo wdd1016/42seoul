@@ -6,14 +6,14 @@
 #    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 23:17:46 by juyojeon          #+#    #+#              #
-#    Updated: 2022/12/03 00:01:21 by juyojeon         ###   ########.fr        #
+#    Updated: 2022/12/04 00:06:12 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
-SRCS = ft_printf.c ft_itoa.c ft_itou.c ft_strchr.c ft_strlen.c \
-ft_ulltox.c ft_ulltoxx.c
+SRCS = ft_printf.c ft_itoa.c ft_utoa.c ft_strchr.c ft_strlen.c \
+ft_utobx.c ft_utosx.c ft_ulltox.c
 OBJS = $(SRCS:.c=.o)
 SRCS_MANDATORY = ft_process_print.c ft_write_format.c ft_wrtie_format_un.c
 ORCS_MANDATORY = $(SRCS_MANDATORY:.c=.o)

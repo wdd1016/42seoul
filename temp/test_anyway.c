@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:08:06 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/02 23:51:57 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/03 23:30:59 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include <limits.h>
 /*
 static int	ft_isspace(int c)
 {
@@ -76,7 +77,7 @@ int main()
 	int i = ft_atoi("21474836401");
 	char	*str = "214748364915";
 	i = 123;
-	i = printf("23525%p",0);
+	i = printf("%p\np%p\n%p\n", (void *)LONG_MAX + 423856, (void *)0, (void *)INT_MAX);
 //	printf("%p\n", 0);
 	printf("%d", i);
 

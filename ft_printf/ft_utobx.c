@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ulltoxx.c                                       :+:      :+:    :+:   */
+/*   ft_utobx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/02 23:58:36 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/03 00:00:06 by juyojeon         ###   ########.fr       */
+/*   Created: 2022/11/16 02:55:45 by juyojeon          #+#    #+#             */
+/*   Updated: 2022/12/04 00:12:17 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	ft_convert_to_c(char *str, size_t nbr, size_t nbr_len)
+static void	ft_convert_to_c(char *str, unsigned int nbr, unsigned int nbr_len)
 {
 	if (nbr > 0)
 	{
@@ -24,9 +24,9 @@ static void	ft_convert_to_c(char *str, size_t nbr, size_t nbr_len)
 	}
 }
 
-size_t	ft_len_of_xx(size_t nbr)
+static unsigned int	ft_len_of_x(unsigned int nbr)
 {
-	size_t	nbr_len;
+	unsigned int	nbr_len;
 
 	nbr_len = 0;
 	if (nbr == 0)
@@ -39,18 +39,25 @@ size_t	ft_len_of_xx(size_t nbr)
 	return (nbr_len);
 }
 
-char	*ft_ulltoxx(size_t n)
+int	ft_utobx(unsigned int n, int *print_count)
 {
-	char	*str_x;
-	size_t	nbr_len;
+	char			*str_x;
+	unsigned int	nbr_len;
 
-	nbr_len = ft_len_of_xx(n);
+	nbr_len = ft_len_of_x(n);
 	str_x = (char *)malloc(sizeof(char) * (nbr_len + 1));
 	if (!str_x)
-		return (0);
+		return (-1);
 	str_x[nbr_len] = '\0';
 	ft_convert_to_c(str_x, n, nbr_len);
 	if (n == 0)
 		*str_x = '0';
-	return (str_x);
+	if (write(1, str_x, nbr_len) < 0)
+	{
+		free(str_x);
+		return (-1);
+	}
+	free(str_x);
+	(*print_count) += nbr_len;
+	return (1);
 }

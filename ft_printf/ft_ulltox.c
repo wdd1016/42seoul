@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ulltox.c                                        :+:      :+:    :+:   */
+/*   ft_ulltox.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/16 02:55:45 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/02 23:57:33 by juyojeon         ###   ########.fr       */
+/*   Created: 2022/12/02 23:58:36 by juyojeon          #+#    #+#             */
+/*   Updated: 2022/12/03 23:59:01 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ft_convert_to_c(char *str, size_t nbr, size_t nbr_len)
 	}
 }
 
-size_t	ft_len_of_x(size_t nbr)
+static size_t	ft_len_of_x(size_t nbr)
 {
 	size_t	nbr_len;
 
@@ -39,7 +39,7 @@ size_t	ft_len_of_x(size_t nbr)
 	return (nbr_len);
 }
 
-char	*ft_ulltox(size_t n)
+int	ft_ulltox(size_t n, int *print_count)
 {
 	char	*str_x;
 	size_t	nbr_len;
@@ -47,10 +47,17 @@ char	*ft_ulltox(size_t n)
 	nbr_len = ft_len_of_x(n);
 	str_x = (char *)malloc(sizeof(char) * (nbr_len + 1));
 	if (!str_x)
-		return (0);
+		return (-1);
 	str_x[nbr_len] = '\0';
 	ft_convert_to_c(str_x, n, nbr_len);
 	if (n == 0)
 		*str_x = '0';
-	return (str_x);
+	if (write(1, "0x", 2) < 0 || write(1, str_x, nbr_len) < 0)
+	{
+		free(str_x);
+		return (-1);
+	}
+	free(str_x);
+	(*print_count) += nbr_len + 2;
+	return (1);
 }
