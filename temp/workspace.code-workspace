@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "../ft_printf"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"stdarg.h": "c",
+			"ft_printf.h": "c",
+			"sstream": "c"
+		}
+	}
+}
