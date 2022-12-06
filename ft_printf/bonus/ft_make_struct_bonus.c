@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:48:31 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/02 22:33:17 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/07 00:25:06 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,50 @@ static void	ft_para_flag(const char **str, t_para *para)
 	(*str)++;
 }
 
-static unsigned long long	ft_atollu(const char **str)
+static int	ft_check_minus(const char **str)
+{
+	if (**str == '-')
+	{
+		(*str)++;
+		return (-1);
+	}
+	else if (**str == '+')
+		(*str)++;
+	return (1);
+}
+
+static int	ft_atoprecision(const char **str, t_para *para, \
+int *p_count, unsigned long long sum)
+{
+	unsigned int	temp;
+	int				i;
+
+	i = ft_check_minus(str);
+	while (**str >= '0' && **str <= '9')
+	{
+		sum = (sum * 10) + (**str - '0');
+		(*str)++;
+	}
+	sum += *p_count;
+	if (sum >= 9223372036854775807)
+	{
+		temp = (unsigned int)sum;
+		if (temp >= 2147483647)
+			return (-1);
+		temp -= *p_count;
+		para->precision = i * temp;
+	}
+	else if (sum >= 2147483647)
+		return (-1);
+	else
+		para->precision = i * (sum - *p_count);
+	return (1);
+}
+
+static int	ft_atowidth(const char **str, t_para *para, int *p_count)
 {
 	unsigned long long	sum;
+	unsigned int		temp;
 
 	sum = 0;
 	while (**str >= '0' && **str <= '9')
@@ -42,24 +83,36 @@ static unsigned long long	ft_atollu(const char **str)
 		sum = (sum * 10) + (**str - '0');
 		(*str)++;
 	}
-	return (sum);
+	sum += *p_count;
+	if (sum >= 9223372036854775807)
+	{
+		temp = (unsigned int)sum;
+		if (temp >= 2147483647)
+			return (-1);
+		para->width = temp - *p_count;
+	}
+	else if (sum >= 2147483647)
+		return (-1);
+	else
+		para->width = sum - *p_count;
+	return (1);
 }
 
-void	ft_make_struct(const char **str, t_para *para)
+int	ft_make_struct(const char **str, t_para *para, int *p_count)
 {
 	while (1)
 	{
 		if (ft_strchr("-0# +", **str))
 			ft_para_flag(str, para);
 		else if (**str >= '1' && **str <= '9')
-			para->width = ft_atollu(str);
+			if (ft_atowidth(str, para, p_count) < 0)
+				return (-1);
 		else if (**str == '.')
 		{
 			(*str)++;
-			if (**str >= '1' && **str <= '9')
-				para->precision = ft_atollu(str);
-			else
-				para->precision = 0;
+			if ((**str >= '1' && **str <= '9') || **str == '-' || **str == '+')
+				if (ft_atoprecision(str, para, p_count, 0) < 0)
+					return (-1);
 		}
 		else
 			break ;
@@ -69,4 +122,5 @@ void	ft_make_struct(const char **str, t_para *para)
 		para->format = **str;
 		(*str)++;
 	}
+	return (1);
 }

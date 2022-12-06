@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../temp"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"stdarg.h": "c",
+			"ft_printf.h": "c",
+			"sstream": "c"
+		}
+	}
+}

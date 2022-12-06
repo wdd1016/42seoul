@@ -6,27 +6,30 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 21:03:02 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/05 21:27:27 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/06 23:13:29 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_cut_width(t_para *para, int len)
-{
-	unsigned long long 	temp;
-
-	temp = para->width + len;
-	if (temp >= 9223372036854775807)
-}
-
 int	ft_write_char(va_list ap, t_para *para, int *print_count)
 {
-	char	c;
+	char			c;
+	unsigned int	i;
 
 	c = va_arg(ap, int);
-	if (write(1, &c, 1) < 0)
+	if (para->width >= 2147483647)
 		return (-1);
+	if ((para->flag & 1) == 1)
+		if (write(1, &c, 1) < 0)
+			return (-1);
+	i = 0;
+	while (++i < para->width)
+		if (write(1, " ", 1) < 0)
+			return (-1);
+	if ((para->flag & 1) == 0)
+		if (write(1, &c, 1) < 0)
+			return (-1);
 	(*print_count)++;
 	return (1);
 }
