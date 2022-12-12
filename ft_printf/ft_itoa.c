@@ -26,7 +26,7 @@ static void	ft_convert_to_c(char *str, int nbr, int nbr_len)
 	}
 }
 
-static int	ft_len_of_int(int nbr)
+int	ft_len_of_int(int nbr)
 {
 	int	nbr_len;
 

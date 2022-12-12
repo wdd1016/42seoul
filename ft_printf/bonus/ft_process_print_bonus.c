@@ -6,11 +6,10 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 21:46:11 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/06 23:49:16 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/12 20:35:54 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "ft_printf_bonus.h"
 
 static int	ft_print_format(va_list ap, t_para *para, int *print_count)
@@ -48,8 +47,9 @@ int	ft_process_print(va_list ap, const char **str, t_para *para, int *p_count)
 		(*p_count)++;
 	}
 	para->flag = 0;
-	para->width = -1;
-	para->precision = -1;
+	para->width = 0;
+	para->precision = 0;
+	para->minus = 0;
 	para->format = 0;
 	temp = ft_make_struct(str, para, p_count);
 	if (temp == -1)

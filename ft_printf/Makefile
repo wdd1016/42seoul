@@ -6,7 +6,7 @@
 #    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 23:17:46 by juyojeon          #+#    #+#              #
-#    Updated: 2022/12/05 21:11:30 by juyojeon         ###   ########.fr        #
+#    Updated: 2022/12/12 21:36:08 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,12 +19,15 @@ SRCS_MANDATORY = ./mandatory/ft_process_print.c ./mandatory/ft_write_format.c \
 ./mandatory/ft_wrtie_format_un.c
 ORCS_MANDATORY = $(SRCS_MANDATORY:.c=.o)
 SRCS_BONUS = ./bonus/ft_make_struct_bonus.c ./bonus/ft_process_print_bonus.c \
-./bonus/ft_write_format_bonus.c ./bonus/ft_write_format_un_bonus.c
+./bonus/ft_write_char_string_bonus.c ./bonus/ft_write_format_un_bonus.c \
+./bonus/ft_write_int_bouns.c
 OBJS_BOUNS = $(SRCS_BONUS:.c=.o)
 
 all : $(NAME)
+	sleep 1
 
 bonus : $(NAME)
+	sleep 1
 
 ifeq ($(MAKECMDGOALS), bonus)
 $(NAME): $(OBJS) $(OBJS_BOUNS)

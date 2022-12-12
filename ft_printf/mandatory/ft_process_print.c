@@ -6,11 +6,10 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 21:30:48 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/05 21:18:12 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/12 20:35:37 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "ft_printf_mandatory.h"
 
 static int	ft_print_format(va_list ap, t_para *para, int *print_count)

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:08:06 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/07 00:10:22 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/12 23:22:26 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int main()
 	int i = ft_atoi("21474836401");
 	char	*str = "214748364915";
 	i = 123;
-	i = printf("dsfsddfsd  ss%.+2147483639skk\n", str);
+	i = printf("%.4294967299ds\n", 0);
 //	printf("%p\n", 0);
 	printf("%d", i);
 

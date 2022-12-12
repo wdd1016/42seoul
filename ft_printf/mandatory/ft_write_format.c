@@ -6,11 +6,11 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:14:08 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/05 20:51:38 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/12 20:35:44 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_mandatory.h"
 
 int	ft_write_char(va_list ap, int *print_count)
 {

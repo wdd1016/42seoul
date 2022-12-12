@@ -6,12 +6,14 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 20:07:41 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/06 23:56:21 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/12 21:37:43 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_BONUS_H
 # define FT_PRINTF_BONUS_H
+
+# include "ft_printf.h"
 
 int	ft_make_struct(const char **str, t_para *para, int *p_count);
 int	ft_write_char(va_list ap, t_para *para, int *print_count);

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 20:07:41 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/07 00:01:31 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/12 22:07:00 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,18 @@
 
 typedef struct s_para
 {
-	int				flag;
-	unsigned int	width;
-	int				precision;
-	int				format;
+	int					flag;
+	unsigned int		width;
+	unsigned long long	precision;
+	int					minus;
+	int					format;
 
 }	t_para;
 
 char	*ft_strchr(const char *s, int c);
 size_t	ft_strlen(const char *s);
 int		ft_itoa(int n, int *print_count);
+int		ft_len_of_int(int nbr);
 int		ft_utoa(unsigned int n, int *print_count);
 int		ft_utosx(unsigned int n, int *print_count);
 int		ft_utobx(unsigned int n, int *print_count);

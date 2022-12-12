@@ -6,11 +6,11 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:48:31 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/07 00:25:06 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/12 20:36:01 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 static void	ft_para_flag(const char **str, t_para *para)
 {
@@ -43,7 +43,7 @@ static int	ft_check_minus(const char **str)
 		(*str)++;
 	return (1);
 }
-
+/*
 static int	ft_atoprecision(const char **str, t_para *para, \
 int *p_count, unsigned long long sum)
 {
@@ -70,6 +70,21 @@ int *p_count, unsigned long long sum)
 	else
 		para->precision = i * (sum - *p_count);
 	return (1);
+}
+*/
+
+static void	ft_atopre(const char **str, t_para *para)
+{
+	unsigned long long	sum;
+
+	sum = 0;
+	para->minus = ft_check_minus(str);
+	while (**str >= '0' && **str <= '9')
+	{
+		sum = (sum * 10) + (**str - '0');
+		(*str)++;
+	}
+	para->precision = sum;
 }
 
 static int	ft_atowidth(const char **str, t_para *para, int *p_count)
@@ -105,14 +120,15 @@ int	ft_make_struct(const char **str, t_para *para, int *p_count)
 		if (ft_strchr("-0# +", **str))
 			ft_para_flag(str, para);
 		else if (**str >= '1' && **str <= '9')
+		{
 			if (ft_atowidth(str, para, p_count) < 0)
 				return (-1);
+		}
 		else if (**str == '.')
 		{
 			(*str)++;
 			if ((**str >= '1' && **str <= '9') || **str == '-' || **str == '+')
-				if (ft_atoprecision(str, para, p_count, 0) < 0)
-					return (-1);
+				ft_atopre(str, para);
 		}
 		else
 			break ;
