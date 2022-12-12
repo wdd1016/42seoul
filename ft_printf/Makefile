@@ -13,13 +13,13 @@
 CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
 SRCS = ft_printf.c ft_itoa.c ft_utoa.c ft_strchr.c ft_strlen.c \
-ft_utobx.c ft_utosx.c ft_ulltox.c
+ft_utobx.c ft_utosx.c ft_ulltox.c ft_memset.c
 OBJS = $(SRCS:.c=.o)
 SRCS_MANDATORY = ./mandatory/ft_process_print.c ./mandatory/ft_write_format.c \
 ./mandatory/ft_wrtie_format_un.c
 ORCS_MANDATORY = $(SRCS_MANDATORY:.c=.o)
 SRCS_BONUS = ./bonus/ft_make_struct_bonus.c ./bonus/ft_process_print_bonus.c \
-./bonus/ft_write_char_string_bonus.c ./bonus/ft_write_format_un_bonus.c \
+./bonus/ft_write_char_string_bonus.c ./bonus/ft_write_unsigned_bonus.c \
 ./bonus/ft_write_int_bouns.c
 OBJS_BOUNS = $(SRCS_BONUS:.c=.o)
 

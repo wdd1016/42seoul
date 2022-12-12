@@ -34,6 +34,18 @@ static int	ft_print_format(va_list ap, t_para *para, int *print_count)
 	return (i);
 }
 
+static int	ft_find_format(const char *str)
+{
+	while (ft_strchr("-0# +.123456789", *str))
+		str++;
+	if (*str == '\0')
+		return (0);
+	else if (ft_strchr("cspdiuxX", *str))
+		return (1);
+	else
+		return (0);
+}
+
 int	ft_process_print(va_list ap, const char **str, t_para *para, int *p_count)
 {
 	int	temp;
@@ -46,16 +58,13 @@ int	ft_process_print(va_list ap, const char **str, t_para *para, int *p_count)
 			return (-1);
 		(*p_count)++;
 	}
-	para->flag = 0;
-	para->width = 0;
-	para->precision = 0;
-	para->minus = 0;
-	para->format = 0;
-	temp = ft_make_struct(str, para, p_count);
-	if (temp == -1)
-		return (-1);
-	temp = ft_print_format(ap, para, p_count);
-	if (temp == -1)
-		return (-1);
+	ft_memset(para, 0, sizeof(t_para));
+	if (ft_find_format(*str))
+	{
+		if (ft_make_struct(str, para, p_count) == -1)
+			return (-1);
+		if (ft_print_format(ap, para, p_count) == -1)
+			return (-1);
+	}
 	return (1);
 }

@@ -74,10 +74,10 @@ int	ft_atoi(const char *str)
 // 9223372039002259458
 int main()
 {
-	int i = ft_atoi("21474836401");
-	char	*str = "214748364915";
-	i = 123;
-	i = printf("%.4294967299ds\n", 0);
+//	int i = ft_atoi("21474836401");
+//	char	*str = "214748364915";
+//	i = 123;
+	i = printf("%20k.5%d\n", 512);
 //	printf("%p\n", 0);
 	printf("%d", i);
 

@@ -28,6 +28,7 @@ typedef struct s_para
 }	t_para;
 
 char	*ft_strchr(const char *s, int c);
+void	*ft_memset(void *b, int c, size_t len);
 size_t	ft_strlen(const char *s);
 int		ft_itoa(int n, int *print_count);
 int		ft_len_of_int(int nbr);

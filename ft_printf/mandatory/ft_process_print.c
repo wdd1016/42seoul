@@ -46,9 +46,7 @@ int	ft_process_print(va_list ap, const char **str, t_para *para, int *p_count)
 			return (-1);
 		(*p_count)++;
 	}
-	para->flag = 0;
-	para->width = -1;
-	para->precision = -1;
+	ft_memset(para, 0, sizeof(t_para));
 	para->format = **str;
 	(*str)++;
 	temp = ft_print_format(ap, para, p_count);

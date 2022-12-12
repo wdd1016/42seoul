@@ -32,53 +32,19 @@ static void	ft_para_flag(const char **str, t_para *para)
 	(*str)++;
 }
 
-static int	ft_check_minus(const char **str)
-{
-	if (**str == '-')
-	{
-		(*str)++;
-		return (-1);
-	}
-	else if (**str == '+')
-		(*str)++;
-	return (1);
-}
-/*
-static int	ft_atoprecision(const char **str, t_para *para, \
-int *p_count, unsigned long long sum)
-{
-	unsigned int	temp;
-	int				i;
-
-	i = ft_check_minus(str);
-	while (**str >= '0' && **str <= '9')
-	{
-		sum = (sum * 10) + (**str - '0');
-		(*str)++;
-	}
-	sum += *p_count;
-	if (sum >= 9223372036854775807)
-	{
-		temp = (unsigned int)sum;
-		if (temp >= 2147483647)
-			return (-1);
-		temp -= *p_count;
-		para->precision = i * temp;
-	}
-	else if (sum >= 2147483647)
-		return (-1);
-	else
-		para->precision = i * (sum - *p_count);
-	return (1);
-}
-*/
-
 static void	ft_atopre(const char **str, t_para *para)
 {
 	unsigned long long	sum;
 
 	sum = 0;
-	para->minus = ft_check_minus(str);
+	if (**str == '-')
+	{
+		(*str)++;
+		para->minus = -1;
+	}
+	else if (**str == '+')
+		(*str)++;
+	para->minus = 1;
 	while (**str >= '0' && **str <= '9')
 	{
 		sum = (sum * 10) + (**str - '0');
