@@ -31,26 +31,23 @@ static int	ft_print_format(va_list ap, t_para *para, int *print_count)
 		i = ft_write_16base_us_int_big(ap, print_count);
 	else if (para->format == 'p')
 		i = ft_write_ptr(ap, print_count);
+	else if (para->format == '%')
+	{
+		if (write(1, "%", 1) < 0)
+			return (-1);
+		(*print_count)++;
+	}
 	return (i);
 }
 
 int	ft_process_print(va_list ap, const char **str, t_para *para, int *p_count)
 {
-	int	temp;
-
 	if (**str == '\0')
 		return (0);
-	else if (**str == '%')
-	{
-		if (write(1, "%", 1) < 0)
-			return (-1);
-		(*p_count)++;
-	}
 	ft_memset(para, 0, sizeof(t_para));
 	para->format = **str;
 	(*str)++;
-	temp = ft_print_format(ap, para, p_count);
-	if (temp == -1)
+	if (ft_print_format(ap, para, p_count) == -1)
 		return (-1);
 	return (1);
 }

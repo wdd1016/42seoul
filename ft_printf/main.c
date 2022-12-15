@@ -22,9 +22,9 @@ int	main(void)
 	ft_cnt = 0;
 	cnt = 0;
 	ft_printf("----test----\n");
-	ft_cnt = ft_printf("%pp%p%p", (void *)LONG_MAX + 423856, (void *)0, (void *)INT_MAX);
+	ft_cnt = ft_printf("%6c, %s, %d", 'g', "gsdgsd", 154156);
 	printf("\n");
-	cnt = printf("%pp%p%p", (void *)LONG_MAX + 423856, (void *)0, (void *)INT_MAX);
+	cnt = printf("%6c, %s, %d", 'g', "gsdgsd", 154156);
 	printf("\n");
 	printf("ft_printf cnt: %d\n", ft_cnt);
 	printf("printf cnt: %d\n", cnt);

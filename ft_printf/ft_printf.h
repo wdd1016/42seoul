@@ -19,12 +19,11 @@
 
 typedef struct s_para
 {
-	int					flag;
-	unsigned int		width;
-	unsigned long long	precision;
-	int					minus;
-	int					format;
-
+	int	flag;
+	int	width;
+	int	precision;
+	int	pre_state;
+	int	format;
 }	t_para;
 
 char	*ft_strchr(const char *s, int c);

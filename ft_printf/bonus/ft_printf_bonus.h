@@ -15,7 +15,16 @@
 
 # include "ft_printf.h"
 
-int	ft_make_struct(const char **str, t_para *para, int *p_count);
+# define FLAG_MINUS 1
+# define FLAG_ZERO 2
+# define FLAG_SHARP 4
+# define FLAG_SPACE 8
+# define FLAG_PLUS 16
+# define P_OFF 0
+# define P_ON 1
+# define P_OVERFLOW 2
+
+int	ft_make_struct(const char **str, t_para *para);
 int	ft_write_char(va_list ap, t_para *para, int *print_count);
 int	ft_write_string(va_list ap, t_para *para, int *print_count);
 int	ft_write_int(va_list ap, t_para *para, int *print_count);

@@ -20,7 +20,7 @@ SRCS_MANDATORY = ./mandatory/ft_process_print.c ./mandatory/ft_write_format.c \
 ORCS_MANDATORY = $(SRCS_MANDATORY:.c=.o)
 SRCS_BONUS = ./bonus/ft_make_struct_bonus.c ./bonus/ft_process_print_bonus.c \
 ./bonus/ft_write_char_string_bonus.c ./bonus/ft_write_unsigned_bonus.c \
-./bonus/ft_write_int_bouns.c
+./bonus/ft_write_int_bouns.c ./bonus/ft_write_16_bonus.c
 OBJS_BOUNS = $(SRCS_BONUS:.c=.o)
 
 all : $(NAME)

@@ -1,6 +1,6 @@
 make re
 gcc -Wall -Wextra -Werror main.c -L. -lftprintf
-./a.out
+./a.exe
 read next
 make fclean
-rm a.out
+rm a.exe
