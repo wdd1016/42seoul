@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_process_print_bonus.c                           :+:      :+:    :+:   */
+/*   ft_1_process_print_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 21:46:11 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/12 20:35:54 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/16 05:35:07 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ static int	ft_print_format(va_list ap, t_para *para, int *print_count)
 {
 	int	i;
 
-	i = 0;
-	if (para->format == 'c')
+	if (para->format == 'c' || para->format == '%')
 		i = ft_write_char(ap, para, print_count);
 	else if (para->format == 's')
 		i = ft_write_string(ap, para, print_count);
@@ -25,18 +24,12 @@ static int	ft_print_format(va_list ap, t_para *para, int *print_count)
 		i = ft_write_int(ap, para, print_count);
 	else if (para->format == 'u')
 		i = ft_write_unsigned(ap, para, print_count);
-	else if (para->format == 'x')
-		i = ft_write_16base_us_int_small(ap, para, print_count);
-	else if (para->format == 'X')
-		i = ft_write_16base_us_int_big(ap, para, print_count);
+	else if (para->format == 'x' || para->format == 'X')
+		i = ft_write_16base(ap, para, print_count);
 	else if (para->format == 'p')
 		i = ft_write_ptr(ap, para, print_count);
-	else if (para->format == '%')
-	{
-		if (write(1, "%", 1) < 0)
-			return (-1);
-		(*print_count)++;
-	}
+	else
+		i = 0;
 	return (i);
 }
 

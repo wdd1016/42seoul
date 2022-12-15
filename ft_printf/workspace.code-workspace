@@ -11,7 +11,8 @@
 		"files.associations": {
 			"stdarg.h": "c",
 			"ft_printf.h": "c",
-			"sstream": "c"
+			"sstream": "c",
+			"stdlib.h": "c"
 		}
 	}
 }

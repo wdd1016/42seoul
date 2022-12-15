@@ -12,19 +12,45 @@
 
 #include "ft_printf.h"
 
-static void	ft_convert_to_c(char *str, size_t nbr, size_t nbr_len)
+static void	ft_convert_to_small(char *str, size_t nbr, size_t nbr_len)
 {
+	size_t		nbr_idx;
+	const char	*base = "0123456789abcdef";
+
+	nbr_idx = nbr_len - 1;
 	if (nbr > 0)
 	{
-		if (nbr % 16 > 9)
-			str[nbr_len - 1] = 'a' + (nbr % 16) - 10;
-		else
-			str[nbr_len - 1] = '0' + (nbr % 16);
-		ft_convert_to_c(str, nbr / 16, nbr_len - 1);
+		while (nbr != 0)
+		{
+			str[nbr_idx] = base[nbr % 16];
+			nbr_idx--;
+			nbr /= 16;
+		}
 	}
+	else
+		str[0] = '0';
 }
 
-static size_t	ft_len_of_x(size_t nbr)
+static void	ft_convert_to_big(char *str, unsigned int nbr, unsigned int nbr_len)
+{
+	size_t		nbr_idx;
+	const char	*base = "0123456789ABCDEF";
+
+	nbr_idx = nbr_len - 1;
+	if (nbr > 0)
+	{
+		while (nbr != 0)
+		{
+			str[nbr_idx] = base[nbr % 16];
+			nbr_idx--;
+			nbr /= 16;
+		}
+	}
+	else
+		str[0] = '0';
+}
+
+size_t	ft_len_of_x(size_t nbr)
 {
 	size_t	nbr_len;
 
@@ -39,7 +65,7 @@ static size_t	ft_len_of_x(size_t nbr)
 	return (nbr_len);
 }
 
-int	ft_ulltox(size_t n, int *print_count)
+int	ft_ulltox(size_t n, int *print_count, t_para *para)
 {
 	char	*str_x;
 	size_t	nbr_len;
@@ -49,15 +75,16 @@ int	ft_ulltox(size_t n, int *print_count)
 	if (!str_x)
 		return (-1);
 	str_x[nbr_len] = '\0';
-	ft_convert_to_c(str_x, n, nbr_len);
-	if (n == 0)
-		*str_x = '0';
-	if (write(1, "0x", 2) < 0 || write(1, str_x, nbr_len) < 0)
+	if (para->format == 'p' || para->format == 'x')
+		ft_convert_to_small(str_x, n, nbr_len);
+	else
+		ft_convert_to_big(str_x, n, nbr_len);
+	if (write(1, str_x, nbr_len) < 0)
 	{
 		free(str_x);
 		return (-1);
 	}
 	free(str_x);
-	(*print_count) += nbr_len + 2;
+	(*print_count) += nbr_len;
 	return (1);
 }

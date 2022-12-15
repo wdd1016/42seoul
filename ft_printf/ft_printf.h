@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 20:07:41 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/12 22:07:00 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/16 01:06:00 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,10 @@ typedef struct s_para
 char	*ft_strchr(const char *s, int c);
 void	*ft_memset(void *b, int c, size_t len);
 size_t	ft_strlen(const char *s);
-int		ft_itoa(int n, int *print_count);
-int		ft_len_of_int(int nbr);
-int		ft_utoa(unsigned int n, int *print_count);
-int		ft_utosx(unsigned int n, int *print_count);
-int		ft_utobx(unsigned int n, int *print_count);
-int		ft_ulltox(size_t n, int *print_count);
+int		ft_abstoa(long long n, int *print_count);
+int		ft_len_of_abs(long long nbr);
+int		ft_ulltox(size_t n, int *print_count, t_para *para);
+size_t	ft_len_of_x(size_t nbr);
 int		ft_printf(const char *str, ...);
 int		ft_process_print(va_list ap, const char **str, \
 t_para *para, int *p_count);

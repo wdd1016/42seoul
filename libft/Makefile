@@ -6,7 +6,7 @@
 #    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/10 16:38:01 by juyojeon          #+#    #+#              #
-#    Updated: 2022/11/20 22:52:20 by juyojeon         ###   ########.fr        #
+#    Updated: 2022/12/15 17:41:18 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ all : $(NAME)
 
 bonus : $(NAME)
 
-ifneq ($(MAKECMDGOALS), bonus)
+ifneq ($(findstring bonus, $(MAKECMDGOALS)), bonus)
 $(NAME): $(OBJS)
 	ar -rcs $@ $(OBJS)
 else

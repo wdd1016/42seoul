@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:14:08 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/12 20:35:44 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/16 01:07:37 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,46 @@ int	ft_write_string(va_list ap, int *print_count)
 	return (1);
 }
 
-int	ft_write_int(va_list ap, int *print_count)
+int	ft_write_int(va_list ap, int *print_count, t_para *para)
 {
-	int		i;
+	long long	nbr;
 
-	i = va_arg(ap, int);
-	if (ft_itoa(i, print_count) == -1)
-		return (-1);
+	if (para->format == 'd' || para->format == 'i')
+	{
+		nbr = va_arg(ap, int);
+		if (nbr < 0)
+		{
+			if (write(1, "-", 1) < 0)
+				return (-1);
+			(*print_count)++;
+		}
+	}
 	else
-		return (1);
+		nbr = va_arg(ap, unsigned int);
+	if (ft_abstoa(nbr, print_count) == -1)
+		return (-1);
+	return (1);
+}
+
+int	ft_write_16base(va_list ap, int *print_count, t_para *para)
+{
+	unsigned int	i;
+
+	i = va_arg(ap, unsigned int);
+	if (ft_ulltox(i, print_count, para) == -1)
+		return (-1);
+	return (1);
+}
+
+int	ft_write_ptr(va_list ap, int *print_count, t_para *para)
+{
+	size_t	i;
+
+	i = (size_t)va_arg(ap, void *);
+	if (write(1, "0x", 2) < 0)
+		return (-1);
+	(*print_count) += 2;
+	if (ft_ulltox(i, print_count, para) == -1)
+		return (-1);
+	return (1);
 }
