@@ -21,10 +21,3 @@ size_t	ft_strlen(const char *s)
 		s++;
 	return ((size_t)s - (size_t)copy);
 }
-/*
-#include <stdio.h>
- int	main(void)
- {
-	 printf("%d", ft_slen("sddaf"));
- }
- */

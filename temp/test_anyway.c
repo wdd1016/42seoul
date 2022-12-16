@@ -10,20 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
-#include <limits.h>
+ #include <stdio.h>
+ #include <unistd.h>
+ #include <string.h>
+ #include <stdlib.h>
+ #include <limits.h>
 
 // 9223372039002259500
 // 9223372039002259458
 int main()
 {
 	int i; //= ft_atoi("21474836401");
-	char	*str = "cspdiuxX%";
-	i = 0;
-	i = printf("%#5xkk\n", 32);
+//	char	*str = "cspdiuxX%";
+	i = EOF;
+	i = printf("%d", i);
 //	printf("%p\n", 0);
 	printf("%d", i);
 

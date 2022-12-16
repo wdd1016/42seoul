@@ -33,12 +33,3 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	}
 	return (0);
 }
-/*
-#include <string.h>
-#include <stdio.h>
-int	main(void)
-{
-	printf("%s\n", ft_strnstr("ssdsddfg", "sds", 6));
-	return 0;
-}
-*/

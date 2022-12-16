@@ -12,9 +12,19 @@
 
 #include "libft.h"
 
-static t_list	*ft_clear_zero(t_list **lst, void (*del)(void *))
+static t_list	*ft_lstclear_lstmap(t_list **lst, void (*del)(void *))
 {
-	ft_lstclear(lst, del);
+	t_list	*temp;
+
+	if (*lst == 0)
+		return (0);
+	while (*lst)
+	{
+		temp = *lst;
+		del(temp->content);
+		*lst = temp->next;
+		free(temp);
+	}
 	return (0);
 }
 
@@ -31,29 +41,15 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	{
 		temp_c = f(lst->content);
 		if (!temp_c)
-			return (ft_clear_zero(&new, del));
+			return (ft_lstclear_lstmap(&new, del));
 		temp = ft_lstnew(temp_c);
 		if (!temp)
 		{
 			del(temp_c);
-			return (ft_clear_zero(&new, del));
+			return (ft_lstclear_lstmap(&new, del));
 		}
 		ft_lstadd_back(&new, temp);
 		lst = lst->next;
 	}
 	return (new);
 }
-/*
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
-
-int main(void)
-{
-ft_lstmap(<list: {node: "one"}->{node: "two"}->{node:
-"three"}->{node: "four"}->{node: "five"}->(null)>, [s => strlen(s)], [x =>
-free(x)]);
-}
-*/

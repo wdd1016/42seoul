@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isspace(int c)
+static int	ft_isspace(int c)
 {
 	if ((c >= 9 && c <= 13) || c == 32)
 		return (1);
@@ -20,8 +20,8 @@ int	ft_isspace(int c)
 
 int	ft_atoi(const char *str)
 {
-	int	minus;
-	int	sum;
+	int			minus;
+	int			sum;
 
 	minus = 1;
 	while (ft_isspace(*str))
@@ -41,13 +41,3 @@ int	ft_atoi(const char *str)
 	}
 	return (sum);
 }
-/*
-#include <ctype.h>
-#include <string.h>
-#include <stdio.h>
-int	main(void)
-{
-	printf("%d\n", isspace(32));
-	return 0;
-}
-*/

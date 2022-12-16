@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void	ft_recursion_putnbr(int n, int fd)
+static void	ft_recursion_putnbr(int n, int fd)
 {
 	char	temp;
 

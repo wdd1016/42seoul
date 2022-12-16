@@ -34,13 +34,3 @@ char	*ft_strdup(const char *s1)
 	*temp = '\0';
 	return (copy);
 }
-/*
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-int	main(void)
-{
-	printf("%p\n", strdup(""));
-	return 0;
-}
-*/

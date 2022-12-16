@@ -29,18 +29,3 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	}
 	return (0);
 }
-/*
-#include <stdio.h>
-void	*strstrstr(void)
-{
-	char *ptrr;
-	char a = 'c';
-	ptrr = &a;
-	return (ptrr);
-}
-int	main(void)
-{
-	printf("%0xd\n", *(int *)strstrstr());
-	return 0;
-}
-*/

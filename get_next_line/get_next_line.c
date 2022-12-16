@@ -14,5 +14,6 @@
 
 char	*get_next_line(int fd)
 {
-	BUFFER_SIZE;
+	static;
 }
+

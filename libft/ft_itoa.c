@@ -12,21 +12,35 @@
 
 #include "libft.h"
 
-void	ft_convert_to_c(char *str, int nbr, int nbr_len)
+static void	ft_convert_to_c(char *str, int nbr, int nbr_len)
 {
+	int			nbr_idx;
+	const char	*base = "0123456789";
+
+	nbr_idx = nbr_len - 1;
 	if (nbr < 0)
 	{
-		str[nbr_len - 1] = '0' - (nbr % 10);
-		ft_convert_to_c(str, nbr / 10, nbr_len - 1);
+		while (nbr != 0)
+		{
+			str[nbr_idx] = base[-(nbr % 10)];
+			nbr_idx--;
+			nbr /= 10;
+		}
 	}
 	else if (nbr > 0)
 	{
-		str[nbr_len - 1] = '0' + (nbr % 10);
-		ft_convert_to_c(str, nbr / 10, nbr_len - 1);
+		while (nbr != 0)
+		{
+			str[nbr_idx] = base[nbr % 10];
+			nbr_idx--;
+			nbr /= 10;
+		}
 	}
+	else
+		str[0] = '0';
 }
 
-int	ft_len_of_int(int nbr)
+static int	ft_len_of_int(int nbr)
 {
 	int	nbr_len;
 
@@ -52,15 +66,7 @@ char	*ft_itoa(int n)
 		return (0);
 	str_int[nbr_len] = '\0';
 	ft_convert_to_c(str_int, n, nbr_len);
-	if (n == 0)
-		*str_int = '0';
-	else if (n < 0)
+	if (n < 0)
 		*str_int = '-';
 	return (str_int);
 }
-/*
-int main(void)
-{
-	ft_itoa(-9);
-}
-*/

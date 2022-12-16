@@ -29,15 +29,4 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	}
 	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
-/*
-#include <stdio.h>
-#include <string.h>
-int	main(void)
-{
-	char str1[] = "str\0";
-	char str2[] = "str\0";
-	str1[3] = -106;
-	printf("%d\n", ft_strncmp(str1, str2, 5));
-	return 0;
-}
-*/
+

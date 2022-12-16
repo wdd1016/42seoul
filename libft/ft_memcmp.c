@@ -31,12 +31,4 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	}
 	return (temp_s1[i] - temp_s2[i]);
 }
-/*
-#include <stdio.h>
-#include <string.h>
-int	main(void)
-{
-	printf("%d\n", ft_memcmp("p999assf", "4ss", 0));
-	return 0;
-}
-*/
+

@@ -10,18 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
 int	ft_isalnum(int c)
 {
-	return (ft_isdigit(c) || ft_isalpha(c));
+	return ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || \
+	(c >= 'a' && c <= 'z'));
 }
-/*
-#include <ctype.h>
-#include <stdio.h>
-int main(void)
-{
-	printf("%d", isalnum(4294967397));
-	return 0;
-}
-*/

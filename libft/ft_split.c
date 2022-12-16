@@ -12,7 +12,8 @@
 
 #include "libft.h"
 
-void	ft_insert_words(const char *str, char **s_spt, char set, size_t w_count)
+static void	ft_insert_words(const char *str, char **s_spt, char set, \
+size_t w_count)
 {
 	size_t	i;
 	size_t	j;
@@ -41,7 +42,7 @@ void	ft_insert_words(const char *str, char **s_spt, char set, size_t w_count)
 	}
 }
 
-int	ft_free_all_allocation(char **s_spt, size_t w_count)
+static int	ft_free_all_allocation(char **s_spt, size_t w_count)
 {
 	while (w_count > 0)
 	{
@@ -52,7 +53,8 @@ int	ft_free_all_allocation(char **s_spt, size_t w_count)
 	return (0);
 }
 
-int	ft_malloc_strings(const char *str, char **s_spt, char set, size_t w_count)
+static int	ft_malloc_strings(const char *str, char **s_spt, char set, \
+size_t w_count)
 {
 	size_t	i;
 	size_t	j;
@@ -81,7 +83,7 @@ int	ft_malloc_strings(const char *str, char **s_spt, char set, size_t w_count)
 	return (1);
 }
 
-size_t	ft_count_words(const char *str, char set)
+static size_t	ft_count_words(const char *str, char set)
 {
 	size_t	word_count;
 	size_t	i;
@@ -119,10 +121,3 @@ char	**ft_split(char const *s, char c)
 	s_spt[w_count] = 0;
 	return (s_spt);
 }
-/*
-int main(void)
-{
-	ft_split("   lorem   ipsum dolor     sit amet, consectetur   \
-	 elit. Sed non risus. Suspendisse   ", ' ');
-}
-*/
