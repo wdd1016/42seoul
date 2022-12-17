@@ -2,5 +2,5 @@
 
 int main()
 {
-	printf("123\nYour_ICPC_Team_Name");
+	printf("67\nwdd1016");
 }
