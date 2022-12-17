@@ -5,6 +5,5 @@ int main()
 {
 	int i;
 	scanf("");
-
 	return 0;
 }
