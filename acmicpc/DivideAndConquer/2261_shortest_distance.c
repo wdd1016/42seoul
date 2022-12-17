@@ -75,7 +75,6 @@ int ft_y_direction_min_sqt(t_coor *arr, int start, int end, int dis, int dis_sqt
     int max;
     int i;
     int len;
-    int temp_sqt;
     t_coor *temp_arr;
 
     len = end - start + 1;
