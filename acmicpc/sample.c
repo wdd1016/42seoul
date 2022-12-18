@@ -3,7 +3,7 @@
 
 int main()
 {
-	int i;
+	int i, j;
 	scanf("");
 	return 0;
 }
