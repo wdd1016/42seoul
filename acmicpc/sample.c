@@ -4,6 +4,6 @@
 int main()
 {
 	int i, j;
-	scanf("");
+	scanf(". ");
 	return 0;
 }
