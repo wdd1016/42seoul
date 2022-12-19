@@ -39,4 +39,3 @@ int	ft_printf(const char *str, ...)
 	va_end(ap);
 	return (count);
 }
-/* 완료시 문자수, 실패시 -1 반환 */
