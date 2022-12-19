@@ -53,19 +53,19 @@ void	*ft_memset(void *b, int c, size_t len)
 	return (b);
 }
 
-char	*ft_strchr(const char *s, int c)
+int	ft_strchr_idx(const char *str, int ch, int index)
 {
 	char	temp;
 
-	temp = (char)c;
-	while (*s)
+	temp = (char)ch;
+	while (str[index])
 	{
-		if (*s == temp)
-			return ((char *)s);
-		s++;
+		if (str[index] == temp)
+			return (index);
+		index++;
 	}
-	if (*s == temp)
-		return ((char *)s);
+	if (str[index] == temp)
+		return (index);
 	else
 		return (0);
 }

@@ -44,7 +44,28 @@ char	*get_next_line(int fd)
 char	*ft_handle_buffer(t_buffer *gnl, t_buffer *use_gnl, char *n_buffer, \
 int *num_list)
 {
+	char	*str_line;
+	int 	idx;
 
+	if ((*num_list) == 1)
+		idx = ft_strchr_idx(n_buffer, '\n', use_gnl->index);
+	else
+		idx = ft_strchr_idx(n_buffer, '\n', 0);
+	if (idx)
+	{
+		str_line = (char *)malloc(BUFFER_SIZE * (num_list - 1) \
+		- use_gnl->index + idx + 2);
+		if (!str_line)
+			return wow;
+		if (n_buffer[idx + 1] == '\0')
+			return (usegnlallfree stringreturn);
+		else
+		return (bufferfree stringreturn)
+	}
+	else if (num_list < 0)
+		return (stringreturn);
+	else
+		return (ft_new_buffer(gnl, use_gnl, num_list));
 }
 
 char	*ft_new_buffer(t_buffer *gnl, t_buffer *use_gnl, int *num_list)
@@ -66,7 +87,7 @@ char	*ft_new_buffer(t_buffer *gnl, t_buffer *use_gnl, int *num_list)
 	(*num_list)++;
 	state = read(use_gnl->fd_num, new_buflist->buffer, BUFFER_SIZE);
 	if (state == -1)
-		return (free);
+		return (free !buffer string retun);
 	else if (state == 0)
 		(*num_list) = -(*num_list);
 	return (ft_handle_buffer(gnl, use_gnl, new_buflist->buffer, num_list));
