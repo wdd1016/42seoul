@@ -15,6 +15,7 @@
  #include <string.h>
  #include <stdlib.h>
  #include <limits.h>
+ #define BUFFER_SIZE 5
 
 // 9223372039002259500
 // 9223372039002259458
@@ -23,7 +24,7 @@ int main()
 	int i; //= ft_atoi("21474836401");
 //	char	*str = "cspdiuxX%";
 	i = EOF;
-	i = printf("%d\n", !1);
+	i = printf("%d\n", BUFFER_SIZE);
 //	printf("%p\n", 0);
 	printf("%d", i);
 
