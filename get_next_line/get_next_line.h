@@ -16,6 +16,27 @@
 # include <unistd.h>
 # include <stdlib.h>
 
+typedef struct	s_linkedlist
+{
+	char	*buffer;
+	void	*next;
+}	t_list;
+
+typedef struct	s_buffer
+{
+	t_list *bufferlist;
+	int		fd_num;
+	int		index;
+	void	*next;
+}	t_buffer;
+
+# define TRUE 1
+# define FALSE 0
+# define T_LIST 0
+# define T_BUFFER 1
 # define BUFFER_SIZE 5
+
+void	*ft_memset(void *b, int c, size_t len);
+void	ft_lstadd_back(void *lst, void *new, int type);
 
 #endif
