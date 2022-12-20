@@ -48,6 +48,24 @@ char	*get_next_line(int fd)
 	use_gnl->bufferlist->buffer, num_list));
 }
 
+static t_buffer	*ft_make_gnl_struct(t_buffer *gnl, int fd)
+{
+	t_buffer	*new_gnl;
+
+	new_gnl = (t_buffer *)malloc(sizeof(t_buffer));
+	if (!new_gnl)
+		return (0);
+	ft_memset(new_gnl, 0, sizeof(t_buffer));
+	new_gnl->fd_num = fd;
+	if (gnl == 0)
+		return (new_gnl);
+	else
+	{
+		ft_lstadd_back(gnl, new_gnl, T_BUFFER);
+		return (new_gnl);
+	}
+}
+
 static char	*ft_handle_buffer(t_buffer *gnl, t_buffer *use_gnl, char *n_buffer, \
 int *num_list)
 {
@@ -100,24 +118,6 @@ static char	*ft_new_buffer(t_buffer *gnl, t_buffer *use_gnl, int *num_list)
 	else if (state == 0)
 		(*num_list) = -(*num_list);
 	return (ft_handle_buffer(gnl, use_gnl, new_buflist->buffer, num_list));
-}
-
-static t_buffer	*ft_make_gnl_struct(t_buffer *gnl, int fd)
-{
-	t_buffer	*new_gnl;
-
-	new_gnl = (t_buffer *)malloc(sizeof(t_buffer));
-	if (!new_gnl)
-		return (0);
-	ft_memset(new_gnl, 0, sizeof(t_buffer));
-	new_gnl->fd_num = fd;
-	if (gnl == 0)
-		return (new_gnl);
-	else
-	{
-		ft_lstadd_back(gnl, new_gnl, T_BUFFER);
-		return (new_gnl);
-	}
 }
 
 static char	*ft_gnl_free_return(t_buffer **gnl, t_buffer *use_gnl, int num, \
