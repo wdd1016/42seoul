@@ -41,6 +41,9 @@ typedef struct	s_buffer
 
 void	*ft_memset(void *b, int c, size_t len);
 void	ft_lstadd_back(void *lst, void *new, int type);
-int		ft_strchr_idx(const char *str, int ch, int index);
+int		ft_strchr_idx(const char *str, int ch, int startidx);
+void	ft_buflstclear(t_buffer **gnl, t_buffer *use_gnl, int num);
+void	ft_copy_buffer(t_buffer *use_gnl, char *dest, int lastindex);
+char	*get_next_line(int fd);
 
 #endif

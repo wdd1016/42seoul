@@ -53,40 +53,76 @@ void	*ft_memset(void *b, int c, size_t len)
 	return (b);
 }
 
-int	ft_strchr_idx(const char *str, int ch, int index)
+int	ft_strchr_idx(const char *str, int ch, int startidx)
 {
 	char	temp;
 
 	temp = (char)ch;
-	while (str[index])
+	while (str[startidx])
 	{
-		if (str[index] == temp)
-			return (index);
-		index++;
+		if (str[startidx] == temp)
+			return (startidx);
+		startidx++;
 	}
-	if (str[index] == temp)
-		return (index);
+	if (str[startidx] == temp)
+		return (startidx);
 	else
 		return (0);
 }
 
-void	ft_lstclear(t_buffer *gnl, t_buffer *use_gnl, int num)
+void	ft_buflstclear(t_buffer **gnl, t_buffer *use_gnl, int num)
 {
-	t_list		*temp_l;
-	char		*temp_c;
+	t_list	*temp_l;
+	char	*temp_c;
 
-	if (num == CURRENT_FD)
-	{
-
-	}
-	else if (num == ONNY_BUFFER)
+	if (num == ALL_FD || num == CURRENT_FD)
 	{
 		while (use_gnl->bufferlist)
 		{
-			temp_c = use_gnl->bufferlist;
-			del(temp->content);
-			*lst = temp->next;
-			free(temp);
+			temp_l = use_gnl->bufferlist;
+			use_gnl->bufferlist = use_gnl->bufferlist->next;
+			free(temp_l->buffer);
+			free(temp_l);
+		}
+		if ((*gnl) == use_gnl && num == CURRENT_FD)
+			(*gnl) = 0;
+	}
+	else if (num == ONNY_BUFFER)
+	{
+		while (use_gnl->bufferlist->next)
+		{
+			temp_l = use_gnl->bufferlist;
+			use_gnl->bufferlist = use_gnl->bufferlist->next;
+			free(temp_l->buffer);
+			free(temp_l);
 		}
 	}
+}
+
+void	ft_copy_buffer(t_buffer *use_gnl, char *dest, int lastindex)
+{
+	t_list	*temp;
+	int		index;
+
+	temp = use_gnl->bufferlist;
+	while (temp)
+	{
+		index = 0;
+		if (temp = use_gnl->bufferlist)
+			index = use_gnl->index;
+		if (temp->next)
+			while ((temp->buffer)[index])
+			{
+				*(dest++) = (temp->buffer)[index];
+				index++;
+			}
+		else
+			while (index <= lastindex)
+			{
+				*(dest++) = (temp->buffer)[index];
+				index++;
+			}
+		temp = temp->next;
+	}
+	use_gnl->index = lastindex + 1;
 }
