@@ -12,8 +12,8 @@
 
 #include "get_next_line.h"
 
-static char	*ft_handle_buffer(t_buffer *gnl, t_buffer *use_gnl, char *n_buffer, \
-int *num_list);
+static char	*ft_handle_buffer(t_buffer *gnl, t_buffer *use_gnl, \
+char *n_buffer, int *num_list);
 static char	*ft_new_buffer(t_buffer *gnl, t_buffer *use_gnl, int *num_list);
 static t_buffer	*ft_make_gnl_struct(t_buffer *gnl, int fd);
 static char	*ft_gnl_free_return(t_buffer **gnl, t_buffer *use_gnl, int num, \
