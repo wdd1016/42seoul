@@ -34,10 +34,13 @@ typedef struct	s_buffer
 # define FALSE 0
 # define T_LIST 0
 # define T_BUFFER 1
+# define ALL_FD 1
+# define CURRENT_FD 2
+# define ONNY_BUFFER 3
 # define BUFFER_SIZE 5
 
 void	*ft_memset(void *b, int c, size_t len);
 void	ft_lstadd_back(void *lst, void *new, int type);
-int		ft_strchr_idx(const char *str, char ch, int index);
+int		ft_strchr_idx(const char *str, int ch, int index);
 
 #endif

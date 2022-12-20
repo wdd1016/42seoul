@@ -69,3 +69,24 @@ int	ft_strchr_idx(const char *str, int ch, int index)
 	else
 		return (0);
 }
+
+void	ft_lstclear(t_buffer *gnl, t_buffer *use_gnl, int num)
+{
+	t_list		*temp_l;
+	char		*temp_c;
+
+	if (num == CURRENT_FD)
+	{
+
+	}
+	else if (num == ONNY_BUFFER)
+	{
+		while (use_gnl->bufferlist)
+		{
+			temp_c = use_gnl->bufferlist;
+			del(temp->content);
+			*lst = temp->next;
+			free(temp);
+		}
+	}
+}
