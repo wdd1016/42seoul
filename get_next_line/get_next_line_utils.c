@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:12:00 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/16 08:15:09 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/21 23:58:52 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_lstadd_back(void *lst, void *new, int type)
 		while (1)
 		{
 			if (((t_buffer *)lst)->next == 0)
-				break;
+				break ;
 			lst = ((t_buffer *)lst)->next;
 		}
 		((t_buffer *)lst)->next = (t_buffer *)new;
@@ -29,7 +29,7 @@ void	ft_lstadd_back(void *lst, void *new, int type)
 		while (1)
 		{
 			if (((t_list *)lst)->next == 0)
-				break;
+				break ;
 			lst = ((t_list *)lst)->next;
 		}
 		((t_list *)lst)->next = (t_list *)new;
@@ -64,16 +64,12 @@ int	ft_strchr_idx(const char *str, int ch, int startidx)
 			return (startidx);
 		startidx++;
 	}
-	if (str[startidx] == temp)
-		return (startidx);
-	else
-		return (0);
+	return (-1);
 }
 
 void	ft_buflstclear(t_buffer **gnl, t_buffer *use_gnl, int num)
 {
 	t_list	*temp_l;
-	char	*temp_c;
 
 	if (num == ALL_FD || num == CURRENT_FD)
 	{
@@ -85,7 +81,7 @@ void	ft_buflstclear(t_buffer **gnl, t_buffer *use_gnl, int num)
 			free(temp_l);
 		}
 		if ((*gnl) == use_gnl && num == CURRENT_FD)
-			(*gnl) = 0;
+			*gnl = 0;
 	}
 	else if (num == ONNY_BUFFER)
 	{
@@ -99,30 +95,31 @@ void	ft_buflstclear(t_buffer **gnl, t_buffer *use_gnl, int num)
 	}
 }
 
-void	ft_copy_buffer(t_buffer *use_gnl, char *dest, int lastindex)
+void	ft_copy_buffer(t_buffer *use_gnl, char *dest, int lastindex, int index)
 {
 	t_list	*temp;
-	int		index;
 
 	temp = use_gnl->bufferlist;
 	while (temp)
 	{
 		index = 0;
-		if (temp = use_gnl->bufferlist)
+		if (temp == use_gnl->bufferlist)
 			index = use_gnl->index;
 		if (temp->next)
+		{
 			while ((temp->buffer)[index])
 			{
 				*(dest++) = (temp->buffer)[index];
 				index++;
 			}
-		else
-			while (index <= lastindex)
-			{
-				*(dest++) = (temp->buffer)[index];
-				index++;
-			}
+		}
+		while (index <= lastindex)
+		{
+			*(dest++) = (temp->buffer)[index];
+			index++;
+		}
 		temp = temp->next;
 	}
+	(*dest) = '\0';
 	use_gnl->index = lastindex + 1;
 }
