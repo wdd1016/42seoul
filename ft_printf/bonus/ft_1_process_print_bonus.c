@@ -35,11 +35,21 @@ static int	ft_print_format(va_list ap, t_para *para, int *print_count)
 
 static int	ft_find_format(const char *str)
 {
-	while (ft_strchr("-0# +.123456789", *str))
+	while (ft_strchr("-0# +", *str))
 		str++;
 	if (*str == '\0')
 		return (0);
-	else if (ft_strchr("cspdiuxX%", *str))
+	while (ft_strchr("0123456789", *str))
+		str++;
+	if (*str == '.')
+	{
+		str++;
+		if (*str == '+' || *str == '-')
+			str++;
+		while (ft_strchr("0123456789", *str))
+			str++;
+	}
+	if (ft_strchr("cspdiuxX%", *str))
 		return (1);
 	else
 		return (0);
