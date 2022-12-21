@@ -41,12 +41,12 @@ typedef struct s_buffer
 #define ALL_FD 1
 #define CURRENT_FD 2
 #define ONNY_BUFFER 3
-#define BUFFER_SIZE 1000
+#define BUFFER_SIZE 42
 
 static t_buffer	*ft_make_gnl_struct(t_buffer *gnl, int fd);
-static char		*ft_handle_buffer(t_buffer *gnl, t_buffer *use_gnl, \
+static char		*ft_handle_buffer(t_buffer **gnl, t_buffer *use_gnl, \
 char *n_buffer, int *num_list);
-static char		*ft_new_buffer(t_buffer *gnl, t_buffer *use_gnl, int *num_list);
+static char		*ft_new_buffer(t_buffer **gnl, t_buffer *use_gnl, int *num_list);
 static char		*ft_gnl_free_return(t_buffer **gnl, t_buffer *use_gnl, \
 int num, char *returnstring);
 void			*ft_memset(void *b, int c, size_t len);
@@ -64,21 +64,23 @@ int	main(void)
 	char	*str;
 
 	idx = 1;
-	fd = open("test", O_RDWR);
+	fd = open("1-brouette.txt", O_RDWR);
 	while (1)
 	{
 		str = get_next_line(fd);
-		printf("%d: <%s>\n", idx, str);
+		printf("%s", str);
 		idx++;
 		if (!str)
 		{
 			free(str);
 			break ;
 		}
+		free(str);
 	}
 	close(fd);
 	return (0);
 }
+
 
 char	*get_next_line(int fd)
 {
@@ -92,7 +94,7 @@ char	*get_next_line(int fd)
 		gnl = ft_make_gnl_struct(gnl, fd);
 		if (!gnl)
 			return (0);
-		return (ft_new_buffer(gnl, gnl, &num_list));
+		return (ft_new_buffer(&gnl, gnl, &num_list));
 	}
 	use_gnl = gnl;
 	while (use_gnl && use_gnl->fd_num != fd)
@@ -102,10 +104,10 @@ char	*get_next_line(int fd)
 		use_gnl = ft_make_gnl_struct(gnl, fd);
 		if (use_gnl == 0)
 			return (ft_gnl_free_return(&gnl, use_gnl, ALL_FD, 0));
-		return (ft_new_buffer(gnl, use_gnl, &num_list));
+		return (ft_new_buffer(&gnl, use_gnl, &num_list));
 	}
 	num_list = 1;
-	return (ft_handle_buffer(gnl, use_gnl, use_gnl->bufferlist->buffer, \
+	return (ft_handle_buffer(&gnl, use_gnl, use_gnl->bufferlist->buffer, \
 	&num_list));
 }
 
@@ -127,8 +129,8 @@ static t_buffer	*ft_make_gnl_struct(t_buffer *gnl, int fd)
 	}
 }
 
-static char	*ft_handle_buffer(t_buffer *gnl, t_buffer *use_gnl, char *n_buffer, \
-int *num_list)
+static char	*ft_handle_buffer(t_buffer **gnl, t_buffer *use_gnl, \
+char *n_buffer, int *num_list)
 {
 	char	*str_line;
 	int		lastindex;
@@ -146,25 +148,25 @@ int *num_list)
 		temp = BUFFER_SIZE * ((*num_list) - 1) - use_gnl->index + lastindex + 1;
 		str_line = (char *)malloc(temp + 1);
 		if (!str_line)
-			return (ft_gnl_free_return(&gnl, use_gnl, ALL_FD, 0));
+			return (ft_gnl_free_return(gnl, use_gnl, ALL_FD, 0));
 		ft_copy_buffer(use_gnl, str_line, lastindex, 0);
 		if (n_buffer[lastindex + 1] == '\0')
-			return (ft_gnl_free_return(&gnl, use_gnl, CURRENT_FD, str_line));
+			return (ft_gnl_free_return(gnl, use_gnl, CURRENT_FD, str_line));
 		else
-			return (ft_gnl_free_return(&gnl, use_gnl, ONNY_BUFFER, str_line));
+			return (ft_gnl_free_return(gnl, use_gnl, ONNY_BUFFER, str_line));
 	}
 	else
 		return (ft_new_buffer(gnl, use_gnl, num_list));
 }
 
-static char	*ft_new_buffer(t_buffer *gnl, t_buffer *use_gnl, int *num_list)
+static char	*ft_new_buffer(t_buffer **gnl, t_buffer *use_gnl, int *num_list)
 {
 	t_list	*new_buflist;
 	int		state;
 
 	new_buflist = (t_list *)malloc(sizeof(t_list));
 	if (!new_buflist)
-		return (ft_gnl_free_return(&gnl, use_gnl, ALL_FD, 0));
+		return (ft_gnl_free_return(gnl, use_gnl, ALL_FD, 0));
 	ft_memset(new_buflist, 0, sizeof(t_list));
 	if (use_gnl->bufferlist == 0)
 		use_gnl->bufferlist = new_buflist;
@@ -172,11 +174,11 @@ static char	*ft_new_buffer(t_buffer *gnl, t_buffer *use_gnl, int *num_list)
 		ft_lstadd_back(use_gnl->bufferlist, new_buflist, T_LIST);
 	new_buflist->buffer = (char *)malloc(BUFFER_SIZE + 1);
 	if (!(new_buflist->buffer))
-		return (ft_gnl_free_return(&gnl, use_gnl, ALL_FD, 0));
-	new_buflist->buffer[BUFFER_SIZE] = '\0';
+		return (ft_gnl_free_return(gnl, use_gnl, ALL_FD, 0));
+	ft_memset(new_buflist->buffer, 0, BUFFER_SIZE + 1);
 	state = read(use_gnl->fd_num, new_buflist->buffer, BUFFER_SIZE);
-	if (state < 0)
-		return (ft_gnl_free_return(&gnl, use_gnl, ALL_FD, 0));
+	if ((use_gnl->bufferlist->buffer)[0] == '\0')
+		return (ft_gnl_free_return(gnl, use_gnl, ALL_FD, 0));
 	if (state < BUFFER_SIZE)
 		use_gnl->file_state = EOF_STATE;
 	if (state > 0)
