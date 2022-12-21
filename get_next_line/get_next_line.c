@@ -115,7 +115,7 @@ static char	*ft_new_buffer(t_buffer **gnl, t_buffer *use_gnl, int *num_list)
 		return (ft_gnl_free_return(gnl, use_gnl, ALL_FD, 0));
 	ft_memset(new_buflist->buffer, 0, BUFFER_SIZE + 1);
 	state = read(use_gnl->fd_num, new_buflist->buffer, BUFFER_SIZE);
-	if ((use_gnl->bufferlist->buffer)[0] == '\0')
+	if (state == -1 || (use_gnl->bufferlist->buffer)[0] == '\0')
 		return (ft_gnl_free_return(gnl, use_gnl, ALL_FD, 0));
 	if (state < BUFFER_SIZE)
 		use_gnl->file_state = EOF_STATE;
