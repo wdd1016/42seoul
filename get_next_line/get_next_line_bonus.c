@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:10:23 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/23 00:25:34 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/23 00:26:11 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static char	*ft_handle_buffer(t_buffer **gnl, t_buffer *u_gnl)
 			u_gnl->f_st = EOFS;
 		if (state > 0 && u_gnl->buffer)
 		{
-			str_temp = u_gnl->buffer
+			str_temp = u_gnl->buffer;
 			u_gnl->buffer = ft_strjoin_free(u_gnl->buffer, str_new);
 			free(str_temp);
 			free(str_new);
