@@ -37,8 +37,6 @@ static int	ft_find_format(const char *str)
 {
 	while (ft_strchr("-0# +", *str))
 		str++;
-	if (*str == '\0')
-		return (0);
 	while (ft_strchr("0123456789", *str))
 		str++;
 	if (*str == '.')
@@ -49,6 +47,8 @@ static int	ft_find_format(const char *str)
 		while (ft_strchr("0123456789", *str))
 			str++;
 	}
+	if (*str == '\0')
+		return (0);
 	if (ft_strchr("cspdiuxX%", *str))
 		return (1);
 	else
