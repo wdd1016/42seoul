@@ -78,7 +78,11 @@ static char	*ft_handle_buffer(t_buffer **gnl, t_buffer *u_gnl)
 			return (ft_gnl_free(gnl, u_gnl, ALL, 0));
 		state = read(u_gnl->fd_num, str_new, BUFFER_SIZE);
 		if (state < 0)
+		{
+			if (u_gnl->buffer)
+				free(u_gnl->buffer);
 			return (ft_gnl_free(gnl, u_gnl, CURRENT, str_new));
+		}
 		else if (state < BUFFER_SIZE)
 			u_gnl->f_st = EOFS;
 		if (state > 0 && u_gnl->buffer)
