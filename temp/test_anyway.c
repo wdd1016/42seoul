@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:08:06 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/19 04:43:31 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/22 19:52:02 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@ int main()
 {
 	int i; //= ft_atoi("21474836401");
 //	char	*str = "cspdiuxX%";
-	i = EOF;
-	i = printf("%d\n", BUFFER_SIZE);
+//	i = EOF;
+	char	*str = 0;
+	char	k;
+	k = str[0];
+	i = printf("%c\n", k);
 //	printf("%p\n", 0);
 	printf("%d", i);
 

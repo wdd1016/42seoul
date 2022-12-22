@@ -1,0 +1,219 @@
+Error in test 9: get_next_line(5: "read_error.txt"): 
+Memory leak: 0x6020000001f0 - 9 bytes
+You failed to free the memory allocated at:
+     in _add_malloc malloc_mock.c:29:8
+     in malloc malloc_mock.c:75:10
+  -> in ft_calloc get_next_line_utils.c:23:6
+     in ft_process_string get_next_line.c:115:12
+     in ft_handle_buffer get_next_line.c:94:12
+     in get_next_line get_next_line.c:43:2
+     in test_gnl_func file_utils.c:40:8
+     in main tester.c:193:2
+
+Error in test 9: get_next_line(5: "read_error.txt"): 
+Memory leak: 0x6020000001f0 - 9 bytes
+You failed to free the memory allocated at:
+     in _add_malloc malloc_mock.c:29:8
+     in malloc malloc_mock.c:75:10
+  -> in ft_calloc get_next_line_utils_bonus.c:23:6
+     in ft_process_string get_next_line_bonus.c:115:12
+     in ft_handle_buffer get_next_line_bonus.c:94:12
+     in get_next_line get_next_line_bonus.c:43:2
+     in test_gnl_func file_utils.c:40:8
+     in main tester.c:193:2
+
+Error in test 9: get_next_line(8: "multiple fds"): Timeout occurred. You can increase the timeout by executing francinette --timeout <number of seconds>
+Error in test 6: get_next_line(6: "open, error, open"): expected: "90123456789\n", got: "89\n"
+Error in test 6: get_next_line(6: "open, error, open"): not enough memory allocated, needed: 13, reserved: 4
+     in _add_malloc malloc_mock.c:29:8
+     in malloc malloc_mock.c:75:10
+  -> in ft_calloc get_next_line_utils_bonus.c:23:6
+     in ft_process_string get_next_line_bonus.c:108:13
+     in ft_handle_buffer get_next_line_bonus.c:94:12
+     in get_next_line get_next_line_bonus.c:32:3
+     in test_gnl_func file_utils.c:40:8
+     in main bonus.c:40:2
+
+should reserve space for the string: "90123456789\n"
+Error in test 13: get_next_line(5: "open, error, open"): expected: "dddddddddd\n", got: "ddd\n"
+Error in test 13: get_next_line(5: "open, error, open"): not enough memory allocated, needed: 12, reserved: 5
+     in _add_malloc malloc_mock.c:29:8
+     in malloc malloc_mock.c:75:10
+  -> in ft_strjoin_free get_next_line_utils_bonus.c:73:6
+     in ft_handle_buffer get_next_line_bonus.c:85:4
+     in get_next_line get_next_line_bonus.c:32:3
+     in test_gnl_func file_utils.c:40:8
+     in main bonus.c:40:2
+
+should reserve space for the string: "dddddddddd\n"
+Error in test 15: get_next_line(5: "open, error, open"): 
+Memory leak: 0x6030000017b0 - 32 bytes
+You failed to free the memory allocated at:
+     in _add_malloc malloc_mock.c:29:8
+     in malloc malloc_mock.c:75:10
+  -> in ft_calloc get_next_line_utils_bonus.c:23:6
+     in ft_make_gnl_struct get_next_line_bonus.c:51:10
+     in get_next_line get_next_line_bonus.c:39:9
+     in test_gnl_func file_utils.c:40:8
+     in main bonus.c:40:2
+
+Memory leak: 0x602000000290 - 9 bytes
+You failed to free the memory allocated at:
+     in _add_malloc malloc_mock.c:29:8
+     in malloc malloc_mock.c:75:10
+  -> in ft_calloc get_next_line_utils_bonus.c:23:6
+     in ft_process_string get_next_line_bonus.c:115:12
+     in ft_handle_buffer get_next_line_bonus.c:94:12
+     in get_next_line get_next_line_bonus.c:43:2
+     in test_gnl_func file_utils.c:40:8
+     in main bonus.c:40:2
+
+Memory leak: 0x6020000002f0 - 10 bytes
+You failed to free the memory allocated at:
+     in _add_malloc malloc_mock.c:29:8
+     in malloc malloc_mock.c:75:10
+  -> in ft_calloc get_next_line_utils_bonus.c:23:6
+     in ft_process_string get_next_line_bonus.c:115:12
+     in ft_handle_buffer get_next_line_bonus.c:94:12
+     in get_next_line get_next_line_bonus.c:43:2
+     in test_gnl_func file_utils.c:40:8
+     in main bonus.c:40:2
+
+Memory leak: 0x6030000018a0 - 32 bytes
+You failed to free the memory allocated at:
+     in _add_malloc malloc_mock.c:29:8
+     in malloc malloc_mock.c:75:10
+  -> in ft_calloc get_next_line_utils_bonus.c:23:6
+     in ft_make_gnl_struct get_next_line_bonus.c:51:10
+     in get_next_line get_next_line_bonus.c:39:9
+     in test_gnl_func file_utils.c:40:8
+     in main bonus.c:40:2
+
+Memory leak: 0x602000000550 - 8 bytes
+You failed to free the memory allocated at:
+     in _add_malloc malloc_mock.c:29:8
+     in malloc malloc_mock.c:75:10
+  -> in ft_calloc get_next_line_utils_bonus.c:23:6
+     in ft_process_string get_next_line_bonus.c:115:12
+     in ft_handle_buffer get_next_line_bonus.c:94:12
+     in get_next_line get_next_line_bonus.c:43:2
+     in test_gnl_func file_utils.c:40:8
+     in main bonus.c:40:2
+8   libdyld.dylib                       0x00007fff67c69cc9 start + 1
+
+##==##==##&&##==##==##./test8.out
+##==##==##&&##==##==##./test8.out
+Error in test 18: get_next_line(7: "multiple fds"): expected: "90123456789\n", got: "89\n"
+Error in test 18: get_next_line(7: "multiple fds"): not enough memory allocated, needed: 13, reserved: 4
+0   test8.out                           0x00000001040c2ef5 _add_malloc + 757
+1   test8.out                           0x00000001040c2bf3 malloc + 307
+2   test8.out                           0x00000001040ca536 ft_calloc + 38
+3   test8.out                           0x00000001040ca0d7 ft_process_string + 199
+4   test8.out                           0x00000001040c9ba5 ft_handle_buffer + 1813
+5   test8.out                           0x00000001040c9030 get_next_line + 96
+6   test8.out                           0x00000001040c88a1 test_gnl_func + 65
+7   test8.out                           0x00000001040c2565 main + 7397
+8   libdyld.dylib                       0x00007fff67c69cc9 start + 1
+
+should reserve space for the string: "90123456789\n"
+Error in test 23: get_next_line(7: "multiple fds"): 
+Memory leak: 0x603000001810 - 32 bytes
+You failed to free the memory allocated at:
+0   test8.out                           0x00000001040c2ef5 _add_malloc + 757
+1   test8.out                           0x00000001040c2bf3 malloc + 307
+2   test8.out                           0x00000001040ca536 ft_calloc + 38
+3   test8.out                           0x00000001040c9251 ft_make_gnl_struct + 33
+4   test8.out                           0x00000001040c91c9 get_next_line + 505
+5   test8.out                           0x00000001040c88a1 test_gnl_func + 65
+6   test8.out                           0x00000001040c217a main + 6394
+7   libdyld.dylib                       0x00007fff67c69cc9 start + 1
+
+Memory leak: 0x6020000004b0 - 10 bytes
+You failed to free the memory allocated at:
+0   test8.out                           0x00000001040c2ef5 _add_malloc + 757
+1   test8.out                           0x00000001040c2bf3 malloc + 307
+2   test8.out                           0x00000001040ca536 ft_calloc + 38
+3   test8.out                           0x00000001040ca2d0 ft_process_string + 704
+4   test8.out                           0x00000001040c9ba5 ft_handle_buffer + 1813
+5   test8.out                           0x00000001040c9216 get_next_line + 582
+6   test8.out                           0x00000001040c88a1 test_gnl_func + 65
+7   test8.out                           0x00000001040c22da main + 6746
+8   libdyld.dylib                       0x00007fff67c69cc9 start + 1
+
+##==##==##&&##==##==##./test8.out
+##==##==##&&##==##==##./test9.out
+Error in test 6: get_next_line(6: "open, error, open"): expected: "90123456789\n", got: <NULL>
+Error in test 6: get_next_line(6: "open, error, open"): not enough memory allocated, needed: 13, reserved: 0
+Could not find the corresponding allocation or the pointer 0x0
+should reserve space for the string: "90123456789\n"
+Error in test 8: get_next_line(6: "open, error, open"): expected: "0123456789\n", got: <NULL>
+Error in test 8: get_next_line(6: "open, error, open"): not enough memory allocated, needed: 12, reserved: 0
+Could not find the corresponding allocation or the pointer 0x0
+should reserve space for the string: "0123456789\n"
+Error in test 11: get_next_line(6: "open, error, open"): expected: "xxxx\n", got: <NULL>
+Error in test 11: get_next_line(6: "open, error, open"): not enough memory allocated, needed: 6, reserved: 0
+Could not find the corresponding allocation or the pointer 0x0
+should reserve space for the string: "xxxx\n"
+Error in test 15: get_next_line(5: "open, error, open"): 
+Memory leak: 0x603000001780 - 32 bytes
+You failed to free the memory allocated at:
+0   test9.out                           0x000000010b9feef5 _add_malloc + 757
+1   test9.out                           0x000000010b9febf3 malloc + 307
+2   test9.out                           0x000000010ba06536 ft_calloc + 38
+3   test9.out                           0x000000010ba05251 ft_make_gnl_struct + 33
+4   test9.out                           0x000000010ba051c9 get_next_line + 505
+5   test9.out                           0x000000010ba048a1 test_gnl_func + 65
+6   test9.out                           0x000000010b9fcc8e main + 1086
+7   libdyld.dylib                       0x00007fff67c69cc9 start + 1
+
+Memory leak: 0x6030000017e0 - 29 bytes
+You failed to free the memory allocated at:
+0   test9.out                           0x000000010b9feef5 _add_malloc + 757
+1   test9.out                           0x000000010b9febf3 malloc + 307
+2   test9.out                           0x000000010ba06536 ft_calloc + 38
+3   test9.out                           0x000000010ba062d0 ft_process_string + 704
+4   test9.out                           0x000000010ba05ba8 ft_handle_buffer + 1816
+5   test9.out                           0x000000010ba05216 get_next_line + 582
+6   test9.out                           0x000000010ba048a1 test_gnl_func + 65
+7   test9.out                           0x000000010b9fcd24 main + 1236
+8   libdyld.dylib                       0x00007fff67c69cc9 start + 1
+
+##==##==##&&##==##==##./test9.out
+##==##==##&&##==##==##./test9.out
+Error in test 18: get_next_line(7: "multiple fds"): expected: "90123456789\n", got: <NULL>
+Error in test 18: get_next_line(7: "multiple fds"): not enough memory allocated, needed: 13, reserved: 0
+Could not find the corresponding allocation or the pointer 0x0
+should reserve space for the string: "90123456789\n"
+Error in test 19: get_next_line(7: "multiple fds"): expected: "0123456789\n", got: <NULL>
+Error in test 19: get_next_line(7: "multiple fds"): not enough memory allocated, needed: 12, reserved: 0
+Could not find the corresponding allocation or the pointer 0x0
+should reserve space for the string: "0123456789\n"
+Error in test 21: get_next_line(7: "multiple fds"): expected: "xxxx\n", got: <NULL>
+Error in test 21: get_next_line(7: "multiple fds"): not enough memory allocated, needed: 6, reserved: 0
+Could not find the corresponding allocation or the pointer 0x0
+should reserve space for the string: "xxxx\n"
+Error in test 23: get_next_line(7: "multiple fds"): 
+Memory leak: 0x6030000017b0 - 32 bytes
+You failed to free the memory allocated at:
+0   test9.out                           0x000000010b9feef5 _add_malloc + 757
+1   test9.out                           0x000000010b9febf3 malloc + 307
+2   test9.out                           0x000000010ba06536 ft_calloc + 38
+3   test9.out                           0x000000010ba05251 ft_make_gnl_struct + 33
+4   test9.out                           0x000000010ba051c9 get_next_line + 505
+5   test9.out                           0x000000010ba048a1 test_gnl_func + 65
+6   test9.out                           0x000000010b9fe16f main + 6431
+7   libdyld.dylib                       0x00007fff67c69cc9 start + 1
+
+Memory leak: 0x603000001870 - 29 bytes
+You failed to free the memory allocated at:
+0   test9.out                           0x000000010b9feef5 _add_malloc + 757
+1   test9.out                           0x000000010b9febf3 malloc + 307
+2   test9.out                           0x000000010ba06536 ft_calloc + 38
+3   test9.out                           0x000000010ba062d0 ft_process_string + 704
+4   test9.out                           0x000000010ba05ba8 ft_handle_buffer + 1816
+5   test9.out                           0x000000010ba05216 get_next_line + 582
+6   test9.out                           0x000000010ba048a1 test_gnl_func + 65
+7   test9.out                           0x000000010b9fe2cf main + 6783
+8   libdyld.dylib                       0x00007fff67c69cc9 start + 1
+
+##==##==##&&##==##==##./test9.out

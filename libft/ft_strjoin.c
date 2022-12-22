@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 17:38:06 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/11/15 20:44:58 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/22 20:29:16 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!str)
 		return (0);
 	temp = str;
-	while (*s1)
-	{
-		*temp = *s1;
-		temp++;
-		s1++;
-	}
-	while (*s2)
-	{
-		*temp = *s2;
-		temp++;
-		s2++;
-	}
+	if (s1)
+		while (*s1)
+			*temp++ = *s1++;
+	if (s2)
+		while (*s2)
+			*temp++ = *s2++;
 	*temp = '\0';
 	return (str);
 }
