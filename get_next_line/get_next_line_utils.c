@@ -78,8 +78,31 @@ char	*ft_strjoin_free(char const *s1, char const *s2)
 	temp_s2 = (char *)s2;
 	while (*s1)
 		*temp++ = *s1++;
+	free(temp_s1);
 	while (*s2)
 		*temp++ = *s2++;
+	free(temp_s2);
 	*temp = '\0';
 	return (str);
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+	size_t	count;
+
+	i = 0;
+	if (dstsize > 0)
+	{
+		while (src[i] && i + 1 < dstsize)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	count = 0;
+	while (src[count])
+		count++;
+	return (count);
 }

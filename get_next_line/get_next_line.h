@@ -21,16 +21,16 @@ typedef struct s_buffer
 	char	*buffer;
 	int		fd_num;
 	int		last_idx;
-	int		f_st;
 	void	*next;
 }	t_buffer;
 
 # define TRUE 1
 # define FALSE 0
 # define NORMAL 0
-# define EOFS -1
+# define ERROR -1
 # define ALL 1
 # define CURRENT 2
+# define ONNYFD 3
 # define CUT 2
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
@@ -40,6 +40,7 @@ void	*ft_calloc(size_t count, size_t size);
 int		ft_strchr_idx(const char *str, int ch);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin_free(char const *s1, char const *s2);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*get_next_line(int fd);
 
 #endif
