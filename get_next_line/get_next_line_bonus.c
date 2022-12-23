@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:10:23 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/23 14:56:57 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/23 15:23:23 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,8 @@ static char	*ft_cutting_string(t_buffer **gnl, t_buffer *u_gnl, int len)
 	str_temp += u_gnl->last_idx + 1;
 	if (*str_temp == '\0')
 	{
-		ft_gnl_free(gnl, u_gnl, CURRENT, 0);
+		free(u_gnl->buffer);
+		u_gnl->buffer = 0;
 		return (str_return);
 	}
 	len = ft_strlen(u_gnl->buffer) - (u_gnl->last_idx + 1);
@@ -141,7 +142,7 @@ char *str_for_free)
 			temp_b = temp_b->next;
 		temp_b->next = u_gnl->next;
 		if (*gnl == u_gnl)
-			*gnl = 0;
+			*gnl = (*gnl)->next;
 		if (u_gnl->buffer)
 			free(u_gnl->buffer);
 		free(u_gnl);
