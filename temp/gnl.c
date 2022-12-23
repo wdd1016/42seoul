@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 21:51:02 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/23 16:47:15 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/23 17:15:55 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ size_t	ft_strlen(const char *s);
 char	*ft_strjoin_free_change(t_buffer *u_gnl, char *s1, char *s2);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*get_next_line(int fd);
-static t_buffer	*ft_make_gnl_struct(t_buffer **gnl, int fd);
+static t_buffer	*ft_make_gnl_struct(t_buffer *gnl, int fd);
 static char		*ft_handle_buffer(t_buffer **gnl, t_buffer *u_gnl, \
 ssize_t len, char *str_temp);
 static char		*ft_cutting_string(t_buffer **gnl, t_buffer *u_gnl, int len);
@@ -57,41 +57,44 @@ int	main(void)
 	int		fd;
 	int		fd2;
 	int		fd3;
+	int		fd4;
 	char	*str;
 
 	idx = 1;
 	fd = open("read_error.txt", O_RDWR);
 	fd2 = open("1-brouette", O_RDWR);
+	fd3 = open("error.txt", O_RDWR);
 	while (1)
 	{
-		str = get_next_line(fd2);
-		printf("%d: <%s>\n", idx, str);
-		idx++;
-		str = get_next_line(1005);
+		str = get_next_line(fd);
 		printf("%d: <%s>\n", idx, str);
 		idx++;
 		str = get_next_line(fd2);
-		printf("%d: <%s>\n", idx, str);
-		idx++;
-		str = get_next_line(1006);
 		printf("%d: <%s>\n", idx, str);
 		idx++;
 		str = get_next_line(fd);
 		printf("%d: <%s>\n", idx, str);
 		idx++;
+		str = get_next_line(fd3);
+		printf("%d: <%s>\n", idx, str);
+		idx++;
+		fd4 = open("giant_line_nl.txt", O_RDWR);
+		str = get_next_line(fd4);
+		printf("%d: <%s>\n", idx, str);
+		idx++;
 		str = get_next_line(1007);
 		printf("%d: <%s>\n", idx, str);
 		idx++;
-		close(fd2);
+		str = get_next_line(fd);
+		printf("%d: <%s>\n", idx, str);
+		idx++;
 		str = get_next_line(fd2);
 		printf("%d: <%s>\n", idx, str);
 		idx++;
-		fd2 = open("giant_line_nl.txt", O_RDWR);
-		str = get_next_line(fd2);
-		printf("%d: <%s>\n", idx, str);
-214		idx++;
 	}
 	close(fd);
+	close(fd2);
+	close(fd3);
 	return (0);
 }
 
@@ -104,23 +107,24 @@ char	*get_next_line(int fd)
 	num_list = 0;
 	if (!gnl)
 	{
-		if (!ft_make_gnl_struct(&gnl, fd))
+		gnl = ft_make_gnl_struct(gnl, fd);
+		if (gnl == 0)
 			return (0);
 		return (ft_handle_buffer(&gnl, gnl, BUFFER_SIZE, 0));
 	}
 	u_gnl = gnl;
-	while (u_gnl->next && u_gnl->fd_num != fd)
+	while (u_gnl && u_gnl->fd_num != fd)
 		u_gnl = u_gnl->next;
-	if (u_gnl->fd_num != fd)
+	if (!u_gnl)
 	{
-		u_gnl = ft_make_gnl_struct(&gnl, fd);
+		u_gnl = ft_make_gnl_struct(gnl, fd);
 		if (u_gnl == 0)
 			return (ft_gnl_free(&gnl, u_gnl, ALL, 0));
 	}
 	return (ft_handle_buffer(&gnl, u_gnl, BUFFER_SIZE, 0));
 }
 
-static t_buffer	*ft_make_gnl_struct(t_buffer **gnl, int fd)
+static t_buffer	*ft_make_gnl_struct(t_buffer *gnl, int fd)
 {
 	t_buffer	*new_gnl;
 	t_buffer	*temp;
@@ -129,11 +133,9 @@ static t_buffer	*ft_make_gnl_struct(t_buffer **gnl, int fd)
 	if (!new_gnl)
 		return (0);
 	new_gnl->fd_num = fd;
-	if (*gnl == 0)
-		*gnl = new_gnl;
-	else
+	if (gnl != 0)
 	{
-		temp = *gnl;
+		temp = gnl;
 		while (temp->next)
 			temp = temp->next;
 		temp->next = new_gnl;
@@ -148,13 +150,14 @@ ssize_t len, char *str_temp)
 	u_gnl->last_idx = ft_strchr_idx(u_gnl->buffer, '\n');
 	while (u_gnl->last_idx == ERROR && len == BUFFER_SIZE)
 	{
-		str_temp = (char *)ft_calloc(1, BUFFER_SIZE + 1);
+		str_temp = (char *)malloc(BUFFER_SIZE + 1);
 		if (!str_temp)
 			return (ft_gnl_free(gnl, u_gnl, ALL, 0));
 		len = read(u_gnl->fd_num, str_temp, BUFFER_SIZE);
 		if (len == ERROR)
 			return (ft_gnl_free(gnl, u_gnl, CURRENT, str_temp));
-		else if (len == 0)
+		str_temp[len] = '\0';
+		if (len == 0)
 			free(str_temp);
 		else if (len > 0 && u_gnl->buffer == 0)
 			u_gnl->buffer = str_temp;
@@ -187,7 +190,8 @@ static char	*ft_cutting_string(t_buffer **gnl, t_buffer *u_gnl, int len)
 	str_temp += u_gnl->last_idx + 1;
 	if (*str_temp == '\0')
 	{
-		ft_gnl_free(gnl, u_gnl, CURRENT, 0);
+		free(u_gnl->buffer);
+		u_gnl->buffer = 0;
 		return (str_return);
 	}
 	len = ft_strlen(u_gnl->buffer) - (u_gnl->last_idx + 1);
@@ -208,8 +212,7 @@ char *str_for_free)
 {
 	t_buffer	*temp_b;
 
-	if (str_for_free)
-		free(str_for_free);
+	free(str_for_free);
 	if (num == CURRENT)
 	{
 		temp_b = *gnl;

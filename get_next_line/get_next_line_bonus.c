@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:10:23 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/23 16:48:28 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/23 17:44:57 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,18 @@ char	*get_next_line(int fd)
 
 static t_buffer	*ft_make_gnl_struct(t_buffer *gnl, int fd)
 {
-	t_buffer	*new_gnl;
-	t_buffer	*temp;
+	t_buffer		*new_gnl;
+	t_buffer		*temp;
+	unsigned int	temp_idx;
+	char			*temp_zero;
 
-	new_gnl = (t_buffer *)ft_calloc(1, sizeof(t_buffer));
+	new_gnl = (t_buffer *)malloc(sizeof(t_buffer));
 	if (!new_gnl)
 		return (0);
+	temp_idx = 0;
+	temp_zero = (char *)new_gnl;
+	while (temp_idx < sizeof(t_buffer))
+		temp_zero[temp_idx++] = 0;
 	new_gnl->fd_num = fd;
 	if (gnl != 0)
 	{
@@ -71,13 +77,14 @@ ssize_t len, char *str_temp)
 	u_gnl->last_idx = ft_strchr_idx(u_gnl->buffer, '\n');
 	while (u_gnl->last_idx == ERROR && len == BUFFER_SIZE)
 	{
-		str_temp = (char *)ft_calloc(1, BUFFER_SIZE + 1);
+		str_temp = (char *)malloc(BUFFER_SIZE + 1);
 		if (!str_temp)
 			return (ft_gnl_free(gnl, u_gnl, ALL, 0));
 		len = read(u_gnl->fd_num, str_temp, BUFFER_SIZE);
 		if (len == ERROR)
 			return (ft_gnl_free(gnl, u_gnl, CURRENT, str_temp));
-		else if (len == 0)
+		str_temp[len] = '\0';
+		if (len == 0)
 			free(str_temp);
 		else if (len > 0 && u_gnl->buffer == 0)
 			u_gnl->buffer = str_temp;
@@ -132,8 +139,7 @@ char *str_for_free)
 {
 	t_buffer	*temp_b;
 
-	if (str_for_free)
-		free(str_for_free);
+	free(str_for_free);
 	if (num == CURRENT)
 	{
 		temp_b = *gnl;
