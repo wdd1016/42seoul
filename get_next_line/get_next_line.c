@@ -6,14 +6,15 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:10:23 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/23 13:00:48 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/23 14:12:33 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 static t_buffer	*ft_make_gnl_struct(t_buffer **gnl, int fd);
-static char		*ft_handle_buffer(t_buffer **gnl, t_buffer *u_gnl, ssize_t len);
+static char		*ft_handle_buffer(t_buffer **gnl, t_buffer *u_gnl, \
+ssize_t len, char *str_temp);
 static char		*ft_cutting_string(t_buffer **gnl, t_buffer *u_gnl, int len);
 static char		*ft_gnl_free(t_buffer **gnl, t_buffer *u_gnl, int num, \
 char *str_for_free);
@@ -29,7 +30,7 @@ char	*get_next_line(int fd)
 	{
 		if (!ft_make_gnl_struct(&gnl, fd))
 			return (0);
-		return (ft_handle_buffer(&gnl, gnl, BUFFER_SIZE));
+		return (ft_handle_buffer(&gnl, gnl, BUFFER_SIZE, 0));
 	}
 	u_gnl = gnl;
 	while (u_gnl->next && u_gnl->fd_num != fd)
@@ -40,7 +41,7 @@ char	*get_next_line(int fd)
 		if (u_gnl == 0)
 			return (ft_gnl_free(&gnl, u_gnl, ALL, 0));
 	}
-	return (ft_handle_buffer(&gnl, u_gnl, BUFFER_SIZE));
+	return (ft_handle_buffer(&gnl, u_gnl, BUFFER_SIZE, 0));
 }
 
 static t_buffer	*ft_make_gnl_struct(t_buffer **gnl, int fd)
@@ -65,10 +66,9 @@ static t_buffer	*ft_make_gnl_struct(t_buffer **gnl, int fd)
 }
 /* struct make & add_back */
 
-static char	*ft_handle_buffer(t_buffer **gnl, t_buffer *u_gnl, ssize_t len)
+static char	*ft_handle_buffer(t_buffer **gnl, t_buffer *u_gnl, \
+ssize_t len, char *str_temp)
 {
-	char	*str_temp;
-
 	u_gnl->last_idx = ft_strchr_idx(u_gnl->buffer, '\n');
 	while (u_gnl->last_idx == ERROR && len == BUFFER_SIZE)
 	{
@@ -83,11 +83,12 @@ static char	*ft_handle_buffer(t_buffer **gnl, t_buffer *u_gnl, ssize_t len)
 		else if (len > 0 && u_gnl->buffer == 0)
 			u_gnl->buffer = str_temp;
 		else
-			u_gnl->buffer = ft_strjoin_free(u_gnl->buffer, str_temp);
+			if (ft_strjoin_free_change(u_gnl, u_gnl->buffer, str_temp) == 0)
+				return (ft_gnl_free(gnl, u_gnl, ALL, 0));
 		u_gnl->last_idx = ft_strchr_idx(u_gnl->buffer, '\n');
 	}
 	if (u_gnl->last_idx == ERROR)
-		u_gnl->last_idx = ft_strlen(u_gnl->buffer);
+		u_gnl->last_idx = ft_strlen(u_gnl->buffer) - 1;
 	if (u_gnl->buffer)
 		return (ft_cutting_string(gnl, u_gnl, 0));
 	else
@@ -103,7 +104,7 @@ static char	*ft_cutting_string(t_buffer **gnl, t_buffer *u_gnl, int len)
 	char	*str_temp;
 
 	str_temp = u_gnl->buffer;
-	str_return = (char *)ft_calloc(1, u_gnl->last_idx + 2);
+	str_return = (char *)malloc(u_gnl->last_idx + 2);
 	if (!str_return)
 		return (ft_gnl_free(gnl, u_gnl, ALL, 0));
 	ft_strlcpy(str_return, str_temp, u_gnl->last_idx + 2);
@@ -114,7 +115,7 @@ static char	*ft_cutting_string(t_buffer **gnl, t_buffer *u_gnl, int len)
 		return (str_return);
 	}
 	len = ft_strlen(u_gnl->buffer) - (u_gnl->last_idx + 1);
-	str_split = (char *)ft_calloc(1, len + 1);
+	str_split = (char *)malloc(len + 1);
 	if (!str_split)
 		return (ft_gnl_free(gnl, u_gnl, ALL, str_return));
 	ft_strlcpy(str_split, str_temp, len + 1);

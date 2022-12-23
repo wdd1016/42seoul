@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:11:21 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/22 22:02:41 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/23 13:35:14 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_buffer
 void	*ft_calloc(size_t count, size_t size);
 int		ft_strchr_idx(const char *str, int ch);
 size_t	ft_strlen(const char *s);
-char	*ft_strjoin_free(char const *s1, char const *s2);
+char	*ft_strjoin_free_change(t_buffer *u_gnl, char *s1, char *s2);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*get_next_line(int fd);
 
