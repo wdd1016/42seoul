@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:11:21 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/23 17:35:59 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/24 06:00:30 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,27 @@
 
 typedef struct s_buffer
 {
-	char	*buffer;
-	int		fd_num;
-	int		last_idx;
-	void	*next;
+	char			*buffer;
+	struct s_buffer	*next;
 }	t_buffer;
 
-# define TRUE 1
-# define FALSE 0
-# define NORMAL 0
-# define ERROR -1
+typedef struct s_fdlist
+{
+	t_buffer		*buflist;
+	int				fdnumber;
+	size_t			strlen;
+	struct s_fdlist	*next;
+}	t_fdlist;
+
 # define ALL 1
-# define CURRENT 2
-# define ONNYFD 3
-# define CUT 2
+# define USE 2
+# define BUF 3
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
 # endif
 
-int		ft_strchr_idx(const char *str, int ch);
-size_t	ft_strlen(const char *s);
-char	*ft_strjoin_free_change(t_buffer *u_gnl, char *s1, char *s2);
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+ssize_t	ft_strchrindex(char *s, int c);
+size_t	ft_strlen(char *s);
 char	*get_next_line(int fd);
 
 #endif
