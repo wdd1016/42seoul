@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:10:23 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/23 00:24:48 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/23 12:52:06 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_buffer	*ft_make_gnl_struct(t_buffer **gnl, int fd);
 static char		*ft_handle_buffer(t_buffer **gnl, t_buffer *u_gnl, ssize_t len);
-static char		*ft_cutting_string(t_buffer **gnl, t_buffer *u_gnl);
+static char		*ft_cutting_string(t_buffer **gnl, t_buffer *u_gnl, int len);
 static char		*ft_gnl_free(t_buffer **gnl, t_buffer *u_gnl, int num, \
 char *str_for_free);
 
@@ -87,21 +87,18 @@ static char	*ft_handle_buffer(t_buffer **gnl, t_buffer *u_gnl, ssize_t len)
 		u_gnl->last_idx = ft_strchr_idx(u_gnl->buffer, '\n');
 	}
 	str_temp = u_gnl->buffer;
-	if (len < BUFFER_SIZE && u_gnl->last_idx == ERROR)
-		ft_gnl_free(gnl, u_gnl, ONNYFD, 0);
-	else
-		str_temp = ft_cutting_string(gnl, u_gnl);
+	if (str_temp)
+		str_temp = ft_cutting_string(gnl, u_gnl, 0);
 	return (str_temp);
 }
-/* dynamic allocation error : all structs free <-> \
-read error : current struct free */
+/* dynamic allocation error : all structs free <-> */
+/* read error : current struct free */
 
-static char	*ft_cutting_string(t_buffer **gnl, t_buffer *u_gnl)
+static char	*ft_cutting_string(t_buffer **gnl, t_buffer *u_gnl, int len)
 {
 	char	*str_return;
 	char	*str_split;
 	char	*str_temp;
-	int		len;
 
 	str_temp = u_gnl->buffer;
 	str_return = (char *)ft_calloc(1, u_gnl->last_idx + 2);
@@ -134,7 +131,7 @@ char *str_for_free)
 
 	if (str_for_free)
 		free(str_for_free);
-	if (num == CURRENT || num == ONNYFD)
+	if (num == CURRENT)
 	{
 		temp_b = *gnl;
 		while (temp_b->next != 0 && temp_b->next != u_gnl)
@@ -156,5 +153,4 @@ char *str_for_free)
 	}
 	return (0);
 }
-/* num : all - all structs free, current - current fd struct free, \
-ONNYFD - current but buffer to return alive */
+/* num : all - all structs free, current - current fd struct free */
