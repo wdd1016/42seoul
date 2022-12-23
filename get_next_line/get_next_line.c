@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:10:23 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/23 12:52:06 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/23 13:00:48 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,12 @@ static char	*ft_handle_buffer(t_buffer **gnl, t_buffer *u_gnl, ssize_t len)
 			u_gnl->buffer = ft_strjoin_free(u_gnl->buffer, str_temp);
 		u_gnl->last_idx = ft_strchr_idx(u_gnl->buffer, '\n');
 	}
-	str_temp = u_gnl->buffer;
-	if (str_temp)
-		str_temp = ft_cutting_string(gnl, u_gnl, 0);
-	return (str_temp);
+	if (u_gnl->last_idx == ERROR)
+		u_gnl->last_idx = ft_strlen(u_gnl->buffer);
+	if (u_gnl->buffer)
+		return (ft_cutting_string(gnl, u_gnl, 0));
+	else
+		return (ft_gnl_free(gnl, u_gnl, CURRENT, 0));
 }
 /* dynamic allocation error : all structs free <-> */
 /* read error : current struct free */
@@ -139,7 +141,7 @@ char *str_for_free)
 		temp_b->next = u_gnl->next;
 		if (*gnl == u_gnl)
 			*gnl = 0;
-		if (num == CURRENT && u_gnl->buffer)
+		if (u_gnl->buffer)
 			free(u_gnl->buffer);
 		free(u_gnl);
 		return (0);
