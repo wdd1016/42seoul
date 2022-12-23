@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:11:21 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/23 17:35:59 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/23 22:50:52 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -36,10 +36,14 @@ typedef struct s_buffer
 #  define BUFFER_SIZE 10
 # endif
 
-int		ft_strchr_idx(const char *str, int ch);
+int		ft_strchr_idx(const char *str, int ch, int size);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin_free_change(t_buffer *u_gnl, char *s1, char *s2);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char	*ft_loop_buffer(t_buffer **gnl, t_buffer *u_gnl, \
+ssize_t *len, int size);
+char	*ft_gnl_free(t_buffer **gnl, t_buffer *u_gnl, int num, \
+char *str_for_free);
 char	*get_next_line(int fd);
 
 #endif

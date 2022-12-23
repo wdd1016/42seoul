@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 21:51:02 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/23 17:15:55 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/23 21:45:23 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
-
 
 typedef struct s_buffer
 {
@@ -38,18 +37,19 @@ typedef struct s_buffer
 #  define BUFFER_SIZE 10
 # endif
 
-void	*ft_calloc(size_t count, size_t size);
-int		ft_strchr_idx(const char *str, int ch);
+int		ft_strchr_idx(const char *str, int ch, int size);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin_free_change(t_buffer *u_gnl, char *s1, char *s2);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char	*ft_loop_buffer(t_buffer **gnl, t_buffer *u_gnl, \
+ssize_t len, char *str);
+char	*ft_gnl_free(t_buffer **gnl, t_buffer *u_gnl, int num, \
+char *str_for_free);
 char	*get_next_line(int fd);
 static t_buffer	*ft_make_gnl_struct(t_buffer *gnl, int fd);
 static char		*ft_handle_buffer(t_buffer **gnl, t_buffer *u_gnl, \
 ssize_t len, char *str_temp);
 static char		*ft_cutting_string(t_buffer **gnl, t_buffer *u_gnl, int len);
-static char		*ft_gnl_free(t_buffer **gnl, t_buffer *u_gnl, int num, \
-char *str_for_free);
 
 int	main(void)
 {
@@ -126,12 +126,18 @@ char	*get_next_line(int fd)
 
 static t_buffer	*ft_make_gnl_struct(t_buffer *gnl, int fd)
 {
-	t_buffer	*new_gnl;
-	t_buffer	*temp;
+	t_buffer		*new_gnl;
+	t_buffer		*temp;
+	unsigned int	temp_idx;
+	char			*temp_zero;
 
-	new_gnl = (t_buffer *)ft_calloc(1, sizeof(t_buffer));
+	new_gnl = (t_buffer *)malloc(sizeof(t_buffer));
 	if (!new_gnl)
 		return (0);
+	temp_idx = 0;
+	temp_zero = (char *)new_gnl;
+	while (temp_idx < sizeof(t_buffer))
+		temp_zero[temp_idx++] = 0;
 	new_gnl->fd_num = fd;
 	if (gnl != 0)
 	{
@@ -147,24 +153,18 @@ static t_buffer	*ft_make_gnl_struct(t_buffer *gnl, int fd)
 static char	*ft_handle_buffer(t_buffer **gnl, t_buffer *u_gnl, \
 ssize_t len, char *str_temp)
 {
-	u_gnl->last_idx = ft_strchr_idx(u_gnl->buffer, '\n');
+	u_gnl->last_idx = ft_strchr_idx(u_gnl->buffer, '\n', 0);
 	while (u_gnl->last_idx == ERROR && len == BUFFER_SIZE)
 	{
-		str_temp = (char *)malloc(BUFFER_SIZE + 1);
+		str_temp = ft_loop_buffer(gnl, u_gnl, BUFFER_SIZE, 0);
 		if (!str_temp)
-			return (ft_gnl_free(gnl, u_gnl, ALL, 0));
-		len = read(u_gnl->fd_num, str_temp, BUFFER_SIZE);
-		if (len == ERROR)
-			return (ft_gnl_free(gnl, u_gnl, CURRENT, str_temp));
-		str_temp[len] = '\0';
-		if (len == 0)
-			free(str_temp);
-		else if (len > 0 && u_gnl->buffer == 0)
+			return (0);
+		if (u_gnl->buffer == 0)
 			u_gnl->buffer = str_temp;
 		else
 			if (ft_strjoin_free_change(u_gnl, u_gnl->buffer, str_temp) == 0)
 				return (ft_gnl_free(gnl, u_gnl, ALL, 0));
-		u_gnl->last_idx = ft_strchr_idx(u_gnl->buffer, '\n');
+		u_gnl->last_idx = ft_strchr_idx(u_gnl->buffer, '\n', 0);
 	}
 	if (u_gnl->last_idx == ERROR)
 		u_gnl->last_idx = ft_strlen(u_gnl->buffer) - 1;
@@ -207,7 +207,7 @@ static char	*ft_cutting_string(t_buffer **gnl, t_buffer *u_gnl, int len)
 /* make return string & remaining string
 if remaining string = 0 -> current struct free */
 
-static char	*ft_gnl_free(t_buffer **gnl, t_buffer *u_gnl, int num, \
+char	*ft_gnl_free(t_buffer **gnl, t_buffer *u_gnl, int num, \
 char *str_for_free)
 {
 	t_buffer	*temp_b;
@@ -238,28 +238,7 @@ char *str_for_free)
 }
 /* num : all - all structs free, current - current fd struct free */
 
-void	*ft_calloc(size_t count, size_t size)
-{
-	size_t	i;
-	size_t	arr_size;
-	char	*temp;
-	void	*ptr;
-
-	arr_size = size * count;
-	ptr = malloc(arr_size);
-	if (!ptr)
-		return (0);
-	i = 0;
-	temp = (char *)ptr;
-	while (i < arr_size)
-	{
-		temp[i] = 0;
-		i++;
-	}
-	return (ptr);
-}
-
-int	ft_strchr_idx(const char *str, int ch)
+int	ft_strchr_idx(const char *str, int ch, int size)
 {
 	char	temp;
 	int		end_idx;
@@ -268,7 +247,17 @@ int	ft_strchr_idx(const char *str, int ch)
 	end_idx = 0;
 	if (!str)
 		return (-1);
-	while (str[end_idx])
+	if (!size)
+	{
+		while (str[end_idx])
+		{
+			if (str[end_idx] == temp)
+				return (end_idx);
+			end_idx++;
+		}
+		return (-1);
+	}
+	while (size-- > 0)
 	{
 		if (str[end_idx] == temp)
 			return (end_idx);
@@ -335,4 +324,35 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	while (src[count])
 		count++;
 	return (count);
+}
+
+char	*ft_loop_buffer(t_buffer **gnl, t_buffer *u_gnl, \
+ssize_t len, char *str)
+{
+	int		size;
+	char	*temp;
+
+	size = BUFFER_SIZE;
+	if (BUFFER_SIZE < 100)
+		size = 100;
+	str = (char *)malloc(size + 1);
+	if (!str)
+		return (ft_gnl_free(gnl, u_gnl, ALL, 0));
+	size = size / BUFFER_SIZE;
+	temp = str;
+	while (size-- > 0)
+	{
+		len = read(u_gnl->fd_num, temp, BUFFER_SIZE);
+		temp += len;
+		if (len < BUFFER_SIZE || ft_strchr_idx(temp - len, '\n', len) >= 0)
+			break ;
+	}
+	*temp = '\0';
+	if (len == ERROR)
+		return (ft_gnl_free(gnl, u_gnl, CURRENT, str));
+	else if (len == 0)
+		free (str);
+	else
+		return (str);
+	return (u_gnl->buffer);
 }

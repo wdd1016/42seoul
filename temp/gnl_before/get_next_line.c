@@ -6,149 +6,161 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:10:23 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/22 00:06:22 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/23 19:33:38 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 static t_buffer	*ft_make_gnl_struct(t_buffer *gnl, int fd);
-static char		*ft_handle_buffer(t_buffer **gnl, t_buffer *use_gnl, \
-char *n_buffer, int *num_list);
-static char		*ft_new_buffer(t_buffer **gnl, t_buffer *use_gnl, \
-int *num_list);
-static char		*ft_gnl_free_return(t_buffer **gnl, t_buffer *use_gnl, \
-int num, char *returnstring);
+static char		*ft_handle_buffer(t_buffer **gnl, t_buffer *u_gnl, \
+ssize_t len, char *str_temp);
+static char		*ft_cutting_string(t_buffer **gnl, t_buffer *u_gnl, int len);
+static char		*ft_gnl_free(t_buffer **gnl, t_buffer *u_gnl, int num, \
+char *str_for_free);
 
 char	*get_next_line(int fd)
 {
 	static t_buffer	*gnl = 0;
-	t_buffer		*use_gnl;
+	t_buffer		*u_gnl;
 	int				num_list;
 
 	num_list = 0;
 	if (!gnl)
 	{
 		gnl = ft_make_gnl_struct(gnl, fd);
-		if (!gnl)
+		if (gnl == 0)
 			return (0);
-		return (ft_new_buffer(&gnl, gnl, &num_list));
+		return (ft_handle_buffer(&gnl, gnl, BUFFER_SIZE, 0));
 	}
-	use_gnl = gnl;
-	while (use_gnl && use_gnl->fd_num != fd)
-		use_gnl = use_gnl->next;
-	if (!(use_gnl))
+	u_gnl = gnl;
+	while (u_gnl && u_gnl->fd_num != fd)
+		u_gnl = u_gnl->next;
+	if (!u_gnl)
 	{
-		use_gnl = ft_make_gnl_struct(gnl, fd);
-		if (use_gnl == 0)
-			return (ft_gnl_free_return(&gnl, use_gnl, ALL_FD, 0));
-		return (ft_new_buffer(&gnl, use_gnl, &num_list));
+		u_gnl = ft_make_gnl_struct(gnl, fd);
+		if (u_gnl == 0)
+			return (ft_gnl_free(&gnl, u_gnl, ALL, 0));
 	}
-	num_list = 1;
-	return (ft_handle_buffer(&gnl, use_gnl, use_gnl->bufferlist->buffer, \
-	&num_list));
+	return (ft_handle_buffer(&gnl, u_gnl, BUFFER_SIZE, 0));
 }
 
 static t_buffer	*ft_make_gnl_struct(t_buffer *gnl, int fd)
 {
-	t_buffer	*new_gnl;
+	t_buffer		*new_gnl;
+	t_buffer		*temp;
+	unsigned int	temp_idx;
+	char			*temp_zero;
 
 	new_gnl = (t_buffer *)malloc(sizeof(t_buffer));
 	if (!new_gnl)
 		return (0);
-	ft_memset(new_gnl, 0, sizeof(t_buffer));
+	temp_idx = 0;
+	temp_zero = (char *)new_gnl;
+	while (temp_idx < sizeof(t_buffer))
+		temp_zero[temp_idx++] = 0;
 	new_gnl->fd_num = fd;
-	if (gnl == 0)
-		return (new_gnl);
-	else
+	if (gnl != 0)
 	{
-		ft_lstadd_back(gnl, new_gnl, T_BUFFER);
-		return (new_gnl);
+		temp = gnl;
+		while (temp->next)
+			temp = temp->next;
+		temp->next = new_gnl;
 	}
+	return (new_gnl);
 }
+/* struct make & add_back */
 
-static char	*ft_handle_buffer(t_buffer **gnl, t_buffer *use_gnl, \
-char *n_buffer, int *num_list)
+static char	*ft_handle_buffer(t_buffer **gnl, t_buffer *u_gnl, \
+ssize_t len, char *str_temp)
 {
-	char	*str_line;
-	int		lastindex;
-	int		temp;
-
-	if ((*num_list) == 1)
-		lastindex = ft_strchr_idx(n_buffer, '\n', use_gnl->index);
-	else
-		lastindex = ft_strchr_idx(n_buffer, '\n', 0);
-	if (use_gnl->file_state == EOF_STATE && lastindex == -1)
-		while (n_buffer[lastindex + 1])
-			lastindex++;
-	if (lastindex != -1)
+	u_gnl->last_idx = ft_strchr_idx(u_gnl->buffer, '\n');
+	while (u_gnl->last_idx == ERROR && len == BUFFER_SIZE)
 	{
-		temp = BUFFER_SIZE * ((*num_list) - 1) - use_gnl->index + lastindex + 1;
-		str_line = (char *)malloc(temp + 1);
-		if (!str_line)
-			return (ft_gnl_free_return(gnl, use_gnl, ALL_FD, 0));
-		ft_copy_buffer(use_gnl, str_line, lastindex, 0);
-		if (n_buffer[lastindex + 1] == '\0')
-			return (ft_gnl_free_return(gnl, use_gnl, CURRENT_FD, str_line));
+		str_temp = (char *)malloc(BUFFER_SIZE + 1);
+		if (!str_temp)
+			return (ft_gnl_free(gnl, u_gnl, ALL, 0));
+		len = read(u_gnl->fd_num, str_temp, BUFFER_SIZE);
+		if (len == ERROR)
+			return (ft_gnl_free(gnl, u_gnl, CURRENT, str_temp));
+		str_temp[len] = '\0';
+		if (len == 0)
+			free(str_temp);
+		else if (len > 0 && u_gnl->buffer == 0)
+			u_gnl->buffer = str_temp;
 		else
-			return (ft_gnl_free_return(gnl, use_gnl, ONNY_BUFFER, str_line));
+			if (ft_strjoin_free_change(u_gnl, u_gnl->buffer, str_temp) == 0)
+				return (ft_gnl_free(gnl, u_gnl, ALL, 0));
+		u_gnl->last_idx = ft_strchr_idx(u_gnl->buffer, '\n');
 	}
+	if (u_gnl->last_idx == ERROR)
+		u_gnl->last_idx = ft_strlen(u_gnl->buffer) - 1;
+	if (u_gnl->buffer)
+		return (ft_cutting_string(gnl, u_gnl, 0));
 	else
-		return (ft_new_buffer(gnl, use_gnl, num_list));
+		return (ft_gnl_free(gnl, u_gnl, CURRENT, 0));
 }
+/* dynamic allocation error : all structs free <-> */
+/* read error : current struct free */
 
-static char	*ft_new_buffer(t_buffer **gnl, t_buffer *use_gnl, int *num_list)
+static char	*ft_cutting_string(t_buffer **gnl, t_buffer *u_gnl, int len)
 {
-	t_list	*new_buflist;
-	int		state;
+	char	*str_return;
+	char	*str_split;
+	char	*str_temp;
 
-	new_buflist = (t_list *)malloc(sizeof(t_list));
-	if (!new_buflist)
-		return (ft_gnl_free_return(gnl, use_gnl, ALL_FD, 0));
-	ft_memset(new_buflist, 0, sizeof(t_list));
-	if (use_gnl->bufferlist == 0)
-		use_gnl->bufferlist = new_buflist;
-	else
-		ft_lstadd_back(use_gnl->bufferlist, new_buflist, T_LIST);
-	new_buflist->buffer = (char *)malloc(BUFFER_SIZE + 1);
-	if (!(new_buflist->buffer))
-		return (ft_gnl_free_return(gnl, use_gnl, ALL_FD, 0));
-	ft_memset(new_buflist->buffer, 0, BUFFER_SIZE + 1);
-	state = read(use_gnl->fd_num, new_buflist->buffer, BUFFER_SIZE);
-	if (state == -1 || (use_gnl->bufferlist->buffer)[0] == '\0')
-		return (ft_gnl_free_return(gnl, use_gnl, ALL_FD, 0));
-	if (state < BUFFER_SIZE)
-		use_gnl->file_state = EOF_STATE;
-	if (state > 0)
-		(*num_list)++;
-	return (ft_handle_buffer(gnl, use_gnl, new_buflist->buffer, num_list));
+	str_temp = u_gnl->buffer;
+	str_return = (char *)malloc(u_gnl->last_idx + 2);
+	if (!str_return)
+		return (ft_gnl_free(gnl, u_gnl, ALL, 0));
+	ft_strlcpy(str_return, str_temp, u_gnl->last_idx + 2);
+	str_temp += u_gnl->last_idx + 1;
+	if (*str_temp == '\0')
+	{
+		free(u_gnl->buffer);
+		u_gnl->buffer = 0;
+		return (str_return);
+	}
+	len = ft_strlen(u_gnl->buffer) - (u_gnl->last_idx + 1);
+	str_split = (char *)malloc(len + 1);
+	if (!str_split)
+		return (ft_gnl_free(gnl, u_gnl, ALL, str_return));
+	ft_strlcpy(str_split, str_temp, len + 1);
+	str_temp = u_gnl->buffer;
+	u_gnl->buffer = str_split;
+	free(str_temp);
+	return (str_return);
 }
+/* make return string & remaining string
+if remaining string = 0 -> current struct free */
 
-static char	*ft_gnl_free_return(t_buffer **gnl, t_buffer *use_gnl, int num, \
-char *returnstring)
+static char	*ft_gnl_free(t_buffer **gnl, t_buffer *u_gnl, int num, \
+char *str_for_free)
 {
 	t_buffer	*temp_b;
 
-	if (num == ALL_FD)
-	{
-		while (*gnl)
-		{
-			temp_b = *gnl;
-			*gnl = (*gnl)->next;
-			ft_buflstclear(gnl, temp_b, ALL_FD);
-			free(temp_b);
-		}
-	}
-	else if (num == CURRENT_FD)
+	free(str_for_free);
+	if (num == CURRENT)
 	{
 		temp_b = *gnl;
-		while (temp_b->next != 0 && temp_b->next != use_gnl)
+		while (temp_b && temp_b->next != u_gnl)
 			temp_b = temp_b->next;
-		temp_b->next = use_gnl->next;
-		ft_buflstclear(gnl, use_gnl, CURRENT_FD);
-		free(use_gnl);
+		if (temp_b)
+			temp_b->next = u_gnl->next;
+		if (*gnl == u_gnl)
+			*gnl = (*gnl)->next;
+		if (u_gnl->buffer)
+			free(u_gnl->buffer);
+		free(u_gnl);
+		return (0);
 	}
-	else
-		ft_buflstclear(gnl, use_gnl, ONNY_BUFFER);
-	return (returnstring);
+	while (*gnl)
+	{
+		temp_b = *gnl;
+		*gnl = (*gnl)->next;
+		free(temp_b->buffer);
+		free(temp_b);
+	}
+	return (0);
 }
+/* num : all - all structs free, current - current fd struct free */

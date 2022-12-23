@@ -6,120 +6,86 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:12:00 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/21 23:58:52 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/23 17:31:55 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_lstadd_back(void *lst, void *new, int type)
-{
-	if (type == T_BUFFER)
-	{
-		while (1)
-		{
-			if (((t_buffer *)lst)->next == 0)
-				break ;
-			lst = ((t_buffer *)lst)->next;
-		}
-		((t_buffer *)lst)->next = (t_buffer *)new;
-	}
-	else if (type == T_LIST)
-	{
-		while (1)
-		{
-			if (((t_list *)lst)->next == 0)
-				break ;
-			lst = ((t_list *)lst)->next;
-		}
-		((t_list *)lst)->next = (t_list *)new;
-	}
-}
-
-void	*ft_memset(void *b, int c, size_t len)
-{
-	unsigned char	*temp_b;
-	unsigned char	uch_c;
-	size_t			i;
-
-	i = 0;
-	uch_c = (unsigned char)c;
-	temp_b = (unsigned char *)b;
-	while (i < len)
-	{
-		temp_b[i] = uch_c;
-		i++;
-	}
-	return (b);
-}
-
-int	ft_strchr_idx(const char *str, int ch, int startidx)
+int	ft_strchr_idx(const char *str, int ch)
 {
 	char	temp;
+	int		end_idx;
 
 	temp = (char)ch;
-	while (str[startidx])
+	end_idx = 0;
+	if (!str)
+		return (-1);
+	while (str[end_idx])
 	{
-		if (str[startidx] == temp)
-			return (startidx);
-		startidx++;
+		if (str[end_idx] == temp)
+			return (end_idx);
+		end_idx++;
 	}
 	return (-1);
 }
 
-void	ft_buflstclear(t_buffer **gnl, t_buffer *use_gnl, int num)
+size_t	ft_strlen(const char *s)
 {
-	t_list	*temp_l;
+	const char	*copy;
 
-	if (num == ALL_FD || num == CURRENT_FD)
-	{
-		while (use_gnl->bufferlist)
-		{
-			temp_l = use_gnl->bufferlist;
-			use_gnl->bufferlist = use_gnl->bufferlist->next;
-			free(temp_l->buffer);
-			free(temp_l);
-		}
-		if ((*gnl) == use_gnl && num == CURRENT_FD)
-			*gnl = 0;
-	}
-	else if (num == ONNY_BUFFER)
-	{
-		while (use_gnl->bufferlist->next)
-		{
-			temp_l = use_gnl->bufferlist;
-			use_gnl->bufferlist = use_gnl->bufferlist->next;
-			free(temp_l->buffer);
-			free(temp_l);
-		}
-	}
+	if (!s)
+		return (0);
+	copy = s;
+	while (*s)
+		s++;
+	return ((size_t)s - (size_t)copy);
 }
 
-void	ft_copy_buffer(t_buffer *use_gnl, char *dest, int lastindex, int index)
+char	*ft_strjoin_free_change(t_buffer *u_gnl, char *s1, char *s2)
 {
-	t_list	*temp;
+	char	*str;
+	char	*temp;
+	char	*temp_s1;
+	char	*temp_s2;
 
-	temp = use_gnl->bufferlist;
-	while (temp)
+	temp_s1 = (char *)s1;
+	temp_s2 = (char *)s2;
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!str)
 	{
-		index = 0;
-		if (temp == use_gnl->bufferlist)
-			index = use_gnl->index;
-		if (temp->next)
-		{
-			while ((temp->buffer)[index])
-			{
-				*(dest++) = (temp->buffer)[index];
-				index++;
-			}
-		}
-		while (index <= lastindex)
-		{
-			*(dest++) = (temp->buffer)[index];
-			index++;
-		}
-		temp = temp->next;
+		free(temp_s2);
+		return (0);
 	}
-	(*dest) = '\0';
-	use_gnl->index = lastindex + 1;
+	temp = str;
+	while (*s1)
+		*temp++ = *s1++;
+	free(temp_s1);
+	while (*s2)
+		*temp++ = *s2++;
+	free(temp_s2);
+	*temp = '\0';
+	u_gnl->buffer = str;
+	return (str);
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+	size_t	count;
+
+	i = 0;
+	if (dstsize > 0)
+	{
+		while (src[i] && i + 1 < dstsize)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	count = 0;
+	while (src[count])
+		count++;
+	return (count);
 }

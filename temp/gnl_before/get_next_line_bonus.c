@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:10:23 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/23 19:33:38 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/23 22:52:30 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static t_buffer	*ft_make_gnl_struct(t_buffer *gnl, int fd);
 static char		*ft_handle_buffer(t_buffer **gnl, t_buffer *u_gnl, \
 ssize_t len, char *str_temp);
 static char		*ft_cutting_string(t_buffer **gnl, t_buffer *u_gnl, int len);
-static char		*ft_gnl_free(t_buffer **gnl, t_buffer *u_gnl, int num, \
-char *str_for_free);
 
 char	*get_next_line(int fd)
 {
@@ -74,24 +72,18 @@ static t_buffer	*ft_make_gnl_struct(t_buffer *gnl, int fd)
 static char	*ft_handle_buffer(t_buffer **gnl, t_buffer *u_gnl, \
 ssize_t len, char *str_temp)
 {
-	u_gnl->last_idx = ft_strchr_idx(u_gnl->buffer, '\n');
+	u_gnl->last_idx = ft_strchr_idx(u_gnl->buffer, '\n', 0);
 	while (u_gnl->last_idx == ERROR && len == BUFFER_SIZE)
 	{
-		str_temp = (char *)malloc(BUFFER_SIZE + 1);
+		str_temp = ft_loop_buffer(gnl, u_gnl, &len, 0);
 		if (!str_temp)
-			return (ft_gnl_free(gnl, u_gnl, ALL, 0));
-		len = read(u_gnl->fd_num, str_temp, BUFFER_SIZE);
-		if (len == ERROR)
-			return (ft_gnl_free(gnl, u_gnl, CURRENT, str_temp));
-		str_temp[len] = '\0';
-		if (len == 0)
-			free(str_temp);
-		else if (len > 0 && u_gnl->buffer == 0)
+			return (0);
+		if (u_gnl->buffer == 0)
 			u_gnl->buffer = str_temp;
 		else
 			if (ft_strjoin_free_change(u_gnl, u_gnl->buffer, str_temp) == 0)
 				return (ft_gnl_free(gnl, u_gnl, ALL, 0));
-		u_gnl->last_idx = ft_strchr_idx(u_gnl->buffer, '\n');
+		u_gnl->last_idx = ft_strchr_idx(u_gnl->buffer, '\n', 0);
 	}
 	if (u_gnl->last_idx == ERROR)
 		u_gnl->last_idx = ft_strlen(u_gnl->buffer) - 1;
@@ -134,7 +126,7 @@ static char	*ft_cutting_string(t_buffer **gnl, t_buffer *u_gnl, int len)
 /* make return string & remaining string
 if remaining string = 0 -> current struct free */
 
-static char	*ft_gnl_free(t_buffer **gnl, t_buffer *u_gnl, int num, \
+char	*ft_gnl_free(t_buffer **gnl, t_buffer *u_gnl, int num, \
 char *str_for_free)
 {
 	t_buffer	*temp_b;
