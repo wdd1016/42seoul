@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 21:51:02 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/23 15:17:41 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/23 16:47:15 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,41 @@ int	main(void)
 {
 	int		idx;
 	int		fd;
+	int		fd2;
+	int		fd3;
 	char	*str;
 
 	idx = 1;
-	fd = open("giant_line_nl.txt", O_RDWR);
+	fd = open("read_error.txt", O_RDWR);
+	fd2 = open("1-brouette", O_RDWR);
 	while (1)
 	{
+		str = get_next_line(fd2);
+		printf("%d: <%s>\n", idx, str);
+		idx++;
+		str = get_next_line(1005);
+		printf("%d: <%s>\n", idx, str);
+		idx++;
+		str = get_next_line(fd2);
+		printf("%d: <%s>\n", idx, str);
+		idx++;
+		str = get_next_line(1006);
+		printf("%d: <%s>\n", idx, str);
+		idx++;
 		str = get_next_line(fd);
 		printf("%d: <%s>\n", idx, str);
 		idx++;
-		if (!str)
-		{
-			free(str);
-		}
-		free(str);
+		str = get_next_line(1007);
+		printf("%d: <%s>\n", idx, str);
+		idx++;
+		close(fd2);
+		str = get_next_line(fd2);
+		printf("%d: <%s>\n", idx, str);
+		idx++;
+		fd2 = open("giant_line_nl.txt", O_RDWR);
+		str = get_next_line(fd2);
+		printf("%d: <%s>\n", idx, str);
+214		idx++;
 	}
 	close(fd);
 	return (0);
@@ -192,9 +213,10 @@ char *str_for_free)
 	if (num == CURRENT)
 	{
 		temp_b = *gnl;
-		while (temp_b->next != 0 && temp_b->next != u_gnl)
+		while (temp_b && temp_b->next != u_gnl)
 			temp_b = temp_b->next;
-		temp_b->next = u_gnl->next;
+		if (temp_b)
+			temp_b->next = u_gnl->next;
 		if (*gnl == u_gnl)
 			*gnl = (*gnl)->next;
 		if (u_gnl->buffer)

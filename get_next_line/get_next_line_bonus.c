@@ -6,13 +6,13 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:10:23 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/23 15:23:23 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/23 16:48:28 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
-static t_buffer	*ft_make_gnl_struct(t_buffer **gnl, int fd);
+static t_buffer	*ft_make_gnl_struct(t_buffer *gnl, int fd);
 static char		*ft_handle_buffer(t_buffer **gnl, t_buffer *u_gnl, \
 ssize_t len, char *str_temp);
 static char		*ft_cutting_string(t_buffer **gnl, t_buffer *u_gnl, int len);
@@ -28,23 +28,24 @@ char	*get_next_line(int fd)
 	num_list = 0;
 	if (!gnl)
 	{
-		if (!ft_make_gnl_struct(&gnl, fd))
+		gnl = ft_make_gnl_struct(gnl, fd);
+		if (gnl == 0)
 			return (0);
 		return (ft_handle_buffer(&gnl, gnl, BUFFER_SIZE, 0));
 	}
 	u_gnl = gnl;
-	while (u_gnl->next && u_gnl->fd_num != fd)
+	while (u_gnl && u_gnl->fd_num != fd)
 		u_gnl = u_gnl->next;
-	if (u_gnl->fd_num != fd)
+	if (!u_gnl)
 	{
-		u_gnl = ft_make_gnl_struct(&gnl, fd);
+		u_gnl = ft_make_gnl_struct(gnl, fd);
 		if (u_gnl == 0)
 			return (ft_gnl_free(&gnl, u_gnl, ALL, 0));
 	}
 	return (ft_handle_buffer(&gnl, u_gnl, BUFFER_SIZE, 0));
 }
 
-static t_buffer	*ft_make_gnl_struct(t_buffer **gnl, int fd)
+static t_buffer	*ft_make_gnl_struct(t_buffer *gnl, int fd)
 {
 	t_buffer	*new_gnl;
 	t_buffer	*temp;
@@ -53,11 +54,9 @@ static t_buffer	*ft_make_gnl_struct(t_buffer **gnl, int fd)
 	if (!new_gnl)
 		return (0);
 	new_gnl->fd_num = fd;
-	if (*gnl == 0)
-		*gnl = new_gnl;
-	else
+	if (gnl != 0)
 	{
-		temp = *gnl;
+		temp = gnl;
 		while (temp->next)
 			temp = temp->next;
 		temp->next = new_gnl;
@@ -138,9 +137,10 @@ char *str_for_free)
 	if (num == CURRENT)
 	{
 		temp_b = *gnl;
-		while (temp_b->next != 0 && temp_b->next != u_gnl)
+		while (temp_b && temp_b->next != u_gnl)
 			temp_b = temp_b->next;
-		temp_b->next = u_gnl->next;
+		if (temp_b)
+			temp_b->next = u_gnl->next;
 		if (*gnl == u_gnl)
 			*gnl = (*gnl)->next;
 		if (u_gnl->buffer)
