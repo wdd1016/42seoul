@@ -11,17 +11,15 @@ int	main(void)
 	char	*str;
 
 	idx = 1;
-	fd = open("giant_line_nl.txt", O_RDWR);
-	while (idx < 100)
+	fd = open("limit.txt", O_RDWR);
+	while (idx < 4)
 	{
-		fd = open("giant_line_nl.txt", O_RDWR);
 		str = get_next_line(fd);
 		printf("%d: <%s>\n", idx, str);
 		str = get_next_line(fd);
 		printf("%d: <%s>\n", idx, str);
 		free(str);
 		idx++;
-		close(fd);
 	}
 	return (0);
 }

@@ -1,0 +1,69 @@
+Error in test 50: get_next_line(5: "limits.txt"): expected: "lmnopqrs\n", got: <NULL>
+asking for line: 2 of file:
+1: abcdefghij\n
+2: lmnopqrs\n
+3: 
+
+Error in test 50: get_next_line(5: "limits.txt"): not enough memory allocated, needed: 10, reserved: 0
+Could not find the corresponding allocation or the pointer 0x0
+should reserve space for the string: "lmnopqrs\n"
+Error in test 52: get_next_line(5: "limits.txt"): 
+Memory leak: 0x604000000b90 - 40 bytes
+You failed to free the memory allocated at:
+     in _add_malloc malloc_mock.c:29:8
+     in malloc malloc_mock.c:75:10
+  -> in ft_make_fdlist get_next_line.c:118:10
+     in get_next_line get_next_line.c:144:36
+     in test_gnl_func_limits file_utils.c:73:8
+     in test_limit tester.c:84:7
+     in main tester.c:235:3
+
+Memory leak: 0x602000000d90 - 10 bytes
+You failed to free the memory allocated at:
+     in _add_malloc malloc_mock.c:29:8
+     in malloc malloc_mock.c:75:10
+  -> in ft_handle_buffer get_next_line.c:99:13
+     in get_next_line get_next_line.c:148:2
+     in test_gnl_func_limits file_utils.c:73:8
+     in test_limit tester.c:84:7
+     in main tester.c:235:3
+
+for file:
+1: abcdefghij\n
+2: lmnopqrs\n
+3: 
+
+Error in test 53: get_next_line(5: "limits.txt"): expected: "abcdefghij\n", got: "lmnopqrs\nabcdefghij\n"
+asking for line: 1 of file:
+1: abcdefghij\n
+2: lmnopqrst
+
+Error in test 54: get_next_line(5: "limits.txt"): expected: "lmnopqrst", got: <NULL>
+asking for line: 2 of file:
+1: abcdefghij\n
+2: lmnopqrst
+
+Error in test 54: get_next_line(5: "limits.txt"): not enough memory allocated, needed: 10, reserved: 0
+Could not find the corresponding allocation or the pointer 0x0
+should reserve space for the string: "lmnopqrst"
+Error in test 56: get_next_line(5: "limits.txt"): 
+Memory leak: 0x602000000e70 - 10 bytes
+You failed to free the memory allocated at:
+     in _add_malloc malloc_mock.c:29:8
+     in malloc malloc_mock.c:75:10
+  -> in ft_handle_buffer get_next_line.c:99:13
+     in get_next_line get_next_line.c:148:2
+     in test_gnl_func_limits file_utils.c:73:8
+     in test_limit tester.c:84:7
+     in main tester.c:235:3
+
+for file:
+1: abcdefghij\n
+2: lmnopqrst
+
+Error in test 57: get_next_line(5: "limits.txt"): expected: "abcdefghij\n", got: "lmnopqrstabcdefghij\n"
+asking for line: 1 of file:
+1: abcdefghij\n
+2: lmnopqrst\n
+3: 
+
