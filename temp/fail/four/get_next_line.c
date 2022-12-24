@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:10:23 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/24 13:40:27 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/24 14:14:22 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 char	*get_next_line(int fd)
 {
 	static t_fdlist	firlist = {0, -1, 0, 0};
 	t_fdlist		*uselist;
 
-	uselist = &firlist;
-	if (fd == -1)
-		uselist = uselist->next;
+	if (fd != -1)
+		uselist = &firlist;
+	else
+		uselist = firlist.next;
 	while (uselist && uselist->fdnumber != fd)
 		uselist = uselist->next;
 	if (!uselist)
