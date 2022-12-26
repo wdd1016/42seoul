@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:11:21 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/26 19:21:18 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/27 00:44:19 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 10
 # endif
 
 typedef struct s_buffer
@@ -34,16 +34,17 @@ typedef struct s_fdlist
 	struct s_fdlist	*next;
 }	t_fdlist;
 
-# define ALL 1
-# define USE 2
-# define BUF 3
-
 ssize_t	ft_strchrindex(char *s, int c);
 size_t	ft_strlen(char *s);
+void	ft_bzero(void *s, size_t n);
+void	*ft_gnlfree_all(t_fdlist *firlist, char *str_rtn);
+void	*ft_gnlfree_use(t_fdlist *firlist, t_fdlist *uselist, char *str_rtn);
 char	*get_next_line(int fd);
-int		ft_make_fdlist(t_fdlist *firlist, int fd);
-char	*ft_handle_buffer(t_fdlist *firlist, t_fdlist *uselist);
-char	*ft_make_buffer(t_fdlist *firlist, t_fdlist *uselist);
-void	*ft_allfree(t_fdlist *firlist, t_fdlist *uselist, int choice);
+char	*ft_handle_buffer(t_fdlist *firlist, t_fdlist *uselist, \
+t_buffer *usebuffer);
+char	*ft_remain_buffer(t_fdlist *uselist, t_buffer *usebuffer, \
+size_t i, size_t j);
+char	*ft_make_buffer(t_fdlist *firlist, t_fdlist *uselist, \
+t_buffer *usebuffer, ssize_t len);
 
 #endif
