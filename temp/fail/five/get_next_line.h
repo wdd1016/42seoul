@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:11:21 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/26 19:21:18 by juyojeon         ###   ########.fr       */
+/*   Updated: 2022/12/24 17:07:45 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,28 @@
 # include <unistd.h>
 # include <stdlib.h>
 
+typedef struct s_list
+{
+	char			*buffer;
+	int				fdnumber;
+	int				state;
+	size_t			len_return;
+	size_t			len_remain;
+	struct s_list	*next;
+}	t_list;
+
+# define ALL 1
+# define USE 2
+# define NORMAL 0
+# define END 1
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
 # endif
 
-typedef struct s_buffer
-{
-	char			buffer[BUFFER_SIZE + 1];
-	struct s_buffer	*next;
-}	t_buffer;
-
-typedef struct s_fdlist
-{
-	t_buffer		*buflist;
-	int				fdnumber;
-	size_t			strlen;
-	struct s_fdlist	*next;
-}	t_fdlist;
-
-# define ALL 1
-# define USE 2
-# define BUF 3
-
-ssize_t	ft_strchrindex(char *s, int c);
+void	ft_process_len(t_list *uselist, char *newbuffer, ssize_t len);
 size_t	ft_strlen(char *s);
+size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);
+char	*ft_gnl_strjoin(t_list *uselist, char *s2, ssize_t len);
 char	*get_next_line(int fd);
-int		ft_make_fdlist(t_fdlist *firlist, int fd);
-char	*ft_handle_buffer(t_fdlist *firlist, t_fdlist *uselist);
-char	*ft_make_buffer(t_fdlist *firlist, t_fdlist *uselist);
-void	*ft_allfree(t_fdlist *firlist, t_fdlist *uselist, int choice);
 
 #endif
