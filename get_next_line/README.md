@@ -4,8 +4,6 @@
 
 # 핵심 포인트
 
----
-
 - 정적변수**(static variable),** 전역변수**(global variable),** 지역변수**(local variable,** 자동변수**)**
 - File Descriptor
 - Linked list
