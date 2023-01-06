@@ -16,8 +16,6 @@
 
 # 정리
 
-- 
-
 # 번역본
 
 [libft.ko](https://www.notion.so/libft-ko-d9aa8e81887642408a1081c822eec304)
