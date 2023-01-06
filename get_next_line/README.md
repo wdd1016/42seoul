@@ -10,8 +10,6 @@
 
 # 정리
 
----
-
 - 정적변수**(static variable)**
     
     정적으로 할당되는 변수이며, 프로그램 실행 전반에 걸쳐 변수의 수명이 유지된다.
@@ -83,7 +81,5 @@
     
 
 # 자료
-
----
 
 [get_next_line.ko](https://www.notion.so/get_next_line-ko-f99a0da42ca24ff2b272ffdc90f0b7b2)
