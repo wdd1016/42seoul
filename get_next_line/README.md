@@ -4,13 +4,13 @@
 
 # 핵심 포인트
 
-- 정적변수**(static variable),** 전역변수**(global variable),** 지역변수**(local variable,** 자동변수**)**
+- 정적변수 **(static variable),** 전역변수 **(global variable),** 지역변수 **(local variable, 자동변수)**
 - File Descriptor
 - Linked list
 
 # 정리
 
-- 정적변수**(static variable)**
+- 정적변수 **(static variable)**
     
     정적으로 할당되는 변수이며, 프로그램 실행 전반에 걸쳐 변수의 수명이 유지된다.
     
@@ -20,7 +20,7 @@
     
     Data 영역 (초기화), BSS 영역 (비초기화)에 저장된다.
     
-- 전역변수**(global variable)**
+- 전역변수 **(global variable)**
     
     **전역 변수**는 어떤 [변수 영역](https://ko.wikipedia.org/wiki/%EB%B3%80%EC%88%98_%EC%98%81%EC%97%AD)내에서도 접근할 수 있는 변수를 의미하는 전산학용어이다.
     
@@ -32,7 +32,7 @@
     
     Data 영역 (초기화), BSS 영역 (비초기화)에 저장된다.
     
-- 지역변수**(local variable, 자동변수)**
+- 지역변수 **(local variable, 자동변수)**
     
     **지역 변수**(local variable)는 지역 [변수 영역](https://ko.wikipedia.org/wiki/%EB%B3%80%EC%88%98_%EC%98%81%EC%97%AD)이 주어진 [변수](https://ko.wikipedia.org/wiki/%EB%B3%80%EC%88%98_(%EC%BB%B4%ED%93%A8%ED%84%B0_%EA%B3%BC%ED%95%99))이다.
     
