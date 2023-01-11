@@ -60,8 +60,10 @@
 
 # 자료
 
-[ft_printf.ko](https://www.notion.so/ft_printf-ko-5fd3e6d1a6dc411f92f484cf9f8e63e4)
+[ft_printf notion](https://brassy-plate-60f.notion.site/Ft_printf-e9cbad12ba2044b997c0da07a7f33ae1)
 
-[필기 노트](https://www.notion.so/9027ab8aa98f45fd9a130ce5b1c9ab92)
+[ft_printf.ko](https://brassy-plate-60f.notion.site/ft_printf-ko-5fd3e6d1a6dc411f92f484cf9f8e63e4)
 
-[가변인자 함수의 사용(va_)](https://www.notion.so/va_-fd707a3fca43433d819169838972b074)
+[필기 노트](https://brassy-plate-60f.notion.site/9027ab8aa98f45fd9a130ce5b1c9ab92)
+
+[가변인자 함수의 사용(va_)](https://jhnyang.tistory.com/293)
