@@ -79,7 +79,6 @@
     
     버퍼(BUFFER_SIZE(+ 1) 의 문자열)을 만드는 과정은 동적할당으로 진행하면 timeout이 뜰수 있으니 주의 (paco의 memory test에서 모든 malloc에 대하여 검사를 해서 오래걸린다. 실제적으로 출력은 오래걸리지 않는다.)
     
-
 # 자료
 
 [get_next_line.ko](https://www.notion.so/get_next_line-ko-f99a0da42ca24ff2b272ffdc90f0b7b2)
