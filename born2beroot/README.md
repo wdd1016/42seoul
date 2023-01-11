@@ -12,8 +12,6 @@
 
 # 정리
 
----
-
 - LVM
     
     **물리적 볼륨 / PV (Physical Volume), 물리적 확장 / PE (Physical Extent)**
@@ -1189,53 +1187,4 @@
 
 # 자료
 
----
-
-[born2beroot](https://www.notion.so/born2beroot-5a4480ed4316470189a8bfa704900ba0)
-
-- 게스트 확장 (마우스 통합등 유용한 기능) : version error 사용불가 (VirtualBox 버전이 옛날거라 불가) ****
-    
-    [https://heekangpark.github.io/virtualbox/03-guest-additions](https://heekangpark.github.io/virtualbox/03-guest-additions)
-    
-    게스트 확장(Guest Additions)은 호스트 운영체제(Host OS)가 아닌, 게스트 운영체제(Guest OS)가 설치되고 난 이후 게스트 운영체제 안에 설치하는 프로그램이다.
-    
-    게스트 확장은 드라이버 등을 설치하므로, 되도록이면 게스트 운영체제가 설치된 직후, 다른 프로그램들을 모두 종료하고 단독으로 실행하는 것을 추천한다.
-    
-    [https://zetawiki.com/wiki/CentOS_6_최소_설치_VirtualBox_게스트_확장_설치](https://zetawiki.com/wiki/CentOS_6_%EC%B5%9C%EC%86%8C_%EC%84%A4%EC%B9%98_VirtualBox_%EA%B2%8C%EC%8A%A4%ED%8A%B8_%ED%99%95%EC%9E%A5_%EC%84%A4%EC%B9%98)
-    
-    ```c
-    yum install -y tar bzip2 make kernel-devel gcc perl
-    
-    yum update -y kernel
-    ```
-    
-    재부팅 ([https://postlude.github.io/2020/03/09/virtualbox-centos-minimal/](https://postlude.github.io/2020/03/09/virtualbox-centos-minimal/))
-    
-    `tar`및 `bzip2`패키지를 모두 설치 (필수)
-    
-    - Device -> insert geust addition ~ 로 삽입 (장치 - 게스트 확장 CD 이미지 삽입)
-        
-        Unable ~ 에 대한 문제 해결: https://mamu2830.blogspot.com/2021/12/kernel-header-not-found-for-target-kernel.html
-        
-    
-    ```c
-    /*  /(root) 로이동 */
-    mkdir /mnt/cdrom
-    mount /dev/cdrom /mnt/cdrom
-    cd mnt/cdrom
-    ./VBoxLinuxAdditions.run
-    ```
-    
-    error [http://download.virtualbox.org/virtualbox/6.0.14/](http://download.virtualbox.org/virtualbox/6.0.14/) 
-    
-    - modprobe vboxguest failed error
-        
-        ```c
-        sudo yum update
-        sudo yum install binutils gcc make patch libgomp glibc-headers glibc-devel elfutils-libelf-devel kernel-headers kernel-devel
-        sudo reboot
-        
-        ```
-        
-
-[Rocky Linux Install](https://www.notion.so/Rocky-Linux-Install-220b01f251fd49a3ba8230330554879d)
+[born2beroot](https://brassy-plate-60f.notion.site/Born2beroot-Rocky-Linux-4b0aef6d787e4310bd7a047fa5ce620e)
