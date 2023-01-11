@@ -4,8 +4,6 @@
 
 # 핵심 포인트
 
----
-
 - 설치 (파티션을 중심으로)
 - SSH, Firewall, Port Forwarding
 - Cron
