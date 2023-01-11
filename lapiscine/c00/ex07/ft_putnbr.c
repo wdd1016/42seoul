@@ -33,12 +33,12 @@ void	print_number(int n)
 
 void	ft_putnbr(int nb)
 {
-	int		anb;
+	int		absol;
 
 	if (nb >= 0)
 	{
-		anb = nb;
-		print_number(anb);
+		absol = nb;
+		print_number(absol);
 	}
 	else if (nb == -2147483648)
 	{
@@ -46,8 +46,8 @@ void	ft_putnbr(int nb)
 	}
 	else
 	{
-		anb = -nb;
+		absol = -nb;
 		print_char('-');
-		print_number(anb);
+		print_number(absol);
 	}
 }
