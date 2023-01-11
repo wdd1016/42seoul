@@ -81,4 +81,4 @@
     
 # 자료
 
-[get_next_line.ko](https://www.notion.so/get_next_line-ko-f99a0da42ca24ff2b272ffdc90f0b7b2)
+[get_next_line.ko](https://brassy-plate-60f.notion.site/get_next_line-ko-f99a0da42ca24ff2b272ffdc90f0b7b2)
