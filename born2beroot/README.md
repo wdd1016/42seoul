@@ -162,7 +162,7 @@
         
         [https://ko.wikipedia.org/wiki/Kdump](https://ko.wikipedia.org/wiki/Kdump)
         
-        ![Kdump.svg](Born2beroot%20Rocky%20Linux%204b0aef6d787e4310bd7a047fa5ce620e/Kdump.svg)
+        ![Kdump.svg](Born2beroot%20Rocky%20Linux%204b0aef6d787e4310bd7a047fa5ce620e/420px-Kdump.png)
         
 - SELinux (Security-Enhanced Linux)
     
