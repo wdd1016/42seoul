@@ -18,4 +18,4 @@
 
 # 번역본
 
-[libft.ko](https://www.notion.so/libft-ko-d9aa8e81887642408a1081c822eec304)
+[libft.ko](https://brassy-plate-60f.notion.site/libft-ko-d9aa8e81887642408a1081c822eec304)
