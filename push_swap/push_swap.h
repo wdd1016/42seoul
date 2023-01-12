@@ -10,3 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
+
+typedef int element;
+
+typedef struct s_deque
+{
+	element	*data;
+	int		front;
+	int		rear;
+}	t_deque;
+
+
+
+#endif
