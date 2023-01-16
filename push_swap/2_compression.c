@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 23:56:21 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/17 02:49:29 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/17 04:18:52 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ft_coor_compression(t_stacks *stk)
 	}
 	free(temparr);
 }
+// an array of n -> (1 ~ n value) coordination compression
 
 static t_elemt	ft_binsearch(t_elemt *arr, t_elemt key, int arrsize)
 {
@@ -51,7 +52,7 @@ static t_elemt	ft_binsearch(t_elemt *arr, t_elemt key, int arrsize)
 	{
 		mid = (low + high) / 2;
 		if (arr[mid] == key)
-			return (mid);
+			return (mid + 1);
 		else if (arr[mid] > key)
 			high = mid - 1;
 		else
@@ -59,3 +60,4 @@ static t_elemt	ft_binsearch(t_elemt *arr, t_elemt key, int arrsize)
 	}
 	return (-1);
 }
+// mid = index (0 ... n-1), min+1 = index+1 (1 ... n)

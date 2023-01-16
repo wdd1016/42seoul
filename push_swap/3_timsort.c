@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 01:44:28 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/17 03:35:16 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/17 03:38:19 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,21 +138,4 @@ static void	ft_insertsort(t_elemt *arr, int left, int right)
 		arr[j + 1] = key;
 		i++;
 	}
-}
-
-#include <stdio.h>
-
-int main()
-{
-	t_elemt arr[100];
-
-	for (int i = 0; i < 100; i++)
-		arr[i] = rand()%99999;
-	for (int i = 0; i < 100; i++)
-		printf("%d ", arr[i]);
-	ft_timsort(arr, 100);
-	printf("\n");
-	for (int i = 0; i < 100; i++)
-		printf("%d ", arr[i]);
-	return 0;
 }
