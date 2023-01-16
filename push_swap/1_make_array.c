@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   make_array.c                                       :+:      :+:    :+:   */
+/*   1_make_array.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 23:51:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/16 19:04:15 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/17 02:49:43 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	ft_check_array(t_stacks *stk, int argc, char **argv)
 		ft_isnumspace(stk, argv[i]);
 		i++;
 	}
-	stk->array = (element *)malloc(sizeof(element) * stk->size);
+	stk->array = (t_elemt *)malloc(sizeof(t_elemt) * stk->size);
 	if (!stk->array)
 		ft_error_ps(stk);
 }
