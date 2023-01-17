@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:05:24 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/17 04:18:47 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/18 04:32:19 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ int	main(int argc, char *argv[])
 	stk.array = NULL;
 	stk.a = NULL;
 	stk.b = NULL;
+	stk.stack = NULL;
 	ft_make_array(&stk, argc, argv);
 	ft_coor_compression(&stk);
 	ft_make_stacks(&stk);
-	ft_qdsort(&stk, 0, stk.size - 1);
+	ft_pushstack(&stk, A, stk.size - 1, 0);
+	ft_qdsort(&stk, -1);
 	return (0);
 }
 
@@ -41,6 +43,8 @@ void	ft_error_ps(t_stacks *stk)
 			free(stk->b->data);
 		free(stk->b);
 	}
+	if (stk->stack)
+		free(stk->stack);
 	exit(1);
 }
 
@@ -60,4 +64,23 @@ static void	ft_make_stacks(t_stacks *stk)
 		ft_error_ps(stk);
 	stk->b->front = 0;
 	stk->b->rear = 0;
+	stk->stack = (t_procstk *)malloc(sizeof(t_procstk) * stk->size);
+	stk->top = -1;
+}
+
+void	ft_pushstack(t_stacks *stk, int n_location, int n_max, int n_min)
+{
+	t_procstk	*topstack;
+
+	stk->top += 1;
+	topstack = &((stk->stack)[stk->top]);
+	topstack->location = n_location;
+	topstack->max = n_max;
+	topstack->min = n_min;
+}
+
+t_procstk	ft_popstack(t_stacks *stk)
+{
+	stk->top -= 1;
+	return ((stk->stack)[stk->top + 1]);
 }

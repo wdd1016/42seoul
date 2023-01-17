@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 23:56:21 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/17 04:18:52 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/18 03:41:05 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ void	ft_coor_compression(t_stacks *stk)
 		i++;
 	}
 	if (ft_timsort(temparr, stk->size) == 0)
-		ft_error_ps(stk);
-	i = 0;
-	while (i < stk->size)
 	{
-		(stk->array)[i] = ft_binsearch(temparr, (stk->array)[i], stk->size);
-		i++;
+		free(temparr);
+		ft_error_ps(stk);
 	}
+	i = -1;
+	while (++i < stk->size)
+		(stk->array)[i] = ft_binsearch(temparr, (stk->array)[i], stk->size);
 	free(temparr);
 }
-// an array of n -> (1 ~ n value) coordination compression
+// an array of n -> (0 ~ n-1 value) coordination compression
 
 static t_elemt	ft_binsearch(t_elemt *arr, t_elemt key, int arrsize)
 {
@@ -52,7 +52,7 @@ static t_elemt	ft_binsearch(t_elemt *arr, t_elemt key, int arrsize)
 	{
 		mid = (low + high) / 2;
 		if (arr[mid] == key)
-			return (mid + 1);
+			return (mid);
 		else if (arr[mid] > key)
 			high = mid - 1;
 		else
@@ -60,4 +60,4 @@ static t_elemt	ft_binsearch(t_elemt *arr, t_elemt key, int arrsize)
 	}
 	return (-1);
 }
-// mid = index (0 ... n-1), min+1 = index+1 (1 ... n)
+// mid = index (0 ... n-1)

@@ -1,37 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_collection.c                                    :+:      :+:    :+:   */
+/*   ft_valid_atoi.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 19:04:12 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/17 20:39:09 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/18 04:35:01 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	size_t	i;
-	size_t	arr_size;
-	char	*temp;
-	void	*ptr;
-
-	arr_size = size * count;
-	ptr = malloc(arr_size);
-	if (!ptr)
-		return (0);
-	i = 0;
-	temp = (char *)ptr;
-	while (i < arr_size)
-	{
-		temp[i] = 0;
-		i++;
-	}
-	return (ptr);
-}
+#include "push_swap.h"
 
 int	ft_valid_atoi(t_stacks *stk, const char *str)
 {

@@ -6,94 +6,79 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:05:31 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/17 22:27:42 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/18 01:44:30 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	swaporder(t_stacks *stk, int order)
+void	swaporder(t_stacks *stk, int order, t_deque *target)
 {
 	t_elemt	temp;
-	t_deque	*a;
-	t_deque	*b;
 
-	a = stk->a;
-	b = stk->b;
+	(target->data)[target->front] = temp;
+	(target->data)[target->front] = (target->data)[target->front + 1];
+	(target->data)[target->front + 1] = temp;
 	if (order == SA)
 	{
-		(a->data)[a->front] = temp;
-		(a->data)[a->front] = (a->data)[a->front + 1];
-		(a->data)[a->front + 1] = temp;
+		if (write(1, "sa\n", 3) < 3)
+			ft_error_ps(stk);
 	}
 	else if (order == SB)
 	{
-		(b->data)[b->front] = temp;
-		(b->data)[b->front] = (b->data)[b->front + 1];
-		(b->data)[b->front + 1] = temp;	
+		if (write(1, "sb\n", 3) < 3)
+			ft_error_ps(stk);
 	}
 }
 
-void	pushorder(t_stacks *stk, int order)
+void	pushorder(t_stacks *stk, int order, t_deque *from, t_deque *to)
 {
-	t_deque	*a;
-	t_deque	*b;
-
-	a = stk->a;
-	b = stk->b;
+	to->front = (to->front - 1 + stk->size) % stk->size;
+	(to->data)[to->front] = (from->data)[from->front];
+	from->front = (from->front + 1) % stk->size;
 	if (order == PA)
 	{
-		a->front = (a->front - 1 + stk->size) % stk->size;
-		(a->data)[a->front] = (b->data)[b->front];
-		b->front = (b->front + 1) % stk->size;
+		if (write(1, "pa\n", 3) < 3)
+			ft_error_ps(stk);		
 	}
 	else if (order == PB)
 	{
-		b->front = (b->front - 1 + stk->size) % stk->size;
-		(b->data)[b->front] = (a->data)[a->front];
-		a->front = (a->front + 1) % stk->size;
+		if (write(1, "pb\n", 3) < 3)
+			ft_error_ps(stk);		
 	}
 }
 
-void	rotateorder(t_stacks *stk, int order)
+void	rotateorder(t_stacks *stk, int order, t_deque *target)
 {
-	t_deque	*a;
-	t_deque	*b;
-
-	a = stk->a;
-	b = stk->b;
-	if (order == RA || order == RAA)
+	target->rear = (target->rear + 1) % stk->size;
+	(target->data)[target->rear] = (target->data)[target->front];
+	target->front = (target->front + 1) % stk->size;
+	if (order == RA)
 	{
-		a->rear = (a->rear + 1) % stk->size;
-		(a->data)[a->rear] = (a->data)[a->front];
-		a->front = (a->front + 1) % stk->size;
+		if (write(1, "ra\n", 3) < 3)
+			ft_error_ps(stk);
 	}
-	else if (order == RB || order == RBB)
+	else if (order == RB)
 	{
-		b->rear = (b->rear + 1) % stk->size;
-		(b->data)[b->rear] = (b->data)[b->front];
-		b->front = (b->front + 1) % stk->size;
+		if (write(1, "rb\n", 3) < 3)
+			ft_error_ps(stk);		
 	}
 }
 
-void	reverseorder(t_stacks *stk, int order)
+void	reverseorder(t_stacks *stk, int order, t_deque *target)
 {
-	t_deque	*a;
-	t_deque	*b;
-
-	a = stk->a;
-	b = stk->b;
+	target->front = (target->front - 1 + stk->size) % stk->size;
+	(target->data)[target->front] = (target->data)[target->rear];
+	target->rear = (target->rear - 1 + stk->size) % stk->size;
 	if (order == RRA)
 	{
-		a->front = (a->front - 1 + stk->size) % stk->size;
-		(a->data)[a->front] = (a->data)[a->rear];
-		a->rear = (a->rear - 1 + stk->size) % stk->size;
+		if (write(1, "rra\n", 4) < 4)
+			ft_error_ps(stk);
 	}
 	else if (order == RRB)
 	{
-		b->front = (b->front - 1 + stk->size) % stk->size;
-		(b->data)[b->front] = (b->data)[b->rear];
-		b->rear = (b->rear - 1 + stk->size) % stk->size;
+		if (write(1, "rrb\n", 4) < 4)
+			ft_error_ps(stk);
 	}
 }
 
@@ -101,12 +86,16 @@ void	doubleorder(t_stacks *stk, int order)
 {
 	if (order == RR)
 	{
-		rotateorder(stk, RAA);
-		rotateorder(stk, RBB);
+		rotateorder(stk, DOUB, stk->a);
+		rotateorder(stk, DOUB, stk->b);
+		if (write(1, "rr\n", 3) < 3)
+			ft_error_ps(stk);
 	}
 	else if (order == RRR)
 	{
-		reverseorder(stk, RRAA);
-		reverseorder(stk, RRBB);
+		reverseorder(stk, DOUB, stk->a);
+		reverseorder(stk, DOUB, stk->b);
+		if (write(1, "rrr\n", 4) < 4)
+			ft_error_ps(stk);
 	}
 }

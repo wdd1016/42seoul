@@ -6,11 +6,11 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 01:11:20 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/14 23:52:16 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/18 04:34:57 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "push_swap.h"
 
 static void	ft_insert_words(const char *str, char **s_spt, char set, \
 size_t w_count)

@@ -6,14 +6,12 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 01:44:28 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/17 03:38:19 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/18 04:34:14 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-#define MIN(a, b) (((a) < (b)) ? (a) : (b))
-#define MAX(a, b) (((a) > (b)) ? (a) : (b))
 const int	RUN = 32;
 
 typedef struct s_index
