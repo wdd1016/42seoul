@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 17:53:15 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/18 18:49:25 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/18 21:05:31 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,6 @@ void	ft_hardsorting(t_stacks *stk, int info, int count)
 		pushorder(stk, PA, stk->b, stk->a);
 		pushorder(stk, PA, stk->b, stk->a);
 	}
+	else if (count >= 3)
+		ft_hardsorting()
 }
