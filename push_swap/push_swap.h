@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:05:26 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/18 22:38:14 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/19 02:29:38 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,6 @@ void		rotateorder(t_stacks *stk, int order, t_deque *target);
 void		reverseorder(t_stacks *stk, int order, t_deque *target);
 void		doubleorder(t_stacks *stk, int order);
 void		ft_qdsort(t_stacks *stk, int aim);
-void		ft_hardsorting(t_stacks *stk, int count, t_procstk *now);
+void		ft_hardsorting(t_stacks *stk, int info, int count, t_procstk now);
 
 #endif

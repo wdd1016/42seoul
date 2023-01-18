@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:05:24 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/18 20:32:31 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/19 02:41:51 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	main(int argc, char *argv[])
 {
 	t_stacks	stk;
 
-	// argc = 5;
-	// char *test[5] = {"./asf", "142", "245", "7", "12"};
 	stk.array = NULL;
 	stk.a = NULL;
 	stk.b = NULL;
