@@ -6,14 +6,13 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 23:51:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/18 01:44:58 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/18 20:08:13 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 static void	ft_fill_arrays(t_stacks *stk, char **strarr, int *idx);
-static void	ft_isnumspace(t_stacks *stk, char *str);
 
 static void	ft_count_array(t_stacks *stk, int argc, char **argv)
 {
@@ -36,23 +35,26 @@ void	ft_make_array(t_stacks *stk, int argc, char **argv)
 {
 	char	**temp;
 	int		idx;
+	int		i;
 
 	ft_count_array(stk, argc, argv);
-	idx = 1;
-	while (idx < stk->size)
+	idx = 0;
+	i = 1;
+	while (i < argc)
 	{
-		if (ft_count_words(argv[argc], ' ') > 1)
+		if (ft_count_words(argv[i], ' ') > 1)
 		{
-			temp = ft_split(argv[argc], ' ');
+			temp = ft_split(argv[i], ' ');
 			if (!temp)
 				ft_error_ps(stk);
 			ft_fill_arrays(stk, temp, &idx);
 		}
-		else if (ft_count_words(argv[argc], ' ') == 1)
+		else if (ft_count_words(argv[i], ' ') == 1)
 		{
-			(stk->array)[idx] = ft_valid_atoi(stk, argv[argc]);
+			(stk->array)[idx] = ft_valid_atoi(stk, argv[i]);
 			idx++;
 		}
+		i++;
 	}
 }
 
@@ -69,14 +71,4 @@ static void	ft_fill_arrays(t_stacks *stk, char **strarr, int *idx)
 		(*idx)++;
 	}
 	free(strarr);
-}
-
-static void	ft_isnumspace(t_stacks *stk, char *str)
-{
-	while (*str)
-	{
-		if ((*str < '0' || *str > '9') && *str != ' ')
-			ft_error_ps(stk);
-		str++;
-	}
 }

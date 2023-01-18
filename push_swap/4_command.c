@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:05:31 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/18 01:44:30 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/18 19:35:05 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 void	swaporder(t_stacks *stk, int order, t_deque *target)
 {
+	int		next;
 	t_elemt	temp;
 
-	(target->data)[target->front] = temp;
-	(target->data)[target->front] = (target->data)[target->front + 1];
-	(target->data)[target->front + 1] = temp;
+	next = (target->front + 1) % stk->size;
+	temp = (target->data)[target->front];
+	(target->data)[target->front] = (target->data)[next];
+	(target->data)[next] = temp;
 	if (order == SA)
 	{
 		if (write(1, "sa\n", 3) < 3)

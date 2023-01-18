@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:05:26 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/18 18:49:04 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/18 22:38:14 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ typedef struct s_deque
 
 typedef struct s_procstk
 {
-	int	min;
-	int max;
-	int location;
+	t_elemt	min;
+	t_elemt max;
+	int 	location;
 }	t_procstk;
 
 typedef struct s_stacks
@@ -61,10 +61,10 @@ typedef struct s_stacks
 
 typedef struct	s_info
 {
-	int	pivot1;
-	int	pivot2;
-	int	rra;
-	int	rrb;
+	t_elemt	pivot1;
+	t_elemt	pivot2;
+	int		rra;
+	int		rrb;
 }	t_info;
 
 int			ft_valid_atoi(t_stacks *stk, const char *str);
@@ -82,6 +82,6 @@ void		rotateorder(t_stacks *stk, int order, t_deque *target);
 void		reverseorder(t_stacks *stk, int order, t_deque *target);
 void		doubleorder(t_stacks *stk, int order);
 void		ft_qdsort(t_stacks *stk, int aim);
-void		ft_hardsorting(t_stacks *stk, int info, int count);
+void		ft_hardsorting(t_stacks *stk, int count, t_procstk *now);
 
 #endif
