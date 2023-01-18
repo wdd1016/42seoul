@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(push_swap VERSION 0.1.0)
+project(
+	push_swap
+	VERSION 0.1
+	DESCRIPTION "push_swap"
+	LANGUAGES C)
 
 include(CTest)
 enable_testing()

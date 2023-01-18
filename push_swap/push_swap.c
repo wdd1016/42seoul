@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:05:24 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/18 04:32:19 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/18 19:09:23 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char *argv[])
 	ft_make_array(&stk, argc, argv);
 	ft_coor_compression(&stk);
 	ft_make_stacks(&stk);
-	ft_pushstack(&stk, A, stk.size - 1, 0);
+	ft_pushstack(&stk, A, 0, stk.size - 1);
 	ft_qdsort(&stk, -1);
 	return (0);
 }
@@ -68,7 +68,7 @@ static void	ft_make_stacks(t_stacks *stk)
 	stk->top = -1;
 }
 
-void	ft_pushstack(t_stacks *stk, int n_location, int n_max, int n_min)
+void	ft_pushstack(t_stacks *stk, int n_location, int n_min, int n_max)
 {
 	t_procstk	*topstack;
 
