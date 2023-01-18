@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 23:56:21 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/19 00:19:00 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/19 03:27:58 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,16 @@ void	ft_coor_compression(t_stacks *stk)
 	{
 		temparr[i] = (stk->array)[i];
 		i++;
+	}
+	i = 0;
+	while (++i < stk->size)
+		if (temparr[i] < temparr[i - 1])
+			break;
+	if (i == stk->size)
+	{
+		free(temparr);
+		free(stk->array);
+		exit(0);
 	}
 	if (ft_timsort(temparr, stk->size) == 0)
 	{

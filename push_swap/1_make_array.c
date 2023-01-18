@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 23:51:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/18 20:08:13 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/19 03:14:31 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	ft_count_array(t_stacks *stk, int argc, char **argv)
 	int	i;
 
 	if (argc == 1)
-		ft_error_ps(stk);
+		exit(0);
 	i = 1;
 	while (i < argc)
 	{
@@ -39,8 +39,8 @@ void	ft_make_array(t_stacks *stk, int argc, char **argv)
 
 	ft_count_array(stk, argc, argv);
 	idx = 0;
-	i = 1;
-	while (i < argc)
+	i = 0;
+	while (++i < argc)
 	{
 		if (ft_count_words(argv[i], ' ') > 1)
 		{
@@ -54,7 +54,6 @@ void	ft_make_array(t_stacks *stk, int argc, char **argv)
 			(stk->array)[idx] = ft_valid_atoi(stk, argv[i]);
 			idx++;
 		}
-		i++;
 	}
 }
 

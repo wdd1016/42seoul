@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:05:24 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/19 02:41:51 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/19 03:13:19 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,31 @@ int	main(int argc, char *argv[])
 {
 	t_stacks	stk;
 
+	// argc = 2;
+	// char *test[] = {"./sdf", "524"};
 	stk.array = NULL;
 	stk.a = NULL;
 	stk.b = NULL;
 	stk.stack = NULL;
+	stk.size = 0;
 	ft_make_array(&stk, argc, argv);
+	// ft_make_array(&stk, argc, test);
 	ft_coor_compression(&stk);
 	ft_make_stacks(&stk);
 	ft_pushstack(&stk, A, 0, stk.size - 1);
 	ft_qdsort(&stk, -1);
+	if (stk.array)
+		free(stk.array);
+	if (stk.a)
+		free(stk.a);
+	if (stk.b)
+	{
+		if (stk.b->data)
+			free(stk.b->data);
+		free(stk.b);
+	}
+	if (stk.stack)
+		free(stk.stack);
 	return (0);
 }
 
