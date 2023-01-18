@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 04:20:13 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/19 02:30:21 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/19 04:04:55 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	ft_asorting(t_stacks *stk, t_procstk now)
 	int		count;
 
 	count = now.max - now.min + 1;
-	if (count <= 5)
+	if (count <= 3)
 		ft_hardsorting(stk, A, count, now);
 	else
 	{
@@ -88,7 +88,7 @@ static void	ft_bsorting(t_stacks *stk, t_procstk now)
 	int		count;
 
 	count = now.max - now.min + 1;
-	if (count <= 5)
+	if (count <= 3)
 		ft_hardsorting(stk, B, count, now);
 	else
 	{
@@ -124,7 +124,7 @@ static void	ft_bordering(t_stacks *stk, t_info *info, int count)
 			rotateorder(stk, RB, stk->b);
 			(info->rra)++;
 		}
-		else if ((stk->b->data)[stk->b->front] >= info->pivot1)
+		else if ((stk->b->data)[stk->b->front] < info->pivot2)
 		{
 			pushorder(stk, PA, stk->b, stk->a);
 			rotateorder(stk, RA, stk->a);

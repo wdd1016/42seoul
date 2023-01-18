@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 17:53:15 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/19 03:39:32 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/19 04:08:06 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ void	ft_hardsorting(t_stacks *stk, int name, int count, t_procstk now)
 		ft_hardsorting3a(stk, stk->a->data, stk->a->front);
 	else if (count == 3 && name == B)
 		ft_hardsorting3b(stk, stk->b->data, stk->b->front);
-	else if (count == 4 && name == A)
-		ft_hardsorting4a(stk, now, count);
-	else if (count == 4 && name == B)
-		ft_hardsorting4b(stk, now, count);
+	else if (count >= 4 && name == A)
+		ft_hardsorting45a(stk, now, count);
+	else if (count >= 4 && name== B)
+		ft_hardsorting45b(stk, now, count);
 }
 
 static void	ft_hardsorting3a(t_stacks *stk, t_elemt *data, int first)
@@ -107,6 +107,18 @@ static void	ft_hardsorting3b(t_stacks *stk, t_elemt *data, int first)
 		}
 	}
 }
+
+// static void	ft_hardsorting4a(t_stacks *stk, t_elemt *data, int fir)
+// {
+// 	int	sec;
+// 	int	thr;
+// 	int	four;
+
+// 	sec = (fir + 1) % stk->size;
+// 	thr = (fir + 2) % stk->size;
+// 	four = (fir + 3) % stk->size;
+// 	if ()
+// }
 
 static void	ft_hardsorting45a(t_stacks *stk, t_procstk now, int count)
 {
