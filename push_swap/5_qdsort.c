@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 04:20:13 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/19 04:04:55 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 04:07:41 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	ft_aordering(t_stacks *stk, t_info *info, int count)
 			(info->rra)++;
 		}
 	}
-	while (count++ < MIN(info->rra, info->rrb))
+	while (++count < MIN(info->rra, info->rrb))
 		doubleorder(stk, RRR);
 	if (info->rra > info->rrb)
 		while (count++ < info->rra)
@@ -99,8 +99,8 @@ static void	ft_bsorting(t_stacks *stk, t_procstk now)
 		ft_bordering(stk, &info, count);
 		ft_pushstack(stk, A, info.pivot2, now.max);
 		ft_qdsort(stk, stk->top - 1);
-		count = 0;
-		while (count++ < MIN(info.rra, info.rrb))
+		count = -1;
+		while (++count < MIN(info.rra, info.rrb))
 			doubleorder(stk, RRR);
 		if (info.rra > info.rrb)
 			while (count++ < info.rra)
@@ -122,7 +122,7 @@ static void	ft_bordering(t_stacks *stk, t_info *info, int count)
 		if ((stk->b->data)[stk->b->front] < info->pivot1)
 		{
 			rotateorder(stk, RB, stk->b);
-			(info->rra)++;
+			(info->rrb)++;
 		}
 		else if ((stk->b->data)[stk->b->front] < info->pivot2)
 		{
