@@ -1,53 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   6_hardsort.c                                       :+:      :+:    :+:   */
+/*   7_hardsort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 17:53:15 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 05:18:28 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 05:31:35 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	ft_hardsorting2(t_stacks *stk, int name);
 static void	ft_hardsorting3a(t_stacks *stk, t_elemt *data, int first);
 static void	ft_hardsorting3b(t_stacks *stk, t_elemt *data, int first);
 
-void	ft_hardsorting(t_stacks *stk, int name, int count, t_procstk now)
-{
-	int	sec_a;
-	int	sec_b;
-
-	sec_a = (stk->a->front + 1) % stk->size;
-	sec_b = (stk->b->front + 1) % stk->size;
-	if (count == 1 && name == B)
-		pushorder(stk, PA, stk->b, stk->a);
-	else if (count == 2)
-		ft_hardsorting2(stk, name);
-	else if (count == 3 && name == A)
-		ft_hardsorting3a(stk, stk->a->data, stk->a->front);
-	else if (count == 3 && name == B)
-		ft_hardsorting3b(stk, stk->b->data, stk->b->front);
-	else if (count == 4 && name == A)
-		ft_hardsorting4a(stk, stk->a->data, stk->a->front, sec_a);
-	else if (count == 4 && name == B)
-		ft_hardsorting4b(stk, stk->b->data, stk->b->front, sec_b);
-}
-
-static void	ft_hardsorting2(t_stacks *stk, int name)
+void	ft_hardsorting(t_stacks *stk, int name, int count)
 {
 	int	temp;
 
-	if (name == A)
+	if (count == 1 && name == B)
+		pushorder(stk, PA, stk->b, stk->a);
+	else if (count == 2 && name == A)
 	{
 		temp = (stk->a->front + 1) % stk->size;
 		if ((stk->a->data)[stk->a->front] > (stk->a->data)[temp])
 			swaporder(stk, SA, stk->a);
 	}
-	else
+	else if (count == 2 && name == B)
 	{
 		temp = (stk->b->front + 1) % stk->size;
 		if ((stk->b->data)[stk->b->front] < (stk->b->data)[temp])
@@ -55,6 +35,10 @@ static void	ft_hardsorting2(t_stacks *stk, int name)
 		pushorder(stk, PA, stk->b, stk->a);
 		pushorder(stk, PA, stk->b, stk->a);
 	}
+	else if (count == 3 && name == A)
+		ft_hardsorting3a(stk, stk->a->data, stk->a->front);
+	else if (count == 3 && name == B)
+		ft_hardsorting3b(stk, stk->b->data, stk->b->front);
 }
 
 static void	ft_hardsorting3a(t_stacks *stk, t_elemt *data, int first)
