@@ -6,12 +6,14 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 23:56:21 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 12:59:17 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 13:48:00 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+static void ft_is_alreadysort(t_stacks *stk, int *temparr);
+static void ft_is_duplicate(t_stacks *stk, int *temparr);
 static int	ft_binarysearch(int *arr, int key, int arrsize);
 
 void	ft_coor_compression(t_stacks *stk)
@@ -22,12 +24,30 @@ void	ft_coor_compression(t_stacks *stk)
 	temparr = (int *)malloc(sizeof(int) * stk->size);
 	if (!temparr)
 		ft_error_ps(stk);
+	i = -1;
+	while (++i < stk->size)
+		temparr[i] = (stk->array)[i];
+	ft_is_alreadysort(stk, temparr);
+	if (ft_timsort(temparr, stk->size) == 0)
+	{
+		free(temparr);
+		ft_error_ps(stk);
+	}
+	ft_is_duplicate(stk, temparr);
 	i = 0;
 	while (i < stk->size)
 	{
-		temparr[i] = (stk->array)[i];
+		(stk->array)[i] = ft_binarysearch(temparr, (stk->array)[i], stk->size);
 		i++;
 	}
+	free(temparr);
+}
+// an array of n -> (0 ~ n-1 value) coordination compression
+
+static void ft_is_alreadysort(t_stacks *stk, int *temparr)
+{
+	int	i;
+
 	i = 0;
 	while (++i < stk->size)
 		if (temparr[i] < temparr[i - 1])
@@ -38,24 +58,23 @@ void	ft_coor_compression(t_stacks *stk)
 		free(stk->array);
 		exit(0);
 	}
-	if (ft_timsort(temparr, stk->size) == 0)
+}
+
+static void ft_is_duplicate(t_stacks *stk, int *temparr)
+{
+	int	i;
+
+	i = 1;
+	while (i < stk->size)
 	{
-		free(temparr);
-		ft_error_ps(stk);
-	}
-	i = 0;
-	while (++i < stk->size)
 		if (temparr[i] == temparr[i-1])
 		{
 			free(temparr);
 			ft_error_ps(stk);
 		}
-	i = -1;
-	while (++i < stk->size)
-		(stk->array)[i] = ft_binarysearch(temparr, (stk->array)[i], stk->size);
-	free(temparr);
+		i++;
+	}
 }
-// an array of n -> (0 ~ n-1 value) coordination compression
 
 static int	ft_binarysearch(int *arr, int key, int arrsize)
 {

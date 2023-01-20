@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 17:53:15 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 12:58:05 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 13:09:57 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	ft_hardsorting3a(t_stacks *stk, int *data, int first);
 static void	ft_hardsorting3b(t_stacks *stk, int *data);
+static void	ft_hardsorting3b_in_third_max(t_stacks *stk, int *data);
 
 void	ft_hardsorting(t_stacks *stk, int name, int count)
 {
@@ -85,20 +86,26 @@ static void	ft_hardsorting3b(t_stacks *stk, int *data)
 		pushorder(stk, PA, stk->b, stk->a);
 	}
 	else
+		ft_hardsorting3b_in_third_max(stk, data);
+}
+
+static void	ft_hardsorting3b_in_third_max(t_stacks *stk, int *data)
+{
+	t_deque	*b;
+
+	b = stk->b;
+	rotateorder(stk, RB, stk->b);
+	swaporder(stk, SB, stk->b);
+	pushorder(stk, PA, stk->b, stk->a);
+	if (data[b->front] > data[b->rear])
 	{
-		rotateorder(stk, RB, stk->b);
-		swaporder(stk, SB, stk->b);
 		pushorder(stk, PA, stk->b, stk->a);
-		if (data[b->front] > data[b->rear])
-		{
-			pushorder(stk, PA, stk->b, stk->a);
-			reverseorder(stk, RRB, stk->b);
-		}
-		else
-		{
-			reverseorder(stk, RRB, stk->b);
-			pushorder(stk, PA, stk->b, stk->a);
-		}
+		reverseorder(stk, RRB, stk->b);
+	}
+	else
+	{
+		reverseorder(stk, RRB, stk->b);
 		pushorder(stk, PA, stk->b, stk->a);
 	}
+	pushorder(stk, PA, stk->b, stk->a);
 }

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 04:20:13 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 05:41:11 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 13:09:56 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,4 +136,3 @@ static void	ft_bordering(t_stacks *stk, t_info *info, int count)
 			pushorder(stk, PA, stk->b, stk->a);
 	}
 }
-
