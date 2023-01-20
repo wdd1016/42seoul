@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 23:51:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 12:58:01 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 12:58:46 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	ft_fill_arrays(t_stacks *stk, char **argv, int current, int *idx);
 
 void	ft_make_array(t_stacks *stk, int argc, char **argv)
 {
-	char	**temp;
 	int		idx_stack;
 	int		idx_argc;
 

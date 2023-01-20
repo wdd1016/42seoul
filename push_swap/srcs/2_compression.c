@@ -6,13 +6,13 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 23:56:21 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 12:58:01 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 12:59:17 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	ft_binsearch(int *arr, int key, int arrsize);
+static int	ft_binarysearch(int *arr, int key, int arrsize);
 
 void	ft_coor_compression(t_stacks *stk)
 {
@@ -52,7 +52,7 @@ void	ft_coor_compression(t_stacks *stk)
 		}
 	i = -1;
 	while (++i < stk->size)
-		(stk->array)[i] = ft_binsearch(temparr, (stk->array)[i], stk->size);
+		(stk->array)[i] = ft_binarysearch(temparr, (stk->array)[i], stk->size);
 	free(temparr);
 }
 // an array of n -> (0 ~ n-1 value) coordination compression
