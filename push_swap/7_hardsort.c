@@ -6,14 +6,14 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 17:53:15 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 05:31:35 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 11:00:14 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 static void	ft_hardsorting3a(t_stacks *stk, t_elemt *data, int first);
-static void	ft_hardsorting3b(t_stacks *stk, t_elemt *data, int first);
+static void	ft_hardsorting3b(t_stacks *stk, t_elemt *data);
 
 void	ft_hardsorting(t_stacks *stk, int name, int count)
 {
@@ -38,7 +38,7 @@ void	ft_hardsorting(t_stacks *stk, int name, int count)
 	else if (count == 3 && name == A)
 		ft_hardsorting3a(stk, stk->a->data, stk->a->front);
 	else if (count == 3 && name == B)
-		ft_hardsorting3b(stk, stk->b->data, stk->b->front);
+		ft_hardsorting3b(stk, stk->b->data);
 }
 
 static void	ft_hardsorting3a(t_stacks *stk, t_elemt *data, int first)
@@ -55,40 +55,50 @@ static void	ft_hardsorting3a(t_stacks *stk, t_elemt *data, int first)
 		swaporder(stk, SA, stk->a);
 		reverseorder(stk, RRA, stk->a);
 	}
-	if (data[sec] > data[first] && data[sec] > data[third])
+	else if (data[sec] > data[first] && data[sec] > data[third])
 	{
 		rotateorder(stk, RA, stk->a);
 		swaporder(stk, SA, stk->a);
 		reverseorder(stk, RRA, stk->a);
 	}
-	if (data[first] > data[sec])
+	if (data[stk->a->front] > data[(stk->a->front + 1) % stk->size])
 		swaporder(stk, SA, stk->a);
 }
 
-static void	ft_hardsorting3b(t_stacks *stk, t_elemt *data, int first)
+static void	ft_hardsorting3b(t_stacks *stk, t_elemt *data)
 {
-	int	sec;
-	int	third;
+	t_deque	*b;
+	int		second;
 
-	sec = (first + 1) % stk->size;
-	third = (first + 2) % stk->size;
-	if (data[sec] > data[first] && data[sec] > data[third])
+	b = stk->b;
+	second = (b->front + 1) % stk->size;
+	if (data[second] > data[b->front] && \
+	data[second] > data[(b->front + 2) % stk->size])
 		swaporder(stk, SB, stk->b);
-	if (data[first] > data[sec] && data[first] > data[third])
+	if (data[b->front] > data[(b->front + 1) % stk->size] && \
+	data[b->front] > data[(b->front + 2) % stk->size])
 	{
 		pushorder(stk, PA, stk->b, stk->a);
-		if (data[sec] < data[third])
+		if (data[b->front] < data[(b->front + 1) % stk->size])
 			swaporder(stk, SB, stk->b);
 		pushorder(stk, PA, stk->b, stk->a);
 		pushorder(stk, PA, stk->b, stk->a);
 	}
 	else
 	{
-		if (data[first] > data[sec])
-			swaporder(stk, SB, stk->b);
-		reverseorder(stk, RRB, stk->b);
+		rotateorder(stk, RB, stk->b);
+		swaporder(stk, SB, stk->b);
 		pushorder(stk, PA, stk->b, stk->a);
-		pushorder(stk, PA, stk->b, stk->a);
+		if (data[b->front] > data[b->rear])
+		{
+			pushorder(stk, PA, stk->b, stk->a);
+			reverseorder(stk, RRB, stk->b);
+		}
+		else
+		{
+			reverseorder(stk, RRB, stk->b);
+			pushorder(stk, PA, stk->b, stk->a);
+		}
 		pushorder(stk, PA, stk->b, stk->a);
 	}
 }
