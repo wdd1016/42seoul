@@ -6,14 +6,14 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 17:53:15 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 11:00:14 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 12:58:05 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	ft_hardsorting3a(t_stacks *stk, t_elemt *data, int first);
-static void	ft_hardsorting3b(t_stacks *stk, t_elemt *data);
+static void	ft_hardsorting3a(t_stacks *stk, int *data, int first);
+static void	ft_hardsorting3b(t_stacks *stk, int *data);
 
 void	ft_hardsorting(t_stacks *stk, int name, int count)
 {
@@ -41,7 +41,7 @@ void	ft_hardsorting(t_stacks *stk, int name, int count)
 		ft_hardsorting3b(stk, stk->b->data);
 }
 
-static void	ft_hardsorting3a(t_stacks *stk, t_elemt *data, int first)
+static void	ft_hardsorting3a(t_stacks *stk, int *data, int first)
 {
 	int	sec;
 	int	third;
@@ -65,7 +65,7 @@ static void	ft_hardsorting3a(t_stacks *stk, t_elemt *data, int first)
 		swaporder(stk, SA, stk->a);
 }
 
-static void	ft_hardsorting3b(t_stacks *stk, t_elemt *data)
+static void	ft_hardsorting3b(t_stacks *stk, int *data)
 {
 	t_deque	*b;
 	int		second;

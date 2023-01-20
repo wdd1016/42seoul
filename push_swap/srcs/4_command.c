@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:05:31 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 12:18:52 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 12:58:02 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	swaporder(t_stacks *stk, int order, t_deque *target)
 {
-	int		next;
-	t_elemt	temp;
+	int	next;
+	int	temp;
 
 	next = (target->front + 1) % stk->size;
 	temp = (target->data)[target->front];
@@ -46,7 +46,7 @@ void	pushorder(t_stacks *stk, int order, t_deque *from, t_deque *to)
 	else if (order == PB)
 	{
 		if (write(1, "pb\n", 3) < 3)
-			ft_error_ps(stk);		
+			ft_error_ps(stk);
 	}
 }
 

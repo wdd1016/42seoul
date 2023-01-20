@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:05:26 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 09:41:12 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 12:53:45 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,23 @@
 # define MIN(a, b) (((a) < (b)) ? (a) : (b))
 # define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
-typedef int t_elemt;
-
 typedef struct s_deque
 {
-	t_elemt	*data;
-	int		front;
-	int		rear;
+	int	*data;
+	int	front;
+	int	rear;
 }	t_deque;
 
 typedef struct s_procstk
 {
-	t_elemt	min;
-	t_elemt max;
-	int 	location;
+	int	min;
+	int max;
+	int location;
 }	t_procstk;
 
 typedef struct s_stacks
 {
-	t_elemt		*array;
+	int			*array;
 	t_deque		*a;
 	t_deque		*b;
 	int			size;
@@ -61,8 +59,8 @@ typedef struct s_stacks
 
 typedef struct	s_info
 {
-	t_elemt	pivot1;
-	t_elemt	pivot2;
+	int	pivot1;
+	int	pivot2;
 	int		rra;
 	int		rrb;
 }	t_info;
@@ -73,7 +71,7 @@ int		ft_valid_atoi(t_stacks *stk, const char *str);
 void	ft_error_ps(t_stacks *stk);
 void	ft_make_array(t_stacks *stk, int argc, char **argv);
 void	ft_coor_compression(t_stacks *stk);
-int		ft_timsort(t_elemt *arr, int n);
+int		ft_timsort(int *arr, int n);
 void	swaporder(t_stacks *stk, int order, t_deque *target);
 void	pushorder(t_stacks *stk, int order, t_deque *from, t_deque *to);
 void	rotateorder(t_stacks *stk, int order, t_deque *target);

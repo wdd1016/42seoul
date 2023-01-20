@@ -6,9 +6,21 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:26:40 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 12:29:44 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 12:58:06 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker_bonus.h"
 
+int main(int argc, char **argv)
+{
+	t_stacks	stk;
+
+	stk.array = NULL;
+	stk.a = NULL;
+	stk.b = NULL;
+	stk.size = 0;
+	ft_make_array(&stk, argc, argv);
+	ft_coor_compression(&stk);
+	ft_make_stacks(&stk);
+}

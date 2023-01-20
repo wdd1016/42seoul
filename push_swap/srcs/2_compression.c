@@ -6,20 +6,20 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 23:56:21 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 12:18:54 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 12:58:01 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static t_elemt	ft_binsearch(t_elemt *arr, t_elemt key, int arrsize);
+static int	ft_binsearch(int *arr, int key, int arrsize);
 
 void	ft_coor_compression(t_stacks *stk)
 {
-	t_elemt	*temparr;
-	int		i;
+	int	*temparr;
+	int	i;
 
-	temparr = (t_elemt *)malloc(sizeof(t_elemt) * stk->size);
+	temparr = (int *)malloc(sizeof(int) * stk->size);
 	if (!temparr)
 		ft_error_ps(stk);
 	i = 0;
@@ -57,7 +57,7 @@ void	ft_coor_compression(t_stacks *stk)
 }
 // an array of n -> (0 ~ n-1 value) coordination compression
 
-static t_elemt	ft_binsearch(t_elemt *arr, t_elemt key, int arrsize)
+static int	ft_binarysearch(int *arr, int key, int arrsize)
 {
 	int	low;
 	int	high;

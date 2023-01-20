@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:27:24 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 12:29:33 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 12:52:50 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,19 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef int t_elemt;
-
 typedef struct s_deque
 {
-	t_elemt	*data;
-	int		front;
-	int		rear;
+	int	*data;
+	int	front;
+	int	rear;
 }	t_deque;
 
 typedef struct s_stacks
 {
-	t_elemt		*array;
-	t_deque		*a;
-	t_deque		*b;
-	int			size;
+	int		*array;
+	t_deque	*a;
+	t_deque	*b;
+	int		size;
 }	t_stacks;
 
 #endif

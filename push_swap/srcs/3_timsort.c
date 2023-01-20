@@ -6,14 +6,14 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 01:44:28 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 12:18:53 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 12:57:23 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include RUN 32
 
-const int	RUN = 32;
-
+typedef int	t_elemt;
 typedef struct s_index
 {
 	int	left;

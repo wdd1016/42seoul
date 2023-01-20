@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 05:36:42 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 05:39:40 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 12:58:03 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_make_stacks(t_stacks *stk)
 	stk->b = (t_deque *)malloc(sizeof(t_deque));
 	if (stk->b == NULL)
 		ft_error_ps(stk);
-	stk->b->data = (t_elemt *)malloc(sizeof(t_elemt) * stk->size);
+	stk->b->data = (int *)malloc(sizeof(int) * stk->size);
 	if (stk->b->data == NULL)
 		ft_error_ps(stk);
 	stk->b->front = 1;

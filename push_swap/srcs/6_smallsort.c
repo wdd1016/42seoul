@@ -6,15 +6,15 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 04:24:14 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 09:39:37 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 12:58:04 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 static void	ft_sorting_three(t_stacks *stk);
-static void	ft_sorting_four(t_stacks *stk, int count, t_elemt pivot);
-static void	ft_sorting_five(t_stacks *stk, int count, t_elemt pivot);
+static void	ft_sorting_four(t_stacks *stk, int count, int pivot);
+static void	ft_sorting_five(t_stacks *stk, int count, int pivot);
 
 void	ft_smallsort(t_stacks *stk)
 {
@@ -32,7 +32,7 @@ static void	ft_sorting_three(t_stacks *stk)
 	int	first;
 	int	sec;
 	int	third;
-	t_elemt	*data;
+	int	*data;
 
 	first = stk->a->front;
 	sec = (first + 1) % stk->size;
@@ -47,9 +47,9 @@ static void	ft_sorting_three(t_stacks *stk)
 		swaporder(stk, SA, stk->a);
 }
 
-static void	ft_sorting_four(t_stacks *stk, int count, t_elemt pivot)
+static void	ft_sorting_four(t_stacks *stk, int count, int pivot)
 {
-	t_elemt	*data;
+	int	*data;
 
 	data = stk->a->data;
 	while (count-- > 0)
@@ -63,9 +63,9 @@ static void	ft_sorting_four(t_stacks *stk, int count, t_elemt pivot)
 	pushorder(stk, PA, stk->b, stk->a);
 }
 
-static void	ft_sorting_five(t_stacks *stk, int count, t_elemt pivot)
+static void	ft_sorting_five(t_stacks *stk, int count, int pivot)
 {
-	t_elemt	*data;
+	int	*data;
 
 	data = stk->a->data;
 	while (count-- > 0)
