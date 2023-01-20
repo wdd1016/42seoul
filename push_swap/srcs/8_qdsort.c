@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 04:20:13 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 13:53:29 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 14:47:35 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	ft_asorting(t_stacks *stk, t_procstk now)
 	int		count;
 
 	count = now.max - now.min + 1;
-	if (count <= 3)
+	if (count <= 4)
 		ft_hardsorting(stk, A, count, now);
 	else
 	{
@@ -48,6 +48,15 @@ static void	ft_asorting(t_stacks *stk, t_procstk now)
 		info.pivot1 = now.min + (now.max - now.min) / 3;
 		info.pivot2 = now.max - (now.max - now.min) / 3;
 		ft_aordering(stk, &info, count);
+		count = -1;
+		while (++count < MIN(info.rra, info.rrb))
+			doubleorder(stk, RRR);
+		if (info.rra > info.rrb)
+			while (count++ < info.rra)
+				reverseorder(stk, RRA, stk->a);
+		else if (info.rra < info.rrb)
+			while (count++ < info.rrb)
+				reverseorder(stk, RRB, stk->b);
 		ft_pushstack(stk, B, now.min, info.pivot1 - 1);
 		ft_pushstack(stk, B, info.pivot1, info.pivot2 - 1);
 		ft_pushstack(stk, A, info.pivot2, now.max);
@@ -65,6 +74,14 @@ static void	ft_aordering(t_stacks *stk, t_info *info, int count)
 		else if ((stk->a->data)[stk->a->front] < info->pivot2)
 		{
 			pushorder(stk, PB, stk->a, stk->b);
+			if (count > 0 && (stk->a->data)[stk->a->front] >= info->pivot2)
+			{
+				doubleorder(stk, RR);
+				count--;
+				(info->rra)++;
+				(info->rrb)++;
+				continue;
+			}
 			rotateorder(stk, RB, stk->b);
 			(info->rrb)++;
 		}
@@ -74,14 +91,6 @@ static void	ft_aordering(t_stacks *stk, t_info *info, int count)
 			(info->rra)++;
 		}
 	}
-	while (++count < MIN(info->rra, info->rrb))
-		doubleorder(stk, RRR);
-	if (info->rra > info->rrb)
-		while (count++ < info->rra)
-			reverseorder(stk, RRA, stk->a);
-	else if (info->rra < info->rrb)
-		while (count++ < info->rrb)
-			reverseorder(stk, RRB, stk->b);
 }
 
 static void	ft_bsorting(t_stacks *stk, t_procstk now)
@@ -90,7 +99,7 @@ static void	ft_bsorting(t_stacks *stk, t_procstk now)
 	int		count;
 
 	count = now.max - now.min + 1;
-	if (count <= 3)
+	if (count <= 4)
 		ft_hardsorting(stk, B, count, now);
 	else
 	{
@@ -129,6 +138,14 @@ static void	ft_bordering(t_stacks *stk, t_info *info, int count)
 		else if ((stk->b->data)[stk->b->front] < info->pivot2)
 		{
 			pushorder(stk, PA, stk->b, stk->a);
+			if (count > 0 && (stk->b->data)[stk->b->front] < info->pivot1)
+			{
+				doubleorder(stk, RR);
+				count--;
+				(info->rra)++;
+				(info->rrb)++;
+				continue;
+			}
 			rotateorder(stk, RA, stk->a);
 			(info->rra)++;
 		}
