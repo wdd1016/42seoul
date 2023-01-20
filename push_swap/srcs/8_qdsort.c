@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 04:20:13 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 13:09:56 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 13:53:29 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	ft_asorting(t_stacks *stk, t_procstk now)
 
 	count = now.max - now.min + 1;
 	if (count <= 3)
-		ft_hardsorting(stk, A, count);
+		ft_hardsorting(stk, A, count, now);
 	else
 	{
 		info.rra = 0;
@@ -91,7 +91,7 @@ static void	ft_bsorting(t_stacks *stk, t_procstk now)
 
 	count = now.max - now.min + 1;
 	if (count <= 3)
-		ft_hardsorting(stk, B, count);
+		ft_hardsorting(stk, B, count, now);
 	else
 	{
 		info.rra = 0;

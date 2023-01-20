@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   3_timsort.c                                        :+:      :+:    :+:   */
+/*   timsort.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 01:44:28 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 13:55:36 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 13:58:42 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
 #define	RUN 32
 
+typedef int	t_elemt;
 typedef struct s_index
 {
 	int	left;
@@ -22,11 +22,11 @@ typedef struct s_index
 	int	len2;
 } t_index;
 
-static int	ft_merge(int *arr, t_index id);
-static void	ft_merge2(int *arr, int *lt, int *rt, t_index id);
-static void	ft_insertsort(int *arr, int left, int right);
+static int	ft_merge(t_elemt *arr, t_index id);
+static void	ft_merge2(t_elemt *arr, t_elemt *lt, t_elemt *rt, t_index id);
+static void	ft_insertsort(t_elemt *arr, int left, int right);
 
-int	ft_timsort(int *arr, int n)
+int	ft_timsort(t_elemt *arr, int n)
 {
 	int		temp;
 	t_index	index;
@@ -64,18 +64,18 @@ int	ft_timsort(int *arr, int n)
 // mid+1 is starting point of right sub array
 // merge sub array arr[left.....mid] & arr[mid+1....right]
 
-static int	ft_merge(int *arr, t_index id)
+static int	ft_merge(t_elemt *arr, t_index id)
 {
-	int	*arrleft;
-	int	*arrright;
+	t_elemt	*arrleft;
+	t_elemt	*arrright;
 	int	i;
 
 	id.len1 = id.mid - id.left + 1;
 	id.len2 = id.right - id.mid;
-	arrleft = (int *)malloc(sizeof(int) * (id.len1));
+	arrleft = (t_elemt *)malloc(sizeof(t_elemt) * (id.len1));
 	if (!arrleft)
 		return (0);
-	arrright = (int *)malloc(sizeof(int) * (id.len2));
+	arrright = (t_elemt *)malloc(sizeof(t_elemt) * (id.len2));
 	if (!arrright)
 	{
 		free(arrleft);
@@ -91,7 +91,7 @@ static int	ft_merge(int *arr, t_index id)
 	return (1);
 }
 
-static void	ft_merge2(int *arr, int *lt, int *rt, t_index id)
+static void	ft_merge2(t_elemt *arr, t_elemt *lt, t_elemt *rt, t_index id)
 {
 	int	i;
 	int	j;
@@ -116,9 +116,9 @@ static void	ft_merge2(int *arr, int *lt, int *rt, t_index id)
 	free(rt);
 }
 
-static void	ft_insertsort(int *arr, int left, int right)
+static void	ft_insertsort(t_elemt *arr, int left, int right)
 {
-	int	key;
+	t_elemt	key;
 	int		i;
 	int		j;
 

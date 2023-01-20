@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:05:26 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 12:53:45 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 13:57:18 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ typedef struct	s_info
 
 char	**ft_split(char const *s, char c);
 size_t	ft_count_words(const char *str, char set);
-int		ft_valid_atoi(t_stacks *stk, const char *str);
 void	ft_error_ps(t_stacks *stk);
 void	ft_make_array(t_stacks *stk, int argc, char **argv);
 void	ft_coor_compression(t_stacks *stk);
@@ -80,7 +79,7 @@ void	doubleorder(t_stacks *stk, int order);
 void	ft_make_stacks(t_stacks *stk);
 void	ft_pushstack(t_stacks *stk, int n_location, int n_min, int n_max);
 void	ft_smallsort(t_stacks *stk);
+void	ft_hardsorting(t_stacks *stk, int name, int count, t_procstk now);
 void	ft_qdsort(t_stacks *stk, int aim);
-void	ft_hardsorting(t_stacks *stk, int info, int count);
 
 #endif

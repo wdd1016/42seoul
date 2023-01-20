@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 04:24:14 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 13:09:58 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 14:01:16 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ static void	ft_sorting_five(t_stacks *stk, int count, int pivot);
 
 void	ft_smallsort(t_stacks *stk)
 {
+	t_procstk	temp;
+
 	if (stk->size <= 2)
-		ft_hardsorting(stk, A, stk->size);
+		ft_hardsorting(stk, A, stk->size, temp);
 	if (stk->size == 3)
 		ft_sorting_three(stk);
 	else if (stk->size == 4)
@@ -65,7 +67,8 @@ static void	ft_sorting_four(t_stacks *stk, int count, int pivot)
 
 static void	ft_sorting_five(t_stacks *stk, int count, int pivot)
 {
-	int	*data;
+	int			*data;
+	t_procstk	temp;
 
 	data = stk->a->data;
 	while (count-- > 0)
@@ -76,5 +79,5 @@ static void	ft_sorting_five(t_stacks *stk, int count, int pivot)
 			rotateorder(stk, RA, stk->a);
 	}
 	ft_sorting_three(stk);
-	ft_hardsorting(stk, B, 2);
+	ft_hardsorting(stk, B, 2, temp);
 }

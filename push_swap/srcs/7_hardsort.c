@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 17:53:15 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 13:09:57 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 14:02:50 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	ft_hardsorting3a(t_stacks *stk, int *data, int first);
 static void	ft_hardsorting3b(t_stacks *stk, int *data);
 static void	ft_hardsorting3b_in_third_max(t_stacks *stk, int *data);
 
-void	ft_hardsorting(t_stacks *stk, int name, int count)
+void	ft_hardsorting(t_stacks *stk, int name, int count, t_procstk now)
 {
 	int	temp;
 
@@ -40,6 +40,9 @@ void	ft_hardsorting(t_stacks *stk, int name, int count)
 		ft_hardsorting3a(stk, stk->a->data, stk->a->front);
 	else if (count == 3 && name == B)
 		ft_hardsorting3b(stk, stk->b->data);
+	else
+		if (now.location == 1)
+			now.location = 2;
 }
 
 static void	ft_hardsorting3a(t_stacks *stk, int *data, int first)
@@ -109,3 +112,11 @@ static void	ft_hardsorting3b_in_third_max(t_stacks *stk, int *data)
 	}
 	pushorder(stk, PA, stk->b, stk->a);
 }
+
+// static void	ft_hardsorting4(t_stacks *stk, int name, int count)
+// {
+// 	if (name == A)
+// 	{
+
+// 	}
+// }

@@ -6,13 +6,14 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 23:51:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 13:09:53 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 13:57:08 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 static void	ft_fill_arrays(t_stacks *stk, char **argv, int current, int *idx);
+static int	ft_valid_atoi(t_stacks *stk, const char *str);
 
 void	ft_make_array(t_stacks *stk, int argc, char **argv)
 {
@@ -61,4 +62,33 @@ static void	ft_fill_arrays(t_stacks *stk, char **argv, int current, int *idx)
 		(stk->array)[*idx] = ft_valid_atoi(stk, argv[current]);
 		(*idx)++;
 	}
+}
+
+static int	ft_valid_atoi(t_stacks *stk, const char *str)
+{
+	int			minus;
+	long long	sum;
+
+	minus = 1;
+	while (*str == ' ')
+		str++;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			minus = -1;
+		str++;
+	}
+	sum = 0;
+	while (*str >= '0' && *str <= '9')
+	{
+		sum = (sum * 10) + minus * (*str - '0');
+		if (sum < -2147483648 || sum > 2147483647)
+			ft_error_ps(stk);
+		str++;
+	}
+	while (*str == ' ')
+		str++;
+	if (*str != '\0')
+		ft_error_ps(stk);
+	return ((int)sum);
 }
