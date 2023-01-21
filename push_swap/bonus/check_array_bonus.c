@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   2_compression.c                                    :+:      :+:    :+:   */
+/*   check_array_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 23:56:21 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 22:31:19 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/20 19:41:57 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker_bonus.h"
 
 static void ft_is_alreadysort(t_stacks *stk, int *temparr);
 static void ft_is_duplicate(t_stacks *stk, int *temparr);
 static int	ft_binarysearch(int *arr, int key, int arrsize);
 
-void	ft_coor_compression(t_stacks *stk)
+void	ft_checkarray(t_stacks *stk)
 {
 	int	*temparr;
 	int	i;
@@ -34,12 +34,6 @@ void	ft_coor_compression(t_stacks *stk)
 		ft_error_ps(stk);
 	}
 	ft_is_duplicate(stk, temparr);
-	i = 0;
-	while (i < stk->size)
-	{
-		(stk->array)[i] = ft_binarysearch(temparr, (stk->array)[i], stk->size);
-		i++;
-	}
 	free(temparr);
 }
 // an array of n -> (0 ~ n-1 value) coordination compression
@@ -75,26 +69,3 @@ static void ft_is_duplicate(t_stacks *stk, int *temparr)
 		i++;
 	}
 }
-// terter
-//tertrb
-static int	ft_binarysearch(int *arr, int key, int arrsize)
-{
-	int	low;
-	int	high;
-	int mid;
-
-	low = 0;
-	high = arrsize - 1;
-	while (low <= high)
-	{
-		mid = (low + high) / 2;
-		if (arr[mid] == key)
-			return (mid);
-		else if (arr[mid] > key)
-			high = mid - 1;
-		else
-			low = mid + 1;
-	}
-	return (-1);
-}
-// mid = index (0 ... n-1)

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:05:26 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 13:57:18 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/21 01:10:05 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@
 # define RRA 1024
 # define RRB 2048
 # define RRR 4096
-# define MIN(a, b) (((a) < (b)) ? (a) : (b))
-# define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
 typedef struct s_deque
 {

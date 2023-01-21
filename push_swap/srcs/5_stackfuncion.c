@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 05:36:42 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 12:58:03 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/21 01:10:05 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,9 @@ void	ft_pushstack(t_stacks *stk, int n_location, int n_min, int n_max)
 	topstack->location = n_location;
 	topstack->max = n_max;
 	topstack->min = n_min;
+}
+
+void	ft_min_or_max(int a, int b, int flag)
+{
+
 }
