@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 05:36:42 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/21 01:10:05 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/25 02:09:38 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,37 @@ void	ft_pushstack(t_stacks *stk, int n_location, int n_min, int n_max)
 	topstack->min = n_min;
 }
 
-void	ft_min_or_max(int a, int b, int flag)
+void	ft_insert_info(t_stacks *stk, t_procstk now, t_info *info)
 {
+	info->rra = 0;
+	info->rrb = 0;
+	info->pivot1 = now.min + (now.max - now.min) / 3;
+	info->pivot2 = now.max - (now.max - now.min) / 3;
+}
 
+int	ft_is_sortedstack(t_deque *stack, t_procstk now)
+{
+	int	i;
+
+	i = now.min;
+	if (now.location == A)
+	{
+		while (i < now.max)
+		{
+			if ((stack->data)[i] > (stack->data)[i + 1])
+				return (0);
+			i++;
+		}
+		return (ASCEND);
+	}
+	else
+	{
+		while (i < now.max)
+		{
+			if ((stack->data)[i] < (stack->data)[i + 1])
+				return (0);
+			i++;
+		}
+		return (DESCEND);
+	}
 }

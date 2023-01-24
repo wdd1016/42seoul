@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 04:20:13 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 14:47:35 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/25 02:12:32 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,13 @@ static void	ft_asorting(t_stacks *stk, t_procstk now)
 	int		count;
 
 	count = now.max - now.min + 1;
-	if (count <= 4)
+	if (ft_is_sortedstack(stk->a, now) == ASCEND)
+		return ;
+	else if (count <= 4)
 		ft_hardsorting(stk, A, count, now);
 	else
 	{
-		info.rra = 0;
-		info.rrb = 0;
-		info.pivot1 = now.min + (now.max - now.min) / 3;
-		info.pivot2 = now.max - (now.max - now.min) / 3;
+		ft_insert_info(stk, now, &info);
 		ft_aordering(stk, &info, count);
 		count = -1;
 		while (++count < MIN(info.rra, info.rrb))
@@ -99,14 +98,14 @@ static void	ft_bsorting(t_stacks *stk, t_procstk now)
 	int		count;
 
 	count = now.max - now.min + 1;
-	if (count <= 4)
+	if (ft_is_sortedstack(stk->b, now) == DESCEND)
+		while (count-- > 0)
+			pushorder(stk, PA, stk->b, stk->a);
+	else if (count <= 4)
 		ft_hardsorting(stk, B, count, now);
 	else
 	{
-		info.rra = 0;
-		info.rrb = 0;
-		info.pivot1 = now.min + count / 3;
-		info.pivot2 = now.max - count / 3;
+		ft_insert_info(stk, now, &info);
 		ft_bordering(stk, &info, count);
 		ft_pushstack(stk, A, info.pivot2, now.max);
 		ft_qdsort(stk, stk->top - 1);

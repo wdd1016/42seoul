@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:05:26 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/21 01:10:05 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/25 02:14:08 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,13 @@
 
 # define A 0
 # define B 1
-# define DOUB 2
-# define SA 4
-# define SB 8
-# define SS 16
-# define PA 32
-# define PB 64
-# define RA 128
-# define RB 256
-# define RR 512
-# define RRA 1024
-# define RRB 2048
-# define RRR 4096
+# define ASCEND 1
+# define DESCEND -1
+
+enum command
+{
+	DOUB, SA, SB, SS, PA, PB, RA, RB, RR, RRA, RRB, RRR
+};
 
 typedef struct s_deque
 {
@@ -76,6 +71,8 @@ void	reverseorder(t_stacks *stk, int order, t_deque *target);
 void	doubleorder(t_stacks *stk, int order);
 void	ft_make_stacks(t_stacks *stk);
 void	ft_pushstack(t_stacks *stk, int n_location, int n_min, int n_max);
+void	ft_insert_info(t_stacks *stk, t_procstk now, t_info *info);
+int		ft_is_sortedstack(t_deque *stack, t_procstk now);
 void	ft_smallsort(t_stacks *stk);
 void	ft_hardsorting(t_stacks *stk, int name, int count, t_procstk now);
 void	ft_qdsort(t_stacks *stk, int aim);
