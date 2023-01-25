@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 23:51:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/25 21:29:58 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/25 22:04:33 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,12 @@ static int	ft_valid_atoi(t_stacks *stk, const char *str)
 	minus = 1;
 	while (*str == ' ')
 		str++;
+	if (*str == '-')
+		minus = -1;
 	if (*str == '-' || *str == '+')
-	{
-		if (*str == '-')
-			minus = -1;
 		str++;
-	}
+	if (*str < '0' || *str > '9')
+		ft_error_ps(stk);
 	sum = 0;
 	while (*str >= '0' && *str <= '9')
 	{
