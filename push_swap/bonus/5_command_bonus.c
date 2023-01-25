@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:05:31 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/25 22:22:54 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/26 00:04:36 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,12 @@ void	reverseorder(t_stacks *stk, t_deque *target)
 
 void	doubleorder(t_stacks *stk, int order)
 {
-	if (order == RR)
+	if (order == SS)
+	{
+		swaporder(stk, stk->a);
+		swaporder(stk, stk->b);
+	}
+	else if (order == RR)
 	{
 		rotateorder(stk, stk->a);
 		rotateorder(stk, stk->b);
