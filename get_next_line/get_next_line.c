@@ -6,11 +6,19 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:10:23 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/27 00:59:27 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/25 22:50:03 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+static char	*ft_handle_buffer(t_fdlist *firlist, t_fdlist *uselist, \
+t_buffer *usebuffer);
+static char	*ft_remain_buffer(t_fdlist *uselist, t_buffer *usebuffer, \
+size_t i, size_t j);
+static char	*ft_make_buffer(t_fdlist *firlist, t_fdlist *uselist, \
+t_buffer *usebuffer, ssize_t len);
+
 
 char	*get_next_line(int fd)
 {
@@ -43,7 +51,7 @@ char	*get_next_line(int fd)
 /* ft_make_buffer : make t_buffer(linked list), read fd */
 /* ft_handle_buffer : make string to (return, rest in fdlist) */
 
-char	*ft_handle_buffer(t_fdlist *firlist, t_fdlist *uselist, \
+static char	*ft_handle_buffer(t_fdlist *firlist, t_fdlist *uselist, \
 t_buffer *usebuffer)
 {
 	char		*str_return;
@@ -74,7 +82,7 @@ t_buffer *usebuffer)
 /* make return string */
 /* if remaining string = 0 -> use struct free & return str_return */
 
-char	*ft_remain_buffer(t_fdlist *uselist, t_buffer *usebuffer, \
+static char	*ft_remain_buffer(t_fdlist *uselist, t_buffer *usebuffer, \
 size_t i, size_t j)
 {
 	t_buffer	*remain;
@@ -102,7 +110,7 @@ size_t i, size_t j)
 }
 /* make remaining string in uselist->buflist->next */
 
-char	*ft_make_buffer(t_fdlist *firlist, t_fdlist *uselist, \
+static char	*ft_make_buffer(t_fdlist *firlist, t_fdlist *uselist, \
 t_buffer *usebuffer, ssize_t len)
 {
 	ssize_t		lastindex;

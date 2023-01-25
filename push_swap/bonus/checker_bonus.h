@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:27:24 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/25 22:04:46 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/25 22:44:35 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,15 @@ typedef struct s_stacks
 	int			size;
 }	t_stacks;
 
+void	ft_error_ps(t_stacks *stk);
 void	ft_make_array(t_stacks *stk, int argc, char **argv);
+void	ft_is_valid_stack(t_stacks *stk);
+void	ft_make_stacks(t_stacks *stk);
+int		ft_min(int a, int b);
+void	swaporder(t_stacks *stk, t_deque *target);
+void	pushorder(t_stacks *stk, t_deque *from, t_deque *to);
+void	rotateorder(t_stacks *stk, t_deque *target);
+void	reverseorder(t_stacks *stk, t_deque *target);
+void	doubleorder(t_stacks *stk, int order);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:11:21 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/27 00:44:19 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/25 22:50:06 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,5 @@ void	ft_bzero(void *s, size_t n);
 void	*ft_gnlfree_all(t_fdlist *firlist, char *str_rtn);
 void	*ft_gnlfree_use(t_fdlist *firlist, t_fdlist *uselist, char *str_rtn);
 char	*get_next_line(int fd);
-char	*ft_handle_buffer(t_fdlist *firlist, t_fdlist *uselist, \
-t_buffer *usebuffer);
-char	*ft_remain_buffer(t_fdlist *uselist, t_buffer *usebuffer, \
-size_t i, size_t j);
-char	*ft_make_buffer(t_fdlist *firlist, t_fdlist *uselist, \
-t_buffer *usebuffer, ssize_t len);
 
 #endif
