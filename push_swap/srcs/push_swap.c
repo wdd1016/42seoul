@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:05:24 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 05:39:38 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/25 21:39:02 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,5 @@ static void	ft_freeall(t_stacks *stk)
 		free(stk->b);
 	}
 	if (stk->stack)
-		free(stk->stack);	
+		free(stk->stack);
 }

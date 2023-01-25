@@ -6,12 +6,12 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 01:44:28 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 13:55:36 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/25 21:30:26 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#define	RUN 32
+#define RUN 32
 
 typedef struct s_index
 {
@@ -20,7 +20,7 @@ typedef struct s_index
 	int	mid;
 	int	len1;
 	int	len2;
-} t_index;
+}	t_index;
 
 static int	ft_merge(int *arr, t_index id);
 static void	ft_merge2(int *arr, int *lt, int *rt, t_index id);
@@ -34,7 +34,7 @@ int	ft_timsort(int *arr, int n)
 	temp = 0;
 	while (temp < n)
 	{
-		ft_insertsort(arr, temp, MIN(temp + RUN - 1, n - 1));
+		ft_insertsort(arr, temp, ft_min(temp + RUN - 1, n - 1));
 		temp += RUN;
 	}
 	temp = RUN;
@@ -44,7 +44,7 @@ int	ft_timsort(int *arr, int n)
 		while (index.left < n)
 		{
 			index.mid = index.left + temp - 1;
-			index.right = MIN(index.left + 2 * temp - 1, n - 1);
+			index.right = ft_min(index.left + 2 * temp - 1, n - 1);
 			if (index.mid < index.right)
 				if (ft_merge(arr, index) == 0)
 					return (0);
@@ -119,8 +119,8 @@ static void	ft_merge2(int *arr, int *lt, int *rt, t_index id)
 static void	ft_insertsort(int *arr, int left, int right)
 {
 	int	key;
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	i = left + 1;
 	while (i <= right)

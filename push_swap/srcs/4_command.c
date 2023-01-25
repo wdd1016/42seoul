@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:05:31 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 13:09:57 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/25 21:30:42 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	pushorder(t_stacks *stk, int order, t_deque *from, t_deque *to)
 	if (order == PA)
 	{
 		if (write(1, "pa\n", 3) < 3)
-			ft_error_ps(stk);		
+			ft_error_ps(stk);
 	}
 	else if (order == PB)
 	{
@@ -63,7 +63,7 @@ void	rotateorder(t_stacks *stk, int order, t_deque *target)
 	else if (order == RB)
 	{
 		if (write(1, "rb\n", 3) < 3)
-			ft_error_ps(stk);		
+			ft_error_ps(stk);
 	}
 }
 

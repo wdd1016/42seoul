@@ -6,14 +6,14 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 23:56:21 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 22:31:19 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/25 21:29:53 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void ft_is_alreadysort(t_stacks *stk, int *temparr);
-static void ft_is_duplicate(t_stacks *stk, int *temparr);
+static void	ft_is_alreadysort(t_stacks *stk, int *temparr);
+static void	ft_is_duplicate(t_stacks *stk, int *temparr);
 static int	ft_binarysearch(int *arr, int key, int arrsize);
 
 void	ft_coor_compression(t_stacks *stk)
@@ -44,14 +44,14 @@ void	ft_coor_compression(t_stacks *stk)
 }
 // an array of n -> (0 ~ n-1 value) coordination compression
 
-static void ft_is_alreadysort(t_stacks *stk, int *temparr)
+static void	ft_is_alreadysort(t_stacks *stk, int *temparr)
 {
 	int	i;
 
 	i = 0;
 	while (++i < stk->size)
 		if (temparr[i] < temparr[i - 1])
-			break;
+			break ;
 	if (i == stk->size)
 	{
 		free(temparr);
@@ -60,14 +60,14 @@ static void ft_is_alreadysort(t_stacks *stk, int *temparr)
 	}
 }
 
-static void ft_is_duplicate(t_stacks *stk, int *temparr)
+static void	ft_is_duplicate(t_stacks *stk, int *temparr)
 {
 	int	i;
 
 	i = 1;
 	while (i < stk->size)
 	{
-		if (temparr[i] == temparr[i-1])
+		if (temparr[i] == temparr[i - 1])
 		{
 			free(temparr);
 			ft_error_ps(stk);
@@ -75,13 +75,12 @@ static void ft_is_duplicate(t_stacks *stk, int *temparr)
 		i++;
 	}
 }
-// terter
-//tertrb
+
 static int	ft_binarysearch(int *arr, int key, int arrsize)
 {
 	int	low;
 	int	high;
-	int mid;
+	int	mid;
 
 	low = 0;
 	high = arrsize - 1;

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 17:53:15 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 14:32:35 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/25 21:31:11 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 static void	ft_hardsorting3a(t_stacks *stk, int *data, int first);
 static void	ft_hardsorting3b(t_stacks *stk, int *data);
 static void	ft_hardsorting3b_in_third_max(t_stacks *stk, int *data);
-static void	ft_hardsorting4(t_stacks *stk, int name, int count, t_procstk now);
 
-void	ft_hardsorting(t_stacks *stk, int name, int count, t_procstk now)
+void	ft_hardsorting(t_stacks *stk, int name, int count)
 {
 	int	temp;
 
@@ -41,8 +40,6 @@ void	ft_hardsorting(t_stacks *stk, int name, int count, t_procstk now)
 		ft_hardsorting3a(stk, stk->a->data, stk->a->front);
 	else if (count == 3 && name == B)
 		ft_hardsorting3b(stk, stk->b->data);
-	else if (count == 4)
-		ft_hardsorting4(stk, name, count, now);
 }
 
 static void	ft_hardsorting3a(t_stacks *stk, int *data, int first)
@@ -111,32 +108,4 @@ static void	ft_hardsorting3b_in_third_max(t_stacks *stk, int *data)
 		pushorder(stk, PA, stk->b, stk->a);
 	}
 	pushorder(stk, PA, stk->b, stk->a);
-}
-
-static void	ft_hardsorting4(t_stacks *stk, int name, int count, t_procstk now)
-{
-	if (name == A)
-	{
-		while (count-- > 0)
-		{
-			if ((stk->a->data)[stk->a->front] == now.max)
-				rotateorder(stk, RA, stk->a);
-			else
-				pushorder(stk, PB, stk->a, stk->b);
-		}
-		reverseorder(stk, RRA, stk->a);
-		ft_hardsorting(stk, B, 3, now);
-	}
-	else
-	{
-		while (count-- > 0)
-		{
-			if ((stk->b->data)[stk->b->front] == now.min)
-				rotateorder(stk, RB, stk->b);
-			else
-				pushorder(stk, PA, stk->b, stk->a);
-		}
-		reverseorder(stk, RRB, stk->b);
-		ft_hardsorting(stk, A, 3, now);
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 23:51:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 13:57:08 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/25 21:29:58 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_make_array(t_stacks *stk, int argc, char **argv)
 	}
 	stk->array = (int *)malloc(sizeof(int) * stk->size);
 	if (!stk->array)
-		ft_error_ps(stk);	
+		ft_error_ps(stk);
 	idx_stack = 0;
 	idx_argc = 0;
 	while (++idx_argc < argc)
