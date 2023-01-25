@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 23:51:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/20 19:43:11 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/25 22:04:46 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,31 +30,11 @@ void	ft_make_array(t_stacks *stk, int argc, char **argv)
 	}
 	stk->array = (int *)malloc(sizeof(int) * stk->size);
 	if (!stk->array)
-		ft_error_ps(stk);	
+		ft_error_ps(stk);
 	idx_stack = 0;
 	idx_argc = 0;
 	while (++idx_argc < argc)
-	{
-		if (argv[idx_argc][0] == '\0')
-			ft_error_ps(stk);
 		ft_fill_arrays(stk, argv, idx_argc, &idx_stack);
-	}
-}
-
-void	ft_error_ps(t_stacks *stk)
-{
-	write(2, "Error\n", 6);
-	if (stk->array)
-		free(stk->array);
-	if (stk->a)
-		free(stk->a);
-	if (stk->b)
-	{
-		if (stk->b->data)
-			free(stk->b->data);
-		free(stk->b);
-	}
-	exit(1);
 }
 
 static void	ft_fill_arrays(t_stacks *stk, char **argv, int current, int *idx)
