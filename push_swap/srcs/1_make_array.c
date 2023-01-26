@@ -6,14 +6,15 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 23:51:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/25 22:04:33 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/26 21:01:26 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 static void	ft_fill_arrays(t_stacks *stk, char **argv, int current, int *idx);
-static int	ft_valid_atoi(t_stacks *stk, const char *str);
+static int	ft_valid_atoi(t_stacks *stk, const char *str, char **temp, int i);
+static void	ft_error_atoi(t_stacks *stk, char **temp, int i);
 
 void	ft_make_array(t_stacks *stk, int argc, char **argv)
 {
@@ -50,7 +51,7 @@ static void	ft_fill_arrays(t_stacks *stk, char **argv, int current, int *idx)
 		i = 0;
 		while (temp[i])
 		{
-			(stk->array)[(*idx)] = ft_valid_atoi(stk, temp[i]);
+			(stk->array)[(*idx)] = ft_valid_atoi(stk, temp[i], temp, i);
 			free(temp[i]);
 			i++;
 			(*idx)++;
@@ -59,12 +60,14 @@ static void	ft_fill_arrays(t_stacks *stk, char **argv, int current, int *idx)
 	}
 	else if (ft_count_words(argv[current], ' ') == 1)
 	{
-		(stk->array)[*idx] = ft_valid_atoi(stk, argv[current]);
+		(stk->array)[*idx] = ft_valid_atoi(stk, argv[current], 0, 0);
 		(*idx)++;
 	}
+	else
+		ft_error_ps(stk);
 }
 
-static int	ft_valid_atoi(t_stacks *stk, const char *str)
+static int	ft_valid_atoi(t_stacks *stk, const char *str, char **temp, int i)
 {
 	int			minus;
 	long long	sum;
@@ -77,18 +80,34 @@ static int	ft_valid_atoi(t_stacks *stk, const char *str)
 	if (*str == '-' || *str == '+')
 		str++;
 	if (*str < '0' || *str > '9')
-		ft_error_ps(stk);
+		ft_error_atoi(stk, temp, i);
 	sum = 0;
 	while (*str >= '0' && *str <= '9')
 	{
 		sum = (sum * 10) + minus * (*str - '0');
 		if (sum < -2147483648 || sum > 2147483647)
-			ft_error_ps(stk);
+			ft_error_atoi(stk, temp, i);
 		str++;
 	}
 	while (*str == ' ')
 		str++;
 	if (*str != '\0')
-		ft_error_ps(stk);
+		ft_error_atoi(stk, temp, i);
 	return ((int)sum);
+}
+
+static void	ft_error_atoi(t_stacks *stk, char **temp, int i)
+{
+	if (temp == 0)
+		ft_error_ps(stk);
+	else
+	{
+		while (temp[i])
+		{
+			free(temp[i]);
+			i++;
+		}
+		free(temp);
+		ft_error_ps(stk);
+	}
 }

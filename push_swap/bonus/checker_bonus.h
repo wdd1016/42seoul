@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:27:24 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/26 00:02:11 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/26 21:01:31 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct s_fdlist
 }	t_fdlist;
 
 void	ft_error_ps(t_stacks *stk);
+char	**ft_split(char const *s, char c);
+size_t	ft_count_words(const char *str, char set);
 void	ft_make_array(t_stacks *stk, int argc, char **argv);
 void	ft_is_valid_stack(t_stacks *stk);
 void	ft_make_stacks(t_stacks *stk);
