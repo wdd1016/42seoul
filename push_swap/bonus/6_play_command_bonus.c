@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:05:31 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/26 00:04:31 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/26 19:59:33 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ void	ft_run_2command(t_stacks *stk, char *str)
 			doubleorder(stk, SS);
 		else
 			ft_error_command_str(stk, str);	
+	}
+	else if (str[0] == 'p')
+	{
+		if (str[1] == 'a')
+			pushorder(stk, stk->b, stk->a);
 	}
 }
 
