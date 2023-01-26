@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 23:56:21 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/25 21:29:53 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/26 23:03:20 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	ft_is_alreadysort(t_stacks *stk, int *temparr)
 
 	i = 0;
 	while (++i < stk->size)
-		if (temparr[i] < temparr[i - 1])
+		if (temparr[i] <= temparr[i - 1])
 			break ;
 	if (i == stk->size)
 	{

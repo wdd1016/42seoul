@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 05:36:42 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/25 22:18:42 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/26 22:06:39 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@ void	ft_make_stacks(t_stacks *stk)
 	stk->b->data = (int *)malloc(sizeof(int) * stk->size);
 	if (stk->b->data == NULL)
 		ft_error_ps(stk);
-	stk->b->front = 1;
-	stk->b->rear = 0;
+	stk->b->front = 0;
+	stk->b->rear = -1;
 }
-// when PB, front -= -1, therefore init b->front "1" && b ->rear "0"
 
 int	ft_min(int a, int b)
 {
