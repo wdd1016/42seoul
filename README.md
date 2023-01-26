@@ -1,5 +1,5 @@
 # 42seoul
 
-- 정주영 회장님의 42 생활기
+- level up
 
-# 시도해보고 이거 보냐?
+# try try try
