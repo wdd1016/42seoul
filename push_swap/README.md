@@ -1,10 +1,8 @@
 # Push_swap
 
-본과정
+[born2beroot notion](https://brassy-plate-60f.notion.site/Push_swap-4b0373720b754ac7a48e1c878a87fbda)
 
 # 핵심 포인트
-
----
 
 - **스택 (자료구조)**
 - **큐, 덱(double-ended queue)**
@@ -12,8 +10,6 @@
 - [push_swap 가이드 (Quick sort)](https://www.notion.so/push_swap-c15e62229b9541d78fadec4d6aae8b50)
 
 # 정리
-
----
 
 - 스택
     - 스택의 구조
@@ -447,4 +443,4 @@
 
 [push_swap.ko](https://www.notion.so/push_swap-ko-82473b0a27d54a41ab7b9f0dd7fe5deb)
 
-[en.subject.pdf] 
+[en.subject.pdf] (https://cdn.intra.42.fr/pdf/pdf/67975/en.subject.pdf)
