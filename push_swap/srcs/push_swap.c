@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 18:05:24 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/25 21:39:02 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:39:19 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,7 @@ int	main(int argc, char *argv[])
 void	ft_error_ps(t_stacks *stk)
 {
 	write(2, "Error\n", 6);
-	if (stk->array)
-		free(stk->array);
-	if (stk->a)
-		free(stk->a);
-	if (stk->b)
-	{
-		if (stk->b->data)
-			free(stk->b->data);
-		free(stk->b);
-	}
-	if (stk->stack)
-		free(stk->stack);
+	ft_freeall(stk);
 	exit(1);
 }
 

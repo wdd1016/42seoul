@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:10:23 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/25 22:59:49 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:40:12 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static char	*ft_remain_buffer(t_fdlist *uselist, t_buffer *usebuffer, \
 size_t i, size_t j);
 static char	*ft_make_buffer(t_fdlist *firlist, t_fdlist *uselist, \
 t_buffer *usebuffer, ssize_t len);
-
 
 char	*get_next_line(int fd)
 {
