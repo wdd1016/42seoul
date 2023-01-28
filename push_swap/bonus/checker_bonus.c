@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:26:40 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/27 14:39:52 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/29 00:56:17 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char **argv)
 	ft_make_stacks(&stk);
 	ft_play_command(&stk);
 	ft_is_sorted_stack(&stk);
+	return (0);
 }
 
 void	ft_error_ps(t_stacks *stk)

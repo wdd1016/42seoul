@@ -82,3 +82,5 @@
 # 자료
 
 [get_next_line.ko](https://brassy-plate-60f.notion.site/get_next_line-ko-f99a0da42ca24ff2b272ffdc90f0b7b2)
+
+[필기 노트](https://brassy-plate-60f.notion.site/58cb2681f71e46019dadacbd04924ffb)

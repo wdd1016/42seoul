@@ -417,6 +417,25 @@
     }
     https://gmlwjd9405.github.io/2018/05/10/algorithm-quick-sort.html
     ```
+
+- 최적화, 문제점
+    
+    [좌표압축](https://r4bb1t.tistory.com/46)을 통한 항상 이론상 최적에 가까운 최적화 도입
+    (Tim sort → Binery search → index로 이루어진 0 ~ size-1의 값을 가진 배열 생성)
+    
+    추가적인 스택(명령어를 실행할 최소(min), 최대(max)값(좌표압축을 통해 항상 max - min + 1 ==갯수 이다), 해당 구간이 존재하는 Deque(location))을 push 하고 pop하면서 정렬을 진행
+    
+    5개 이하의 경우 따로 최적화 (3개는 2번, 5개는 12번 이하여야함)
+    
+    피벗을 2개를 사용하여 quick 정렬을 진행하므로, 3개이하로 남았을때는 hardsort라는 과정을 도입하여 최적화 진행 ([해당 내용 필기](https://www.notion.so/Quick-sort-algorithm-Hard-sort-6eaa7c0ed7144e6fadb5ed1b74f71fa6))
+    
+    [B 스택(Deque)를 정렬할때 주의할 점은, rra와 rrb를 진행하기전에 Big Number 뭉치를 먼저 정렬을 끝내야한다는 점이다.](https://www.notion.so/push_swap-c15e62229b9541d78fadec4d6aae8b50) (rra, rrb를 진행하면 가장먼저 정렬해야할 Big Number 뭉치가 Middle과 고정값 사이에 갇히게 된다. [해당 내용 필기](https://www.notion.so/Quick-sort-algorithm-Hard-sort-6eaa7c0ed7144e6fadb5ed1b74f71fa6)) → 재귀함수로 구현하였다.
+    
+    RR과 RRR을 사용할수있는 경우를 찾아 최적화를 진행하였다. → Middle값에서 PB(PA)를 진행하고 RB(RA)를 이어가야할때,  다음스택 숫자를 보고 RA(RB)를 진행해야하면, RR을 사용하였고, rra와 rrb를 비교하여 적절한 RRR을 사용하였다.
+    
+    보너스에서는 좌표압축부분을 제외하였고(다만 중복방지를 위해 정렬은 1번 진행하였다), command에 출력부분삭제, gnl을 이용한 표준입력(0)받기를 사용하였다.
+    
+    기존 원형덱에서는 front == rear일때 비어있다고 표현하였는데, 나는 rear == -1일때를 비어있다고 표현하면서, front == rear일때는 1개가 존재한다고 사용하였다.
     
 - Tim sort
     
@@ -444,3 +463,7 @@
 [push_swap.ko](https://www.notion.so/push_swap-ko-82473b0a27d54a41ab7b9f0dd7fe5deb)
 
 [en.subject.pdf] (https://cdn.intra.42.fr/pdf/pdf/67975/en.subject.pdf)
+
+[Quick sort algorithm & Hard sort](https://www.notion.so/Quick-sort-algorithm-Hard-sort-6eaa7c0ed7144e6fadb5ed1b74f71fa6)
+
+[필기 노트](https://www.notion.so/a78f91b0919c438888f7beac8503149c)
