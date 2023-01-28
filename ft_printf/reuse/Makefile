@@ -6,7 +6,7 @@
 #    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 23:17:46 by juyojeon          #+#    #+#              #
-#    Updated: 2023/01/29 02:28:52 by juyojeon         ###   ########.fr        #
+#    Updated: 2023/01/29 02:40:33 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ $(NAME): $(OBJS)
 	cc -c $(CFLAGS) $< -o $@ -I .
 
 clean :
-	rm -f $(OBJS) $(ORCS_MANDATORY)
+	rm -f $(OBJS)
 
 fclean : clean
 	rm -f $(NAME)
