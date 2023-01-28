@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 21:37:26 by myko              #+#    #+#             */
-/*   Updated: 2022/12/16 07:08:49 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/29 02:32:39 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,9 @@ int	main(void)
 	ft_cnt = 0;
 	cnt = 0;
 	ft_printf("----test----\n");
-	ft_cnt = ft_printf("%0#1.x, %0#1.x, %0#1.x, %0#1.x, %0#1.x, %0#1.x, \
-	%0#1.x, %0#1.x, %0#1.x, %0#1.x", 0, 5, -1, -10, 0x1234, -1862, 0xABCDE, \
-	INT_MIN, INT_MAX, UINT_MAX);
+	ft_cnt = ft_printf("%d %s %x %X %p", 512, "abc", 12, 33, &cnt);
 	printf("\n");
-	cnt = printf("%0#1.x, %0#1.x, %0#1.x, %0#1.x, %0#1.x, %0#1.x, \
-	%0#1.x, %0#1.x, %0#1.x, %0#1.x", 0, 5, -1, -10, 0x1234, -1862, 0xABCDE, \
-	INT_MIN, INT_MAX, UINT_MAX);
+	cnt = printf("%d %s %x %X %p", 512, "abc", 12, 33, &cnt);
 	printf("\n");
 	printf("ft_printf cnt: %d\n", ft_cnt);
 	printf("printf cnt: %d\n", cnt);
