@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 18:24:51 by myko              #+#    #+#             */
-/*   Updated: 2022/12/21 22:35:07 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/29 22:07:28 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(void)
 	char	*str;
 
 	idx = 1;
-	fd = open("test", O_RDWR);
+	fd = open("../lines_around_10.txt", O_RDWR);
 	while (1)
 	{
 		str = get_next_line(fd);
