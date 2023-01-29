@@ -1143,7 +1143,7 @@
     chcon -t httpd_sys_rw_content_t /var/www/lighttpd/wordpress/
     chcon -Rv --type=httpd_sys_content_t /var/www/lighttpd/
     # setsebool -P httpd_can_network_connect on
-    # setsebool -P httpd_enable_homedirs=
+    # setsebool -P httpd_enable_homedirs=1
     # setsebool -P httpd_use_nfs=1
     
     systemctl restart lighttpd
