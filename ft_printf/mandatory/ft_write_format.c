@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:14:08 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/16 01:07:37 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/29 19:18:32 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_write_char(va_list ap, int *print_count)
 {
-	char	c;
+	unsigned char	c;
 
 	c = va_arg(ap, int);
 	if (write(1, &c, 1) < 0)
