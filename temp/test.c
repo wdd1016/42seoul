@@ -6,14 +6,17 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:08:06 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/30 22:36:16 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/31 03:32:47 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include <unistd.h>
 
 int main(void)
 {
-	int i;
-	printf("%c\nc", '\0');
+	int t = 97;
+	write(1, &t, 1);
+	// int i;
+	// printf("%c\nc", '\0');
 }

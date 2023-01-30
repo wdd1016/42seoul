@@ -6,14 +6,13 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:08:06 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/30 16:20:08 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/31 02:02:25 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINITALK_H
 # define MINITALK_H
 
-# include "ftprintf/ft_printf.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/types.h>
