@@ -13,8 +13,8 @@
 #include "ft_printf.h"
 
 static size_t	ft_len_of_x(size_t nbr);
-static void	ft_convert_to_small(char *str, size_t nbr, size_t nbr_len);
-static void	ft_convert_to_big(char *str, size_t nbr, size_t nbr_len);
+static void		ft_convert_to_small(char *str, size_t nbr, size_t nbr_len);
+static void		ft_convert_to_big(char *str, size_t nbr, size_t nbr_len);
 
 int	ft_ulltox(size_t n, int *print_count, t_para *para)
 {

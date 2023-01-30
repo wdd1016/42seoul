@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 19:37:39 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/12 23:27:20 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/01/30 00:07:23 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static int	ft_space_for_int(int nbr, t_para *para, int *p_count, int nbr_len)
 		nbr_len++;
 	if (para->width - para->precision <= nbr_len)
 		return (0);
-	if ((para->flag & (FLAG_MINUS + FLAG_ZERO)) == FLAG_ZERO && para->pre_state == P_OFF)
+	if ((para->flag & (FLAG_MINUS + FLAG_ZERO)) == FLAG_ZERO && \
+	para->pre_state == P_OFF)
 		ch = '0';
 	else
 		ch = ' ';
@@ -37,7 +38,7 @@ static int	ft_space_for_int(int nbr, t_para *para, int *p_count, int nbr_len)
 
 static int	ft_itoa_bonus(int nbr, t_para *para, int *print_count, int nbr_len)
 {
-	int count_zero;
+	int	count_zero;
 
 	if ((para->flag & (FLAG_SPACE + FLAG_PLUS)) > 0 && nbr >= 0)
 	{
