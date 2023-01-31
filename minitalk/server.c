@@ -6,12 +6,14 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 03:27:25 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/01 03:41:27 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/01 08:25:26 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
+static void	ft_change_sigaction(void (*sigact)(int, siginfo_t *, void *));
+static void	ft_check_client(int signo, siginfo_t *info, void *content);
 static void	ft_process_str(int signo, siginfo_t *info, void *content);
 static void	ft_print_buf(int *count, char buf);
 
@@ -28,7 +30,7 @@ int	main(void)
 		pause();
 }
 
-void	ft_change_sigaction(void (*sigact)(int, siginfo_t *, void *))
+static void	ft_change_sigaction(void (*sigact)(int, siginfo_t *, void *))
 {
 	g_data.act.sa_sigaction = sigact;
 	if (sigaction(SIGUSR1, &(g_data.act), NULL) == -1 || \
@@ -39,7 +41,7 @@ void	ft_change_sigaction(void (*sigact)(int, siginfo_t *, void *))
 	}
 }
 
-void	ft_check_client(int signo, siginfo_t *info, void *content)
+static void	ft_check_client(int signo, siginfo_t *info, void *content)
 {
 	if (signo != SIGUSR1)
 		return ;
@@ -60,7 +62,7 @@ static void	ft_process_str(int signo, siginfo_t *info, void *content)
 	static int				count;						
 
 	if (info->si_pid != g_data.opponent_pid)
-		ft_cut_in_error(&count);
+		ft_cut_in_middle(&count);
 	else
 	{
 		count++;
