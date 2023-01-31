@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   study_somethings.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 00:08:06 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/30 20:48:25 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/01 03:42:41 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	handler2(int signo)
 
 int	main(int argc, char *argv[])
 {
-	pid_t	mypid;
-	struct sigaction act;
+	pid_t				mypid;
+	struct sigaction	act;
 
 	act.sa_sigaction = handler;
 	act.sa_flags = SA_SIGINFO;
@@ -37,7 +37,6 @@ int	main(int argc, char *argv[])
 	act.sa_handler = handler2;
 	sigaction(SIGINT, &act, NULL);
 	printf("%d\n", 999);
-	// act.sa_flags = 0;
 	while (TRUE)
 	{
 		pause();
