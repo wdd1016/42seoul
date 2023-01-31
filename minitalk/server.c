@@ -6,36 +6,20 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 03:27:25 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/31 04:11:51 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/01 02:30:22 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-#include <stdio.h>
 
-typedef struct s_data
-{
-	struct sigaction	act;
-	pid_t				cli_pid;
-}	t_data;
-
-static void	check_client(int signo, siginfo_t *info, void *content);
-static void	process_str(int signo, siginfo_t *info, void *content);
-static int	print_pid(int n);
-
-t_data	g_data;
+static void	ft_process_str(int signo, siginfo_t *info, void *content);
+static void	ft_print_buf(int *count, char buf);
 
 int	main(void)
 {
-	g_data.act.sa_sigaction = check_client;
 	g_data.act.sa_flags = SA_SIGINFO;
-	if (sigaction(SIGUSR1, &(g_data.act), NULL) == -1 || \
-	sigaction(SIGUSR2, &(g_data.act), NULL) == -1)
-	{
-		write(2, "Sigaction Error\n", 16);
-		exit(1);
-	}
-	if (print_pid(getpid()) == -1 || write(1, "\n", 1) == -1)
+	ft_change_sigaction(ft_check_client);
+	if (ft_print_pid(getpid()) == -1 || write(1, "\n", 1) == -1)
 	{
 		write(2, "Print Error\n", 12);
 		exit(1);
@@ -44,17 +28,9 @@ int	main(void)
 		pause();
 }
 
-static void	check_client(int signo, siginfo_t *info, void *content)
+void	ft_change_sigaction(void (*sigact)(int, siginfo_t *, void *))
 {
-	if (signo != SIGUSR1)
-		return ;
-	g_data.cli_pid = info->si_pid;
-	if (kill(g_data.cli_pid, SIGUSR1) == -1)
-	{
-		write(2, "Kill Error\n", 11);
-		exit(1);		
-	}
-	g_data.act.sa_sigaction = process_str;
+	g_data.act.sa_sigaction = sigact;
 	if (sigaction(SIGUSR1, &(g_data.act), NULL) == -1 || \
 	sigaction(SIGUSR2, &(g_data.act), NULL) == -1)
 	{
@@ -63,63 +39,70 @@ static void	check_client(int signo, siginfo_t *info, void *content)
 	}
 }
 
-static void	process_str(int signo, siginfo_t *info, void *content)
+void	ft_check_client(int signo, siginfo_t *info, void *content)
+{
+	if (signo != SIGUSR1)
+		return ;
+	g_data.opponent_pid = info->si_pid;
+	ft_change_sigaction(ft_process_str);
+	usleep(100);
+	if (kill(g_data.opponent_pid, SIGUSR1) == -1)
+	{
+		write(2, "Kill Error\n", 11);
+		signo = (int)content;
+		exit(1);
+	}
+}
+
+static void	ft_process_str(int signo, siginfo_t *info, void *content)
 {
 	static unsigned char	buf;
-	static int				count;
-	int						temp;						
+	static int				count;						
 
-	if (info->si_pid != g_data.cli_pid)
-	{
-		write(1, "\nClient PID changed in the middle\n", 34);
-		g_data.act.sa_sigaction = check_client;
-		count = 0;
-		if (sigaction(SIGUSR1, &(g_data.act), NULL) == -1 || \
-		sigaction(SIGUSR2, &(g_data.act), NULL) == -1)
-		{
-			write(2, "Sigaction Error\n", 16);
-			exit(1);
-		}	
-	}
+	if (info->si_pid != g_data.opponent_pid)
+		ft_cut_in_error(&count);
 	else
 	{
 		count++;
 		if (signo == SIGUSR1)
-			temp = 0;
+			buf = (buf << 1) + 0;
 		else
-			temp = 1;
-		buf = (buf << 1) + temp;
-		if (count == 8 && buf == 0)
+			buf = (buf << 1) + 1;
+		usleep(50);
+		if (count == 8)
+			ft_print_buf(&count, buf);
+		else
 		{
-			write(1, "\n", 1);
-			g_data.act.sa_sigaction = check_client;
-			count = 0;
-			if (sigaction(SIGUSR1, &(g_data.act), NULL) == -1 || \
-			sigaction(SIGUSR2, &(g_data.act), NULL) == -1)
+			if (kill(g_data.opponent_pid, SIGUSR1) == -1)
 			{
-				write(2, "Sigaction Error\n", 16);
+				write(2, "Kill Error\n", 11);
+				signo = (int)content;
 				exit(1);
-			}				
-		}
-		else if (count == 8)
-		{
-			write(1, &buf, 1);
-			count = 0;
+			}
 		}
 	}
 }
 
-static int	print_pid(int n)
+static void	ft_print_buf(int *count, char buf)
 {
-	int	x;
-
-	x = n % 10 + '0';
-	if (n >= 10)
+	(*count) = 0;
+	if (buf == 0)
 	{
-		if (print_pid(n / 10) < 0)
-			return (-1);
+		write(1, "\n", 1);
+		if (kill(g_data.opponent_pid, SIGUSR2) == -1)
+		{
+			write(2, "Kill Error\n", 11);
+			exit(1);
+		}
+		ft_change_sigaction(ft_check_client);
 	}
-	if (write(1, &x, 1) < 0)
-		return (-1);
-	return (1);
+	else
+	{
+		write(1, &buf, 1);
+		if (kill(g_data.opponent_pid, SIGUSR1) == -1)
+		{
+			write(2, "Kill Error\n", 11);
+			exit(1);
+		}
+	}
 }

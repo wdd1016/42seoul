@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:08:06 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/31 02:02:25 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/01 02:29:35 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,23 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <sys/types.h>
 # include <signal.h>
 
 # define TRUE 1
 # define FALSE 0
+
+typedef struct s_data
+{
+	struct sigaction	act;
+	pid_t				opponent_pid;
+	char				*string;
+}	t_data;
+
+t_data	g_data;
+
+int		ft_print_pid(int n);
+void	ft_cut_in_error(int *count);
+void	ft_change_sigaction(void (*sigact)(int, siginfo_t *, void *));
+void	ft_check_client(int signo, siginfo_t *info, void *content);
 
 #endif
