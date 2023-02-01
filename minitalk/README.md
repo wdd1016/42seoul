@@ -238,9 +238,9 @@
     
     기본적으로 vscode의 기본 인코딩은 UTF-8이며, Mac과 리눅스의 기본 인코딩도 UTF-8이다.
     
-    ![스크린샷 2023-01-29 오후 6.59.33.png](Minitalk%pictures/first.png)
+    ![스크린샷 2023-01-29 오후 6.59.33.png](pictures/first.png)
     
-    ![스크린샷 2023-01-29 오후 7.03.59.png](Minitalk%pictures/second.png)
+    ![스크린샷 2023-01-29 오후 7.03.59.png](pictures/second.png)
     
     [비트연산](http://www.tcpschool.com/c/c_operator_bitwise)
     
