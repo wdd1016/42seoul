@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 03:27:25 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/01 08:27:44 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/01 09:48:02 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	ft_process_str(int signo, siginfo_t *info, void *content)
 	static int				count;						
 
 	if (info->si_pid != g_data.opponent_pid)
-		ft_cut_in_middle(&count);
+		ft_cut_in_middle(&count, info->si_pid);
 	else
 	{
 		count++;
