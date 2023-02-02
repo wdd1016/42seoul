@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.c                                          :+:      :+:    :+:   */
+/*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 12:40:36 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/01 12:42:30 by juyojeon         ###   ########.fr       */
+/*   Created: 2023/02/01 12:41:12 by juyojeon          #+#    #+#             */
+/*   Updated: 2023/02/02 22:48:52 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#ifndef FRACTOL_H
+# define FRACTOL_H
 
-int main()
-{
-	
-}
+#include <../minilibx/mlx.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+
+#endif

@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   fractol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 12:41:12 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/01 12:42:29 by juyojeon         ###   ########.fr       */
+/*   Created: 2023/02/01 12:40:36 by juyojeon          #+#    #+#             */
+/*   Updated: 2023/02/02 21:47:38 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
+#include "fractol.h"
 
-#include <mlx.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <math.h>
-#include <stdio.h>
-#include <string.h>
+int main()
+{
+	void	*mlx;
+	void	*win;
 
-#endif
+	mlx = mlx_init();
+	win = mlx_new_window(mlx, 500, 500, "mlx_project");
+	mlx_loop(mlx);
+}
