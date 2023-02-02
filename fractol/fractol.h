@@ -13,4 +13,11 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
+#include <mlx.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+
 #endif
