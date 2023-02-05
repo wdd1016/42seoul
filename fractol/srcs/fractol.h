@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:41:12 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/03 23:33:04 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/05 21:17:10 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,22 @@
 # define JULIA			1
 # define NEWTON			2
 
+typedef struct s_coor
+{
+	double	rmin;
+	double	rrange;
+	double	imin;
+	double	irange;	
+}	t_coor;
+
+
 typedef struct	s_data
 {
 	void	*mlx;
 	void	*win;
 	void	*img;
 	char	*addr;
+	t_coor	*coor;
 	double	rnum;
 	double	inum;
 	int		type;
@@ -51,8 +61,10 @@ typedef struct	s_data
 	int		endian;
 }	t_data;
 
-void	ft_error_handler(int errnum);
 void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	ft_print_image(t_data *image);
 void	ft_hook_setup(t_data *data);
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
+void	ft_error(t_data *all, int errnum);
 
 #endif

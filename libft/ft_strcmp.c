@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 14:53:16 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/05 20:15:27 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/05 20:15:24 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strcmp(char *s1, char *s2)
 {
-	size_t	i;
-
-	i = 0;
-	if (n == 0)
-		return (0);
-	while (*s1 && *s2 && i + 1 < n)
+	while (*s1 && *s2)
 	{
-		if (*(unsigned char *)s1 != *(unsigned char *)s2)
+		if (*s1 != *s2)
 			break ;
-		i++;
 		s1++;
 		s2++;
 	}

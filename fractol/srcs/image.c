@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/11 14:53:16 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/05 20:15:27 by juyojeon         ###   ########.fr       */
+/*   Created: 2023/02/05 21:10:10 by juyojeon          #+#    #+#             */
+/*   Updated: 2023/02/05 21:17:22 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "fractol.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	ft_print_image(t_data *image)
 {
-	size_t	i;
+	int	x, y;
 
-	i = 0;
-	if (n == 0)
-		return (0);
-	while (*s1 && *s2 && i + 1 < n)
+	for (x=200; x<500; x++)
 	{
-		if (*(unsigned char *)s1 != *(unsigned char *)s2)
-			break ;
-		i++;
-		s1++;
-		s2++;
+		for (y=100; y<300; y++)
+		{
+			ft_mlx_pixel_put(image, x, y, 0x00FF0000);
+		}
 	}
-	return (*(unsigned char *)s1 - *(unsigned char *)s2);
+}
+
+void	ft_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char *dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }

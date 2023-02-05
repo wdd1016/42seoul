@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:30:13 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/03 23:02:44 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/05 20:58:29 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static void	ft_kill_process(t_data *all)
 		mlx_destroy_image(all->mlx, all->img);
 	if (all->win)
 		mlx_destroy_window(all->mlx, all->win);
+	if (all->coor)
+		free(all->coor);
 	free(all->mlx);
 	write(1, "Enter the ESC key\n", 18);
 	exit(0);
