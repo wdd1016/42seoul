@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:40:36 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/05 21:29:32 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/06 00:21:50 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int main(int argc, char *argv[])
 	&all.line_length, &all.endian);
 	ft_hook_setup(&all);
 	ft_print_image(&all);
-	mlx_put_image_to_window(all.mlx, all.win, all.img, 0, 0);
 	mlx_loop(all.mlx);
+	return (0);
 }
 
 static void	ft_init_data(t_data *data, int argc, char *argv[])
@@ -42,7 +42,7 @@ static void	ft_init_data(t_data *data, int argc, char *argv[])
 		write(2, "Put in the possible parameters below.\n", 38);
 		write(2, "mandelbrot\n", 11);
 		write(2, "julia [c_rnum] [c_inum]\n", 24);
-		write(2, "-1 < [c_rnum], [c_inum] < 1\n", 28);
+		write(2, "For comfortable view, -1 < [c_rnum], [c_inum] < 1\n", 50);
 		write(2, "newton\n", 6);
 		exit(1);
 	}
@@ -53,6 +53,7 @@ static void	ft_init_data(t_data *data, int argc, char *argv[])
 	data->coor = (t_coor *)malloc(sizeof(t_coor));
 	if (!(data->coor))
 		ft_error(data, ENOMEM);
+	ft_color(data, GREEN);
 	data->coor->rmin = -1.0;
 	data->coor->imin = -1.0;
 	data->coor->rrange = 2.0;

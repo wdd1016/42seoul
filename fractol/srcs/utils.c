@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 20:09:50 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/05 21:31:34 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/06 00:28:46 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,34 +51,29 @@ void	ft_error(t_data *all, int errnum)
 
 double	ft_atod(char *str)
 {
-	int		minus;
-	int		integral;
-	double	decimal;
+	long long	sign_fraction;
+	double		decimal;
 
-	minus = 1;
-	while (*str == ' ')
-		str++;
-	if (*str == '-')
+	sign_fraction = 10;
+	if (*str == '-' || *str == '+')
 	{
-		minus = -1;
+		if (*str == '-')
+			sign_fraction = -10;
 		str++;
 	}
-	else if (*str == '+')
+	if (*str == '0')
 		str++;
-	integral = 0;
+	else
+		return (10.0);
+	if (*str != '.')
+		return (10.0);
+	decimal = 0;
+	str++;
 	while (*str >= '0' && *str <= '9')
 	{
-		integral = (integral * 10) + minus * (*str - '0');
+		decimal += (double)(*str - '0') / sign_fraction;
+		sign_fraction *= 10;
 		str++;
 	}
-	decimal = 0;
-	if (*str == '.')
-	{
-		while (*str >= '0' && *str <= '9')
-		{
-			decimal = (decimal / 10) + minus * (*str - '0');
-			str++;
-		}		
-	}
-	return (10.0);
+	return (decimal);
 }

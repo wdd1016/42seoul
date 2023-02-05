@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:41:12 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/05 21:17:10 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/06 01:18:39 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,21 @@
 # define KEY_DOWN		125
 # define KEY_LEFT		123
 # define KEY_RIGHT		124
-# define KEY_RED		15
+# define KEY_GREEN		5
 # define KEY_BLUE		11
+# define KEY_RED		15
 # define BUTTON_UP		4
 # define BUTTON_DOWN	5
-# define WIDTH			1200
-# define HEIGHT			800
+# define WIDTH			1000
+# define HEIGHT			1000
 # define MANDEL			0
 # define JULIA			1
 # define NEWTON			2
+# define GREEN			0
+# define BLUE			1
+# define RED			2
+# define IMAGINARY		0
+# define REAL			1
 
 typedef struct s_coor
 {
@@ -53,6 +59,7 @@ typedef struct	s_data
 	void	*img;
 	char	*addr;
 	t_coor	*coor;
+	int		colorset[10];
 	double	rnum;
 	double	inum;
 	int		type;
@@ -61,10 +68,18 @@ typedef struct	s_data
 	int		endian;
 }	t_data;
 
-void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	ft_print_image(t_data *image);
+void	ft_color(t_data *all, int colortype);
 void	ft_hook_setup(t_data *data);
+int		ft_julia(t_data *all, int x, int y);
+int		ft_mandelbrot(t_data *all, int x, int y);
+int		ft_newton(t_data *all, int x, int y);
+void	ft_print_image(t_data *image);
+void	ft_expand_fractal(t_data *all, int x, int y);
+void	ft_reduct_fractal(t_data *all, int x, int y);
+void	ft_shift_axis(t_data *all, int axis, int change);
+
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 void	ft_error(t_data *all, int errnum);
+double	ft_atod(char *str);
 
 #endif
