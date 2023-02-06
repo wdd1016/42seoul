@@ -6,39 +6,33 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 21:10:10 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/06 01:50:56 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/06 20:06:46 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
-
 void	ft_print_image(t_data *all)
 {
-	int	(*ft_set[3])(t_data *, int, int);
-	int	x;
-	int	y;
-
-	ft_set[MANDEL] = ft_mandelbrot;
-	ft_set[JULIA] = ft_julia;
-	ft_set[NEWTON] = ft_newton;
-	x = -1;
-	while (++x < WIDTH)
+	t_unit	unit;
+	int		color;
+	char	*dst;
+	
+	unit.x = 0;
+	unit.runit = all->coor->rrange / (double)WIDTH;
+	unit.iunit = all->coor->irange / (double)HEIGHT;
+	while (unit.x < WIDTH)
 	{
-		y = -1;
-		while (++y < HEIGHT)
+		unit.y = 0;
+		while (unit.y < HEIGHT)
 		{
-			ft_mlx_pixel_put(all, x, y, ft_set[all->type]);
+			color = ft_choicecolor(all, unit);
+			dst = all->addr + unit.y * all->line_length + \
+			unit.x * (all->bits_per_pixel / 8);
+			*(unsigned int *)dst = color;
+			(unit.y)++;
 		}
+		(unit.x)++;
 	}
 	mlx_put_image_to_window(all->mlx, all->win, all->img, 0, 0);
-}
-
-static void	ft_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char *dst;
-
-	dst = data->addr + ((HEIGHT - y) * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
 }

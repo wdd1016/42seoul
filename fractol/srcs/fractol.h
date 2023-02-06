@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:41:12 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/06 01:18:39 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/06 20:45:11 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 # define RED			2
 # define IMAGINARY		0
 # define REAL			1
+# define MAX_ITER		100
 
 typedef struct s_coor
 {
@@ -51,6 +52,13 @@ typedef struct s_coor
 	double	irange;	
 }	t_coor;
 
+typedef struct	s_unit
+{
+	int		x;
+	int		y;
+	double	runit;
+	double	iunit;
+}	t_unit;
 
 typedef struct	s_data
 {
@@ -68,11 +76,9 @@ typedef struct	s_data
 	int		endian;
 }	t_data;
 
+int		ft_choicecolor(t_data *all, t_unit unit);
 void	ft_color(t_data *all, int colortype);
 void	ft_hook_setup(t_data *data);
-int		ft_julia(t_data *all, int x, int y);
-int		ft_mandelbrot(t_data *all, int x, int y);
-int		ft_newton(t_data *all, int x, int y);
 void	ft_print_image(t_data *image);
 void	ft_expand_fractal(t_data *all, int x, int y);
 void	ft_reduct_fractal(t_data *all, int x, int y);

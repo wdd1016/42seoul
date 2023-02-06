@@ -1,0 +1,7 @@
+{
+	"cmake.debugConfig": {
+	"args": [
+		"julia", "-0.7", "0.27015"
+	]
+	}
+}

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:40:36 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/06 00:21:50 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/06 20:06:50 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ static void	ft_init_data(t_data *data, int argc, char *argv[])
 	if (!(data->coor))
 		ft_error(data, ENOMEM);
 	ft_color(data, GREEN);
-	data->coor->rmin = -1.0;
-	data->coor->imin = -1.0;
-	data->coor->rrange = 2.0;
-	data->coor->irange = 2.0;
+	data->coor->rmin = -2.0;
+	data->coor->imin = -2.0;
+	data->coor->rrange = 4.0;
+	data->coor->irange = 4.0;
 	data->bits_per_pixel = 0;
 	data->line_length = 0;
 	data->endian = 0;
