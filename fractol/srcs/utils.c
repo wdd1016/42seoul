@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 20:09:50 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/07 01:40:01 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/07 02:22:22 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,4 @@ double	ft_atod(char *str)
 		str++;
 	}
 	return (decimal);
-}
-
-double	ft_abs(double x)
-{
-	if (x < 0.0)
-		return (-x);
-	else
-		return (x);
 }
