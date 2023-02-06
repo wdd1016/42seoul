@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:40:36 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/06 23:00:39 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/06 23:17:03 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	ft_check_type(t_data *data, int argc, char *argv[])
 	{
 		data->type = JULIA;
 		data->rnum = ft_atod(argv[2]);
-		data->inum = ft_atod(argv[2]);
+		data->inum = ft_atod(argv[3]);
 		if (data->rnum > 9.0 || data->inum > 9.0)
 			return (0);
 	}
