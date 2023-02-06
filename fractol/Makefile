@@ -6,7 +6,7 @@
 #    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/01 12:40:00 by juyojeon          #+#    #+#              #
-#    Updated: 2023/02/07 02:12:34 by juyojeon         ###   ########.fr        #
+#    Updated: 2023/02/07 02:32:49 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ clean :
 	rm -f $(OBJS) $(OBJS_BONUS)
 
 fclean : clean
-	rm -f $(NAME) $(NAME_BONUS)
+	rm -f $(NAME)
 
 re : fclean all
 
