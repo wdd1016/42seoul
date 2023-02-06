@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:41:12 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/06 23:00:40 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/07 01:54:10 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,16 @@ typedef struct	s_data
 	int		endian;
 }	t_data;
 
-int		ft_choicecolor(t_data *all, t_unit unit);
-void	ft_color(t_data *all, int colortype);
+void	ft_colorsetting(t_data *all, int colortype);
 void	ft_hook_setup(t_data *data);
 void	ft_print_image(t_data *image);
+void	ft_shift_axis(t_data *all, int axis, int change);
 void	ft_expand_fractal(t_data *all, int x, int y);
 void	ft_reduct_fractal(t_data *all, int x, int y);
-void	ft_shift_axis(t_data *all, int axis, int change);
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 void	ft_error(t_data *all, int errnum);
 double	ft_atod(char *str);
+double	ft_abs(double x);
 
 #endif

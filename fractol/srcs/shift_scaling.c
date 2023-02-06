@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 01:16:18 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/06 23:00:45 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/07 01:40:02 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void	ft_shift_axis(t_data *all, int axis, int change)
 	}
 	if (change < 0)
 	{
-		*min -= (double)0.1 * (*range);
+		*min -= (double)0.2 * (*range);
 		if (*min < -2.0)
 			*min = -2.0;
 	}
 	else if (change > 0)
 	{
-		*min += (double)0.1 * (*range);
+		*min += (double)0.2 * (*range);
 		if (*min + (*range) > 2.0)
 			*min = (double)2.0 - (*range);
 	}
@@ -50,7 +50,7 @@ void	ft_expand_fractal(t_data *all, int x, int y)
 	all->coor->imin += (double)0.25 * (in - all->coor->imin);
 	all->coor->irange *= (double)0.75;
 }
-//every expand/reduct wheel, 1 -> 3/4 or 1 -> 4/3
+/* every expand/reduct wheel, 1 -> 3/4 or 1 -> 4/3 */
 
 void	ft_reduct_fractal(t_data *all, int x, int y)
 {

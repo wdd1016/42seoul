@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:30:13 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/06 23:00:42 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/07 02:06:59 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ static int	ft_key_handler(int keycode, t_data *all)
 	else if (keycode == KEY_ESC)
 		ft_kill_process(all);
 	else if (keycode == KEY_GREEN)
-		ft_color(all, GREEN);
+		ft_colorsetting(all, GREEN);
 	else if (keycode == KEY_BLUE)
-		ft_color(all, BLUE);
+		ft_colorsetting(all, BLUE);
 	else if (keycode == KEY_RED)
-		ft_color(all, RED);
+		ft_colorsetting(all, RED);
 	else
 		return (0);
 	ft_print_image(all);
@@ -69,6 +69,7 @@ static void	ft_kill_process(t_data *all)
 	if (all->coor)
 		free(all->coor);
 	free(all->mlx);
-	write(1, "Enter the ESC key\n", 18);
+	if (write(1, "Enter the ESC key\n", 18) < 0)
+		exit(1);
 	exit(0);
 }

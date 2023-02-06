@@ -6,14 +6,14 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:40:36 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/06 23:17:03 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/07 02:09:14 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
 static void	ft_init_data(t_data *data, int argc, char *argv[]);
-static int	ft_check_type(t_data *data, int argc, char *argv[]);
+static int	ft_check_type(t_data *data, char *argv[]);
 
 int main(int argc, char *argv[])
 {
@@ -37,13 +37,13 @@ int main(int argc, char *argv[])
 
 static void	ft_init_data(t_data *data, int argc, char *argv[])
 {
-	if (argc == 1 || ft_check_type(data, argc, argv) == 0)
+	if (argc == 1 || ft_check_type(data, argv) == 0)
 	{
 		write(2, "Put in the possible parameters below.\n", 38);
 		write(2, "mandelbrot\n", 11);
 		write(2, "julia [c_rnum] [c_inum]\n", 24);
 		write(2, "For comfortable view, -1 < [c_rnum], [c_inum] < 1\n", 50);
-		write(2, "newton\n", 6);
+		write(2, "buringship\n", 11);
 		exit(1);
 	}
 	data->mlx = NULL;
@@ -53,17 +53,14 @@ static void	ft_init_data(t_data *data, int argc, char *argv[])
 	data->coor = (t_coor *)malloc(sizeof(t_coor));
 	if (!(data->coor))
 		ft_error(data, ENOMEM);
-	ft_color(data, GREEN);
+	ft_colorsetting(data, GREEN);
 	data->coor->rmin = -2.0;
 	data->coor->imin = -2.0;
 	data->coor->rrange = 4.0;
 	data->coor->irange = 4.0;
-	data->bits_per_pixel = 0;
-	data->line_length = 0;
-	data->endian = 0;
 }
 
-static int	ft_check_type(t_data *data, int argc, char *argv[])
+static int	ft_check_type(t_data *data, char *argv[])
 {
 	if (ft_strnstr(argv[1], "mandelbrot", 10))
 		data->type = MANDEL;
@@ -75,9 +72,30 @@ static int	ft_check_type(t_data *data, int argc, char *argv[])
 		if (data->rnum > 9.0 || data->inum > 9.0)
 			return (0);
 	}
-	else if (ft_strnstr(argv[1], "newton", 6))
+	else if (ft_strnstr(argv[1], "buringship", 10))
 		data->type = NEWTON;
 	else
 		return (0);
 	return (1);
+}
+
+void	ft_colorsetting(t_data *all, int colortype)
+{
+	int	color;
+	int	plus;
+	int	i;
+
+	color = 0xffffff;
+	if (colortype == GREEN)
+		plus = (20 << 16) + 20;
+	else if (colortype == BLUE)
+		plus = (20 << 16) + (20 << 8);
+	else
+		plus = (20 << 8) + 20;
+	i = -1;
+	while (++i < 10)
+	{
+		(all->colorset)[i] = color;
+		color -= plus;
+	}
 }
