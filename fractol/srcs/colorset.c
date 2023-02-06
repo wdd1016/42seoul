@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 23:50:42 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/06 23:00:37 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/06 23:07:48 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	ft_color(t_data *all, int colortype)
 
 	color = 0xffffff;
 	if (colortype == GREEN)
-		plus = (25 << 16) + 25;
+		plus = (20 << 16) + 20;
 	else if (colortype == BLUE)
-		plus = (25 << 16) + (25 << 8);
+		plus = (20 << 16) + (20 << 8);
 	else
-		plus = (25 << 8) + 25;
+		plus = (20 << 8) + 20;
 	i = -1;
 	while (++i < 10)
 	{
