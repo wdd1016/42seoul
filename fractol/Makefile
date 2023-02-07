@@ -6,7 +6,7 @@
 #    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/01 12:40:00 by juyojeon          #+#    #+#              #
-#    Updated: 2023/02/07 16:39:47 by juyojeon         ###   ########.fr        #
+#    Updated: 2023/02/07 18:22:15 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,9 @@ NAME = fractol
 SRCS = ./srcs/fractol.c ./srcs/hooking.c ./srcs/put_print_image.c \
 ./srcs/shift_scaling.c ./srcs/utils.c
 OBJS = $(SRCS:.c=.o)
-SRCS_BONUS = 
+SRCS_BONUS = ./bonus/fractol_bonus.c ./bonus/hooking_bonus.c \
+./bonus/put_print_image_bonus.c ./bonus/shift_scaling_bonus.c \
+./bonus/utils_bonus.c
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 all : $(NAME)

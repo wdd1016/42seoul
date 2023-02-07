@@ -3,5 +3,8 @@
 	"args": [
 		"julia", "-0.835", "-0.2321"
 	]
+	},
+	"files.associations": {
+		"fractol_bonus.h": "c"
 	}
 }
