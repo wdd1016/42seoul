@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 23:25:48 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/07 02:32:16 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/07 15:54:32 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,13 @@ static int	ft_buringship(t_data *all, double rvalue, double ivalue)
 	double	xnext;
 	int		iter;
 
-	x = rvalue;
-	y = ivalue;
+	x = 0;
+	y = 0;
 	iter = 0;
 	while (((x * x) + (y * y) < 4.0) && iter < MAX_ITER)
 	{
-		xnext = (x * x) - (y * y) + x;
-		y = fabs(2 * x * y) + y;
+		xnext = (x * x) - (y * y) + rvalue;
+		y = fabs(2 * x * y) + ivalue;
 		x = xnext;
 		iter++;
 	}
