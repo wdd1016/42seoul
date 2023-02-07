@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 20:09:50 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/07 18:39:49 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/07 20:22:58 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,8 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	return (0);
 }
 
-void	ft_error(t_data *all, int errnum)
+void	ft_error(int errnum)
 {
-	if (all->win)
-		mlx_clear_window(all->mlx, all->win);
-	if (all->img)
-		mlx_destroy_image(all->mlx, all->img);
-	if (all->win)
-		mlx_destroy_window(all->mlx, all->win);
-	if (all->coor)
-		free(all->coor);
-	free(all->mlx);
 	perror(strerror(errnum));
 	exit(1);
 }

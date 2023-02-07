@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:41:12 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/07 18:47:22 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/07 20:22:48 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	ft_expand_fractal(t_data *all, int x, int y);
 void	ft_reduct_fractal(t_data *all, int x, int y);
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
-void	ft_error(t_data *all, int errnum);
+void	ft_error(int errnum);
 double	ft_atod(char *str);
 
 #endif

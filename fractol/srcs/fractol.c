@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:40:36 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/07 18:55:29 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/07 20:35:29 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ int	main(int argc, char *argv[])
 	ft_init_data(&all, argc, argv);
 	all.mlx = mlx_init();
 	if (!(all.mlx))
-		ft_error(&all, ENOMEM);
+		ft_error(ENOMEM);
 	all.win = mlx_new_window(all.mlx, WIDTH, HEIGHT, "flactol_project");
 	if (!(all.win))
-		ft_error(&all, ENOMEM);
+		ft_error(ENOMEM);
 	all.img = mlx_new_image(all.mlx, WIDTH, HEIGHT);
 	all.addr = mlx_get_data_addr(all.img, &all.bits_per_pixel, \
 	&all.line_length, &all.endian);
 	ft_hook_setup(&all);
 	ft_print_image(&all);
 	mlx_loop(all.mlx);
-	return (0);
+	exit(0);
 }
 
 static void	ft_init_data(t_data *data, int argc, char *argv[])
@@ -52,7 +52,7 @@ static void	ft_init_data(t_data *data, int argc, char *argv[])
 	data->addr = NULL;
 	data->coor = (t_coor *)malloc(sizeof(t_coor));
 	if (!(data->coor))
-		ft_error(data, ENOMEM);
+		ft_error(ENOMEM);
 	ft_colorsetting(data, GREEN);
 	data->coor->rmin = -2.0;
 	data->coor->imin = -2.0;
