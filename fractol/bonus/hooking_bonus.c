@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:30:13 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/07 18:19:53 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:47:20 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	ft_key_handler(int keycode, t_data *all);
 static int	ft_mouse_handler(int button, int x, int y, t_data *all);
 static void	ft_kill_process(t_data *all);
 
-void	ft_hook_setup(t_data *all)
+void	ft_hook_setup_bonus(t_data *all)
 {
 	mlx_key_hook(all->win, ft_key_handler, all);
 	mlx_mouse_hook(all->win, ft_mouse_handler, all);

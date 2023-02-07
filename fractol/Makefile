@@ -6,7 +6,7 @@
 #    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/01 12:40:00 by juyojeon          #+#    #+#              #
-#    Updated: 2023/02/07 18:22:15 by juyojeon         ###   ########.fr        #
+#    Updated: 2023/02/07 18:49:19 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,8 @@ all : $(NAME)
 bonus : $(NAME)
 
 ifeq ($(findstring bonus, $(MAKECMDGOALS)), bonus)
-$(NAME): $(OBJS_BOUNS)
-	cc $(CFLAGS) -Lmlx -lmlx -framework OpenGL -framework AppKit $(OBJS_BOUNS) -o $@
+$(NAME): $(OBJS_BONUS)
+	cc $(CFLAGS) -Lmlx -lmlx -framework OpenGL -framework AppKit $(OBJS_BONUS) -o $@
 else
 $(NAME): $(OBJS)
 	cc $(CFLAGS) -Lmlx -lmlx -framework OpenGL -framework AppKit $(OBJS) -o $@

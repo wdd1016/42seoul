@@ -6,21 +6,21 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:41:12 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/07 17:13:24 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:42:24 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-#include "../mlx/mlx.h"
-#include <fcntl.h>
-#include <errno.h>
-#include <unistd.h>
-#include <math.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+# include "../mlx/mlx.h"
+# include <fcntl.h>
+# include <errno.h>
+# include <unistd.h>
+# include <math.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <string.h>
 
 # define KEY_ESC		53
 # define KEY_UP			126
@@ -36,7 +36,7 @@
 # define HEIGHT			1000
 # define MANDEL			0
 # define JULIA			1
-# define NEWTON			2
+# define BURN			2
 # define GREEN			0
 # define BLUE			1
 # define RED			2
@@ -52,7 +52,7 @@ typedef struct s_coor
 	double	irange;	
 }	t_coor;
 
-typedef struct	s_unit
+typedef struct s_unit
 {
 	int		x;
 	int		y;
@@ -60,7 +60,7 @@ typedef struct	s_unit
 	double	iunit;
 }	t_unit;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	void	*mlx;
 	void	*win;

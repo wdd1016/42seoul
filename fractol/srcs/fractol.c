@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:40:36 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/07 02:09:14 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:42:23 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	ft_init_data(t_data *data, int argc, char *argv[]);
 static int	ft_check_type(t_data *data, char *argv[]);
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
 	t_data	all;
 
@@ -43,7 +43,7 @@ static void	ft_init_data(t_data *data, int argc, char *argv[])
 		write(2, "mandelbrot\n", 11);
 		write(2, "julia [c_rnum] [c_inum]\n", 24);
 		write(2, "For comfortable view, -1 < [c_rnum], [c_inum] < 1\n", 50);
-		write(2, "buringship\n", 11);
+		write(2, "burningship\n", 12);
 		exit(1);
 	}
 	data->mlx = NULL;
@@ -72,8 +72,8 @@ static int	ft_check_type(t_data *data, char *argv[])
 		if (data->rnum > 9.0 || data->inum > 9.0)
 			return (0);
 	}
-	else if (ft_strnstr(argv[1], "buringship", 10))
-		data->type = NEWTON;
+	else if (ft_strnstr(argv[1], "burningship", 11))
+		data->type = BURN;
 	else
 		return (0);
 	return (1);

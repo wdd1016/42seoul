@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 20:09:50 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/07 18:19:42 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:39:56 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_error(t_data *all, int errnum)
 		free(all->coor);
 	free(all->mlx);
 	perror(strerror(errnum));
-	exit(1);	
+	exit(1);
 }
 
 double	ft_atod(char *str)
@@ -66,7 +66,7 @@ double	ft_atod(char *str)
 	else
 		return (10.0);
 	if (*str != '.')
-		return (10.0);
+		return (0.0);
 	decimal = 0;
 	str++;
 	while (*str >= '0' && *str <= '9')
