@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:41:12 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/07 16:35:36 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:13:24 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define RED			2
 # define IMAGINARY		0
 # define REAL			1
-# define MAX_ITER		100
+# define MAX_ITER		50
 
 typedef struct s_coor
 {

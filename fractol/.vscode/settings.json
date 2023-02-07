@@ -1,7 +1,7 @@
 {
 	"cmake.debugConfig": {
 	"args": [
-		"mandelbrot"
+		"julia", "-0.835", "-0.2321"
 	]
 	}
 }

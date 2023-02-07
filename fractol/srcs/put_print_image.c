@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 23:25:48 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/07 15:54:32 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:08:21 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,27 @@ static int	ft_mandelbrot(t_data *all, double rvalue, double ivalue)
 	double	y;
 	double	xnext;
 	int		iter;
+	int		max_iter;
 
 	x = 0;
 	y = 0;
 	iter = 0;
-	while (((x * x) + (y * y) < 4.0) && iter < MAX_ITER)
+	max_iter = MAX_ITER;
+	if (all->coor->rrange < 0.0625)
+		max_iter = 4 * MAX_ITER;
+	else if (all->coor->rrange < 0.5)
+		max_iter = 2 * MAX_ITER;
+	while (((x * x) + (y * y) < 4.0) && iter < max_iter)
 	{
 		xnext = (x * x) - (y * y) + rvalue;
 		y = (2.0 * x * y) + ivalue;
 		x = xnext;
 		iter++;
 	}
-	if (iter == MAX_ITER)
+	if (iter == max_iter)
 		return (0x0);
 	else
-		return ((all->colorset)[iter / 10]);
+		return ((all->colorset)[iter * 10 / max_iter]);
 }
 
 static int	ft_julia(t_data *all, double rvalue, double ivalue)
@@ -85,21 +91,27 @@ static int	ft_julia(t_data *all, double rvalue, double ivalue)
 	double	y;
 	double	xnext;
 	int		iter;
+	int		max_iter;
 
 	x = rvalue;
 	y = ivalue;
 	iter = 0;
-	while (((x * x) + (y * y) < 4.0) && iter < MAX_ITER)
+	max_iter = MAX_ITER;
+	if (all->coor->rrange < 0.0625)
+		max_iter = 4 * MAX_ITER;
+	else if (all->coor->rrange < 0.5)
+		max_iter = 2 * MAX_ITER;
+	while (((x * x) + (y * y) < 4.0) && iter < max_iter)
 	{
 		xnext = (x * x) - (y * y) + all->rnum;
 		y = (2.0 * x * y) + all->inum;
 		x = xnext;
 		iter++;
 	}
-	if (iter == MAX_ITER)
+	if (iter == max_iter)
 		return (0x0);
 	else
-		return ((all->colorset)[iter / 10]);
+		return ((all->colorset)[iter * 10 / max_iter]);
 }
 
 static int	ft_buringship(t_data *all, double rvalue, double ivalue)
@@ -108,10 +120,16 @@ static int	ft_buringship(t_data *all, double rvalue, double ivalue)
 	double	y;
 	double	xnext;
 	int		iter;
+	int		max_iter;
 
 	x = 0;
 	y = 0;
 	iter = 0;
+	max_iter = MAX_ITER;
+	if (all->coor->rrange < 0.0625)
+		max_iter = 4 * MAX_ITER;
+	else if (all->coor->rrange < 0.5)
+		max_iter = 2 * MAX_ITER;
 	while (((x * x) + (y * y) < 4.0) && iter < MAX_ITER)
 	{
 		xnext = (x * x) - (y * y) + rvalue;
@@ -122,5 +140,5 @@ static int	ft_buringship(t_data *all, double rvalue, double ivalue)
 	if (iter == MAX_ITER)
 		return (0x0);
 	else
-		return ((all->colorset)[iter / 10]);
+		return ((all->colorset)[iter * 10 / max_iter]);
 }
