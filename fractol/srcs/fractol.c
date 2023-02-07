@@ -6,14 +6,14 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:40:36 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/07 18:42:23 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:55:29 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
 static void	ft_init_data(t_data *data, int argc, char *argv[]);
-static int	ft_check_type(t_data *data, char *argv[]);
+static int	ft_check_type(t_data *data, int argc, char *argv[]);
 
 int	main(int argc, char *argv[])
 {
@@ -37,7 +37,7 @@ int	main(int argc, char *argv[])
 
 static void	ft_init_data(t_data *data, int argc, char *argv[])
 {
-	if (argc == 1 || ft_check_type(data, argv) == 0)
+	if (argc == 1 || ft_check_type(data, argc, argv) == 0)
 	{
 		write(2, "Put in the possible parameters below.\n", 38);
 		write(2, "mandelbrot\n", 11);
@@ -60,13 +60,15 @@ static void	ft_init_data(t_data *data, int argc, char *argv[])
 	data->coor->irange = 4.0;
 }
 
-static int	ft_check_type(t_data *data, char *argv[])
+static int	ft_check_type(t_data *data, int argc, char *argv[])
 {
 	if (ft_strnstr(argv[1], "mandelbrot", 10))
 		data->type = MANDEL;
 	else if (ft_strnstr(argv[1], "julia", 5))
 	{
 		data->type = JULIA;
+		if (argc < 4)
+			return (0);
 		data->rnum = ft_atod(argv[2]);
 		data->inum = ft_atod(argv[3]);
 		if (data->rnum > 9.0 || data->inum > 9.0)
