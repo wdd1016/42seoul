@@ -1,7 +1,7 @@
 {
 	"cmake.debugConfig": {
 	"args": [
-		"buringship"
+		"mandelbrot"
 	]
 	}
 }

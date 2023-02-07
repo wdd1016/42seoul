@@ -11,7 +11,7 @@ INCLUDE_DIRECTORIES(srcs)
 file(GLOB PROJ_SRC "srcs/*.c")
 add_executable(fractolprog ${PROJ_SRC})
 
-FIND_LIBRARY(UNIT_LIB NAMES mlx PATHS /Users/juyojeon/Desktop/42seoul/fractol/minilibx)
+FIND_LIBRARY(UNIT_LIB NAMES mlx PATHS /Users/juyojeon/Desktop/42seoul/fractol/mlx)
 target_link_libraries(fractolprog PRIVATE ${UNIT_LIB})
 
 target_link_libraries(fractolprog PRIVATE "-framework OpenGL")
