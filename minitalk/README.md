@@ -259,4 +259,6 @@
 
 [minitalk](https://www.notion.so/minitalk-cd2a1f4d5a2a419ab89aa66ee9888468)
 
+[필기노트](https://brassy-plate-60f.notion.site/33c32be0faf54ed08290a5e48a0fe5f5)
+
 [https://cdn.intra.42.fr/pdf/pdf/35917/en.subject.pdf](https://cdn.intra.42.fr/pdf/pdf/35917/en.subject.pdf)
