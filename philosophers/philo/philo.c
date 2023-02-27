@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:05:18 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/27 23:21:01 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/28 02:00:33 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,53 +14,60 @@
 
 int	main(int argc, char *argv[])
 {
-	t_philo	*share;
+	t_philo	*info;
 	int		i;
+	void	*temp;
 
-	share = (t_philo *)malloc(sizeof(t_philo));
-	if (share == 0 || ft_init_philo_struct(share) == 0)
-		return (ft_error(share, "Allocation Error\n"));
-	if (ft_record_arguments(share, argc, argv) == 0)
-		return (ft_error(share, "Argument Error\n"));
-	if (ft_mutex_init(share) == 0)
-		return (ft_error(share, "Mutex generation Error\n"));
-	if (gettimeofday(&(share->starttime), NULL) == -1)
-		return (ft_error(share, "Time parcing Error\n"));
+	if (ft_init_philo_struct(info) == 0)
+		return (ft_error(info, "Allocation Error\n"));
+	if (ft_record_arguments(info, argc, argv) == 0)
+		return (ft_error(info, "Argument Error\n"));
+	if (ft_mutex_threadt_init(info) == 0)
+		return (ft_error(info, "Generation Error\n"));
+	if (gettimeofday(&(info->starttime), NULL) == -1)
+		return (ft_error(info, "Time parcing Error\n"));
 	i = -1;
-	while (++i < share->num_people)
-	{
-		if (pthread_create() != 0)
-			return (ft_error_join(share, "Thread create Error"));
-	}
+	while (++i < info->num_people)
+		if (pthread_create(&(info->threads)[i], NULL, ft_thread_routine, info) != 0)
+			return (ft_error_join(i, info, "Thread create Error"));
+	while (info->inter->exit_flag == 0 && ft_is_fin_dining(info) == 0)
+		usleep(2500);
+	i = -1;
+	while (++i < info->num_people)
+		pthread_join((info->threads)[i], &temp);
+	ft_all_free_destroy(info);
+	return (0);
 }
 
-int	ft_mutex_init(t_philo *share)
+void	*ft_thread_routine(void *arg)
 {
-	int	i;
 
-	share->inter.forkmutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
-	* (share->num_people + 1));
-	if (share->inter.forkmutex == 0)
+}
+
+void	ft_all_free_destroy(t_philo *info)
+{
+	
+}
+
+int	ft_is_fin_dining(t_philo *info)
+{
+	if (info->inter->fin_count != info->num_people)
 		return (0);
-	i = -1;
-	while (++i < share->num_people + 1)
-		if (pthread_mutex_init(&(share->inter.forkmutex)[i], NULL) == -1)
-			return (0);
-	i = -1;
-	while (++i < 2)
-		if (pthread_mutex_init(&(share->inter.sysmutex)[i], NULL) == -1)
-			return (0);
+	(info->inter->exit_flag)++;
+	write(1, "All Philosophers Finish defined meals\n", 38);
 	return (1);
 }
 
-int	ft_error(t_philo *share, const char *str)
+int	ft_error(t_philo *info, const char *str)
 {
 	printf("%s", str);
-	if (share->inter.forkmutex)
-		free(share->inter.forkmutex);
-	if (share->threadnum)
-		free(share->threadnum);
-	if (share)
-		free(share);
+	if (info->inter->forkmutex)
+		free(info->inter->forkmutex);
+	if (info->inter)
+		free(info->inter);
+	if (info->threads)
+		free(info->threads);
+	if (info)
+		free(info);
 	return (-1);
 }
