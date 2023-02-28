@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:05:18 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/28 02:00:33 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/28 20:26:53 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,6 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 
-void	*ft_thread_routine(void *arg)
-{
-
-}
-
-void	ft_all_free_destroy(t_philo *info)
-{
-	
-}
-
 int	ft_is_fin_dining(t_philo *info)
 {
 	if (info->inter->fin_count != info->num_people)
@@ -56,6 +46,26 @@ int	ft_is_fin_dining(t_philo *info)
 	(info->inter->exit_flag)++;
 	write(1, "All Philosophers Finish defined meals\n", 38);
 	return (1);
+}
+
+void	ft_all_free_destroy(t_philo *info)
+{
+	int	i;
+
+	i = -1;
+	while (++i < info->num_people)
+		pthread_mutex_destroy(&(info->inter->forkmutex)[i]);
+	i = -1;
+	while (++i < 2)
+		pthread_mutex_destroy(&(info->inter->sysmutex)[i]);
+	if (info->inter->forkmutex)
+		free(info->inter->forkmutex);
+	if (info->inter)
+		free(info->inter);
+	if (info->threads)
+		free(info->threads);
+	if (info)
+		free(info);
 }
 
 int	ft_error(t_philo *info, const char *str)

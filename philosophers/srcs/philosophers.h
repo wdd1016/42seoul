@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 18:37:59 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/28 02:00:45 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/02/28 20:27:01 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ long	ft_atol(const char *str);
 int		ft_init_philo_struct(t_philo *share);
 int		ft_record_arguments(t_philo *share, int argc, char *argv[]);
 int		ft_mutex_threadt_init(t_philo *info);
+void	*ft_thread_routine(void *arg);
 
 #endif
