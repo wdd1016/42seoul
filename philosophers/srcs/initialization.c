@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 22:44:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/28 02:00:48 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/01 22:27:10 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int	ft_init_philo_struct(t_philo *info)
 {
-	info = (t_philo *)malloc(sizeof(t_philo));
-	if (!info)
-		return (0);
 	info->num_people = 0;
 	info->lifetime = 0;
 	info->mealtime = 0;
@@ -25,6 +22,8 @@ int	ft_init_philo_struct(t_philo *info)
 	info->threads = 0;
 	info->inter = 0;
 	info->inter = (t_interact *)malloc(sizeof(t_interact));
+	if (!info->inter)
+		return (0);
 	info->inter->fin_count = 0;
 	info->inter->pil_num = 0;
 	info->inter->exit_flag = 0;
@@ -77,8 +76,28 @@ int	ft_mutex_threadt_init(t_philo *info)
 		if (pthread_mutex_init(&(info->inter->forkmutex)[i], NULL) == -1)
 			return (0);
 	i = -1;
-	while (++i < 2)
+	while (++i < 3)
 		if (pthread_mutex_init(&(info->inter->sysmutex)[i], NULL) == -1)
 			return (0);
 	return (1);
+}
+
+void	ft_find_pnum_init_data(t_philo *pinfo, t_data *tdata)
+{
+	int	temp;
+
+	pthread_mutex_lock(&(pinfo->inter->sysmutex)[FIL_NUM]);
+	temp = ++(pinfo->inter->pil_num);
+	pthread_mutex_unlock(&(pinfo->inter->sysmutex)[FIL_NUM]);
+	tdata->pnum = temp;
+	tdata->eat_count = 0;
+	tdata->reftime.tv_sec = pinfo->starttime.tv_sec;
+	tdata->reftime.tv_usec = pinfo->starttime.tv_usec;
+	tdata->fir_fork = ((temp - 1) / 2) * 2;
+	if (temp == 1)
+		tdata->sec_fork = pinfo->num_people - 1;
+	else if (temp % 2 == 1)
+		tdata->sec_fork = tdata->fir_fork - 1;
+	else if (temp % 2 == 0)
+		tdata->sec_fork = tdata->fir_fork + 1;
 }

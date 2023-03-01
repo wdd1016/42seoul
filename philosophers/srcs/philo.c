@@ -6,11 +6,15 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:05:18 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/02/28 20:26:53 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/01 22:23:29 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+static int	ft_is_fin_dining(t_philo *info);
+static void	ft_all_free_destroy(t_philo *info);
+static int	ft_error(t_philo *info, const char *str);
 
 int	main(int argc, char *argv[])
 {
@@ -18,7 +22,8 @@ int	main(int argc, char *argv[])
 	int		i;
 	void	*temp;
 
-	if (ft_init_philo_struct(info) == 0)
+	info = (t_philo *)malloc(sizeof(t_philo));
+	if (!info || !ft_init_philo_struct(info))
 		return (ft_error(info, "Allocation Error\n"));
 	if (ft_record_arguments(info, argc, argv) == 0)
 		return (ft_error(info, "Argument Error\n"));
@@ -29,7 +34,7 @@ int	main(int argc, char *argv[])
 	i = -1;
 	while (++i < info->num_people)
 		if (pthread_create(&(info->threads)[i], NULL, ft_thread_routine, info) != 0)
-			return (ft_error_join(i, info, "Thread create Error"));
+			return (ft_error(info, "Thread create Error"));
 	while (info->inter->exit_flag == 0 && ft_is_fin_dining(info) == 0)
 		usleep(2500);
 	i = -1;
@@ -39,7 +44,7 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 
-int	ft_is_fin_dining(t_philo *info)
+static int	ft_is_fin_dining(t_philo *info)
 {
 	if (info->inter->fin_count != info->num_people)
 		return (0);
@@ -48,7 +53,7 @@ int	ft_is_fin_dining(t_philo *info)
 	return (1);
 }
 
-void	ft_all_free_destroy(t_philo *info)
+static void	ft_all_free_destroy(t_philo *info)
 {
 	int	i;
 
@@ -68,7 +73,7 @@ void	ft_all_free_destroy(t_philo *info)
 		free(info);
 }
 
-int	ft_error(t_philo *info, const char *str)
+static int	ft_error(t_philo *info, const char *str)
 {
 	printf("%s", str);
 	if (info->inter->forkmutex)
