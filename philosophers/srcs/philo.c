@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:05:18 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/01 22:23:29 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/02 18:46:51 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char *argv[])
 	i = -1;
 	while (++i < info->num_people)
 		if (pthread_create(&(info->threads)[i], NULL, ft_thread_routine, info) != 0)
-			return (ft_error(info, "Thread create Error"));
+			return (ft_error(info, "Thread create Error\n"));
 	while (info->inter->exit_flag == 0 && ft_is_fin_dining(info) == 0)
 		usleep(2500);
 	i = -1;

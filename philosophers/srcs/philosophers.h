@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 18:37:59 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/01 22:18:06 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/02 22:01:27 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ typedef struct s_data
 {
 	int				pnum;
 	struct timeval	reftime;
-	long long		temptime;
+	long			startdiff;
+	long			refdiff;
 	int				fir_fork;
 	int				sec_fork;
 	int				eat_count;
-	int				left_time;
 }	t_data;
 
 # define CONTINUE 0

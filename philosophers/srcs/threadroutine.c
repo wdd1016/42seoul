@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:18:15 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/01 22:25:53 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/02 22:10:14 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,15 @@ void	*ft_thread_routine(void *arg)
 			break ;
 		pthread_mutex_lock(&(pinfo->inter->sysmutex)[EXIT_FLAG]);
 		if (!pinfo->inter->exit_flag)
-			printf("%lld %d is sleeping", tdata.temptime, tdata.pnum);
+			printf("%ld %d is sleeping\n", tdata.temptime, tdata.pnum);
 		pthread_mutex_unlock(&(pinfo->inter->sysmutex)[EXIT_FLAG]);
-		tdata.left_time = pinfo->sleeptime;
 		if (ft_sleeping(pinfo, &tdata) == TERMINATE)
 			break ;
 		if (pinfo->inter->exit_flag || ft_timecheck(pinfo, &tdata))
 			break ;
 		pthread_mutex_lock(&(pinfo->inter->sysmutex)[EXIT_FLAG]);
 		if (!pinfo->inter->exit_flag)
-			printf("%lld %d is thinking", tdata.temptime, tdata.pnum);
+			printf("%ld %d is thinking\n", tdata.temptime, tdata.pnum);
 		pthread_mutex_unlock(&(pinfo->inter->sysmutex)[EXIT_FLAG]);
 	}
 	return (NULL);
@@ -57,15 +56,20 @@ static int	ft_eating(t_philo *pinfo, t_data *tdata)
 	}
 	pthread_mutex_lock(&(pinfo->inter->forkmutex)[tdata->sec_fork]);
 	if (pinfo->inter->exit_flag || ft_timecheck(pinfo, tdata))
+	{
+		pthread_mutex_unlock(&(pinfo->inter->forkmutex)[tdata->sec_fork]);
+		pthread_mutex_unlock(&(pinfo->inter->forkmutex)[tdata->fir_fork]);
 		return (TERMINATE);
+	}
+	gettimeofday(&(tdata->reftime), NULL);
+	tdata->temptime = (tdata->reftime.tv_sec - pinfo->starttime.tv_sec) \
+	* 1000 + (tdata->reftime.tv_usec - pinfo->starttime.tv_usec) / 1000;
 	pthread_mutex_lock(&(pinfo->inter->sysmutex)[EXIT_FLAG]);
 	if (!pinfo->inter->exit_flag)
-		printf("%lld %d is eating", tdata->temptime, tdata->pnum);
+		printf("%ld %d is eating\n", tdata->temptime, tdata->pnum);
 	pthread_mutex_unlock(&(pinfo->inter->sysmutex)[EXIT_FLAG]);
-	tdata->left_time = pinfo->mealtime;
 	if (ft_eating_process(pinfo, tdata) == TERMINATE)
 		return (TERMINATE);
-	gettimeofday(&(tdata->reftime), NULL);
 	if (++(tdata->eat_count) == pinfo->max_meal)
 	{
 		pthread_mutex_lock(&(pinfo->inter->sysmutex)[MEAL_FIN_COUNT]);
@@ -78,22 +82,21 @@ static int	ft_eating(t_philo *pinfo, t_data *tdata)
 
 static int	ft_eating_process(t_philo *pinfo, t_data *tdata)
 {
-	while (tdata->left_time > 0)
+	struct timeval	now;
+
+	gettimeofday(&now, NULL);
+	while ((now.tv_sec - tdata->reftime.tv_sec) * 1000 + \
+	(now.tv_usec - tdata->reftime.tv_usec) / 1000 < pinfo->mealtime)
 	{
 		if (!pinfo->inter->exit_flag && !ft_timecheck(pinfo, tdata))
 		{
-			tdata->left_time -= 5;
-			if (tdata->left_time < 0)
-				usleep((5 + tdata->left_time) * 1000);
-			else
-				usleep(5000);
+			usleep(2000);
+			gettimeofday(&now, NULL);
+			continue ;
 		}
-		else
-		{
-			pthread_mutex_unlock(&(pinfo->inter->forkmutex)[tdata->sec_fork]);
-			pthread_mutex_unlock(&(pinfo->inter->forkmutex)[tdata->fir_fork]);
-			return (TERMINATE);
-		}
+		pthread_mutex_unlock(&(pinfo->inter->forkmutex)[tdata->sec_fork]);
+		pthread_mutex_unlock(&(pinfo->inter->forkmutex)[tdata->fir_fork]);
+		return (TERMINATE);
 	}
 	pthread_mutex_unlock(&(pinfo->inter->forkmutex)[tdata->sec_fork]);
 	pthread_mutex_unlock(&(pinfo->inter->forkmutex)[tdata->fir_fork]);
@@ -102,15 +105,16 @@ static int	ft_eating_process(t_philo *pinfo, t_data *tdata)
 
 static int	ft_sleeping(t_philo *pinfo, t_data *tdata)
 {
-	while (tdata->left_time > 0)
+	struct timeval	now;
+
+	
+	while ((now.tv_sec - tdata->reftime.tv_sec) * 1000 + \
+	(now.tv_usec - tdata->reftime.tv_usec) / 1000 < pinfo->sleeptime)
 	{
+		gettimeofday(&now, NULL);
 		if (!pinfo->inter->exit_flag && !ft_timecheck(pinfo, tdata))
 		{
-			tdata->left_time -= 5;
-			if (tdata->left_time < 0)
-				usleep((5 + tdata->left_time) * 1000);
-			else
-				usleep(5000);
+			
 		}
 		else
 			return (TERMINATE);
@@ -121,21 +125,18 @@ static int	ft_sleeping(t_philo *pinfo, t_data *tdata)
 static int	ft_timecheck(t_philo *pinfo, t_data *tdata)
 {
 	struct timeval	now;
-	long			aftereat;
-	long			lifediff;
 
 	gettimeofday(&now, NULL);
-	lifediff = (now.tv_sec - pinfo->starttime.tv_sec) * 1000 + \
+	tdata->startdiff = (now.tv_sec - pinfo->starttime.tv_sec) * 1000 + \
 	(now.tv_usec - pinfo->starttime.tv_usec) / 1000;
-	aftereat = (now.tv_sec - tdata->reftime.tv_sec) * 1000 + \
+	tdata->refdiff = (now.tv_sec - tdata->reftime.tv_sec) * 1000 + \
 	(now.tv_usec - tdata->reftime.tv_usec) / 1000;
-	tdata->temptime = now.tv_sec * 1000 + now.tv_usec / 1000;
-	if (lifediff > pinfo->lifetime || aftereat > pinfo->lifetime)
+	if (tdata->refdiff > pinfo->lifetime)
 	{
 		pthread_mutex_lock(&(pinfo->inter->sysmutex)[EXIT_FLAG]);
 		(pinfo->inter->exit_flag)++;
 		if (pinfo->inter->exit_flag == TERMINATE)
-			printf("%lld %d died", tdata->temptime, tdata->pnum);
+			printf("%ld %d died\n", tdata->startdiff, tdata->pnum);
 		pthread_mutex_unlock(&(pinfo->inter->sysmutex)[EXIT_FLAG]);
 		return (TERMINATE);
 	}
