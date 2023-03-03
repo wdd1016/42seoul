@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 18:37:59 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/02 22:01:27 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/03 14:39:11 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <unistd.h>
 # include <pthread.h>
 
-typedef struct	s_interact
+typedef struct s_interact
 {
 	long			fin_count;
 	int				pil_num;
@@ -29,7 +29,7 @@ typedef struct	s_interact
 	pthread_mutex_t	sysmutex[3];
 }	t_interact;
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	struct timeval	starttime;
 	pthread_t		*threads;
@@ -59,10 +59,13 @@ typedef struct s_data
 # define MEAL_FIN_COUNT 2
 
 long	ft_atol(const char *str);
+size_t	ft_strlen(const char *s);
 int		ft_init_philo_struct(t_philo *share);
 int		ft_record_arguments(t_philo *share, int argc, char *argv[]);
 int		ft_mutex_threadt_init(t_philo *info);
 void	ft_find_pnum_init_data(t_philo *pinfo, t_data *tdata);
-void	*ft_thread_routine(void *arg);
+int		ft_init_check_get_start_time(t_philo *info);
+int		ft_error(t_philo *info, const char *str);
+void	*ft_th_routine(void *arg);
 
 #endif

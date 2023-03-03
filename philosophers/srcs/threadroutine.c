@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:18:15 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/02 22:10:14 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/03 14:39:23 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	ft_eating_process(t_philo *pinfo, t_data *tdata);
 static int	ft_sleeping(t_philo *pinfo, t_data *tdata);
 static int	ft_timecheck(t_philo *pinfo, t_data *tdata);
 
-void	*ft_thread_routine(void *arg)
+void	*ft_th_routine(void *arg)
 {
 	t_philo	*pinfo;
 	t_data	tdata;
@@ -32,7 +32,7 @@ void	*ft_thread_routine(void *arg)
 			break ;
 		pthread_mutex_lock(&(pinfo->inter->sysmutex)[EXIT_FLAG]);
 		if (!pinfo->inter->exit_flag)
-			printf("%ld %d is sleeping\n", tdata.temptime, tdata.pnum);
+			printf("%ld %d is sleeping\n", tdata.startdiff, tdata.pnum);
 		pthread_mutex_unlock(&(pinfo->inter->sysmutex)[EXIT_FLAG]);
 		if (ft_sleeping(pinfo, &tdata) == TERMINATE)
 			break ;
@@ -40,7 +40,7 @@ void	*ft_thread_routine(void *arg)
 			break ;
 		pthread_mutex_lock(&(pinfo->inter->sysmutex)[EXIT_FLAG]);
 		if (!pinfo->inter->exit_flag)
-			printf("%ld %d is thinking\n", tdata.temptime, tdata.pnum);
+			printf("%ld %d is thinking\n", tdata.startdiff, tdata.pnum);
 		pthread_mutex_unlock(&(pinfo->inter->sysmutex)[EXIT_FLAG]);
 	}
 	return (NULL);
@@ -54,6 +54,8 @@ static int	ft_eating(t_philo *pinfo, t_data *tdata)
 		pthread_mutex_unlock(&(pinfo->inter->forkmutex)[tdata->fir_fork]);
 		return (TERMINATE);
 	}
+	if (!pinfo->inter->exit_flag)
+		printf("%ld %d has taken a fork\n", tdata->startdiff, tdata->pnum);
 	pthread_mutex_lock(&(pinfo->inter->forkmutex)[tdata->sec_fork]);
 	if (pinfo->inter->exit_flag || ft_timecheck(pinfo, tdata))
 	{
@@ -62,21 +64,14 @@ static int	ft_eating(t_philo *pinfo, t_data *tdata)
 		return (TERMINATE);
 	}
 	gettimeofday(&(tdata->reftime), NULL);
-	tdata->temptime = (tdata->reftime.tv_sec - pinfo->starttime.tv_sec) \
+	tdata->startdiff = (tdata->reftime.tv_sec - pinfo->starttime.tv_sec) \
 	* 1000 + (tdata->reftime.tv_usec - pinfo->starttime.tv_usec) / 1000;
 	pthread_mutex_lock(&(pinfo->inter->sysmutex)[EXIT_FLAG]);
 	if (!pinfo->inter->exit_flag)
-		printf("%ld %d is eating\n", tdata->temptime, tdata->pnum);
+		printf("%ld %d is eating\n", tdata->startdiff, tdata->pnum);
 	pthread_mutex_unlock(&(pinfo->inter->sysmutex)[EXIT_FLAG]);
 	if (ft_eating_process(pinfo, tdata) == TERMINATE)
 		return (TERMINATE);
-	if (++(tdata->eat_count) == pinfo->max_meal)
-	{
-		pthread_mutex_lock(&(pinfo->inter->sysmutex)[MEAL_FIN_COUNT]);
-		(pinfo->inter->fin_count)++;
-		pthread_mutex_unlock(&(pinfo->inter->sysmutex)[MEAL_FIN_COUNT]);
-		return (TERMINATE);
-	}
 	return (CONTINUE);
 }
 
@@ -100,21 +95,29 @@ static int	ft_eating_process(t_philo *pinfo, t_data *tdata)
 	}
 	pthread_mutex_unlock(&(pinfo->inter->forkmutex)[tdata->sec_fork]);
 	pthread_mutex_unlock(&(pinfo->inter->forkmutex)[tdata->fir_fork]);
-	return (CONTINUE);
+	if (++(tdata->eat_count) != pinfo->max_meal)
+		return (CONTINUE);
+	pthread_mutex_lock(&(pinfo->inter->sysmutex)[MEAL_FIN_COUNT]);
+	(pinfo->inter->fin_count)++;
+	pthread_mutex_unlock(&(pinfo->inter->sysmutex)[MEAL_FIN_COUNT]);
+	return (TERMINATE);
 }
 
 static int	ft_sleeping(t_philo *pinfo, t_data *tdata)
 {
+	struct timeval	start;
 	struct timeval	now;
 
-	
-	while ((now.tv_sec - tdata->reftime.tv_sec) * 1000 + \
-	(now.tv_usec - tdata->reftime.tv_usec) / 1000 < pinfo->sleeptime)
+	gettimeofday(&start, NULL);
+	gettimeofday(&now, NULL);
+	while ((now.tv_sec - start.tv_sec) * 1000 + \
+	(now.tv_usec - start.tv_usec) / 1000 < pinfo->sleeptime)
 	{
-		gettimeofday(&now, NULL);
 		if (!pinfo->inter->exit_flag && !ft_timecheck(pinfo, tdata))
 		{
-			
+			usleep(2000);
+			gettimeofday(&now, NULL);
+			continue ;
 		}
 		else
 			return (TERMINATE);
