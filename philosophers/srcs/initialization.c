@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 22:44:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/03 14:35:46 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/03 22:35:31 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,9 @@ void	ft_find_pnum_init_data(t_philo *pinfo, t_data *tdata)
 		usleep(pinfo->mealtime * 500);
 	tdata->pnum = temp;
 	tdata->eat_count = 0;
-	tdata->reftime.tv_sec = pinfo->starttime.tv_sec;
-	tdata->reftime.tv_usec = pinfo->starttime.tv_usec;
+	tdata->rtm.tv_sec = pinfo->stm.tv_sec;
+	tdata->rtm.tv_usec = pinfo->stm.tv_usec;
+	tdata->startdiff = 0;
 	tdata->fir_fork = ((temp - 1) / 2) * 2;
 	if (temp == 1)
 		tdata->sec_fork = pinfo->num_people - 1;
@@ -104,7 +105,7 @@ void	ft_find_pnum_init_data(t_philo *pinfo, t_data *tdata)
 
 int	ft_init_check_get_start_time(t_philo *info)
 {
-	if (gettimeofday(&(info->starttime), NULL) == -1)
+	if (gettimeofday(&(info->stm), NULL) == -1)
 	{
 		ft_error(info, "Time parcing Error\n");
 		return (TERMINATE);

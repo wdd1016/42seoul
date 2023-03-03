@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 18:39:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/03 12:23:14 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/03 21:17:45 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,3 +42,4 @@ size_t	ft_strlen(const char *s)
 		s++;
 	return ((size_t)s - (size_t)copy);
 }
+
