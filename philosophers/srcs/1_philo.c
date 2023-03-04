@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:05:18 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/04 17:46:43 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/04 19:13:06 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static int	ft_is_fin_dining(t_philo *info)
 {
 	if (info->inter->fin_count != info->num_people)
 		return (CONTINUE);
+	usleep(1000);
 	pthread_mutex_lock(&(info->inter->sysmutex)[EXIT_FLAG]);
 	(info->inter->exit_flag)++;
 	printf("All Philosophers Finish defined meals\n");
