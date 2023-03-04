@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 18:37:59 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/03 22:35:23 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/04 17:03:09 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_philo
 	long			lifetime;
 	long			mealtime;
 	long			sleeptime;
+	long			thinkt;
 	long			max_meal;
 	t_interact		*inter;
 }	t_philo;
@@ -63,18 +64,18 @@ typedef struct s_data
 # define SLEEP 3
 # define THINK 4
 
-long	ft_atol(const char *str);
-size_t	ft_strlen(const char *s);
-int		ft_init_philo_struct(t_philo *share);
-int		ft_record_arguments(t_philo *share, int argc, char *argv[]);
-int		ft_mutex_threadt_init(t_philo *info);
-void	ft_find_pnum_init_data(t_philo *pinfo, t_data *tdata);
+int		ft_init_philo_struct(t_philo *info);
+int		ft_record_arguments(t_philo *info, int argc, char *argv[]);
 int		ft_init_check_get_start_time(t_philo *info);
-int		ft_error(t_philo *info, const char *str);
+int		ft_think_mutex_threadt_init(t_philo *info);
 void	*ft_th_routine(void *arg);
+void	ft_find_pnum_init_data(t_philo *pinfo, t_data *tdata);
 void	ft_print_fork(t_philo *pinfo, t_data *tdata);
 void	ft_print_eat(t_philo *pinfo, t_data *tdata);
 void	ft_print_sleep(t_philo *pinfo, t_data *tdata);
 void	ft_print_think(t_philo *pinfo, t_data *tdata);
-
+long	ft_atol(const char *str);
+size_t	ft_strlen(const char *s);
+int		ft_error(t_philo *info, const char *str);
+int		ft_error_thread(int idx, t_philo *info, const char *str);
 #endif

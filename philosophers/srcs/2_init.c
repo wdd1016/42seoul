@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialization.c                                   :+:      :+:    :+:   */
+/*   2_init.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 22:44:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/03 22:35:31 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/04 16:49:49 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,49 +60,6 @@ int	ft_record_arguments(t_philo *info, int argc, char *argv[])
 	return (CONTINUE);
 }
 
-int	ft_mutex_threadt_init(t_philo *info)
-{
-	int	i;
-
-	info->inter->forkmutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
-	* (info->num_people));
-	if (info->inter->forkmutex == 0)
-		return (TERMINATE);
-	info->threads = (pthread_t *)malloc(sizeof(pthread_t) * info->num_people);
-	if (info->threads == 0)
-		return (TERMINATE);
-	i = -1;
-	while (++i < info->num_people)
-		pthread_mutex_init(&(info->inter->forkmutex)[i], NULL);
-	i = -1;
-	while (++i < 3)
-		pthread_mutex_init(&(info->inter->sysmutex)[i], NULL);
-	return (CONTINUE);
-}
-
-void	ft_find_pnum_init_data(t_philo *pinfo, t_data *tdata)
-{
-	int	temp;
-
-	pthread_mutex_lock(&(pinfo->inter->sysmutex)[FIL_NUM]);
-	temp = ++(pinfo->inter->pil_num);
-	pthread_mutex_unlock(&(pinfo->inter->sysmutex)[FIL_NUM]);
-	if (temp % 2 == 0)
-		usleep(pinfo->mealtime * 500);
-	tdata->pnum = temp;
-	tdata->eat_count = 0;
-	tdata->rtm.tv_sec = pinfo->stm.tv_sec;
-	tdata->rtm.tv_usec = pinfo->stm.tv_usec;
-	tdata->startdiff = 0;
-	tdata->fir_fork = ((temp - 1) / 2) * 2;
-	if (temp == 1)
-		tdata->sec_fork = pinfo->num_people - 1;
-	else if (temp % 2 == 1)
-		tdata->sec_fork = tdata->fir_fork - 1;
-	else if (temp % 2 == 0)
-		tdata->sec_fork = tdata->fir_fork + 1;
-}
-
 int	ft_init_check_get_start_time(t_philo *info)
 {
 	if (gettimeofday(&(info->stm), NULL) == -1)
@@ -124,5 +81,31 @@ int	ft_init_check_get_start_time(t_philo *info)
 			free(info);
 		return (TERMINATE);
 	}
+	return (CONTINUE);
+}
+
+int	ft_think_mutex_threadt_init(t_philo *info)
+{
+	int	i;
+
+	if (info->num_people % 2 == 0)
+		info->thinkt = 0;
+	else
+		info->thinkt = (info->lifetime - info->mealtime - info->sleeptime) / 2;
+	if (info->thinkt < 0)
+		info->thinkt = 0;
+	info->inter->forkmutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
+	* (info->num_people));
+	if (info->inter->forkmutex == 0)
+		return (TERMINATE);
+	info->threads = (pthread_t *)malloc(sizeof(pthread_t) * info->num_people);
+	if (info->threads == 0)
+		return (TERMINATE);
+	i = -1;
+	while (++i < info->num_people)
+		pthread_mutex_init(&(info->inter->forkmutex)[i], NULL);
+	i = -1;
+	while (++i < 3)
+		pthread_mutex_init(&(info->inter->sysmutex)[i], NULL);
 	return (CONTINUE);
 }

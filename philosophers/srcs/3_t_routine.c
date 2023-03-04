@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   threadroutine.c                                    :+:      :+:    :+:   */
+/*   3_t_routine.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:18:15 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/03 22:41:06 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/04 17:02:30 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
 static int	ft_timecheck(t_philo *pinfo, t_data *tdata, int flag);
-static int	ft_eating(t_philo *pinfo, t_data *tdata);
+static int	ft_eating(t_philo *info, t_data *dt);
 static int	ft_eating_process(t_philo *pinfo, t_data *tdata);
-static int	ft_sleeping(t_philo *pinfo, t_data *tdata);
+static int	ft_sleeping_thinking(t_philo *pinfo, t_data *tdata, long times);
 
 void	*ft_th_routine(void *arg)
 {
@@ -30,10 +30,13 @@ void	*ft_th_routine(void *arg)
 			break ;
 		if (pinfo->inter->exit_flag || ft_timecheck(pinfo, &tdata, SLEEP))
 			break ;
-		if (ft_sleeping(pinfo, &tdata) == TERMINATE)
+		if (ft_sleeping_thinking(pinfo, &tdata, pinfo->sleeptime) == TERMINATE)
 			break ;
 		if (pinfo->inter->exit_flag || ft_timecheck(pinfo, &tdata, THINK))
 			break ;
+		if (pinfo->thinkt > 0)
+			if (ft_sleeping_thinking(pinfo, &tdata, pinfo->thinkt) == TERMINATE)
+				break ;
 	}
 	return (NULL);
 }
@@ -116,15 +119,15 @@ static int	ft_eating_process(t_philo *pinfo, t_data *tdata)
 	return (TERMINATE);
 }
 
-static int	ft_sleeping(t_philo *pinfo, t_data *tdata)
+static int	ft_sleeping_thinking(t_philo *pinfo, t_data *tdata, long times)
 {
 	struct timeval	start;
 	struct timeval	now;
 
 	start = tdata->ntm;
 	gettimeofday(&now, NULL);
-	while ((now.tv_sec - start.tv_sec) * 1000 + \
-	(now.tv_usec - start.tv_usec) / 1000 < pinfo->sleeptime)
+	while ((now.tv_sec - start.tv_sec) * 1000 + (now.tv_usec - start.tv_usec) \
+	/ 1000 < times)
 	{
 		if (!pinfo->inter->exit_flag && !ft_timecheck(pinfo, tdata, PASS))
 		{

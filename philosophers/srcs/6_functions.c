@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   functions.c                                        :+:      :+:    :+:   */
+/*   6_functions.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 18:39:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/03 21:17:45 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/04 16:49:44 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,3 +43,45 @@ size_t	ft_strlen(const char *s)
 	return ((size_t)s - (size_t)copy);
 }
 
+int	ft_error(t_philo *info, const char *str)
+{
+	write(2, str, strlen(str));
+	if (info && info->inter && info->inter->forkmutex)
+		free(info->inter->forkmutex);
+	if (info && info->inter)
+		free(info->inter);
+	if (info->threads)
+		free(info->threads);
+	if (info)
+		free(info);
+	return (-1);
+}
+
+int	ft_error_thread(int idx, t_philo *info, const char *str)
+{
+	int		i;
+	void	*temp;
+
+	pthread_mutex_lock(&(info->inter->sysmutex)[EXIT_FLAG]);
+	(info->inter->exit_flag)++;
+	pthread_mutex_unlock(&(info->inter->sysmutex)[EXIT_FLAG]);
+	i = -1;
+	while (++i < idx)
+		pthread_join((info->threads)[i], &temp);
+	i = -1;
+	while (++i < info->num_people)
+		pthread_mutex_destroy(&(info->inter->forkmutex)[i]);
+	i = -1;
+	while (++i < 2)
+		pthread_mutex_destroy(&(info->inter->sysmutex)[i]);
+	write(2, str, strlen(str));
+	if (info && info->inter && info->inter->forkmutex)
+		free(info->inter->forkmutex);
+	if (info && info->inter)
+		free(info->inter);
+	if (info->threads)
+		free(info->threads);
+	if (info)
+		free(info);
+	return (-1);
+}
