@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 22:44:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/05 02:52:19 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/06 23:46:12 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,15 @@ int	ft_init_check_get_start_time(t_philo *info)
 
 int	ft_think_sem_threadt_init(t_philo *info)
 {
-	int	i;
-
 	if (info->num_people % 2 == 0)
 		info->thinkt = 0;
 	else
 		info->thinkt = (info->lifetime - info->mealtime - info->sleeptime) / 2;
 	if (info->thinkt < 0)
 		info->thinkt = 0;
-	info->pids = (size_t *)malloc(sizeof(size_t) * (info->num_people));
+	info->pids = (pid_t *)malloc(sizeof(pid_t) * (info->num_people));
 	if (info->pids == 0 || \
-	memset(info->pids, 0, sizeof(size_t) * (info->num_people)))
+	memset(info->pids, 0, sizeof(pid_t) * (info->num_people)) == NULL)
 		return (TERMINATE);
 	(info->semaphore)[0] = \
 	sem_open("forks", O_CREAT | O_EXCL, S_IRWXG, info->num_people);
@@ -80,9 +78,9 @@ int	ft_think_sem_threadt_init(t_philo *info)
 	if ((info->semaphore)[FK_SEM] == SEM_FAILED || (info->semaphore)[EXIT_FLAG] \
 	== SEM_FAILED || (info->semaphore)[MEAL_FIN_COUNT] == SEM_FAILED)
 		return (ft_sem_unlink_close(info));
-	sem_unlink((info->semaphore)[0]);
-	sem_unlink((info->semaphore)[1]);
-	sem_unlink((info->semaphore)[2]);
+	sem_unlink("forks");
+	sem_unlink("flag");
+	sem_unlink("count");
 	return (CONTINUE);
 }
 
@@ -90,17 +88,17 @@ int	ft_sem_unlink_close(t_philo *info)
 {
 	if ((info->semaphore)[0])
 	{
-		sem_unlink((info->semaphore)[0]);
+		sem_unlink("forks");
 		sem_close((info->semaphore)[0]);
 	}
 	else if ((info->semaphore)[1])
 	{
-		sem_unlink((info->semaphore)[1]);
+		sem_unlink("flag");
 		sem_close((info->semaphore)[1]);
 	}
 	else if ((info->semaphore)[2])
 	{
-		sem_unlink((info->semaphore)[2]);
+		sem_unlink("count");
 		sem_close((info->semaphore)[2]);
 	}
 	(info->semaphore)[0] = NULL;

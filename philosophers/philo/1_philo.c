@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:05:18 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/06 22:06:01 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/06 23:49:55 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ static int	ft_is_exit_fin_dining(t_philo *info)
 	if (flag == TERMINATE)
 		return (TERMINATE);
 	pthread_mutex_lock(&(info->inter->sysmutex)[MEAL_FIN_COUNT]);
-	if (info->inter->fin_count != info->num_people)
+	if (info->inter->fin_count == info->num_people)
 		flag = TERMINATE;
 	pthread_mutex_unlock(&(info->inter->sysmutex)[MEAL_FIN_COUNT]);
-	if (flag == TERMINATE)
-		return (TERMINATE);
+	if (flag != TERMINATE)
+		return (CONTINUE);
 	usleep(1000);
 	pthread_mutex_lock(&(info->inter->sysmutex)[EXIT_FLAG]);
 	(info->inter->exit_flag)++;
