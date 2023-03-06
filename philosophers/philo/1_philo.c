@@ -6,13 +6,13 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:05:18 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/04 19:27:20 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/06 22:06:01 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static int	ft_is_fin_dining(t_philo *info);
+static int	ft_is_exit_fin_dining(t_philo *info);
 static void	ft_all_free_destroy(t_philo *info);
 
 int	main(int argc, char *argv[])
@@ -34,7 +34,7 @@ int	main(int argc, char *argv[])
 	while (++i < info->num_people)
 		if (pthread_create(&(info->threads)[i], NULL, ft_th_routine, info) != 0)
 			return (ft_error_thread(i, info, "Thread create Error\n"));
-	while (info->inter->exit_flag == 0 && ft_is_fin_dining(info) == CONTINUE)
+	while (ft_is_exit_fin_dining(info) == CONTINUE)
 		usleep(1000);
 	i = -1;
 	while (++i < info->num_people)
@@ -43,10 +43,23 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 
-static int	ft_is_fin_dining(t_philo *info)
+static int	ft_is_exit_fin_dining(t_philo *info)
 {
+	int	flag;
+
+	flag = CONTINUE;
+	pthread_mutex_lock(&(info->inter->sysmutex)[EXIT_FLAG]);
+	if (info->inter->exit_flag != 0)
+		flag = TERMINATE;
+	pthread_mutex_unlock(&(info->inter->sysmutex)[EXIT_FLAG]);
+	if (flag == TERMINATE)
+		return (TERMINATE);
+	pthread_mutex_lock(&(info->inter->sysmutex)[MEAL_FIN_COUNT]);
 	if (info->inter->fin_count != info->num_people)
-		return (CONTINUE);
+		flag = TERMINATE;
+	pthread_mutex_unlock(&(info->inter->sysmutex)[MEAL_FIN_COUNT]);
+	if (flag == TERMINATE)
+		return (TERMINATE);
 	usleep(1000);
 	pthread_mutex_lock(&(info->inter->sysmutex)[EXIT_FLAG]);
 	(info->inter->exit_flag)++;

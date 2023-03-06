@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 18:37:59 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/04 17:03:09 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/06 22:20:57 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int		ft_init_check_get_start_time(t_philo *info);
 int		ft_think_mutex_threadt_init(t_philo *info);
 void	*ft_th_routine(void *arg);
 void	ft_find_pnum_init_data(t_philo *pinfo, t_data *tdata);
+void	ft_print(t_philo *pinfo, t_data *tdata, int flag);
 void	ft_print_fork(t_philo *pinfo, t_data *tdata);
 void	ft_print_eat(t_philo *pinfo, t_data *tdata);
 void	ft_print_sleep(t_philo *pinfo, t_data *tdata);
