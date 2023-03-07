@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:18:15 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/06 22:20:00 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:29:49 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ static int	ft_eating_process(t_philo *pinfo, t_data *tdata)
 	pthread_mutex_lock(&(pinfo->inter->sysmutex)[MEAL_FIN_COUNT]);
 	(pinfo->inter->fin_count)++;
 	pthread_mutex_unlock(&(pinfo->inter->sysmutex)[MEAL_FIN_COUNT]);
-	return (CONTINUE);
+	return (TERMINATE);
 }
 
 static int	ft_sleeping_thinking(t_philo *pinfo, t_data *tdata, long times)

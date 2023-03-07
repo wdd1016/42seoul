@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 18:39:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/06 23:38:04 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/07 22:35:38 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,17 @@ size_t	ft_strlen(const char *s)
 	return ((size_t)s - (size_t)copy);
 }
 
+void	ft_died(t_philo *info, t_data *data)
+{
+	sem_wait((info->semaphore)[PRINT_SEM]);
+	gettimeofday(&(data->ntm), NULL);
+	printf("%ld %d died\n", (data->ntm.tv_sec - info->stm.tv_sec) * 1000 \
+	+ (data->ntm.tv_usec - info->stm.tv_usec) / 1000, data->pnum);
+	sem_post((info->semaphore)[PRINT_SEM]);
+	sem_close((info->semaphore)[PRINT_SEM]);
+	exit(DEAD);
+}
+
 int	ft_error(t_philo *info, const char *str)
 {
 	write(2, str, strlen(str));
@@ -55,17 +66,17 @@ int	ft_error(t_philo *info, const char *str)
 
 int	ft_error_process(int idx, t_philo *info, const char *str)
 {
-	int		i;
+	int	i;
+	int	temp;
 
-	sem_wait((info->semaphore)[EXIT_FLAG]);
-	(info->exit_flag)++;
-	sem_post((info->semaphore)[EXIT_FLAG]);
 	i = -1;
 	while (++i < idx)
 		kill((info->pids)[i], SIGTERM);
 	i = -1;
-	while (++i < 3)
-		sem_close((info->semaphore)[i]);
+	while (++i < idx)
+		waitpid((info->pids)[i], &temp, 0);
+	sem_close((info->semaphore)[FK_SEM]);
+	sem_close((info->semaphore)[PRINT_SEM]);
 	write(2, str, strlen(str));
 	if (info && info->pids)
 		free(info->pids);

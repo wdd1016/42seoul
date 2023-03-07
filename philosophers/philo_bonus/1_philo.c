@@ -6,14 +6,14 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:05:18 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/06 23:49:38 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/07 22:35:03 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
 static int	ft_parent_process_routine(t_philo *info);
-static int	ft_is_exit_fin_dining(t_philo *info);
+static int	ft_close_free(t_philo *info);
 
 int	main(int argc, char *argv[])
 {
@@ -27,7 +27,7 @@ int	main(int argc, char *argv[])
 		return (ft_error(info, "Argument Error\n"));
 	if (ft_init_check_get_start_time(info) == TERMINATE)
 		return (-1);
-	if (ft_think_sem_threadt_init(info) == TERMINATE)
+	if (ft_think_sem_init(info) == TERMINATE)
 		return (ft_error(info, "Generation Error\n"));
 	i = -1;
 	while (++i < info->num_people)
@@ -46,44 +46,38 @@ int	main(int argc, char *argv[])
 
 static int	ft_parent_process_routine(t_philo *info)
 {
-	int	i;
+	pid_t	temp;
+	int		i;
+	int		j;
+	int		status;
 
-	while (ft_is_exit_fin_dining(info) == CONTINUE)
-		usleep(1000);
 	i = -1;
-	usleep(3000);
 	while (++i < info->num_people)
-		kill((info->pids)[i], SIGTERM);
-	i = -1;
-	while (++i < 3)
-		sem_close((info->semaphore)[i]);
+	{
+		temp = waitpid(-1, &status, 0);
+		if (WEXITSTATUS(status) == DEAD)
+		{
+			j = -1;
+			while (++j < info->num_people)
+				if ((info->pids)[j] != temp)
+					kill((info->pids)[j], SIGTERM);
+			j = i;
+			while (++j < info->num_people)
+				waitpid(-1, &status, 0);
+			break ;
+		}
+	}
+	if (i == info->num_people)
+		printf("All Philosophers Finish defined meals\n");
+	return (ft_close_free(info));
+}
+
+static int	ft_close_free(t_philo *info)
+{
+	sem_close((info->semaphore)[FK_SEM]);
+	sem_close((info->semaphore)[PRINT_SEM]);
 	free(info->pids);
 	free(info);
 	exit(0);
 	return (0);
-}
-
-static int	ft_is_exit_fin_dining(t_philo *info)
-{
-	int	flag;
-
-	flag = CONTINUE;
-	sem_wait((info->semaphore)[EXIT_FLAG]);
-	if (info->exit_flag != 0)
-		flag = TERMINATE;
-	sem_post((info->semaphore)[EXIT_FLAG]);
-	if (flag == TERMINATE)
-		return (TERMINATE);
-	sem_wait((info->semaphore)[MEAL_FIN_COUNT]);
-	if (info->fin_count == info->num_people)
-		flag = TERMINATE;
-	sem_post((info->semaphore)[MEAL_FIN_COUNT]);
-	if (flag != TERMINATE)
-		return (CONTINUE);
-	usleep(1000);
-	sem_wait((info->semaphore)[EXIT_FLAG]);
-	(info->exit_flag)++;
-	printf("All Philosophers Finish defined meals\n");
-	sem_post((info->semaphore)[EXIT_FLAG]);
-	return (TERMINATE);
 }
