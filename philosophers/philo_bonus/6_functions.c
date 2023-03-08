@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 18:39:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/07 22:35:38 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:47:45 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 long	ft_atol(const char *str)
 {
-	long	sum;
+	long long	sum;
 
 	while ((*str >= 9 && *str <= 13) || *str == ' ')
 		str++;
@@ -24,6 +24,8 @@ long	ft_atol(const char *str)
 	while (*str >= '0' && *str <= '9')
 	{
 		sum = (sum * 10) + (*str - '0');
+		if (sum > 2147483647)
+			return (0);
 		str++;
 	}
 	if (*str != '\0')

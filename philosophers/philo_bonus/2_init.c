@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 22:44:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/08 18:34:10 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/08 18:48:00 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_init_check_get_start_time(t_philo *info)
 	}
 	else if (info->num_people == 1)
 	{
-		printf("%ld %d has taken a fork\n", 0, 1);
+		printf("%d %d has taken a fork\n", 0, 1);
 		usleep(info->lifetime * 1000);
 		printf("%ld %d died\n", info->lifetime, 1);
 		if (info)
