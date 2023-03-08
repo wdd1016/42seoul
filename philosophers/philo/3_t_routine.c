@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:18:15 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/07 19:29:49 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/08 22:27:24 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,10 @@ static int	ft_flag_timecheck(t_philo *pinfo, t_data *tdata, int flag, int f2)
 	pthread_mutex_unlock(&(pinfo->inter->sysmutex)[EXIT_FLAG]);
 	if (f2 == TERMINATE)
 		return (TERMINATE);
-	if (flag != PASS)
-		ft_print(pinfo, tdata, flag);
-	else
-		gettimeofday(&(tdata->ntm), NULL);
+	gettimeofday(&(tdata->ntm), NULL);
 	if ((tdata->ntm.tv_sec - tdata->rtm.tv_sec) * 1000 + (tdata->ntm.tv_usec \
 	- tdata->rtm.tv_usec) / 1000 < pinfo->lifetime)
-		return (CONTINUE);
+		return (ft_print(pinfo, tdata, flag));
 	else
 	{
 		pthread_mutex_lock(&(pinfo->inter->sysmutex)[EXIT_FLAG]);

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 18:37:59 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/07 22:19:01 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/08 22:27:58 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		ft_think_sem_init(t_philo *info);
 int		ft_sem_unlink_close(t_philo *info);
 int		ft_child_process_routine(t_philo *info, long pnum);
 void	ft_find_pnum_init_data(t_philo *info, t_data *data, int p_num);
-void	ft_print(t_philo *pinfo, t_data *tdata, int flag);
+int		ft_print(t_philo *pinfo, t_data *tdata, int flag);
 void	ft_print_fork(t_philo *pinfo, t_data *tdata);
 void	ft_print_eat(t_philo *pinfo, t_data *tdata);
 void	ft_print_sleep(t_philo *pinfo, t_data *tdata);

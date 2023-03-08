@@ -6,13 +6,13 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 21:15:55 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/06 22:20:12 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/08 22:28:44 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	ft_print(t_philo *pinfo, t_data *tdata, int flag)
+int	ft_print(t_philo *pinfo, t_data *tdata, int flag)
 {
 	if (flag == FORK)
 		ft_print_fork(pinfo, tdata);
@@ -22,6 +22,7 @@ void	ft_print(t_philo *pinfo, t_data *tdata, int flag)
 		ft_print_sleep(pinfo, tdata);
 	else if (flag == THINK)
 		ft_print_think(pinfo, tdata);
+	return (CONTINUE);
 }
 
 void	ft_print_fork(t_philo *pinfo, t_data *tdata)
