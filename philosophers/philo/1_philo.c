@@ -78,11 +78,11 @@ static void	ft_all_free_destroy(t_philo *info)
 	i = -1;
 	while (++i < 2)
 		pthread_mutex_destroy(&(info->inter->sysmutex)[i]);
-	if (info->inter->forkmutex)
+	if (info && info->inter && info->inter->forkmutex)
 		free(info->inter->forkmutex);
-	if (info->inter)
+	if (info && info->inter)
 		free(info->inter);
-	if (info->threads)
+	if (info && info->threads)
 		free(info->threads);
 	if (info)
 		free(info);
