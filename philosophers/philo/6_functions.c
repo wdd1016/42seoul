@@ -50,7 +50,7 @@ int	ft_error(t_philo *info, const char *str)
 		free(info->inter->forkmutex);
 	if (info && info->inter)
 		free(info->inter);
-	if (info->threads)
+	if (info && info->threads)
 		free(info->threads);
 	if (info)
 		free(info);
@@ -79,7 +79,7 @@ int	ft_error_thread(int idx, t_philo *info, const char *str)
 		free(info->inter->forkmutex);
 	if (info && info->inter)
 		free(info->inter);
-	if (info->threads)
+	if (info && info->threads)
 		free(info->threads);
 	if (info)
 		free(info);
