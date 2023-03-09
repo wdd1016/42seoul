@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:18:15 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/09 23:47:55 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/10 00:04:37 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,5 @@ static int	ft_sleeping_thinking(t_philo *pinfo, t_data *tdata, long times)
 		else
 			return (TERMINATE);
 	}
-	usleep(100);
 	return (CONTINUE);
 }
