@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 22:44:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/08 18:48:00 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/09 23:38:40 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ int	ft_init_check_get_start_time(t_philo *info)
 int	ft_think_sem_init(t_philo *info)
 {
 	if (info->num_people % 2 == 0)
-		info->thinkt = 0;
+		info->thinkt = 100;
 	else
 		info->thinkt = (info->lifetime - info->mealtime - info->sleeptime) / 2;
 	if (info->thinkt < 0)
-		info->thinkt = 0;
+		info->thinkt = 100;
 	info->pids = (pid_t *)malloc(sizeof(pid_t) * (info->num_people));
 	if (info->pids == 0 || \
 	memset(info->pids, 0, sizeof(pid_t) * (info->num_people)) == NULL)

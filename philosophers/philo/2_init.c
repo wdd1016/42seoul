@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 22:44:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/08 18:41:32 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/09 23:38:31 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,11 @@ int	ft_think_mutex_threadt_init(t_philo *info)
 	int	i;
 
 	if (info->num_people % 2 == 0)
-		info->thinkt = 0;
+		info->thinkt = 100;
 	else
 		info->thinkt = (info->lifetime - info->mealtime - info->sleeptime) / 2;
 	if (info->thinkt < 0)
-		info->thinkt = 0;
+		info->thinkt = 100;
 	info->inter->forkmutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
 	* (info->num_people));
 	if (info->inter->forkmutex == 0)

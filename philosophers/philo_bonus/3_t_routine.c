@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:18:15 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/09 22:42:02 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/09 23:39:37 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	ft_timecheck(t_philo *info, t_data *data, int flag)
 	else
 		gettimeofday(&(data->ntm), NULL);
 	if ((data->ntm.tv_sec - data->rtm.tv_sec) * 1000 + (data->ntm.tv_usec \
-	- data->rtm.tv_usec) / 1000 < info->lifetime)
+	- data->rtm.tv_usec) / 1000 <= info->lifetime)
 		return (CONTINUE);
 	else
 		return (TERMINATE);
@@ -88,7 +88,7 @@ static int	ft_eating_process(t_philo *pinfo, t_data *tdata)
 	{
 		if (ft_timecheck(pinfo, tdata, PASS) == CONTINUE)
 		{
-			usleep(500);
+			usleep(200);
 			gettimeofday(&now, NULL);
 			continue ;
 		}
@@ -111,12 +111,12 @@ static int	ft_sleeping_thinking(t_philo *pinfo, t_data *tdata, long times)
 
 	start = tdata->ntm;
 	gettimeofday(&now, NULL);
-	while ((now.tv_sec - start.tv_sec) * 1000 + (now.tv_usec - start.tv_usec) \
-	/ 1000 < times)
+	while ((now.tv_sec - start.tv_sec) * 1000 + \
+	(now.tv_usec - start.tv_usec) / 1000 < times)
 	{
 		if (ft_timecheck(pinfo, tdata, PASS) == CONTINUE)
 		{
-			usleep(500);
+			usleep(200);
 			gettimeofday(&now, NULL);
 			continue ;
 		}
