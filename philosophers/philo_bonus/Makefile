@@ -6,12 +6,12 @@
 #    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 16:57:37 by juyojeon          #+#    #+#              #
-#    Updated: 2023/03/07 22:41:23 by juyojeon         ###   ########.fr        #
+#    Updated: 2023/03/09 20:42:47 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS = -Wall -Wextra -Werror
-NAME = philo
+NAME = philo_bonus
 SRCS = 1_philo.c 2_init.c 3_t_routine.c 4_t_init.c \
 5_t_funcion_print.c 6_functions.c
 OBJS = $(SRCS:.c=.o)

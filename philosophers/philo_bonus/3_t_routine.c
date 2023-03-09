@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:18:15 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/08 22:29:33 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/09 22:42:02 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,13 @@ int	ft_child_process_routine(t_philo *info, long pnum)
 
 static int	ft_timecheck(t_philo *info, t_data *data, int flag)
 {
-	gettimeofday(&(data->ntm), NULL);
+	if (flag != PASS)
+		ft_print(info, data, flag);
+	else
+		gettimeofday(&(data->ntm), NULL);
 	if ((data->ntm.tv_sec - data->rtm.tv_sec) * 1000 + (data->ntm.tv_usec \
 	- data->rtm.tv_usec) / 1000 < info->lifetime)
-		return (ft_print(info, data, flag));
+		return (CONTINUE);
 	else
 		return (TERMINATE);
 }
