@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:18:15 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/09 23:55:58 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:25:22 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	ft_child_process_routine(t_philo *info, long pnum)
 	if (data.success_flag == 0)
 		ft_died(info, &data);
 	sem_close((info->semaphore)[PRINT_SEM]);
+	sem_close((info->semaphore)[GTIME_SEM]);
 	exit(FINISH_EAT);
 	return (0);
 }
@@ -49,7 +50,11 @@ static int	ft_timecheck(t_philo *info, t_data *data, int flag)
 	if (flag != PASS)
 		ft_print(info, data, flag);
 	else
+	{
+		sem_wait((info->semaphore)[GTIME_SEM]);
 		gettimeofday(&(data->ntm), NULL);
+		sem_post((info->semaphore)[GTIME_SEM]);
+	}
 	if ((data->ntm.tv_sec - data->rtm.tv_sec) * 1000 + (data->ntm.tv_usec \
 	- data->rtm.tv_usec) / 1000 <= info->lifetime)
 		return (CONTINUE);
@@ -82,14 +87,18 @@ static int	ft_eating_process(t_philo *pinfo, t_data *tdata)
 {
 	struct timeval	now;
 
+	sem_wait((pinfo->semaphore)[GTIME_SEM]);
 	gettimeofday(&now, NULL);
-	while ((now.tv_sec - tdata->rtm.tv_sec) * 1000 + \
-	(now.tv_usec - tdata->rtm.tv_usec) / 1000 < pinfo->mealtime)
+	sem_post((pinfo->semaphore)[GTIME_SEM]);
+	while ((now.tv_sec - tdata->rtm.tv_sec) * 1000000LL + \
+	(now.tv_usec - tdata->rtm.tv_usec) <= pinfo->mealtime * 1000LL)
 	{
 		if (ft_timecheck(pinfo, tdata, PASS) == CONTINUE)
 		{
 			usleep(200);
+			sem_wait((pinfo->semaphore)[GTIME_SEM]);
 			gettimeofday(&now, NULL);
+			sem_post((pinfo->semaphore)[GTIME_SEM]);
 			continue ;
 		}
 		sem_post((pinfo->semaphore)[FK_SEM]);
@@ -98,10 +107,7 @@ static int	ft_eating_process(t_philo *pinfo, t_data *tdata)
 	}
 	sem_post((pinfo->semaphore)[FK_SEM]);
 	sem_post((pinfo->semaphore)[FK_SEM]);
-	if (++(tdata->eat_count) != pinfo->max_meal)
-		return (CONTINUE);
-	tdata->success_flag = 1;
-	return (TERMINATE);
+	return (ft_is_max_meal(pinfo, tdata));
 }
 
 static int	ft_sleeping_thinking(t_philo *pinfo, t_data *tdata, long times)
@@ -110,14 +116,18 @@ static int	ft_sleeping_thinking(t_philo *pinfo, t_data *tdata, long times)
 	struct timeval	now;
 
 	start = tdata->ntm;
+	sem_wait((pinfo->semaphore)[GTIME_SEM]);
 	gettimeofday(&now, NULL);
-	while ((now.tv_sec - start.tv_sec) * 1000 + \
-	(now.tv_usec - start.tv_usec) / 1000 < times)
+	sem_post((pinfo->semaphore)[GTIME_SEM]);
+	while ((now.tv_sec - start.tv_sec) * (long long)1000000 + \
+	(now.tv_usec - start.tv_usec) <= times * (long long)1000)
 	{
 		if (ft_timecheck(pinfo, tdata, PASS) == CONTINUE)
 		{
 			usleep(200);
+			sem_wait((pinfo->semaphore)[GTIME_SEM]);
 			gettimeofday(&now, NULL);
+			sem_post((pinfo->semaphore)[GTIME_SEM]);
 			continue ;
 		}
 		else

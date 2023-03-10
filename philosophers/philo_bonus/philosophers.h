@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 18:37:59 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/09 22:41:32 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:25:19 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_data
 # define TERMINATE 1
 # define FK_SEM 0
 # define PRINT_SEM 1
+# define GTIME_SEM 2
 # define PASS 0
 # define FORK 1
 # define EAT 2
@@ -67,6 +68,7 @@ int		ft_think_sem_init(t_philo *info);
 int		ft_sem_unlink_close(t_philo *info);
 int		ft_child_process_routine(t_philo *info, long pnum);
 void	ft_find_pnum_init_data(t_philo *info, t_data *data, int p_num);
+int		ft_is_max_meal(t_philo *pinfo, t_data *tdata);
 void	ft_print(t_philo *pinfo, t_data *tdata, int flag);
 void	ft_print_fork(t_philo *pinfo, t_data *tdata);
 void	ft_print_eat(t_philo *pinfo, t_data *tdata);

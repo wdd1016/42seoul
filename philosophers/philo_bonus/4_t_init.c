@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 16:44:34 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/07 21:09:18 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:25:21 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,12 @@ void	ft_find_pnum_init_data(t_philo *info, t_data *data, int p_num)
 		else if (data->pnum % 3 == 0)
 			usleep(info->mealtime * 1500);
 	}
+}
+
+int	ft_is_max_meal(t_philo *pinfo, t_data *tdata)
+{
+	if (++(tdata->eat_count) != pinfo->max_meal)
+		return (CONTINUE);
+	tdata->success_flag = 1;
+	return (TERMINATE);
 }

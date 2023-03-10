@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 18:39:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/08 18:47:45 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:23:18 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,14 @@ size_t	ft_strlen(const char *s)
 void	ft_died(t_philo *info, t_data *data)
 {
 	sem_wait((info->semaphore)[PRINT_SEM]);
+	sem_wait((info->semaphore)[GTIME_SEM]);
 	gettimeofday(&(data->ntm), NULL);
+	sem_post((info->semaphore)[GTIME_SEM]);
 	printf("%ld %d died\n", (data->ntm.tv_sec - info->stm.tv_sec) * 1000 \
 	+ (data->ntm.tv_usec - info->stm.tv_usec) / 1000, data->pnum);
 	sem_post((info->semaphore)[PRINT_SEM]);
 	sem_close((info->semaphore)[PRINT_SEM]);
+	sem_close((info->semaphore)[GTIME_SEM]);
 	exit(DEAD);
 }
 
@@ -79,6 +82,7 @@ int	ft_error_process(int idx, t_philo *info, const char *str)
 		waitpid((info->pids)[i], &temp, 0);
 	sem_close((info->semaphore)[FK_SEM]);
 	sem_close((info->semaphore)[PRINT_SEM]);
+	sem_close((info->semaphore)[GTIME_SEM]);
 	write(2, str, strlen(str));
 	if (info && info->pids)
 		free(info->pids);

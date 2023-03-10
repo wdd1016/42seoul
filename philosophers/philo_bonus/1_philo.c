@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:05:18 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/07 22:35:03 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:14:10 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ static int	ft_close_free(t_philo *info)
 {
 	sem_close((info->semaphore)[FK_SEM]);
 	sem_close((info->semaphore)[PRINT_SEM]);
+	sem_close((info->semaphore)[GTIME_SEM]);
 	free(info->pids);
 	free(info);
 	exit(0);

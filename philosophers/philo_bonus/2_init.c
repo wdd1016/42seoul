@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 22:44:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/09 23:45:25 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:15:54 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,13 @@ int	ft_think_sem_init(t_philo *info)
 	(info->semaphore)[0] = \
 	sem_open("forks", O_CREAT | O_EXCL, S_IRWXG, info->num_people);
 	(info->semaphore)[1] = sem_open("print", O_CREAT | O_EXCL, S_IRWXG, 1);
+	(info->semaphore)[2] = sem_open("gettime", O_CREAT | O_EXCL, S_IRWXG, 1);
 	if ((info->semaphore)[FK_SEM] == SEM_FAILED || (info->semaphore)[PRINT_SEM] \
-	== SEM_FAILED)
+	== SEM_FAILED || (info->semaphore)[PRINT_SEM] == SEM_FAILED)
 		return (ft_sem_unlink_close(info));
 	sem_unlink("forks");
 	sem_unlink("print");
+	sem_unlink("gettime");
 	return (CONTINUE);
 }
 
@@ -95,7 +97,13 @@ int	ft_sem_unlink_close(t_philo *info)
 		sem_unlink("print");
 		sem_close((info->semaphore)[1]);
 	}
+	else if ((info->semaphore)[2])
+	{
+		sem_unlink("gettime");
+		sem_close((info->semaphore)[2]);
+	}
 	(info->semaphore)[0] = NULL;
 	(info->semaphore)[1] = NULL;
+	(info->semaphore)[2] = NULL;
 	return (TERMINATE);
 }

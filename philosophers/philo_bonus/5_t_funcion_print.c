@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 21:15:55 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/09 23:31:34 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:23:23 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ void	ft_print(t_philo *pinfo, t_data *tdata, int flag)
 void	ft_print_fork(t_philo *pinfo, t_data *tdata)
 {
 	sem_wait((pinfo->semaphore)[PRINT_SEM]);
+	sem_wait((pinfo->semaphore)[GTIME_SEM]);
 	gettimeofday(&(tdata->ntm), NULL);
+	sem_post((pinfo->semaphore)[GTIME_SEM]);
 	if ((tdata->ntm.tv_sec - tdata->rtm.tv_sec) * 1000 + \
 	(tdata->ntm.tv_usec - tdata->rtm.tv_usec) / 1000 <= pinfo->lifetime)
 		printf("%ld %d has taken a fork\n", \
@@ -39,7 +41,9 @@ void	ft_print_fork(t_philo *pinfo, t_data *tdata)
 void	ft_print_eat(t_philo *pinfo, t_data *tdata)
 {
 	sem_wait((pinfo->semaphore)[PRINT_SEM]);
+	sem_wait((pinfo->semaphore)[GTIME_SEM]);
 	gettimeofday(&(tdata->ntm), NULL);
+	sem_post((pinfo->semaphore)[GTIME_SEM]);
 	if ((tdata->ntm.tv_sec - tdata->rtm.tv_sec) * 1000 + \
 	(tdata->ntm.tv_usec - tdata->rtm.tv_usec) / 1000 <= pinfo->lifetime)
 		printf("%ld %d has taken a fork\n%ld %d is eating\n", \
@@ -53,7 +57,9 @@ void	ft_print_eat(t_philo *pinfo, t_data *tdata)
 void	ft_print_sleep(t_philo *pinfo, t_data *tdata)
 {
 	sem_wait((pinfo->semaphore)[PRINT_SEM]);
+	sem_wait((pinfo->semaphore)[GTIME_SEM]);
 	gettimeofday(&(tdata->ntm), NULL);
+	sem_post((pinfo->semaphore)[GTIME_SEM]);
 	if ((tdata->ntm.tv_sec - tdata->rtm.tv_sec) * 1000 + \
 	(tdata->ntm.tv_usec - tdata->rtm.tv_usec) / 1000 <= pinfo->lifetime)
 		printf("%ld %d is sleeping\n", \
@@ -65,7 +71,9 @@ void	ft_print_sleep(t_philo *pinfo, t_data *tdata)
 void	ft_print_think(t_philo *pinfo, t_data *tdata)
 {
 	sem_wait((pinfo->semaphore)[PRINT_SEM]);
+	sem_wait((pinfo->semaphore)[GTIME_SEM]);
 	gettimeofday(&(tdata->ntm), NULL);
+	sem_post((pinfo->semaphore)[GTIME_SEM]);
 	if ((tdata->ntm.tv_sec - tdata->rtm.tv_sec) * 1000 + \
 	(tdata->ntm.tv_usec - tdata->rtm.tv_usec) / 1000 <= pinfo->lifetime)
 		printf("%ld %d is thinking\n", \
