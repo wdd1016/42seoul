@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:05:18 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/06 23:49:55 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/10 15:53:09 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	ft_all_free_destroy(t_philo *info)
 	while (++i < info->num_people)
 		pthread_mutex_destroy(&(info->inter->forkmutex)[i]);
 	i = -1;
-	while (++i < 2)
+	while (++i < 4)
 		pthread_mutex_destroy(&(info->inter->sysmutex)[i]);
 	if (info && info->inter && info->inter->forkmutex)
 		free(info->inter->forkmutex);

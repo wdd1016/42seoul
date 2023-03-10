@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 18:37:59 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/09 22:41:39 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:03:34 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_interact
 	int				pil_num;
 	int				exit_flag;
 	pthread_mutex_t	*forkmutex;
-	pthread_mutex_t	sysmutex[3];
+	pthread_mutex_t	sysmutex[4];
 }	t_interact;
 
 typedef struct s_philo
@@ -58,6 +58,7 @@ typedef struct s_data
 # define FIL_NUM 0
 # define EXIT_FLAG 1
 # define MEAL_FIN_COUNT 2
+# define GETTIME 3
 # define PASS 0
 # define FORK 1
 # define EAT 2
@@ -70,6 +71,8 @@ int		ft_init_check_get_start_time(t_philo *info);
 int		ft_think_mutex_threadt_init(t_philo *info);
 void	*ft_th_routine(void *arg);
 void	ft_find_pnum_init_data(t_philo *pinfo, t_data *tdata);
+void	ft_die(t_philo *pinfo, t_data *tdata);
+int		ft_is_max_meal(t_philo *pinfo, t_data *tdata);
 void	ft_print(t_philo *pinfo, t_data *tdata, int flag);
 void	ft_print_fork(t_philo *pinfo, t_data *tdata);
 void	ft_print_eat(t_philo *pinfo, t_data *tdata);

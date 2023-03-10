@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:18:15 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/10 14:54:16 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:03:44 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,17 @@ static int	ft_flag_timecheck(t_philo *pinfo, t_data *tdata, int flag, int f2)
 	if (flag != PASS)
 		ft_print(pinfo, tdata, flag);
 	else
+	{
+		pthread_mutex_lock(&(pinfo->inter->sysmutex)[GETTIME]);
 		gettimeofday(&(tdata->ntm), NULL);
+		pthread_mutex_unlock(&(pinfo->inter->sysmutex)[GETTIME]);
+	}
 	if ((tdata->ntm.tv_sec - tdata->rtm.tv_sec) * 1000 + (tdata->ntm.tv_usec \
 	- tdata->rtm.tv_usec) / 1000 <= pinfo->lifetime)
 		return (CONTINUE);
 	else
 	{
-		pthread_mutex_lock(&(pinfo->inter->sysmutex)[EXIT_FLAG]);
-		(pinfo->inter->exit_flag)++;
-		gettimeofday(&(tdata->ntm), NULL);
-		if (pinfo->inter->exit_flag == TERMINATE)
-			printf("%ld %d died\n", (tdata->ntm.tv_sec - \
-			pinfo->stm.tv_sec) * 1000 + (tdata->ntm.tv_usec - \
-			pinfo->stm.tv_usec) / 1000, tdata->pnum);
-		pthread_mutex_unlock(&(pinfo->inter->sysmutex)[EXIT_FLAG]);
+		ft_die(pinfo, tdata);
 		return (TERMINATE);
 	}
 }
@@ -95,14 +92,18 @@ static int	ft_eating_process(t_philo *pinfo, t_data *tdata)
 {
 	struct timeval	now;
 
+	pthread_mutex_lock(&(pinfo->inter->sysmutex)[GETTIME]);
 	gettimeofday(&now, NULL);
+	pthread_mutex_unlock(&(pinfo->inter->sysmutex)[GETTIME]);
 	while ((now.tv_sec - tdata->rtm.tv_sec) * 1000000LL + \
-	(now.tv_usec - tdata->rtm.tv_usec) < pinfo->mealtime * 1000LL)
+	(now.tv_usec - tdata->rtm.tv_usec) <= pinfo->mealtime * 1000LL)
 	{
 		if (ft_flag_timecheck(pinfo, tdata, PASS, CONTINUE) == CONTINUE)
 		{
 			usleep(200);
+			pthread_mutex_lock(&(pinfo->inter->sysmutex)[GETTIME]);
 			gettimeofday(&now, NULL);
+			pthread_mutex_unlock(&(pinfo->inter->sysmutex)[GETTIME]);
 			continue ;
 		}
 		pthread_mutex_unlock(&(pinfo->inter->forkmutex)[tdata->sec_fork]);
@@ -111,12 +112,7 @@ static int	ft_eating_process(t_philo *pinfo, t_data *tdata)
 	}
 	pthread_mutex_unlock(&(pinfo->inter->forkmutex)[tdata->sec_fork]);
 	pthread_mutex_unlock(&(pinfo->inter->forkmutex)[tdata->fir_fork]);
-	if (++(tdata->eat_count) != pinfo->max_meal)
-		return (CONTINUE);
-	pthread_mutex_lock(&(pinfo->inter->sysmutex)[MEAL_FIN_COUNT]);
-	(pinfo->inter->fin_count)++;
-	pthread_mutex_unlock(&(pinfo->inter->sysmutex)[MEAL_FIN_COUNT]);
-	return (TERMINATE);
+	return (ft_is_max_meal(pinfo, tdata));
 }
 
 static int	ft_sleeping_thinking(t_philo *pinfo, t_data *tdata, long times)
@@ -125,14 +121,18 @@ static int	ft_sleeping_thinking(t_philo *pinfo, t_data *tdata, long times)
 	struct timeval	now;
 
 	start = tdata->ntm;
+	pthread_mutex_lock(&(pinfo->inter->sysmutex)[GETTIME]);
 	gettimeofday(&now, NULL);
+	pthread_mutex_unlock(&(pinfo->inter->sysmutex)[GETTIME]);
 	while ((now.tv_sec - start.tv_sec) * (long long)1000000 + \
-	(now.tv_usec - start.tv_usec) < times * (long long)1000)
+	(now.tv_usec - start.tv_usec) <= times * (long long)1000)
 	{
 		if (ft_flag_timecheck(pinfo, tdata, PASS, CONTINUE) == CONTINUE)
 		{
 			usleep(200);
+			pthread_mutex_lock(&(pinfo->inter->sysmutex)[GETTIME]);
 			gettimeofday(&now, NULL);
+			pthread_mutex_unlock(&(pinfo->inter->sysmutex)[GETTIME]);
 			continue ;
 		}
 		else

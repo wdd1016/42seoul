@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 22:44:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/09 23:47:16 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/10 15:53:08 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	ft_think_mutex_threadt_init(t_philo *info)
 	while (++i < info->num_people)
 		pthread_mutex_init(&(info->inter->forkmutex)[i], NULL);
 	i = -1;
-	while (++i < 3)
+	while (++i < 4)
 		pthread_mutex_init(&(info->inter->sysmutex)[i], NULL);
 	return (CONTINUE);
 }

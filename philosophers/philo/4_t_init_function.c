@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   4_t_init.c                                         :+:      :+:    :+:   */
+/*   4_t_init_function.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 16:44:34 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/04 16:49:46 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:03:44 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,28 @@ static void	ft_init_sleep(t_philo *info, t_data *data)
 		else if (data->pnum % 3 == 0)
 			usleep(info->mealtime * 1500);
 	}
+}
+
+void	ft_die(t_philo *pinfo, t_data *tdata)
+{
+	pthread_mutex_lock(&(pinfo->inter->sysmutex)[EXIT_FLAG]);
+	(pinfo->inter->exit_flag)++;
+	pthread_mutex_lock(&(pinfo->inter->sysmutex)[GETTIME]);
+	gettimeofday(&(tdata->ntm), NULL);
+	pthread_mutex_unlock(&(pinfo->inter->sysmutex)[GETTIME]);
+	if (pinfo->inter->exit_flag == TERMINATE)
+		printf("%ld %d died\n", (tdata->ntm.tv_sec - \
+		pinfo->stm.tv_sec) * 1000 + (tdata->ntm.tv_usec - \
+		pinfo->stm.tv_usec) / 1000, tdata->pnum);
+	pthread_mutex_unlock(&(pinfo->inter->sysmutex)[EXIT_FLAG]);
+}
+
+int	ft_is_max_meal(t_philo *pinfo, t_data *tdata)
+{
+	if (++(tdata->eat_count) != pinfo->max_meal)
+		return (CONTINUE);
+	pthread_mutex_lock(&(pinfo->inter->sysmutex)[MEAL_FIN_COUNT]);
+	(pinfo->inter->fin_count)++;
+	pthread_mutex_unlock(&(pinfo->inter->sysmutex)[MEAL_FIN_COUNT]);
+	return (TERMINATE);
 }

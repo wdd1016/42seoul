@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 18:39:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/08 18:47:56 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/10 15:53:04 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_error_thread(int idx, t_philo *info, const char *str)
 	while (++i < info->num_people)
 		pthread_mutex_destroy(&(info->inter->forkmutex)[i]);
 	i = -1;
-	while (++i < 2)
+	while (++i < 4)
 		pthread_mutex_destroy(&(info->inter->sysmutex)[i]);
 	write(2, str, strlen(str));
 	if (info && info->inter && info->inter->forkmutex)
