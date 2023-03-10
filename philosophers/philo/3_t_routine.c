@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:18:15 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/10 00:04:37 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/10 14:54:16 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ static int	ft_eating_process(t_philo *pinfo, t_data *tdata)
 	struct timeval	now;
 
 	gettimeofday(&now, NULL);
-	while ((now.tv_sec - tdata->rtm.tv_sec) * 1000 + \
-	(now.tv_usec - tdata->rtm.tv_usec) / 1000 < pinfo->mealtime)
+	while ((now.tv_sec - tdata->rtm.tv_sec) * 1000000LL + \
+	(now.tv_usec - tdata->rtm.tv_usec) < pinfo->mealtime * 1000LL)
 	{
 		if (ft_flag_timecheck(pinfo, tdata, PASS, CONTINUE) == CONTINUE)
 		{
@@ -126,8 +126,8 @@ static int	ft_sleeping_thinking(t_philo *pinfo, t_data *tdata, long times)
 
 	start = tdata->ntm;
 	gettimeofday(&now, NULL);
-	while ((now.tv_sec - start.tv_sec) * 1000 + \
-	(now.tv_usec - start.tv_usec) / 1000 < times)
+	while ((now.tv_sec - start.tv_sec) * (long long)1000000 + \
+	(now.tv_usec - start.tv_usec) < times * (long long)1000)
 	{
 		if (ft_flag_timecheck(pinfo, tdata, PASS, CONTINUE) == CONTINUE)
 		{
