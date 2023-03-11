@@ -1,6 +1,6 @@
 # Philosophers
 
-[Philosophers](https://www.notion.so/Philosophers-344f249d74594b5faa7b7bff819558b0)
+[Philosophers](https://brassy-plate-60f.notion.site/Philosophers-344f249d74594b5faa7b7bff819558b0)
 
 # 핵심 포인트
 

@@ -1,6 +1,6 @@
 # Fract-ol
 
-[fractol notion](https://www.notion.so/Fract-ol-50a70976e5914c00a7e773aecbe190ae)
+[fractol notion](https://brassy-plate-60f.notion.site/Fract-ol-50a70976e5914c00a7e773aecbe190ae)
 
 # 핵심 포인트
 

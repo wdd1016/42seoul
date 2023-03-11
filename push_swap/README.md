@@ -1,6 +1,6 @@
 # Push_swap
 
-[push_swap notion](https://www.notion.so/Push_swap-4b0373720b754ac7a48e1c878a87fbda)
+[push_swap notion](https://brassy-plate-60f.notion.site/Push_swap-4b0373720b754ac7a48e1c878a87fbda)
 
 # 핵심 포인트
 

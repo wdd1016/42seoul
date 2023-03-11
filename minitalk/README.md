@@ -1,6 +1,6 @@
 # Minitalk
 
-[minitalk notion](https://www.notion.so/Minitalk-5577161068d34737abe5517b99826aa0)
+[minitalk notion](https://brassy-plate-60f.notion.site/Minitalk-5577161068d34737abe5517b99826aa0)
 
 # 핵심 포인트
 

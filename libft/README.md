@@ -1,6 +1,6 @@
 # Libft
 
-[libft notion](https://www.notion.so/Libft-adeddc0490d541a5b79580a5e17a1a8a)
+[libft notion](https://brassy-plate-60f.notion.site/Libft-adeddc0490d541a5b79580a5e17a1a8a)
 
 # 핵심 포인트
 

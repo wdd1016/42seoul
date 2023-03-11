@@ -1,6 +1,6 @@
 # Get_next_line
 
-[gnl notion](https://www.notion.so/Get_next_line-73d5cf38e17042dc9340728e6c5e07a9)
+[gnl notion](https://brassy-plate-60f.notion.site/Get_next_line-73d5cf38e17042dc9340728e6c5e07a9)
 
 # 핵심 포인트
 

@@ -1,6 +1,6 @@
 # Ft_printf
 
-[printf notion](https://www.notion.so/Ft_printf-e9cbad12ba2044b997c0da07a7f33ae1)
+[printf notion](https://brassy-plate-60f.notion.site/Ft_printf-e9cbad12ba2044b997c0da07a7f33ae1)
 
 # 핵심 포인트
 
