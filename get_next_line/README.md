@@ -1,6 +1,6 @@
 # Get_next_line
 
-본과정 3번째
+[gnl notion](https://www.notion.so/Get_next_line-73d5cf38e17042dc9340728e6c5e07a9)
 
 # 핵심 포인트
 
@@ -78,9 +78,3 @@
     동적할당으로 생성된 변수들을 잘 컨트롤 해주어야한다. (특히, Free 상황에 대하여 모든경우를 생각하고 적용해주어야 한다.)
     
     버퍼(BUFFER_SIZE(+ 1) 의 문자열)을 만드는 과정은 동적할당으로 진행하면 timeout이 뜰수 있으니 주의 (paco의 memory test에서 모든 malloc에 대하여 검사를 해서 오래걸린다. 실제적으로 출력은 오래걸리지 않는다.)
-    
-# 자료
-
-[get_next_line.ko](https://brassy-plate-60f.notion.site/get_next_line-ko-f99a0da42ca24ff2b272ffdc90f0b7b2)
-
-[필기 노트](https://brassy-plate-60f.notion.site/58cb2681f71e46019dadacbd04924ffb)

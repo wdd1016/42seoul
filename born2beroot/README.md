@@ -1,6 +1,6 @@
 # Born2beroot Rocky Linux
 
-[born2beroot notion](https://brassy-plate-60f.notion.site/Born2beroot-Rocky-Linux-4b0aef6d787e4310bd7a047fa5ce620e)
+[born2beroot notion](https://www.notion.so/Born2beroot-Rocky-Linux-4b0aef6d787e4310bd7a047fa5ce620e)
 
 # 핵심 포인트
 
@@ -1181,8 +1181,3 @@
     제출할 깃클론 폴더 최상위 디텍토리에 signature.txt 생성
     vim signature.txt
     ```
-    
-
-# 자료
-
-[born2beroot](https://brassy-plate-60f.notion.site/Born2beroot-Rocky-Linux-4b0aef6d787e4310bd7a047fa5ce620e)

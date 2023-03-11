@@ -1,6 +1,6 @@
 # Libft
 
-본과정 첫번째
+[libft notion](https://www.notion.so/Libft-adeddc0490d541a5b79580a5e17a1a8a)
 
 # 핵심 포인트
 
@@ -13,9 +13,3 @@
 - calloc을 비롯한 allocate함수에서 기본적으로 바이트단위로 접근하며 ,calloc의 경우에는 매개변수로 요소의 갯수, 각 요소의 크기(1 = 1byte)를 가진다.
 - trim의 경우 앞과 뒤의 해당 구분자들을 제거해주는데, 양옆 2번 길이를 측정하는 과정에서 구분자로만 이루어진 경우를 생각하여야 한다.
 - write의 리턴값은 전달한 바이트수이며, 에러가 발생시 -1을 반환한다.
-
-# 정리
-
-# 번역본
-
-[libft.ko](https://brassy-plate-60f.notion.site/libft-ko-d9aa8e81887642408a1081c822eec304)

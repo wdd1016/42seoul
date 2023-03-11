@@ -1,6 +1,6 @@
 # Minitalk
 
-[minitalk notion](https://brassy-plate-60f.notion.site/Minitalk-5577161068d34737abe5517b99826aa0)
+[minitalk notion](https://www.notion.so/Minitalk-5577161068d34737abe5517b99826aa0)
 
 # 핵심 포인트
 
@@ -254,11 +254,3 @@
         전송은 클라이언트가 문자비트 보냄→ 서버가 받고 답신보냄 → 클라이언트가 받고 문자비트 보냄 순으로 진행한다.
         - 마지막 `\0` (00000000)이 수신되면 서버는 종료 시그널을 보낸다.
         클라이언트는 종료시그널을 받고 종료한다.
-
-# 자료
-
-[minitalk](https://www.notion.so/minitalk-cd2a1f4d5a2a419ab89aa66ee9888468)
-
-[필기노트](https://brassy-plate-60f.notion.site/33c32be0faf54ed08290a5e48a0fe5f5)
-
-[https://cdn.intra.42.fr/pdf/pdf/35917/en.subject.pdf](https://cdn.intra.42.fr/pdf/pdf/35917/en.subject.pdf)

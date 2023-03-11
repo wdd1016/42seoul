@@ -1,6 +1,6 @@
 # Fract-ol
 
-[fractol notion](https://brassy-plate-60f.notion.site/Fract-ol-50a70976e5914c00a7e773aecbe190ae)
+[fractol notion](https://www.notion.so/Fract-ol-50a70976e5914c00a7e773aecbe190ae)
 
 # 핵심 포인트
 
@@ -334,14 +334,3 @@
     
     return (0);
     ```
-    
-
-# 자료
-
-[fract-ol](https://brassy-plate-60f.notion.site/fract-ol-23c9ca2b907b4d1a9599898151c5ea0d)
-
-[필기노트](https://brassy-plate-60f.notion.site/8c292b171ccd4bac95ceefc714aea7ee)
-
-[fractol notion](https://brassy-plate-60f.notion.site/Fract-ol-50a70976e5914c00a7e773aecbe190ae)
-
-[https://cdn.intra.42.fr/pdf/pdf/35928/en.subject.pdf](https://cdn.intra.42.fr/pdf/pdf/35928/en.subject.pdf)

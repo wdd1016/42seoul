@@ -1,8 +1,6 @@
 # Philosophers
 
-#include <pthread.h>
-
-[Philosophers](https://brassy-plate-60f.notion.site/Philosophers-344f249d74594b5faa7b7bff819558b0)
+[Philosophers](https://www.notion.so/Philosophers-344f249d74594b5faa7b7bff819558b0)
 
 # 핵심 포인트
 
@@ -516,8 +514,3 @@ fork, kill, exit, waitpid, sem_open, sem_close, sem_unlink, sem_post, sem_wait**
     https://github.com/nesvoboda/socrates
     
     https://github.com/lienardale/alientest_philosopher
-    
-
-# 자료
-
-[Philosophers](https://brassy-plate-60f.notion.site/Philosophers-344f249d74594b5faa7b7bff819558b0)

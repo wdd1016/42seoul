@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:05:18 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/03/10 16:14:10 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/11 14:31:07 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static int	ft_parent_process_routine(t_philo *info)
 		temp = waitpid(-1, &status, 0);
 		if (WEXITSTATUS(status) == DEAD)
 		{
+			sem_wait((info->semaphore)[PRINT_SEM]);
 			j = -1;
 			while (++j < info->num_people)
 				if ((info->pids)[j] != temp)
@@ -64,6 +65,7 @@ static int	ft_parent_process_routine(t_philo *info)
 			j = i;
 			while (++j < info->num_people)
 				waitpid(-1, &status, 0);
+			sem_post((info->semaphore)[PRINT_SEM]);
 			break ;
 		}
 	}

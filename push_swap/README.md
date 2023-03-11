@@ -1,6 +1,6 @@
 # Push_swap
 
-[push_swap notion](https://brassy-plate-60f.notion.site/Push_swap-4b0373720b754ac7a48e1c878a87fbda)
+[push_swap notion](https://www.notion.so/Push_swap-4b0373720b754ac7a48e1c878a87fbda)
 
 # 핵심 포인트
 
@@ -457,13 +457,3 @@
     
     https://github.com/ksnow-be/push_swap_checker
     
-
-# 자료
-
-[push_swap.ko](https://www.notion.so/push_swap-ko-82473b0a27d54a41ab7b9f0dd7fe5deb)
-
-[en.subject.pdf] (https://cdn.intra.42.fr/pdf/pdf/67975/en.subject.pdf)
-
-[Quick sort algorithm & Hard sort](https://www.notion.so/Quick-sort-algorithm-Hard-sort-6eaa7c0ed7144e6fadb5ed1b74f71fa6)
-
-[필기 노트](https://www.notion.so/a78f91b0919c438888f7beac8503149c)

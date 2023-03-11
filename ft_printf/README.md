@@ -1,6 +1,6 @@
 # Ft_printf
 
-본과정 두번째
+[printf notion](https://www.notion.so/Ft_printf-e9cbad12ba2044b997c0da07a7f33ae1)
 
 # 핵심 포인트
 
@@ -56,14 +56,3 @@
     char *str == 0 일 경우에는 str = "(null)"로 변경하여 출력
     precision == 0 && va_arg(va_list, int) == 0 일 경우에는 숫자 출력하지 않음
     ```
-    
-
-# 자료
-
-[ft_printf notion](https://brassy-plate-60f.notion.site/Ft_printf-e9cbad12ba2044b997c0da07a7f33ae1)
-
-[ft_printf.ko](https://brassy-plate-60f.notion.site/ft_printf-ko-5fd3e6d1a6dc411f92f484cf9f8e63e4)
-
-[필기 노트](https://brassy-plate-60f.notion.site/58cb2681f71e46019dadacbd04924ffb)
-
-[가변인자 함수의 사용(va_)](https://jhnyang.tistory.com/293)
