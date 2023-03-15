@@ -1,10 +1,7 @@
 {
 	"cmake.debugConfig": {
 	"args": [
-		"julia", "-0.835", "-0.2321"
+		"mandelbrot"
 	]
-	},
-	"files.associations": {
-		"fractol_bonus.h": "c"
 	}
 }
