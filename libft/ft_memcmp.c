@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 19:54:42 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/11/16 00:34:06 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/03/17 17:22:33 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,3 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	}
 	return (temp_s1[i] - temp_s2[i]);
 }
-
