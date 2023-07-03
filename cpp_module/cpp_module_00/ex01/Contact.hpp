@@ -4,6 +4,10 @@
 #include <iomanip>
 #include <iostream>
 
+enum e_name {
+  FIR, LST, NIC, PHONE, DARK
+};
+
 class Contact {
   private:
     std::string firstName;
