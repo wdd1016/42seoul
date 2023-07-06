@@ -1,12 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   PhoneBook.cpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/06 22:50:23 by juyojeon          #+#    #+#             */
+/*   Updated: 2023/07/06 23:43:55 by juyojeon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "PhoneBook.hpp"
 
 int	PhoneBook::findCommand() {
   std::string temp;
+
   std::cout << "Please enter command [ADD, SEARCH, EXIT] : ";
   std::cin >> temp;
   if (std::cin.eof())
     exit(0);
-  else if (temp.compare("ADD") == 0)
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  if (temp.compare("ADD") == 0)
     return (ADD);
   else if (temp.compare("SEARCH") == 0)
     return (SEARCH);
@@ -19,43 +33,39 @@ int	PhoneBook::findCommand() {
 void	PhoneBook::add() {
   int index;
 
-  index = count % 8;
-  count++;
-  if (count > 0x70000000)
-    count -= 0x60000000;
+  index = this->count % 8;
+  this->count++;
+  if (this->count > 0x70000000)
+    this->count -= 0x60000000;
   this->contacts[index].addContact();
 }
 
 void  PhoneBook::search() {
-  int i;
-
+  if (this->count == 0) {
+    std::cout << "Please add an contact" << std::endl;
+    return;
+  }
   std::cout << std::setw(10) << "index" << "|"
   << std::setw(10) << "first name" << "|"
   << std::setw(10) << "last name" << "|"
-  << std::setw(10) << "nickname" << "|";
-  for (i = 0; i < 8; i++) {
-    std::cout << std::setw(10) << i + 1 << "|"
-    << std::setw(10) << this->contacts[i].getContact(FIR) << "|"
-    << std::setw(10) << this->contacts[i].getContact(LST) << "|"
-    << std::setw(10) << this->contacts[i].getContact() << "|";
-  }
-}
-
-int main() {
-  PhoneBook book;
-  int		cmd_idx;
-
-  while (1) {
-	  cmd_idx = book.findCommand();
-	  if (cmd_idx == EXIT) {
-      std::cout << "The program quits and the contacts are lost forever!" << std::endl;
-  		break;
-  	}
-	  else if (cmd_idx == ADD)
-		  book.add();
-	  else if (cmd_idx == SEARCH)
-		  book.search();
-    else
-      std::cout << "Wrong command entered." << std::endl;
+  << std::setw(10) << "nickname" << "|" << std::endl;
+  for (int i = 0; i < 8; i++)
+    this->contacts[i].showCuttedContact(i);
+  std::string temp;
+  while (1)
+  {
+    std::cout << "Please enter index for searched contact : ";
+    std::cin >> temp;
+    if (std::cin.eof())
+      exit(1);
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if (temp.length() != 1 || temp.at(0) < '1' || temp.at(0) > '9')
+      continue;
+    int preindex = std::stoi(temp);
+    if (preindex > this->count)
+      continue;
+    int index = preindex - 1;
+    this->contacts[index].showContactDetail();
+    break;
   }
 }
