@@ -1,12 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Contact.hpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/06 23:50:10 by juyojeon          #+#    #+#             */
+/*   Updated: 2023/07/06 23:53:17 by juyojeon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CONTACT_HPP
 #define CONTACT_HPP
 
 #include <iomanip>
 #include <iostream>
-
-enum e_name {
-  FIR, LST, NIC, PHONE, DARK
-};
+#include <limits>
 
 class Contact {
   private:
@@ -15,10 +24,13 @@ class Contact {
     std::string nickName;
     std::string phoneNumber;
     std::string darkestSecret;
+    std::string empty;
 
   public:
-    void addContact();
-    std::string getContact(int idx);
+    void        addContact();
+    void        showCuttedContact(int i);
+    std::string cutString(std::string &str);
+    void        showContactDetail();
 };
 
 #endif
