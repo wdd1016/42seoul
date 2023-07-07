@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 22:50:16 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/06 23:41:21 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/07 19:42:48 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void Contact::addContact() {
       continue;
     else if (this->phoneNumber.compare(0, 2, "01"))
       continue;
-    else if (std::stoi(this->phoneNumber) < 110000000 || std::stoi(this->phoneNumber) > 1999999999)
+    else if (std::atoi(this->phoneNumber.c_str()) < 110000000 || std::atoi(this->phoneNumber.c_str()) > 1999999999)
       continue;
     else
       break;

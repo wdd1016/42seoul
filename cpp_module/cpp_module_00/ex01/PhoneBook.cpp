@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 22:50:23 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/06 23:43:55 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/07 19:40:40 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	PhoneBook::findCommand() {
   std::cout << "Please enter command [ADD, SEARCH, EXIT] : ";
   std::cin >> temp;
   if (std::cin.eof())
-    exit(0);
+    exit(0); // EOF haddling
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
   if (temp.compare("ADD") == 0)
     return (ADD);
@@ -36,7 +36,7 @@ void	PhoneBook::add() {
   index = this->count % 8;
   this->count++;
   if (this->count > 0x70000000)
-    this->count -= 0x60000000;
+    this->count -= 0x60000000; // overflow handling
   this->contacts[index].addContact();
 }
 
@@ -61,7 +61,7 @@ void  PhoneBook::search() {
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     if (temp.length() != 1 || temp.at(0) < '1' || temp.at(0) > '9')
       continue;
-    int preindex = std::stoi(temp);
+    int preindex = temp.at(0) - '0';
     if (preindex > this->count)
       continue;
     int index = preindex - 1;

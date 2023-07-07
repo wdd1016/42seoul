@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 22:50:12 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/06 23:09:56 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/07 18:01:54 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int main() {
 	  cmd_idx = book.findCommand();
 	  if (cmd_idx == EXIT) {
       std::cout << "The program quits and the contacts are lost forever!" << std::endl;
-  		break;
+  		break; // quit program
   	}
 	  else if (cmd_idx == ADD)
 		  book.add();
 	  else if (cmd_idx == SEARCH)
 		  book.search();
     else
-      std::cout << "Wrong command entered." << std::endl;
+      std::cout << "Wrong command entered." << std::endl; // wrong command
   }
 }
