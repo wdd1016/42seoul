@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 22:50:23 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/07 19:40:40 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/08 12:34:47 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void  PhoneBook::search() {
     if (std::cin.eof())
       exit(1);
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    if (temp.length() != 1 || temp.at(0) < '1' || temp.at(0) > '9')
+    if (temp.length() != 1 || temp.at(0) < '1' || temp.at(0) > '8')
       continue;
     int preindex = temp.at(0) - '0';
     if (preindex > this->count)
