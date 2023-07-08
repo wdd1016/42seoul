@@ -6,7 +6,7 @@
 #    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/08 13:13:13 by juyojeon          #+#    #+#              #
-#    Updated: 2023/07/08 16:55:48 by juyojeon         ###   ########.fr        #
+#    Updated: 2023/07/08 17:29:02 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror
 STD_FLAG = -std=c++98
 
-SRC = Zombie.cpp newZombie.cpp randomChump.cpp main.cpp
+SRC = Zombie.cpp main.cpp zombieHorde.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)

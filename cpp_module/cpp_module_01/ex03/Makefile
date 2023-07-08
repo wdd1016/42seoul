@@ -5,17 +5,17 @@
 #                                                     +:+ +:+         +:+      #
 #    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/07/08 13:13:13 by juyojeon          #+#    #+#              #
-#    Updated: 2023/07/08 16:55:48 by juyojeon         ###   ########.fr        #
+#    Created: 2023/07/08 21:26:59 by juyojeon          #+#    #+#              #
+#    Updated: 2023/07/08 21:54:45 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Zombie
+NAME = Fight
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror
 STD_FLAG = -std=c++98
 
-SRC = Zombie.cpp newZombie.cpp randomChump.cpp main.cpp
+SRC = main.cpp Weapon.cpp HumanA.cpp HumanB.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
