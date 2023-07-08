@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 23:50:10 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/07 18:01:51 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/08 14:14:04 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ class Contact {
     std::string nickName;
     std::string phoneNumber;
     std::string darkestSecret;
-    std::string empty;
 
     // return cutted string (max 10 char)
     std::string cutString(std::string &str); 
