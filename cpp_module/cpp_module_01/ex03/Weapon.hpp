@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Weapon.cpp                                         :+:      :+:    :+:   */
+/*   Weapon.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 21:54:53 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/08 22:29:04 by juyojeon         ###   ########.fr       */
+/*   Created: 2023/07/08 21:56:08 by juyojeon          #+#    #+#             */
+/*   Updated: 2023/07/08 22:29:11 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Weapon.hpp"
+#ifndef WEAPON_HPP
+#define WEAPON_HPP
 
-Weapon::Weapon(const char *newWeapon) {
-  this->_type = std::string(newWeapon);
-}
+#include <iostream>
 
-const std::string& Weapon::getType() {
-  return (this->_type);
-}
+class Weapon
+{
+	private:
+		std::string _type;
 
-void  Weapon::setType(const char *newWeapon) {
-  this->_type = std::string(newWeapon);
-}
+	public:
+		Weapon(const char *newWeapon);
+    const std::string&  getType();
+    void                setType(const char *newWeapon);
+};
+
+#endif

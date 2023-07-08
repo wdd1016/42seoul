@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Weapon.cpp                                         :+:      :+:    :+:   */
+/*   HumanA.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 21:54:53 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/08 22:29:04 by juyojeon         ###   ########.fr       */
+/*   Created: 2023/07/08 21:56:13 by juyojeon          #+#    #+#             */
+/*   Updated: 2023/07/08 22:46:16 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef HUMANA_HPP
+#define HUMANA_HPP
+
 #include "Weapon.hpp"
 
-Weapon::Weapon(const char *newWeapon) {
-  this->_type = std::string(newWeapon);
-}
-
-const std::string& Weapon::getType() {
-  return (this->_type);
-}
-
-void  Weapon::setType(const char *newWeapon) {
-  this->_type = std::string(newWeapon);
-}
+#endif
