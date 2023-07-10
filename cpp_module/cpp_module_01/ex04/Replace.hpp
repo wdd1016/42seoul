@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Weapon.cpp                                         :+:      :+:    :+:   */
+/*   Replace.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 21:54:53 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/10 16:41:49 by juyojeon         ###   ########.fr       */
+/*   Created: 2023/07/10 22:03:54 by juyojeon          #+#    #+#             */
+/*   Updated: 2023/07/10 23:15:45 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Weapon.hpp"
+#include <iostream>
+#include <fstream>
 
-Weapon::Weapon(const char *newWeapon) {
-  this->_type = newWeapon;
-}
+class Replace
+{
+  private:
+    std::ifstream inputFile;
+    std::ofstream outputFile;
+    bool          inputFlag;
+    bool          outputFlag;
 
-const std::string& Weapon::getType() {
-  return (this->_type);
-}
-
-void  Weapon::setType(const char *newWeapon) {
-  this->_type = newWeapon;
-}
+  public:
+    Replace(std::string path);
+    ~Replace();
+    void  convert(std::string s1, std::string s2);
+};

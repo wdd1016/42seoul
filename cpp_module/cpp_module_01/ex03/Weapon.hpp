@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 21:56:08 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/08 22:29:11 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/10 17:12:34 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ class Weapon
 
 	public:
 		Weapon(const char *newWeapon);
-    const std::string&  getType();
-    void                setType(const char *newWeapon);
+		const std::string&  getType();
+		void                setType(const char *newWeapon);
 };
 
 #endif
