@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 22:18:25 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/10 23:58:23 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:10:10 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void  Replace::convert(std::string s1, std::string s2)
     {
       size_t idx = 0;
       std::getline(this->inputFile, temp);
-      std::cout << temp << std::endl;
       while (idx != std::string::npos)
       {
         idx = temp.find(s1, idx);
@@ -66,8 +65,9 @@ void  Replace::convert(std::string s1, std::string s2)
         temp.erase(idx, s1.length());
         temp.insert(idx, s2);
       }
-      temp.append("\n");
+      if (this->inputFile.eof() == 0)
+        temp.append("\n");
       this->outputFile.write(temp.c_str(), temp.length());
-    } while (0);
+    } while (!this->inputFile.eof() && !this->inputFile.fail() && !this->inputFile.bad());
   }
 }
