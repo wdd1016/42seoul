@@ -6,9 +6,12 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 22:03:54 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/10 23:15:45 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/11 22:23:44 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef REPLACE_HPP
+#define REPLACE_HPP
 
 #include <iostream>
 #include <fstream>
@@ -26,3 +29,5 @@ class Replace
     ~Replace();
     void  convert(std::string s1, std::string s2);
 };
+
+#endif
