@@ -6,11 +6,15 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:09:58 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/08 21:41:57 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/11 23:10:28 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
+
+Zombie::Zombie() {
+  std::cout << "Zombie [default] constructor called." << std::endl;
+}
 
 Zombie::Zombie(std::string name) {
   this->setName(name);
