@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:09:58 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/11 23:10:28 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:35:25 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,22 @@ Zombie::Zombie(std::string name) {
 }
 
 void Zombie::setName(std::string name) {
-  if (name.length() == 0) {
-    char buf[5];
-    std::sprintf(buf, "%d", std::rand() % 10000);
-    std::string temp("Noname");
-    temp.append(buf);
-    this->_name = temp;
-  }
+  if (name.length() == 0)
+    this->_name = "Noname";
   else
     this->_name = name;
 }
 
 Zombie::~Zombie() {
-  std::cout << "Zombie \'" << this->_name << "\' deleted." << std::endl;
+  if (this->_name.length() == 0)
+    std::cout << "Default Zombie deleted." << std::endl;
+  else
+    std::cout << "Zombie \'" << this->_name << "\' deleted." << std::endl;
 }
 
 void Zombie::announce(void) {
-	std::cout << this->_name << ": BraiiiiiiinnnzzzZ..." << std::endl;
+  if (this->_name.length() == 0)
+    std::cout << "default: BraiiiiiiinnnzzzZ..." << std::endl;
+  else
+	  std::cout << this->_name << ": BraiiiiiiinnnzzzZ..." << std::endl;
 }

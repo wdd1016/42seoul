@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 16:55:35 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/08 20:56:51 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:36:43 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int main() {
 	Zombie zombie2 = Zombie("");
 	Zombie* zombie3 = newZombie("Zombie3");
 	Zombie* zombie4 = new Zombie("Zombie4");
-	
 
 	zombie1.announce();
 	zombie2.announce();

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 13:15:00 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/08 18:11:35 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:27:45 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #define ZOMBIE_HPP
 
 #include <iostream>
-#include <ctime>
 
 class Zombie {
 	private:

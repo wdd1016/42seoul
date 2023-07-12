@@ -6,15 +6,11 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 14:09:58 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/08 21:41:56 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:21:00 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
-
-Zombie::Zombie() {
-  std::cout << "Zombie [default] constructor called." << std::endl;
-}
 
 Zombie::Zombie(std::string name) {
   this->setName(name);
@@ -22,13 +18,8 @@ Zombie::Zombie(std::string name) {
 }
 
 void Zombie::setName(std::string name) {
-  if (name.length() == 0) {
-    char buf[5];
-    std::sprintf(buf, "%d", std::rand() % 10000);
-    std::string temp("Noname");
-    temp.append(buf);
-    this->_name = temp;
-  }
+  if (name.length() == 0)
+    this->_name = "Noname";
   else
     this->_name = name;
 }

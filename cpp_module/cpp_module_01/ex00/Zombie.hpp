@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 13:15:00 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/08 18:11:48 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:20:31 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 #define ZOMBIE_HPP
 
 #include <iostream>
-#include <ctime>
 
 class Zombie {
 	private:
     std::string _name;
   
   public:
-    Zombie();
     Zombie(std::string name);
     ~Zombie();
     void setName(std::string name);

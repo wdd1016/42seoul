@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 16:40:09 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/10 21:36:08 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/12 16:40:39 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ int main()
 		jim.attack();
 		club.setType("some other type of club");
 		jim.attack();
+	}
+	{
+		HumanB error("error");
+		error.attack();
 	}
 	return 0;
 }

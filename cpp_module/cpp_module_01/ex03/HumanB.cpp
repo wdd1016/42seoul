@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 21:54:41 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/10 21:35:23 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/12 19:20:58 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,11 @@
 
 HumanB::HumanB(std::string name)
 {
-  if (name.length() == 0) {
-    char buf[5];
-    std::sprintf(buf, "%d", std::rand() % 10000);
-    std::string temp("Noname");
-    temp.append(buf);
-    this->_name = temp;
-  }
+  if (name.length() == 0)
+    this->_name = "Noname";
   else
     this->_name = name;
-	this->_weapon = nullptr;
+	this->_weapon = NULL;
 }
 
 void  HumanB::setWeapon(Weapon &weapon)
@@ -33,13 +28,15 @@ void  HumanB::setWeapon(Weapon &weapon)
 
 void	HumanB::attack() const
 {
-	if (this->_weapon) {
+	if (this->_weapon)
+  {
 		std::cout << this->_name
 		<< " attacks with their "
 		<< this->_weapon->getType() << std::endl;
 	}
-	else {
+	else
+  {
 		std::cout << this->_name
-    << "doesn't have a weapon and can't attack"	<< std::endl;
+    << " doesn't have a weapon and can't attack" << std::endl;
 	}
 }
