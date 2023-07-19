@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 22:18:25 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/12 19:08:55 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/16 16:53:17 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,33 +46,25 @@ void  Replace::convert(std::string s1, std::string s2)
 {
   std::string temp;
 
-  if (s1.length() == 0)
+  while (1)
   {
-    std::cout << "Argument Error" << std::endl;
-    exit(EXIT_FAILURE);
-  }
-  else
-  {
+    size_t idx = 0;
+    std::getline(this->inputFile, temp);
+    if (this->inputFile.fail() || this->inputFile.bad())
+      break;
+    else if (this->inputFile.eof() == 0)
+      temp.append("\n");
     while (1)
     {
-      size_t idx = 0;
-      std::getline(this->inputFile, temp);
-      if (this->inputFile.fail() || this->inputFile.bad())
+      idx = temp.find(s1, idx);
+      if (idx == std::string::npos)
         break;
-      else if (this->inputFile.eof() == 0)
-        temp.append("\n");
-      while (1)
-      {
-        idx = temp.find(s1, idx);
-        if (idx == std::string::npos)
-          break;
-        temp.erase(idx, s1.length());
-        temp.insert(idx, s2);
-        idx += s2.length();
-      }
-      this->outputFile.write(temp.c_str(), temp.length());
-      if (this->inputFile.eof() == 1)
-        break;
+      temp.erase(idx, s1.length());
+      temp.insert(idx, s2);
+      idx += s2.length();
     }
+    this->outputFile.write(temp.c_str(), temp.length());
+    if (this->inputFile.eof() == 1)
+      break;
   }
 }

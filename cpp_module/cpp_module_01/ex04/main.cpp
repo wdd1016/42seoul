@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 17:25:44 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/11 16:26:18 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/16 16:54:07 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int main(int argc, const char* argv[])
 {
-  if (argc != 4)
+  if (argc != 4 || argv[2][0] == '\0')
   {
     std::cout << "Argument Error" << std::endl;
     exit(EXIT_FAILURE);

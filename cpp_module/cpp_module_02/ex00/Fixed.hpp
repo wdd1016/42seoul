@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   Fixed.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 16:08:06 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/19 16:58:42 by juyojeon         ###   ########.fr       */
+/*   Created: 2023/07/17 13:04:50 by juyojeon          #+#    #+#             */
+/*   Updated: 2023/07/19 19:12:37 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#ifndef FIXED_HPP
+#define FIXED_HPP
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <signal.h>
+#include <iostream>
 
-# define TRUE 1
-# define FALSE 0
-
-typedef struct s_data
+class Fixed
 {
-	struct sigaction	act;
-	pid_t				opponent_pid;
-	char				*string;
-}	t_data;
+private:
+	int	_value;
+  static const int  _fractionBit = 8;
 
-t_data	g_data;
+public:
+  Fixed();
+  Fixed(const Fixed& copy);
+  Fixed&  operator=(const Fixed& copy);
+  ~Fixed();
+  int getRawBits(void) const;
+  void setRawBits(int const raw);
+};
 
-int		ft_print_pid(int n);
-void	ft_cut_in_middle(int *count, pid_t pid);
+
+
 
 #endif

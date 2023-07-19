@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/30 16:08:06 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/19 16:58:42 by juyojeon         ###   ########.fr       */
+/*   Created: 2023/07/19 19:14:40 by juyojeon          #+#    #+#             */
+/*   Updated: 2023/07/19 19:16:18 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "Fixed.hpp"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <signal.h>
+int main() {
+  Fixed a;
+  Fixed b(a);
+  Fixed c;
 
-# define TRUE 1
-# define FALSE 0
-
-typedef struct s_data
-{
-	struct sigaction	act;
-	pid_t				opponent_pid;
-	char				*string;
-}	t_data;
-
-t_data	g_data;
-
-int		ft_print_pid(int n);
-void	ft_cut_in_middle(int *count, pid_t pid);
-
-#endif
+  c = b;
+  std::cout << a.getRawBits() << std::endl;
+  std::cout << b.getRawBits() << std::endl;
+  std::cout << c.getRawBits() << std::endl;
+  
+  return 0;
+}
