@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 22:23:11 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/19 23:48:53 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/19 23:53:22 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,12 @@ Fixed Fixed::operator-(const Fixed& target) const {
   return (temp);
 }
 
-// Fixed Fixed::operator*(const Fixed& target) const {
-//   Fixed temp;
+Fixed Fixed::operator*(const Fixed& target) const {
+  Fixed temp;
 
-//   temp._value = this->getRawBits() * target.getRawBits();
-//   return (temp);
-// }
+  temp._value = this->getRawBits() * (target.getRawBits() >> _fractionBit);
+  return (temp);
+}
 
 // Fixed Fixed::operator/(const Fixed& target) const {
 //   Fixed temp;
