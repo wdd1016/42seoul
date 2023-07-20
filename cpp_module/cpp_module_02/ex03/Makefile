@@ -6,16 +6,16 @@
 #    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/09 17:26:35 by juyojeon          #+#    #+#              #
-#    Updated: 2023/07/12 21:46:25 by juyojeon         ###   ########.fr        #
+#    Updated: 2023/07/20 23:01:51 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Harl
+NAME = Fixed
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror
 STD_FLAG = -std=c++98
 
-SRC = main.cpp Harl.cpp
+SRC = main.cpp Fixed.cpp Point.cpp bsp.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
