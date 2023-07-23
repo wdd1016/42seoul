@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 22:23:11 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/21 21:25:47 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/23 16:42:26 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,16 @@ Fixed Fixed::operator-(const Fixed& target) const {
 
 Fixed Fixed::operator*(const Fixed& target) const {
   Fixed temp;
-  const int intangerBit = 32 - _fractionBit;
 
-  /* target's intanger part multiplication + fraction part multiplication*/
-  temp._value = (this->getRawBits() >> _fractionBit) * target.getRawBits()
-                + (((this->getRawBits() << intangerBit) >> intangerBit) * target.getRawBits());
-
+  temp._value = (this->getRawBits() * target.getRawBits()) >> _fractionBit;
   return (temp);
 }
 
 Fixed Fixed::operator/(const Fixed& target) const {
-  int mod = 1 << _fractionBit;
-  return (Fixed((static_cast<float>(this->_value) / mod)  / (static_cast<float>(target._value) / mod)));
+  Fixed temp;
+
+  temp._value = (this->getRawBits() << _fractionBit) / target.getRawBits();
+  return (temp);
 }
 
 Fixed&  Fixed::operator++() {

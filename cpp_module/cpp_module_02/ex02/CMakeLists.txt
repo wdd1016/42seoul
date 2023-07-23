@@ -4,7 +4,7 @@ project(fixed VERSION 0.1.0 LANGUAGES C CXX)
 include(CTest)
 enable_testing()
 
-add_executable(fixed Fixed.cpp Point.cpp bsp.cpp main.cpp)
+add_executable(fixed Fixed.cpp main.cpp)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
