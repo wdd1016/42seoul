@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 22:51:24 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/27 23:56:33 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/28 23:53:31 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,16 @@
 class ScavTrap : public ClapTrap {
 
 protected:
-  unsigned int _hitPoint;
-  unsigned int _energyPoint;
-  unsigned int _attackDamege;
+  bool _isGateKeeper;
   
 public:
+  ScavTrap();
 	ScavTrap(const std::string name);
 	~ScavTrap();
+  ScavTrap(const ScavTrap& copy);
+  ScavTrap& operator=(const ScavTrap& copy);
+
+  void guardGate();
 };
 
 #endif
