@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 20:04:06 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/27 22:39:11 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/07/28 22:58:19 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ private:
   unsigned int _attackDamege;
 
 public:
+  ClapTrap();
 	ClapTrap(const std::string name);
 	~ClapTrap();
   ClapTrap(const ClapTrap& copy);
