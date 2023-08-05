@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 22:51:24 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/28 23:29:04 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/05 21:01:26 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 #include <iostream>
 #include "ClapTrap.hpp"
 
-class ScavTrap : public ClapTrap {
+class ScavTrap : virtual public ClapTrap {
 
 protected:
   bool _isGateKeeper;
-  
+
 public:
   ScavTrap();
 	ScavTrap(const std::string name);

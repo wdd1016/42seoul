@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 20:03:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/29 23:04:09 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/05 21:28:17 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 int main()
 {
 
-	DiamondTrap a("a");
+	DiamondTrap a;
 	DiamondTrap b("b");
 	DiamondTrap c("c");
 
 
 	a.attack("b");
-	b.takeDamage(a.attack_damage);
+	b.takeDamage(20);
 	b.beRepaired(10);
 	b.guardGate();
 	b.highFivesGuys();

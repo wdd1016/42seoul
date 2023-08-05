@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 22:53:16 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/29 23:05:30 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/05 21:01:14 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ class DiamondTrap : public ScavTrap, public FragTrap
 {
 private:
 	std::string	_name;
+
 public:
 	DiamondTrap();
 	DiamondTrap(std::string name);
