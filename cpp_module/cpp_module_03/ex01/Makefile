@@ -6,11 +6,11 @@
 #    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/26 19:54:07 by juyojeon          #+#    #+#              #
-#    Updated: 2023/07/28 23:32:40 by juyojeon         ###   ########.fr        #
+#    Updated: 2023/08/05 22:28:26 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ClapTrap
+NAME = ScavTrap
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror
 STD_FLAG = -std=c++98

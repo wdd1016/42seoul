@@ -6,13 +6,13 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 23:02:28 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/05 21:51:43 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/05 22:26:33 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "DiamondTrap.hpp"
 
-DiamondTrap::DiamondTrap() : ScavTrap(), FragTrap(), _name("default")
+DiamondTrap::DiamondTrap() : ScavTrap(), FragTrap(), _name()
 {
 	ClapTrap::_name = this->_name + "_clap_name";
 	this->_hitPoint = FragTrap::_hitPoint;
