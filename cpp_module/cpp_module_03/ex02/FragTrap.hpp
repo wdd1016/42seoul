@@ -19,15 +19,16 @@
 class FragTrap : public ClapTrap {
 
 protected:
+  FragTrap();
 
 public:
-  FragTrap();
   FragTrap(const std::string name);
   ~FragTrap();
   FragTrap(const FragTrap& copy);
   FragTrap& operator=(const FragTrap& copy);
 
-  void highFivesGuys();
+  void  attack(const std::string& target);
+  void  highFivesGuys();
 };
 
 #endif

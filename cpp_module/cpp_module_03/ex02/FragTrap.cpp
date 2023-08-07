@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 23:49:14 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/28 23:52:12 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/07 22:20:10 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,30 @@ FragTrap::FragTrap(const FragTrap& copy) : ClapTrap(copy) {
   std::cout << "FragTrap " << this->_name << " copy constructor called!" << std::endl;
 }
 
+void FragTrap::attack(const std::string& target)
+{
+	if (_energyPoint == 0) {
+		std::cout << _name << " can't attack because it doesn't have an energyPoint." << std::endl;
+		return;
+	} else if (_hitPoint == 0) {
+		std::cout << _name << " can't attack because it's already broken." << std::endl;
+		return;
+	}
+
+	std::cout << "FragTrap " << _name << " attacks " << target << ", causing " << _attackDamege << " points of damage." << std::endl;
+	_energyPoint--;
+	if (_energyPoint == 0) {
+		std::cout << _name << "'s energy points are now zero." << std::endl;
+	}
+}
+
 void FragTrap::highFivesGuys() {
+	if (_energyPoint == 0) {
+		std::cout << _name << " can't High Five because it doesn't have an energyPoint." << std::endl;
+		return;
+	} else if (_hitPoint == 0) {
+		std::cout << _name << " can't High Five because it's already broken." << std::endl;
+		return;
+	}
   std::cout << _name << " requests a positive high fives." << std::endl;
 }

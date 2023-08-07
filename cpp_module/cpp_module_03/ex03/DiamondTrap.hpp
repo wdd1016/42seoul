@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 22:53:16 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/05 21:01:14 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/07 23:13:43 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,20 @@
 # include "ScavTrap.hpp"
 # include "FragTrap.hpp"
 
-class DiamondTrap : public ScavTrap, public FragTrap
+class DiamondTrap : public FragTrap, public ScavTrap
 {
 private:
 	std::string	_name;
 
-public:
 	DiamondTrap();
+
+public:
 	DiamondTrap(std::string name);
 	DiamondTrap(const DiamondTrap &copy);
 	~DiamondTrap();
 	DiamondTrap &operator=(const DiamondTrap &copy);
 
-	void	whoAmI(void);
+	void  whoAmI(void);
 };
 
 #endif

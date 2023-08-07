@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 20:03:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/28 23:57:05 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/06 17:40:46 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ int main()
     ScavTrap robot2(robot1);
 
     robot2.guardGate();
-    for (int i = 0; i < 55; i++) {
-        robot2.attack("ABCot");
-    }
+    robot2.attack("Cot");
 
 
 	ScavTrap robot3("Robot3");

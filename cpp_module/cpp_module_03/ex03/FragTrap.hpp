@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 23:43:47 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/05 20:27:58 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/07 22:25:56 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,17 @@
 class FragTrap : virtual public ClapTrap {
 
 protected:
+  FragTrap();
 
 public:
-  FragTrap();
   FragTrap(const std::string name);
-  ~FragTrap();
+  virtual ~FragTrap();
   FragTrap(const FragTrap& copy);
   FragTrap& operator=(const FragTrap& copy);
 
-  void highFivesGuys();
+  void  highFivesGuys();
+  unsigned int ownHitpoint();
+  unsigned int ownAttackDamage();
 };
 
 #endif

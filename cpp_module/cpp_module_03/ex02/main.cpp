@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 20:03:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/28 23:55:28 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/07 19:16:11 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,15 @@ int main()
 
     FragTrap robot2(robot1);
 
-    for (int i = 0; i < 100; i++) {
-        robot2.attack("ABCot");
-    }
+    robot2.attack("Cot");
+    robot2.highFivesGuys();
 
-	FragTrap robot3("Robot3");
+	ClapTrap robot3("Robot3");
 
     robot3.beRepaired(5);
     robot3.beRepaired(3);
     robot3.beRepaired(12);
     robot3.beRepaired(100);
 
-    robot3.highFivesGuys();
-    
     return 0;
 }

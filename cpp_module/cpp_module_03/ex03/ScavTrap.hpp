@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 22:51:24 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/05 21:01:26 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/07 23:12:13 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,16 @@ class ScavTrap : virtual public ClapTrap {
 
 protected:
   bool _isGateKeeper;
-
-public:
   ScavTrap();
+  
+public:
 	ScavTrap(const std::string name);
-	~ScavTrap();
+	virtual ~ScavTrap();
   ScavTrap(const ScavTrap& copy);
   ScavTrap& operator=(const ScavTrap& copy);
 
-  void guardGate();
+  void  attack(const std::string& target);
+  void  guardGate();
 };
 
 #endif

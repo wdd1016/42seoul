@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 20:04:06 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/05 19:16:18 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/07 23:12:45 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ protected:
   unsigned int _energyPoint;
   unsigned int _attackDamege;
 
-public:
   ClapTrap();
+
+public:
 	ClapTrap(const std::string name);
-	~ClapTrap();
+	virtual ~ClapTrap();
   ClapTrap(const ClapTrap& copy);
   ClapTrap& operator=(const ClapTrap& copy);
 

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 20:00:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/07/28 23:01:09 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/06 17:40:13 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,14 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& copy)
 void ClapTrap::attack(const std::string& target)
 {
 	if (_energyPoint == 0) {
-		std::cout << _name << " doesn't have an energy point." << std::endl;
+		std::cout << _name << " can't attack because it doesn't have an energyPoint." << std::endl;
+		return;
+	} else if (_hitPoint == 0) {
+		std::cout << _name << " can't attack because it's already broken." << std::endl;
 		return;
 	}
 
-	std::cout << _name << " attacks " << target << ", causing " << _attackDamege << " points of damage." << std::endl;
+	std::cout << "ClapTrap " << _name << " attacks " << target << ", causing " << _attackDamege << " points of damage." << std::endl;
 	_energyPoint--;
 	if (_energyPoint == 0) {
 		std::cout << _name << "'s energy points are now zero." << std::endl;
@@ -86,7 +89,10 @@ void ClapTrap::takeDamage(unsigned int amount)
 void ClapTrap::beRepaired(unsigned int amount)
 {
 	if (_energyPoint == 0) {
-		std::cout << _name << " doesn't have an energy point." << std::endl;
+		std::cout << _name << " can't repair because it doesn't have an energyPoint." << std::endl;
+		return;
+	} else if (_hitPoint == 0) {
+		std::cout << _name << " can't repair because it's already broken." << std::endl;
 		return;
 	}
 

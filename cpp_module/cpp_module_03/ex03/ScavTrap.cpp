@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 22:51:11 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/05 21:50:17 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/07 21:23:50 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,31 @@ ScavTrap::ScavTrap(const ScavTrap& copy) : ClapTrap(copy) {
   std::cout << "ScavTrap " << this->_name << " copy constructor called!" << std::endl;
 }
 
+void ScavTrap::attack(const std::string& target)
+{
+	if (_energyPoint == 0) {
+		std::cout << _name << " can't attack because it doesn't have an energyPoint." << std::endl;
+		return;
+	} else if (_hitPoint == 0) {
+		std::cout << _name << " can't attack because it's already broken." << std::endl;
+		return;
+	}
+
+	std::cout << "ScavTrap " << _name << " attacks " << target << ", causing " << _attackDamege << " points of damage." << std::endl;
+	_energyPoint--;
+	if (_energyPoint == 0) {
+		std::cout << _name << "'s energy points are now zero." << std::endl;
+	}
+}
+
 void ScavTrap::guardGate() {
+	if (_energyPoint == 0) {
+		std::cout << _name << " can't guard because it doesn't have an energyPoint." << std::endl;
+		return;
+	} else if (_hitPoint == 0) {
+		std::cout << _name << " can't guard because it's already broken." << std::endl;
+		return;
+	}
   if (_isGateKeeper == true)
     std::cout << _name << " is already in Gate keeper mode." << std::endl;
   else {
