@@ -6,16 +6,16 @@
 #    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/05 22:47:41 by juyojeon          #+#    #+#              #
-#    Updated: 2023/08/05 22:47:53 by juyojeon         ###   ########.fr        #
+#    Updated: 2023/08/14 23:07:29 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = A
+NAME = Abstract
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror
 STD_FLAG = -std=c++98
 
-SRC = main.cpp
+SRC = main.cpp Animal.cpp Dog.cpp Cat.cpp Brain.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
