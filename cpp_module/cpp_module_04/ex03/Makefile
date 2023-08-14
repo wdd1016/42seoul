@@ -6,16 +6,16 @@
 #    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/05 22:47:41 by juyojeon          #+#    #+#              #
-#    Updated: 2023/08/05 22:47:53 by juyojeon         ###   ########.fr        #
+#    Updated: 2023/08/14 23:34:43 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = A
+NAME = AMateria
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror
 STD_FLAG = -std=c++98
 
-SRC = main.cpp
+SRC = main.cpp AMateria.cpp ICharacter.cpp Cure.cpp Ice.cpp IMateriaSource.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(NAME)
