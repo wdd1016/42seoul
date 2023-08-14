@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:38:07 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/14 15:38:08 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/14 22:49:34 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ WrongCat &WrongCat::operator=(const WrongCat &copy) {
 	std::cout << "WrongCat assignation operator called" << std::endl;
 	if (this == &copy)
 		return (*this);
-	this->type = copy.getType();
+	this->_type = copy.getType();
 	return (*this);
 }
 

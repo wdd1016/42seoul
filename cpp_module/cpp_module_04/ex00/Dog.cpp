@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:37:55 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/14 16:12:15 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/14 22:43:54 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ Dog &Dog::operator=(const Dog &copy) {
 }
 
 void Dog::makeSound() const {
-	std::cout << "Woof woof" << std::endßl;
+	std::cout << "Woof woof" << std::endl;
 }

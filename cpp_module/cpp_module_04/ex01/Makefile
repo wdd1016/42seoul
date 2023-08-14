@@ -6,11 +6,11 @@
 #    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/05 22:47:41 by juyojeon          #+#    #+#              #
-#    Updated: 2023/08/14 17:03:16 by juyojeon         ###   ########.fr        #
+#    Updated: 2023/08/14 22:51:46 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Animal
+NAME = Brain
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror
 STD_FLAG = -std=c++98
