@@ -5,6 +5,11 @@ Animal::Animal() : type("Animal")
 	std::cout << "Animal default constructor called" << std::endl;
 }
 
+Animal::Animal(const std::string &type) : type(type)
+{
+	std::cout << "Animal constructor called" << std::endl;
+}
+
 Animal::Animal(const Animal &copy)
 {
 	std::cout << "Animal copy constructor called" << std::endl;
@@ -25,7 +30,12 @@ Animal &Animal::operator=(const Animal &copy)
 	return (*this);
 }
 
-std::string Animal::getType() const
+void Animal::setType(const std::string &type)
+{
+	this->type = type;
+}
+
+const std::string &Animal::getType() const
 {
 	return (this->type);
 }
