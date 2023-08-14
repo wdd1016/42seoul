@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 15:37:49 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/14 15:38:10 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/14 16:11:34 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ Cat &Cat::operator=(const Cat &copy) {
 	std::cout << "Cat assignation operator called" << std::endl;
 	if (this == &copy)
 		return (*this);
-	this->type = copy.getType();
+	this->_type = copy.getType();
 	return (*this);
 }
 
