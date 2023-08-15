@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 23:54:41 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/14 23:56:26 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/15 20:35:30 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "Cure.hpp"
 #include "Character.hpp"
 #include "MateriaSource.hpp"
+
+#include <iostream>
 
 int main() {
 

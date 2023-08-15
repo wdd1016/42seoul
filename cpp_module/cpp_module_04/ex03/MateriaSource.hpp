@@ -1,34 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Ice.hpp                                            :+:      :+:    :+:   */
+/*   MateriaSource.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 23:15:18 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/15 19:07:36 by juyojeon         ###   ########.fr       */
+/*   Created: 2023/08/15 18:24:12 by juyojeon          #+#    #+#             */
+/*   Updated: 2023/08/15 20:11:54 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ICE_HPP
-# define ICE_HPP
+#ifndef MATERIASOURCE_HPP
+# define MATERIASOURCE_HPP
 
 #include <string>
 #include <iostream>
 #include "AMateria.hpp"
+#include "IMateriaSource.hpp"
 
-class Ice : public AMateria
+class MateriaSource : public IMateriaSource
 {
-	private:
+  private:
+	AMateria *_inventory[4];
+	int _invCount;
 
-	public:
-		Ice();
-		Ice(const Ice &copy);
-		virtual ~Ice();
-		Ice &operator=(const Ice &subst);
+  public:
+	MateriaSource();
+	MateriaSource(const MateriaSource &copy);
+	virtual ~MateriaSource();
+	MateriaSource &operator=(const MateriaSource &subst);
 
-		virtual AMateria* clone() const;
-		virtual void use(ICharacter& target);
+	void learnMateria(AMateria*);
+	AMateria* createMateria(std::string const & type);
+	const int &getInvCount() const;
 };
 
 #endif

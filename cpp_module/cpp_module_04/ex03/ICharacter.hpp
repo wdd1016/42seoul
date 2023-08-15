@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 23:28:53 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/14 23:31:03 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/15 20:34:26 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@
 #include <iostream>
 #include "AMateria.hpp"
 
+class AMateria;
+
 class ICharacter
 {
-	public:
+  public:
     virtual ~ICharacter() {}
     virtual std::string const & getName() const = 0;
     virtual void equip(AMateria* m) = 0;
