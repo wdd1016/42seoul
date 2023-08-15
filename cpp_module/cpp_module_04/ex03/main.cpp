@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 23:54:41 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/15 20:35:30 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/15 22:25:49 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@ int main() {
 
 	me->use(0, *bob);
 	me->use(1, *bob);
+
+	for (int i = 0; i < 5; i++) {
+		me->use(i, *bob);
+	}
+
+	for (int i = 0; i < 30; i++) {
+		me->equip(src->createMateria("ice"));
+		me->unequip(0);
+	}
+
+	me->equip(src->createMateria("cure"));
+	me->equip(src->createMateria("cure"));
+	me->equip(src->createMateria("cure"));
 
 	delete bob;
 	delete me;

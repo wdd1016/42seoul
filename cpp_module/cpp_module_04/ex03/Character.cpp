@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 19:19:49 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/15 20:32:07 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/15 22:23:39 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void Character::equip(AMateria* m)
       std::cerr << "Inventory is full and trash is full." << std::endl;
       return;
     }
+    std::cout << "Inventory is full. Moving to trash." << std::endl;
     _trash[_trashCount++] = m;
     return;
   }
@@ -108,7 +109,9 @@ void Character::unequip(int idx)
 
 void Character::use(int idx, ICharacter& target)
 {
-	if (idx < 0 || idx >= _invCount || _inventory[idx] == NULL)
+	if (idx < 0 || idx >= _invCount || _inventory[idx] == NULL) {
+    std::cout << "Invalid index." << std::endl;
 		return ;
+  }
 	_inventory[idx]->use(target);
 }
