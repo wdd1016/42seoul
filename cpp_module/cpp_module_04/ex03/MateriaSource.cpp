@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 19:55:22 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/15 20:16:31 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/15 23:12:21 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,13 @@ void MateriaSource::learnMateria(AMateria *m)
 {
 	if (_invCount == 4 || m == NULL)
 		return ;
+	for (int i = 0; i < _invCount; i++)
+	{
+		if (_inventory[i] == m) {
+			std::cout << "Already learned" << std::endl;
+			return ;
+		}
+	}
 	_inventory[_invCount] = m;
 	_invCount++;
 }

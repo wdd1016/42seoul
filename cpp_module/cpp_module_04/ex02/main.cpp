@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 23:01:55 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/14 23:08:55 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/15 22:46:55 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,28 @@ int main()
 
   delete i;
   delete j;
+
+  const Animal* animal[20];
+  
+  for (int l = 0; l < 20; l++) {
+    if (l % 2 == 0)
+      animal[l] = new Dog();
+    else
+      animal[l] = new Cat();
+  }
+
+  for (int m = 0; m < 20; m++) {
+    std::cout << std::endl << animal[m]->getType() << std::endl;
+    animal[m]->makeSound();
+    animal[m]->setIdea(0, "Idea array");
+    std::cout << animal[m]->getIdea(0) << std::endl;
+  }
+
+  std::cout << std::endl;
+
+  for (int m = 0; m < 20; m++) {
+    delete animal[m];
+  }
 
   return 0;
 }
