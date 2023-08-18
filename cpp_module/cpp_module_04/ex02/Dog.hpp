@@ -7,14 +7,14 @@
 
 class Dog : public Animal
 {
-	public:
+	private:
 		Brain *_brain;
 	
 	public:
 		Dog();
 		Dog(const Dog &copy);
 		virtual ~Dog();
-		Dog &operator=(const Dog &copy);
+		virtual Dog &operator=(const Dog &copy);
 
 		virtual void makeSound() const;
 		const Brain *getBrain() const;

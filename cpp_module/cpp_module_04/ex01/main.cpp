@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 17:00:37 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/15 22:46:54 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/18 20:28:08 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int main()
 {
   const Animal* i = new Cat();
   const Animal* j = new Dog();
-  Animal* k = new Cat(static_cast<const Cat &>(*i));
 
   std::cout << std::endl << i->getType() << std::endl;
   i->makeSound();
@@ -32,16 +31,8 @@ int main()
   std::cout << j->getIdea(0) << std::endl;
   std::cout << std::endl;
 
-  std::cout << k->getType() << std::endl;
-  k->makeSound();
-  std::cout << k->getIdea(0) << std::endl;
-  k->setIdea(0, "Idea zero");
-  std::cout << k->getIdea(0) << std::endl;
-  std::cout << std::endl;
-
   delete i;
   delete j;
-  delete k;
 
   const Animal* animal[20];
   

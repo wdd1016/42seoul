@@ -7,7 +7,7 @@
 
 class Dog : public Animal
 {
-	public:
+	private:
 		Brain *_brain;
 	
 	public:

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 18:57:22 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/15 19:58:22 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/18 21:17:23 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ Cure::Cure() : AMateria("cure") {}
 Cure::Cure(const Cure &copy) : AMateria(copy) {}
 
 Cure::~Cure() {}
+
+Cure &Cure::operator=(const AMateria &subst) {
+	this->_type = subst.getType();
+	return (*this);
+}
 
 Cure &Cure::operator=(const Cure &subst) {
 	this->_type = subst.getType();

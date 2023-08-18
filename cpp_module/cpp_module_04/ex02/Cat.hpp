@@ -13,7 +13,7 @@ class Cat : public Animal
 		Cat();
 		Cat(const Cat &copy);
 		virtual ~Cat();
-		Cat &operator=(const Cat &copy);
+		virtual Cat &operator=(const Cat &copy);
 
 		virtual void makeSound() const;
 		const Brain *getBrain() const;

@@ -6,19 +6,19 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 19:55:22 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/15 23:12:21 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/18 21:25:43 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MateriaSource.hpp"
 
-MateriaSource::MateriaSource()
+MateriaSource::MateriaSource() : _invCount(0)
 {
 	for (int i = 0; i < 4; i++)
 		_inventory[i] = NULL;
 }
 
-MateriaSource::MateriaSource(const MateriaSource &copy)
+MateriaSource::MateriaSource(const MateriaSource &copy) : _invCount(0)
 {
 	*this = copy;
 }
@@ -62,8 +62,7 @@ void MateriaSource::learnMateria(AMateria *m)
 			return ;
 		}
 	}
-	_inventory[_invCount] = m;
-	_invCount++;
+	_inventory[_invCount++] = m;
 }
 
 AMateria *MateriaSource::createMateria(const std::string &type)

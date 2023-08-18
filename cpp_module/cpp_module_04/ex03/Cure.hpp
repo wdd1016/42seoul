@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 23:15:04 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/15 22:54:27 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/18 21:15:31 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ class Cure : public AMateria
 		Cure();
     Cure(const Cure &copy);
     virtual ~Cure();
-    virtual Cure &operator=(const Cure &subst);
+    virtual Cure &operator=(const AMateria &subst);
+    Cure &operator=(const Cure &subst);
 
     virtual AMateria* clone() const;
     virtual void use(ICharacter& target);

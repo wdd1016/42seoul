@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 18:22:32 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/15 20:32:11 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/18 21:17:27 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ class Character : public ICharacter
 	std::string _name;
 	AMateria *_inventory[4];
 	int	_invCount;
-	AMateria *_trash[256];
+	AMateria **_trash;
 	int	_trashCount;
+	int _maxTrashCount;
 
   public:
   	Character();
