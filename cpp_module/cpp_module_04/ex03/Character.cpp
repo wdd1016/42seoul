@@ -6,28 +6,28 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 19:19:49 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/18 21:34:00 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/20 19:51:21 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Character.hpp"
 
-Character::Character() : _name("default"), _invCount(0), _trashCount(0), _maxTrashCount(256)
+Character::Character() : _name("default"), _invCount(0), _historyCount(0), _maxHistoryCount(256)
 {
 	for (int i = 0; i < 4; i++)
 		_inventory[i] = NULL;
-  _trash = new AMateria*[256];
+  _history = new AMateria*[256];
   for (int i = 0; i < 256; i++)
-    _trash[i] = NULL;
+    _history[i] = NULL;
 }
 
-Character::Character(const std::string &name) : _name(name), _invCount(0), _trashCount(0), _maxTrashCount(256)
+Character::Character(const std::string &name) : _name(name), _invCount(0), _historyCount(0), _maxHistoryCount(256)
 {
 	for (int i = 0; i < 4; i++)
 		_inventory[i] = NULL;
-  _trash = new AMateria*[256];
+  _history = new AMateria*[256];
   for (int i = 0; i < 256; i++)
-    _trash[i] = NULL;
+    _history[i] = NULL;
 }
 
 Character::Character(const Character &copy)
@@ -37,9 +37,9 @@ Character::Character(const Character &copy)
 
 Character::~Character()
 {
-  for (int i = 0; i < _trashCount; i++)
-    delete _trash[i];
-  delete[] _trash;
+  for (int i = 0; i < _historyCount; i++)
+    delete _history[i];
+  delete[] _history;
 }
 
 Character &Character::operator=(const Character &subst)
@@ -51,10 +51,10 @@ Character &Character::operator=(const Character &subst)
   for (int i = 0; i < _invCount; i++)
     delete _inventory[i];
 
-  _invCount = subst.getInvCount();
-  for (int i = 0; i < _invCount; i++)
-    _inventory[i] = subst._inventory[i]->clone();
-  for (int i = _invCount; i < 4; i++)
+  for (int i = 0; i < subst.getInvCount(); i++) {
+    equip(subst._inventory[i]->clone());
+  }
+  for (int i = subst.getInvCount(); i < 4; i++)
     _inventory[i] = NULL;
 
   return (*this);
@@ -72,13 +72,13 @@ const int &Character::getInvCount() const
 
 void Character::equip(AMateria* m)
 {
-  if (_trashCount == _maxTrashCount) {
-    AMateria **newTrash = new AMateria*[_maxTrashCount * 2];
-    for (int i = 0; i < _maxTrashCount; i++)
-      newTrash[i] = _trash[i];
-    delete[] _trash;
-    _trash = newTrash;
-    _maxTrashCount *= 2;
+  if (_historyCount == _maxHistoryCount) {
+    AMateria **newTrash = new AMateria*[_maxHistoryCount * 2];
+    for (int i = 0; i < _maxHistoryCount; i++)
+      newTrash[i] = _history[i];
+    delete[] _history;
+    _history = newTrash;
+    _maxHistoryCount *= 2;
   }
   if (m == NULL) {
     std::cerr << "Invalid materia." << std::endl;
@@ -94,11 +94,11 @@ void Character::equip(AMateria* m)
     std::cout << "Inventory is full. Moving to trash." << std::endl;
   else
     _inventory[_invCount++] = m;
-  for (int i = 0; i < _trashCount; i++) {
-    if (_trash[i] == m)
+  for (int i = 0; i < _historyCount; i++) {
+    if (_history[i] == m)
       return;
   }
-  _trash[_trashCount++] = m;
+  _history[_historyCount++] = m;
 }
 
 void Character::unequip(int idx)

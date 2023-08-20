@@ -24,9 +24,9 @@ class Character : public ICharacter
 	std::string _name;
 	AMateria *_inventory[4];
 	int	_invCount;
-	AMateria **_trash;
-	int	_trashCount;
-	int _maxTrashCount;
+	AMateria **_history;
+	int	_historyCount;
+	int _maxHistoryCount;
 
   public:
   	Character();

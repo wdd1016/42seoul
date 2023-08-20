@@ -57,7 +57,7 @@ void MateriaSource::learnMateria(AMateria *m)
 		return ;
 	for (int i = 0; i < _invCount; i++)
 	{
-		if (_inventory[i] == m) {
+		if (_inventory[i]->getType() == m->getType()) {
 			std::cout << "Already learned" << std::endl;
 			return ;
 		}
