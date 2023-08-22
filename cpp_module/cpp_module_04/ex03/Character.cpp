@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 19:19:49 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/20 19:51:21 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/22 17:05:58 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ const int &Character::getInvCount() const
 void Character::equip(AMateria* m)
 {
   if (_historyCount == _maxHistoryCount) {
-    AMateria **newTrash = new AMateria*[_maxHistoryCount * 2];
+    AMateria **newHistory = new AMateria*[_maxHistoryCount * 2];
     for (int i = 0; i < _maxHistoryCount; i++)
-      newTrash[i] = _history[i];
+      newHistory[i] = _history[i];
     delete[] _history;
-    _history = newTrash;
+    _history = newHistory;
     _maxHistoryCount *= 2;
   }
   if (m == NULL) {
