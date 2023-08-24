@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 23:27:22 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/18 23:29:45 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/08/24 17:48:16 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 
 # include "mlx.h"
+# include "utils.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -122,5 +123,7 @@ typedef struct s_sprite_cast
 	int		draw_end_x;
 	int		draw_end_y;
 }				t_sprite_cast;
+
+void	map_parsing(char *path);
 
 #endif
