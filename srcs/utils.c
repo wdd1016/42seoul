@@ -6,11 +6,11 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:39:30 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/24 17:42:33 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/01 15:40:17 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "../includes/cub3d.h"
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {

@@ -6,11 +6,11 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:10:23 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/24 17:35:53 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/01 15:39:46 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../includes/get_next_line.h"
 
 static char	*ft_handle_buffer(t_fdlist *firlist, t_fdlist *uselist, \
 t_buffer *usebuffer);

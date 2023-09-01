@@ -6,20 +6,23 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 23:27:22 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/24 17:48:16 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/01 15:41:02 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "mlx.h"
+# include "../mlx/mlx.h"
 # include "utils.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
+
+# define EXIT_SUCCESS 0
+# define EXIT_FAILURE 1
 
 # define KEY_W 13
 # define KEY_A 0
@@ -62,7 +65,7 @@ typedef struct s_img
 	int		endian;
 	int		width;
 	int		height;
-}				t_img;
+}	t_img;
 
 typedef struct s_player
 {
@@ -75,7 +78,7 @@ typedef struct s_player
 	float	rotation_angle;
 	float	walk_speed;
 	float	turn_speed;
-}				t_player;
+}	t_player;
 
 typedef struct s_ray
 {
@@ -89,7 +92,7 @@ typedef struct s_ray
 	int		is_ray_facing_left;
 	int		is_ray_facing_right;
 	int		wall_hit_content;
-}				t_ray;
+}	t_ray;
 
 typedef struct s_texture
 {
@@ -100,14 +103,14 @@ typedef struct s_texture
 	int		endian;
 	int		width;
 	int		height;
-}				t_texture;
+}	t_texture;
 
 typedef struct s_sprite
 {
 	float	x;
 	float	y;
 	float	distance;
-}				t_sprite;
+}	t_sprite;
 
 typedef struct s_sprite_cast
 {
@@ -122,8 +125,25 @@ typedef struct s_sprite_cast
 	int		draw_start_y;
 	int		draw_end_x;
 	int		draw_end_y;
-}				t_sprite_cast;
+}	t_sprite_cast;
 
-void	map_parsing(char *path);
+typedef struct s_data
+{
+	void		*mlx;
+	void		*win;
+	t_img		img;
+	int			map[MAP_NUM_ROWS][MAP_NUM_COLS];
+	t_player	player;
+	t_ray		rays[NUM_RAYS];
+	t_texture	texture[NUM_TEXTURES];
+	int			num_sprites;
+	t_sprite	*sprite;
+	float		*z_buffer;
+}	t_data;
+
+void	ft_map_parsing(char *path, t_data *data);
+void	ft_mlx_init(t_data *data);
+void	ft_set_hooks(t_data *data);
+void	ft_print_image(t_data *data);
 
 #endif
