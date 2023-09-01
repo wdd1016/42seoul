@@ -16,7 +16,7 @@ int	main(int argc, char *argv[])
 {
 	t_data	data;
 
-	if (argc != 2 || ft_is_cubformat(argv[1], ".cub") == EXIT_FAILURE)
+	if (argc != 2 || ft_is_cubformat(argv[1], ".cub") == FAILURE)
 		error_exit("Argument Error : [Usage] ./cub3D any.cub\n");
 	ft_mlx_init(&data);
 	ft_map_parsing(argv[1], &data);
@@ -25,4 +25,10 @@ int	main(int argc, char *argv[])
 	mlx_loop_hook(data.mlx, ft_print_image, &data);
 	mlx_loop(data.mlx);
 	exit(EXIT_SUCCESS);
+}
+
+void	error_exit(const char *str)
+{
+	write(2, str, ft_strlen(str));
+	exit(EXIT_FAILURE);
 }

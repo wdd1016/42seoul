@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyeolee <jiyeolee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 23:27:22 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/01 16:25:37 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/01 16:57:34 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ typedef struct s_data
 	float		*z_buffer;
 }	t_data;
 
+void	error_exit(const char *str);
 void	ft_map_parsing(char *path, t_data *data);
 void	ft_mlx_init(t_data *data);
 void	ft_set_hooks(t_data *data);
