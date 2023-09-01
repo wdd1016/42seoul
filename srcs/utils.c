@@ -6,23 +6,11 @@
 /*   By: jiyeolee <jiyeolee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:39:30 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/01 16:43:08 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/01 17:14:22 by jiyeolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-size_t	ft_strlen(const char *s)
-{
-	const char	*copy;
-
-	if (!s)
-		return (0);
-	copy = s;
-	while (*s)
-		s++;
-	return ((size_t)s - (size_t)copy);
-}
 
 int	ft_is_cubformat(const char *path, const char *format)
 {

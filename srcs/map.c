@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyeolee <jiyeolee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:30:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/01 15:41:21 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/01 17:14:24 by jiyeolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-#include "../includes/get_next_line.h"
 
-void	ft_map_parsing(char *path)
+void	ft_map_parsing(char *path, t_data *data)
 {
 	int		fd;
 
@@ -25,6 +24,4 @@ void	ft_map_parsing(char *path)
 }
 
 void	tetexture_background_parsing(int fd)
-{
-	while ()
-}
+{}
