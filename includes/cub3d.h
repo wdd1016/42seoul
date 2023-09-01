@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyeolee <jiyeolee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 23:27:22 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/01 15:41:02 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/01 16:25:37 by jiyeolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <math.h>
 # include <stdio.h>
 
-# define EXIT_SUCCESS 0
-# define EXIT_FAILURE 1
+# define SUCCESS 0
+# define FAILURE 1
 
 # define KEY_W 13
 # define KEY_A 0
@@ -144,6 +144,6 @@ typedef struct s_data
 void	ft_map_parsing(char *path, t_data *data);
 void	ft_mlx_init(t_data *data);
 void	ft_set_hooks(t_data *data);
-void	ft_print_image(t_data *data);
+int		ft_print_image(t_data *data);
 
 #endif

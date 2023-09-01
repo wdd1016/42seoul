@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyeolee <jiyeolee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:41:46 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/24 17:42:30 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/01 16:33:45 by jiyeolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
+int		ft_is_cubformat(const char *path, const char *format);
+size_t	ft_strlen(const char *s);
 
 #endif

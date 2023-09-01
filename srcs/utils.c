@@ -3,33 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyeolee <jiyeolee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:39:30 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/01 15:40:17 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/01 16:43:08 by jiyeolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+size_t	ft_strlen(const char *s)
+{
+	const char	*copy;
+
+	if (!s)
+		return (0);
+	copy = s;
+	while (*s)
+		s++;
+	return ((size_t)s - (size_t)copy);
+}
+
+int	ft_is_cubformat(const char *path, const char *format)
 {
 	size_t	i;
 	size_t	j;
+	size_t	k;
 
-	if (*needle == '\0')
-		return ((char *)haystack);
-	i = 0;
-	while (haystack[i] && i < len)
+	i = ft_strlen(path) - 1;
+	j = ft_strlen(format) - 1;
+	while (i > 0)
 	{
-		j = 0;
-		while (haystack[i + j] == needle[j] && i + j < len)
+		k = 0;
+		while (path[i - k] == format[j - k])
 		{
-			j++;
-			if (needle[j] == '\0')
-				return ((char *)haystack + i);
+			k++;
+			if (k > j)
+				return (SUCCESS);
+			else if (k > i)
+				return (FAILURE);
 		}
-		i++;
+		i--;
 	}
-	return (0);
+	return (FAILURE);
 }
