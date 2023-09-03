@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_init.c                                         :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyeolee <jiyeolee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:02:53 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/01 17:12:01 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/03 17:21:42 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	ft_mlx_init(t_data *data)
+void	ft_data_mlx_init(t_data *data)
 {
-	// data에 들어가있는 모든 항목 초기화
+	// data에 들어가있는 모든 항목 초기화, mlx_init
 };

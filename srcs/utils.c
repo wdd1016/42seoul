@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyeolee <jiyeolee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:39:30 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/01 17:14:22 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/03 16:46:40 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,33 @@ int	ft_is_cubformat(const char *path, const char *format)
 		i--;
 	}
 	return (FAILURE);
+}
+
+int	ft_colortoi(const char *str)
+{
+	int	temp;
+	int	return_value;
+	int	i;
+
+	while ((*str >= 9 && *str <= 13) || *str == 32)
+		str++;
+	i = 0;
+	return_value = 0;
+	while (++i <= 3)
+	{
+		temp = 0;
+		while (*str >= '0' && *str <= '9' && temp < 255)
+		{
+			temp = (temp * 10) + (*str - '0');
+			str++;
+		}
+		if (temp > 255 || (*str != ',' && i != 3) || (*str != '\0' && i == 3))
+			return (-1);
+		return_value = (return_value << 8) + temp;
+		if (*str == '\0')
+			str++;
+	}
+	if (*str != '\0')
+		return (-1);
+	return (return_value);
 }
