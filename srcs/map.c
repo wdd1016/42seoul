@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:30:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/03 17:51:34 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:35:26 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,20 @@ static void	texture_background_parsing(t_data *data, int fd, char *ln, int *c)
 	if (ln[0] == '\n')
 		return ;
 	if (*c & 0b000001 == 0 && ln[0] == 'N' && ln[1] == 'O' && ln[2] == ' ')
-		config_num = 1;
+		config_num = NORTH;
 	else if (*c & 0b000010 == 0 && ln[0] == 'S' && ln[1] == 'O' && ln[2] == ' ')
-		config_num = 2;
+		config_num = SOUTH;
 	else if (*c & 0b000100 == 0 && ln[0] == 'W' && ln[1] == 'E' && ln[2] == ' ')
-		config_num = 3;
+		config_num = WEST;
 	else if (*c & 0b001000 == 0 && ln[0] == 'E' && ln[1] == 'A' && ln[2] == ' ')
-		config_num = 4;
+		config_num = EAST;
 	else if (*c & 0b010000 == 0 && ln[0] == 'F' && ln[1] == ' ')
-		config_num = 5;
+		config_num = FLOOR;
 	else if (*c & 0b100000 == 0 && ln[0] == 'C' && ln[1] == ' ')
-		config_num = 6;
+		config_num = CEILING;
 	else
 		parsing_error_exit("Error : Map file parsing failed\n", fd, ln);
-	*c += 1 << (config_num - 1);
+	*c += 1 << config_num;
 	if (texture_background_parsing2(data, ln, config_num) == FAILURE)
 		parsing_error_exit("Error : Map file parsing failed\n", fd, ln);
 }
@@ -73,7 +73,7 @@ static int	texture_background_parsing2(t_data *data, char *ln, int config_num)
 	t_texture	*tmp;
 	int			temp;
 
-	if (config_num < 4)
+	if (config_num <= EAST)
 	{
 		tmp = &(data->texture[config_num - 1]);
 		tmp->img = mlx_xpm_file_to_image(data->mlx, ln + 3, \
@@ -89,7 +89,7 @@ static int	texture_background_parsing2(t_data *data, char *ln, int config_num)
 	temp = ft_colortoi(ln + 2);
 	if (temp == -1)
 		return (FAILURE);
-	if (config_num == 5)
+	if (config_num == FLOOR)
 		data->floor_color = temp;
 	else
 		data->ceiling_color = temp;

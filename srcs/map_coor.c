@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 17:07:49 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/03 18:02:03 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:33:19 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	coordinate_parsing(t_data *data, int fd, char *line)
 	if (line[ft_strlen(line) - 1] == '\n')
 		line[ft_strlen(line) - 1] = '\0';
 	if (ft_strlen(line) > MAP_MAX_COLS)
-		parsing_error_exit("Error : Too many map cols\n");
+		parsing_error_exit("Error : Too many map cols\n", fd, line);
 	i = -1;
 	while (++i < ft_strlen(line))
 	{
@@ -64,6 +64,8 @@ void	ft_is_right_map(t_data *data)
 	int	j;
 
 	i = -1;
+	if (data->player.x == 0.0)
+		error_exit("Error : No player\n");
 	while (++i < MAP_MAX_ROWS)
 	{
 		j = -1;
@@ -82,7 +84,7 @@ static void	ft_is_right_position(t_data *data, int i, int j)
 	else if (data->map[i - 1][j] == ' ' || data->map[i + 1][j] == ' ' || \
 	data->map[i][j - 1] == ' ' || data->map[i][j + 1] == ' ')
 		error_exit("Error : Invalid map\n");
-	else if (data->map[i - 1][j - 1] == ' ' || data->map[i - 1][j + 1] == ' ' || \
-	data->map[i + 1][j - 1] == ' ' || data->map[i + 1][j + 1] == ' ')
+	else if (data->map[i - 1][j - 1] == ' ' || data->map[i - 1][j + 1] == ' ' \
+	|| data->map[i + 1][j - 1] == ' ' || data->map[i + 1][j + 1] == ' ')
 		error_exit("Error : Invalid map\n");
 }

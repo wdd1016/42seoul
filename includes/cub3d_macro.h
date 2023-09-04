@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:06:31 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/03 17:47:32 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:34:52 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@
 # define FAILURE 1
 # define FALSE 0
 # define TRUE 1
+# define NORTH 0
+# define SOUTH 1
+# define WEST 2
+# define EAST 3
+# define FLOOR 4
+# define CEILING 5
 
 # define KEY_W 13
 # define KEY_A 0
