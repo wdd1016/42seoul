@@ -6,46 +6,70 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 17:07:49 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/04 19:33:19 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/05 00:00:02 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static void	ft_fill_player(t_data *data, int map_row, char *line, int idx);
-static void	ft_is_right_position(t_data *data, int i, int j);
+static t_map	*ft_new_tempmap(t_data *data, char *line);
+static void		ft_fill_player(t_data *data, int rowidx, char *line, int idx);
 
 void	coordinate_parsing(t_data *data, int fd, char *line)
 {
-	static int	map_row = -1;
-	int			i;
+	int		i;
+	t_map	*use_line;
 
-	if (map_row == -1 && line[0] == '\n')
-		return ;
-	if (++map_row >= MAP_MAX_ROWS)
-		parsing_error_exit("Error : Too many map rows\n", fd, line);
+	if (!(data->tempmap) && line[0] == '\n')
+		return (free(line));
 	if (line[ft_strlen(line) - 1] == '\n')
 		line[ft_strlen(line) - 1] = '\0';
-	if (ft_strlen(line) > MAP_MAX_COLS)
-		parsing_error_exit("Error : Too many map cols\n", fd, line);
+	use_line = ft_new_tempmap(data, line);
+	if (!use_line)
+		parsing_error_exit("Error : Allocation failed\n", fd, line, data);
+	data->map_height++;
+	if (use_line->len > data->map_width)
+		data->map_width = use_line->len;
 	i = -1;
-	while (++i < ft_strlen(line))
+	while (++i < use_line->len)
 	{
 		if (data->player.x == 0.0 && \
 		(line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E'))
-			ft_fill_player(data, map_row, line, i);
+			ft_fill_player(data, data->map_height - 1, line, i);
 		if (line[i] != '0' && line[i] != '1' && line[i] != ' ')
-			parsing_error_exit("Error : Invalid map character\n", fd, line);
-		data->map[map_row][i] = line[i];
+			parsing_error_exit("Error : Invalid map char\n", fd, line, data);
 	}
 }
 
-static void	ft_fill_player(t_data *data, int map_row, char *line, int idx)
+static t_map	*ft_new_tempmap(t_data *data, char *line)
+{
+	t_map	*new;
+	t_map	*temp;
+
+	new = (t_map *)malloc(sizeof(t_map));
+	if (!new)
+		return (NULL);
+	new->line = line;
+	new->len = ft_strlen(line);
+	new->next = NULL;
+	if (!(data->tempmap))
+		data->tempmap = new;
+	else
+	{
+		temp = data->tempmap;
+		while (temp->next)
+			temp = temp->next;
+		temp->next = new;
+	}
+	return (new);
+}
+
+static void	ft_fill_player(t_data *data, int rowidx, char *line, int idx)
 {
 	double	direction;
 
 	data->player.x = idx + 0.5;
-	data->player.y = map_row + 0.5;
+	data->player.y = rowidx + 0.5;
 	if (line[idx] == 'N')
 		direction = 0.0;
 	else if (line[idx] == 'S')
@@ -58,33 +82,34 @@ static void	ft_fill_player(t_data *data, int map_row, char *line, int idx)
 	line[idx] = '0';
 }
 
-void	ft_is_right_map(t_data *data)
+void	ft_make_map(t_data *data)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	t_map	*temp;
 
+	data->map = (char **)malloc(sizeof(char *) * data->map_height);
+	if (!(data->map))
+		error_exit("Error : Allocation failed\n", data);
+	temp = data->tempmap;
 	i = -1;
-	if (data->player.x == 0.0)
-		error_exit("Error : No player\n");
-	while (++i < MAP_MAX_ROWS)
+	while (++i < data->map_height)
 	{
+		map[i] = (char *)malloc(sizeof(char) * data->map_width);
+		if (!map[i])
+			error_exit("Error : Allocation failed\n", data);
 		j = -1;
-		while (++j < MAP_MAX_COLS)
-		{
-			if (data->map[i][j] == '0')
-				ft_is_right_position(data, i, j);
-		}
+		while (++j < temp->len)
+			map[i][j] = temp->line[j];
+		while (++j < data->map_width)
+			map[i][j] = ' ';
+		temp = temp->next;
 	}
-}
-
-static void	ft_is_right_position(t_data *data, int i, int j)
-{
-	if (i == 0 || i == MAP_MAX_ROWS - 1 || j == 0 || j == MAP_MAX_COLS - 1)
-		error_exit("Error : Invalid map\n");
-	else if (data->map[i - 1][j] == ' ' || data->map[i + 1][j] == ' ' || \
-	data->map[i][j - 1] == ' ' || data->map[i][j + 1] == ' ')
-		error_exit("Error : Invalid map\n");
-	else if (data->map[i - 1][j - 1] == ' ' || data->map[i - 1][j + 1] == ' ' \
-	|| data->map[i + 1][j - 1] == ' ' || data->map[i + 1][j + 1] == ' ')
-		error_exit("Error : Invalid map\n");
+	while (data->tempmap)
+	{
+		temp = data->tempmap;
+		data->tempmap = data->tempmap->next;
+		free(temp->line);
+		free(temp);
+	}
 }

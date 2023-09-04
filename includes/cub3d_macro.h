@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:06:31 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/04 19:41:33 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/04 23:36:44 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,8 @@
 # define TEXTURE_HEIGHT 64
 # define TILE_SIZE 64
 
-# define MAP_MAX_ROWS 50
-# define MAP_MAX_COLS 28
-
-# define WINDOW_WIDTH 3200
-# define WINDOW_HEIGHT 1792
+# define WINDOW_WIDTH 1280
+# define WINDOW_HEIGHT 768
 
 # define SUCCESS 0
 # define FAILURE 1
@@ -105,34 +102,21 @@ typedef struct s_texture
 	int		height;
 }	t_texture;
 
-typedef struct s_sprite
+typedef struct s_map
 {
-	double	x;
-	double	y;
-	double	distance;
-}	t_sprite;
-
-typedef struct s_sprite_cast
-{
-	double	sprite_x;
-	double	sprite_y;
-	double	transform_x;
-	double	transform_y;
-	int		sprite_screen_x;
-	int		sprite_height;
-	int		sprite_width;
-	int		draw_start_x;
-	int		draw_start_y;
-	int		draw_end_x;
-	int		draw_end_y;
-}	t_sprite_cast;
-
+	char			*line;
+	int				len;
+	struct s_map	*next;
+}	t_map;
 typedef struct s_data
 {
 	void		*mlx;
 	void		*win;
 	t_img		img;
-	int			map[MAP_MAX_ROWS][MAP_MAX_COLS];
+	t_map		*tempmap;
+	char		**map;
+	int			map_width;
+	int			map_height;
 	t_player	player;
 	t_ray		rays[NUM_RAYS];
 	t_texture	texture[NUM_TEXTURES];

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:53:21 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/03 17:21:57 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/04 23:51:17 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char *argv[])
 	t_data	data;
 
 	if (argc != 2 || ft_is_cubformat(argv[1], ".cub") == FAILURE)
-		error_exit("Argument Error : [Usage] ./cub3D any.cub\n");
+		error_exit("Argument Error : [Usage] ./cub3D any.cub\n", &data);
 	ft_data_mlx_init(&data);
 	ft_map_parsing(argv[1], &data);
 	ft_set_hooks(&data);
@@ -27,7 +27,7 @@ int	main(int argc, char *argv[])
 	exit(EXIT_SUCCESS);
 }
 
-void	error_exit(const char *str)
+void	error_exit(const char *str, t_data *data)
 {
 	write(2, str, ft_strlen(str));
 	exit(EXIT_FAILURE);

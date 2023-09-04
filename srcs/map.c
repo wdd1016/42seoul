@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:30:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/04 19:35:26 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/04 23:53:35 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,22 @@ void	ft_map_parsing(char *path, t_data *data)
 	config_cnt = 0b000000;
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-		error_exit("Error : Map file open failed\n");
+		error_exit("Error : Map file open failed\n", data);
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
 		{
 			if (close(fd) == -1)
-				error_exit("Error : Map file close failed\n");
-			ft_is_right_map(data);
+				error_exit("Error : Map file close failed\n", data);
+			ft_make_map(data);
+			ft_is_right_map(data, config_cnt);
 			break ;
 		}
 		if (config_cnt & 0b111111 < 0b111111)
 			texture_background_parsing(data, fd, line, &config_cnt);
 		else
 			coordinate_parsing(data, fd, line);
-		free(line);
 	}
 }
 
@@ -62,31 +62,33 @@ static void	texture_background_parsing(t_data *data, int fd, char *ln, int *c)
 	else if (*c & 0b100000 == 0 && ln[0] == 'C' && ln[1] == ' ')
 		config_num = CEILING;
 	else
-		parsing_error_exit("Error : Map file parsing failed\n", fd, ln);
+		parsing_error_exit("Error : Map file parsing failed\n", fd, ln, data);
 	*c += 1 << config_num;
 	if (texture_background_parsing2(data, ln, config_num) == FAILURE)
-		parsing_error_exit("Error : Map file parsing failed\n", fd, ln);
+		parsing_error_exit("Error : Map file parsing failed\n", fd, ln, data);
+	free(ln);
 }
 
 static int	texture_background_parsing2(t_data *data, char *ln, int config_num)
 {
-	t_texture	*tmp;
+	t_texture	*t;
 	int			temp;
 
+	ln += 2;
+	while (*ln == ' ')
+		ln++;
 	if (config_num <= EAST)
 	{
-		tmp = &(data->texture[config_num - 1]);
-		tmp->img = mlx_xpm_file_to_image(data->mlx, ln + 3, \
-		&(tmp->width), &(tmp->height));
-		if (!tmp->img)
+		t = &(data->texture[config_num]);
+		t->img = mlx_xpm_file_to_image(data->mlx, ln, &t->width, &t->height);
+		if (!t->img)
 			return (FAILURE);
-		tmp->data = mlx_get_data_addr(tmp->img, \
-		&(tmp->bpp), &(tmp->size_l), &(tmp->endian));
-		if (!tmp->data)
+		t->data = mlx_get_data_addr(t->img, &t->bpp, &t->size_l, &t->endian);
+		if (!t->data)
 			return (FAILURE);
 		return (SUCCESS);
 	}
-	temp = ft_colortoi(ln + 2);
+	temp = ft_colortoi(ln);
 	if (temp == -1)
 		return (FAILURE);
 	if (config_num == FLOOR)
@@ -96,9 +98,9 @@ static int	texture_background_parsing2(t_data *data, char *ln, int config_num)
 	return (SUCCESS);
 }
 
-void	parsing_error_exit(char *msg, int fd, char *line)
+void	parsing_error_exit(char *msg, int fd, char *line, t_data *data)
 {
 	free(line);
 	close(fd);
-	error_exit(msg);
+	error_exit(msg, data);
 }
