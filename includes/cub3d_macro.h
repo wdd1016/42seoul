@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:06:31 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/04 19:34:52 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:41:33 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@
 # define TILE_SIZE 64
 
 # define MAP_MAX_ROWS 50
-# define MAP_MAX_COLS 50
+# define MAP_MAX_COLS 28
+
+# define WINDOW_WIDTH 3200
+# define WINDOW_HEIGHT 1792
 
 # define SUCCESS 0
 # define FAILURE 1
@@ -44,9 +47,6 @@
 # define X_EVENT_KEY_PRESS 2
 # define X_EVENT_KEY_RELEASE 3
 # define X_EVENT_KEY_EXIT 17
-
-# define WINDOW_WIDTH (MAP_MAX_ROWS * TILE_SIZE)
-# define WINDOW_HEIGHT (MAP_MAX_COLS * TILE_SIZE)
 
 # define FOV_ANGLE (60 * (M_PI / 180))
 # define NUM_RAYS WINDOW_WIDTH
