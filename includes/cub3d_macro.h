@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:06:31 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/04 23:36:44 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/05 23:56:40 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ typedef struct s_player
 	double	y;
 	double	width;
 	double	height;
-	double	direction;
+	double	x_dir;
+	double	y_dir;
 	double	walk_speed;
 	double	turn_speed;
 }	t_player;
@@ -91,17 +92,6 @@ typedef struct s_ray
 	int		wall_hit_content;
 }	t_ray;
 
-typedef struct s_texture
-{
-	void	*img;
-	char	*data;
-	int		size_l;
-	int		bpp;
-	int		endian;
-	int		width;
-	int		height;
-}	t_texture;
-
 typedef struct s_map
 {
 	char			*line;
@@ -113,13 +103,13 @@ typedef struct s_data
 	void		*mlx;
 	void		*win;
 	t_img		img;
-	t_map		*tempmap;
+	t_tmg		texture[NUM_TEXTURES];
 	char		**map;
+	t_map		*tempmap;
 	int			map_width;
 	int			map_height;
 	t_player	player;
 	t_ray		rays[NUM_RAYS];
-	t_texture	texture[NUM_TEXTURES];
 	int			floor_color;
 	int			ceiling_color;
 	double		*z_buffer;

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 17:07:49 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/05 00:00:02 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/05 23:54:54 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	coordinate_parsing(t_data *data, int fd, char *line)
 	int		i;
 	t_map	*use_line;
 
-	if (!(data->tempmap) && line[0] == '\n')
+	if (!data->tempmap && line[0] == '\n')
 		return (free(line));
 	if (line[ft_strlen(line) - 1] == '\n')
 		line[ft_strlen(line) - 1] = '\0';
@@ -52,7 +52,7 @@ static t_map	*ft_new_tempmap(t_data *data, char *line)
 	new->line = line;
 	new->len = ft_strlen(line);
 	new->next = NULL;
-	if (!(data->tempmap))
+	if (!data->tempmap)
 		data->tempmap = new;
 	else
 	{
@@ -64,22 +64,26 @@ static t_map	*ft_new_tempmap(t_data *data, char *line)
 	return (new);
 }
 
-static void	ft_fill_player(t_data *data, int rowidx, char *line, int idx)
+static void	ft_fill_player(t_data *data, int row_idx, char *line, int col_idx)
 {
-	double	direction;
+	double	x_direction;
+	double	y_direction;
 
-	data->player.x = idx + 0.5;
-	data->player.y = rowidx + 0.5;
-	if (line[idx] == 'N')
-		direction = 0.0;
-	else if (line[idx] == 'S')
-		direction = PI;
-	else if (line[idx] == 'W')
-		direction = PI / 2;
-	else if (line[idx] == 'E')
-		direction = PI * 3 / 2;
-	data->player.direction = direction;
-	line[idx] = '0';
+	data->player.x = col_idx + 0.5;
+	data->player.y = row_idx + 0.5;
+	x_direction = 0.0;
+	y_direction = 0.0;
+	if (line[col_idx] == 'N')
+		x_direction = 1.0;
+	else if (line[col_idx] == 'S')
+		x_direction = -1.0;
+	else if (line[col_idx] == 'W')
+		y_direction = -1.0;
+	else if (line[col_idx] == 'E')
+		y_direction = 1.0;
+	data->player.x_dir = x_direction;
+	data->player.y_dir = y_direction;
+	line[col_idx] = '0';
 }
 
 void	ft_make_map(t_data *data)
@@ -91,22 +95,18 @@ void	ft_make_map(t_data *data)
 	data->map = (char **)malloc(sizeof(char *) * data->map_height);
 	if (!(data->map))
 		error_exit("Error : Allocation failed\n", data);
-	temp = data->tempmap;
 	i = -1;
-	while (++i < data->map_height)
+	while (++i < data->map_height && data->tempmap)
 	{
-		map[i] = (char *)malloc(sizeof(char) * data->map_width);
-		if (!map[i])
+		(data->map)[i] = (char *)malloc(sizeof(char) * (data->map_width + 1));
+		if (!(data->map)[i])
 			error_exit("Error : Allocation failed\n", data);
 		j = -1;
 		while (++j < temp->len)
-			map[i][j] = temp->line[j];
+			(data->map)[i][j] = (data->tempmap->line)[j];
 		while (++j < data->map_width)
-			map[i][j] = ' ';
-		temp = temp->next;
-	}
-	while (data->tempmap)
-	{
+			(data->map)[i][j] = ' ';
+		(data->map)[i][j] = '\0';
 		temp = data->tempmap;
 		data->tempmap = data->tempmap->next;
 		free(temp->line);

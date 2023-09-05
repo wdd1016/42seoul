@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:30:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/04 23:53:35 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/05 23:46:11 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	ft_map_parsing(char *path, t_data *data)
 		{
 			if (close(fd) == -1)
 				error_exit("Error : Map file close failed\n", data);
-			ft_make_map(data);
+			if (data->map_height > 0)
+				ft_make_map(data);
 			ft_is_right_map(data, config_cnt);
 			break ;
 		}
