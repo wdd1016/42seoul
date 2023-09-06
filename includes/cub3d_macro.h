@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:06:31 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/05 23:56:40 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/06 19:40:40 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@
 # define X_EVENT_KEY_RELEASE 3
 # define X_EVENT_KEY_EXIT 17
 
-# define FOV_ANGLE (60 * (M_PI / 180))
+# define FOV_ANGLE 100 // (60 * (M_PI / 180))
 # define NUM_RAYS WINDOW_WIDTH
 
 # define MINIMAP_SCALE_FACTOR 0.3
 
 # define FPS 30
-# define FRAME_TIME_LENGTH (1000 / FPS)
+# define FRAME_TIME_LENGTH 100 // (1000 / FPS)
 
 # define PI 3.1415926535
 
@@ -103,7 +103,7 @@ typedef struct s_data
 	void		*mlx;
 	void		*win;
 	t_img		img;
-	t_tmg		texture[NUM_TEXTURES];
+	t_img		texture[NUM_TEXTURES];
 	char		**map;
 	t_map		*tempmap;
 	int			map_width;
@@ -112,7 +112,7 @@ typedef struct s_data
 	t_ray		rays[NUM_RAYS];
 	int			floor_color;
 	int			ceiling_color;
-	double		*z_buffer;
+	double		z_buffer;
 }	t_data;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:30:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/05 23:46:11 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/06 19:20:37 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ static void	texture_background_parsing(t_data *data, int fd, char *ln, int *c)
 
 static int	texture_background_parsing2(t_data *data, char *ln, int config_num)
 {
-	t_texture	*t;
-	int			temp;
+	t_img	*t;
+	int		temp;
 
 	ln += 2;
 	while (*ln == ' ')
