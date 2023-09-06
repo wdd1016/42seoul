@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:56 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/01 17:22:48 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/06 19:50:05 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void	ft_set_hooks(t_data *data)
 {
-	// hook 함수들을 설정하는 함수
+	(void *)data;
 }
+/* set hook functions*/
