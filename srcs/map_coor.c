@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 17:07:49 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/05 23:54:54 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/07 21:50:16 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	coordinate_parsing(t_data *data, int fd, char *line)
 		(line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E'))
 			ft_fill_player(data, data->map_height - 1, line, i);
 		if (line[i] != '0' && line[i] != '1' && line[i] != ' ')
-			parsing_error_exit("Error : Invalid map char\n", fd, line, data);
+			parsing_error_exit("Error\nInvalid map char\n", fd, line, data);
 	}
 }
 

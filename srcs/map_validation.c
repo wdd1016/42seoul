@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 23:46:21 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/05 23:41:59 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/07 21:50:42 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	ft_is_right_map(t_data *data, int config_cnt)
 	int	j;
 
 	if (data->player.x == 0.0)
-		error_exit("Error : No player\n", data);
+		error_exit("Error\nNo player\n", data);
 	else if (config_cnt != 0b111111)
-		error_exit("Error : Missing config\n", data);
+		error_exit("Error\nMissing config\n", data);
 	i = -1;
 	while (++i < data->map_height)
 	{
@@ -37,11 +37,11 @@ static void	ft_is_right_position(t_data *data, int i, int j)
 {
 	if (i == 0 || i == data->map_height - 1 || \
 	j == 0 || j == data->map_width - 1)
-		error_exit("Error : Invalid map\n", data);
+		error_exit("Error\nInvalid map\n", data);
 	else if (data->map[i - 1][j] == ' ' || data->map[i + 1][j] == ' ' || \
 	data->map[i][j - 1] == ' ' || data->map[i][j + 1] == ' ')
-		error_exit("Error : Invalid map\n", data);
+		error_exit("Error\nInvalid map\n", data);
 	else if (data->map[i - 1][j - 1] == ' ' || data->map[i - 1][j + 1] == ' ' \
 	|| data->map[i + 1][j - 1] == ' ' || data->map[i + 1][j + 1] == ' ')
-		error_exit("Error : Invalid map\n", data);
+		error_exit("Error\nInvalid map\n", data);
 }

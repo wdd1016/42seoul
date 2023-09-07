@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:30:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/06 19:20:37 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/07 21:51:38 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ static void	texture_background_parsing(t_data *data, int fd, char *ln, int *c)
 	else if (*c & 0b100000 == 0 && ln[0] == 'C' && ln[1] == ' ')
 		config_num = CEILING;
 	else
-		parsing_error_exit("Error : Map file parsing failed\n", fd, ln, data);
+		parsing_error_exit("Error\nMap file have wrong line\n", fd, ln, data);
 	*c += 1 << config_num;
 	if (texture_background_parsing2(data, ln, config_num) == FAILURE)
-		parsing_error_exit("Error : Map file parsing failed\n", fd, ln, data);
+		parsing_error_exit("Error\nMap file have wrong line\n", fd, ln, data);
 	free(ln);
 }
 
