@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 17:07:49 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/07 21:50:16 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/07 22:28:14 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ static void	ft_fill_player(t_data *data, int row_idx, char *line, int col_idx)
 	x_direction = 0.0;
 	y_direction = 0.0;
 	if (line[col_idx] == 'N')
-		x_direction = 1.0;
-	else if (line[col_idx] == 'S')
-		x_direction = -1.0;
-	else if (line[col_idx] == 'W')
 		y_direction = -1.0;
-	else if (line[col_idx] == 'E')
+	else if (line[col_idx] == 'S')
 		y_direction = 1.0;
+	else if (line[col_idx] == 'W')
+		x_direction = -1.0;
+	else if (line[col_idx] == 'E')
+		x_direction = 1.0;
 	data->player.x_dir = x_direction;
 	data->player.y_dir = y_direction;
 	line[col_idx] = '0';
