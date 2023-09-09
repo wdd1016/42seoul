@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:02:53 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/09 19:50:22 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/09 22:31:40 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void	data_mlx_init(t_data *data)
 	while (++i < NUM_TEXTURES)
 		init_img(&data->texture[i], data, TEXTURE_WIDTH, TEXTURE_HEIGHT);
 	player_init(data);
-	rays_init(data);
-	data->z_buffer = 0.0;
 }
 
 static void	init_img(t_img *img, t_data *data, int width, int height)
@@ -56,30 +54,10 @@ static void	player_init(t_data *data)
 {
 	data->player.x = 0.0;
 	data->player.y = 0.0;
-	data->player.width = 0.0;
-	data->player.height = 0.0;
-	data->player.x_dir = 0.0;
-	data->player.y_dir = 0.0;
-	data->player.walk_speed = 0.0;
-	data->player.turn_speed = 0.0;
-}
-
-static void	rays_init(t_data *data)
-{
-	int	i;
-
-	i = -1;
-	while (++i < NUM_RAYS)
-	{
-		data->rays[i].ray_angle = 0.0;
-		data->rays[i].wall_hit_x = 0.0;
-		data->rays[i].wall_hit_y = 0.0;
-		data->rays[i].distance = 0.0;
-		data->rays[i].was_hit_vertical = 0;
-		data->rays[i].is_ray_facing_up = 0;
-		data->rays[i].is_ray_facing_down = 0;
-		data->rays[i].is_ray_facing_left = 0;
-		data->rays[i].is_ray_facing_right = 0;
-		data->rays[i].wall_hit_content = 0;
-	}
+	data->player.dir_x = 0.0;
+	data->player.dir_y = 0.0;
+	data->player.plane_x = 0.0;
+	data->player.plane_y = 0.0;
+	data->player.walk_speed = WALK_SPEED;
+	data->player.turn_speed = TURN_SPEED;
 }

@@ -6,12 +6,15 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:06:31 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/06 19:40:40 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/09 22:31:33 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_MACRO_H
 # define CUB3D_MACRO_H
+
+# define WALK_SPEED 0.125
+# define TURN_SPEED 0.125
 
 # define NUM_TEXTURES 4
 
@@ -45,16 +48,9 @@
 # define X_EVENT_KEY_RELEASE 3
 # define X_EVENT_KEY_EXIT 17
 
-# define FOV_ANGLE 100 // (60 * (M_PI / 180))
-# define NUM_RAYS WINDOW_WIDTH
-
 # define MINIMAP_SCALE_FACTOR 0.3
 
-# define FPS 30
-# define FRAME_TIME_LENGTH 100 // (1000 / FPS)
-
 # define PI 3.1415926535
-
 typedef struct s_img
 {
 	void	*img;
@@ -70,27 +66,13 @@ typedef struct s_player
 {
 	double	x;
 	double	y;
-	double	width;
-	double	height;
-	double	x_dir;
-	double	y_dir;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 	double	walk_speed;
 	double	turn_speed;
 }	t_player;
-
-typedef struct s_ray
-{
-	double	ray_angle;
-	double	wall_hit_x;
-	double	wall_hit_y;
-	double	distance;
-	int		was_hit_vertical;
-	int		is_ray_facing_up;
-	int		is_ray_facing_down;
-	int		is_ray_facing_left;
-	int		is_ray_facing_right;
-	int		wall_hit_content;
-}	t_ray;
 
 typedef struct s_map
 {
@@ -109,10 +91,8 @@ typedef struct s_data
 	int			map_width;
 	int			map_height;
 	t_player	player;
-	t_ray		rays[NUM_RAYS];
 	int			floor_color;
 	int			ceiling_color;
-	double		z_buffer;
 }	t_data;
 
 #endif
