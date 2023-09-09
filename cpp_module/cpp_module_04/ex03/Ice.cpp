@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 19:06:37 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/08/18 21:17:21 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/02 21:50:40 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,11 @@ Ice::Ice(const Ice &copy) : AMateria(copy) {}
 Ice::~Ice() {}
 
 Ice &Ice::operator=(const AMateria &subst) {
-	this->_type = subst.getType();
+	std::cout << "Something wrong!, Ice always ice" << std::endl;
 	return (*this);
 }
 
 Ice &Ice::operator=(const Ice &subst) {
-	this->_type = subst.getType();
 	return (*this);
 }
 

@@ -6,17 +6,9 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 18:39:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/11/13 19:34:27 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/03 16:20:51 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-static int	ft_isspace(int c)
-{
-	if ((c >= 9 && c <= 13) || c == 32)
-		return (1);
-	else
-		return (0);
-}
 
 int	ft_atoi(const char *str)
 {
@@ -24,7 +16,7 @@ int	ft_atoi(const char *str)
 	int			sum;
 
 	minus = 1;
-	while (ft_isspace(*str))
+	while ((*str >= 9 && *str <= 13) || *str == 32)
 		str++;
 	if (*str == '-')
 	{
