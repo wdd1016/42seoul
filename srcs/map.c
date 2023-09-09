@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:30:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/07 21:51:38 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/09 19:53:35 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	texture_background_parsing(t_data *data, int fd, char *ln, int *c);
 static int	texture_background_parsing2(t_data *data, char *ln, int config_num);
 
-void	ft_map_parsing(char *path, t_data *data)
+void	map_parsing(char *path, t_data *data)
 {
 	int		fd;
 	char	*line;
@@ -34,7 +34,7 @@ void	ft_map_parsing(char *path, t_data *data)
 				error_exit("Error : Map file close failed\n", data);
 			if (data->map_height > 0)
 				ft_make_map(data);
-			ft_is_right_map(data, config_cnt);
+			ft_is_valid_map(data, config_cnt);
 			break ;
 		}
 		if (config_cnt & 0b111111 < 0b111111)

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:53:21 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/06 19:35:44 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/09 19:51:59 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ int	main(int argc, char *argv[])
 {
 	t_data	data;
 
-	if (argc != 2 || ft_is_cubformat(argv[1], ".cub") == FAILURE)
+	if (argc != 2 || is_validformat(argv[1], ".cub") == FAILURE)
 		error_exit("Argument Error : [Usage] ./cub3D any.cub\n", &data);
-	ft_data_mlx_init(&data);
-	ft_map_parsing(argv[1], &data);
-	ft_set_hooks(&data);
-	ft_print_image(&data);
-	mlx_loop_hook(data.mlx, ft_print_image, &data);
+	data_mlx_init(&data);
+	map_parsing(argv[1], &data);
+	set_hooks(&data);
+	print_image(&data);
+	mlx_loop_hook(data.mlx, print_image, &data);
 	mlx_loop(data.mlx);
 	exit(EXIT_SUCCESS);
 }

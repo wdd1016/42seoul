@@ -6,13 +6,13 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:39:30 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/03 16:46:40 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/09 19:53:25 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	ft_is_cubformat(const char *path, const char *format)
+int	is_valid_format(const char *path, const char *format)
 {
 	size_t	i;
 	size_t	j;

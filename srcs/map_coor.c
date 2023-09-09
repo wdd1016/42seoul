@@ -6,14 +6,14 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 17:07:49 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/07 22:28:14 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/09 19:52:44 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static t_map	*ft_new_tempmap(t_data *data, char *line);
-static void		ft_fill_player(t_data *data, int rowidx, char *line, int idx);
+static t_map	*new_tempmap(t_data *data, char *line);
+static void		fill_player(t_data *data, int rowidx, char *line, int idx);
 
 void	coordinate_parsing(t_data *data, int fd, char *line)
 {
@@ -24,7 +24,7 @@ void	coordinate_parsing(t_data *data, int fd, char *line)
 		return (free(line));
 	if (line[ft_strlen(line) - 1] == '\n')
 		line[ft_strlen(line) - 1] = '\0';
-	use_line = ft_new_tempmap(data, line);
+	use_line = new_tempmap(data, line);
 	if (!use_line)
 		parsing_error_exit("Error : Allocation failed\n", fd, line, data);
 	data->map_height++;
@@ -41,7 +41,7 @@ void	coordinate_parsing(t_data *data, int fd, char *line)
 	}
 }
 
-static t_map	*ft_new_tempmap(t_data *data, char *line)
+static t_map	*new_tempmap(t_data *data, char *line)
 {
 	t_map	*new;
 	t_map	*temp;
@@ -64,7 +64,7 @@ static t_map	*ft_new_tempmap(t_data *data, char *line)
 	return (new);
 }
 
-static void	ft_fill_player(t_data *data, int row_idx, char *line, int col_idx)
+static void	fill_player(t_data *data, int row_idx, char *line, int col_idx)
 {
 	double	x_direction;
 	double	y_direction;
@@ -86,7 +86,7 @@ static void	ft_fill_player(t_data *data, int row_idx, char *line, int col_idx)
 	line[col_idx] = '0';
 }
 
-void	ft_make_map(t_data *data)
+void	make_map(t_data *data)
 {
 	int		i;
 	int		j;

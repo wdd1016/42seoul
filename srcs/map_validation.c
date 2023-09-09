@@ -6,13 +6,15 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 23:46:21 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/07 21:50:42 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/09 19:52:56 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	ft_is_right_map(t_data *data, int config_cnt)
+static void	is_valid_position(t_data *data, int i, int j);
+
+void	is_valid_map(t_data *data, int config_cnt)
 {
 	int	i;
 	int	j;
@@ -28,12 +30,12 @@ void	ft_is_right_map(t_data *data, int config_cnt)
 		while (++j < data->map_width)
 		{
 			if (data->map[i][j] == '0')
-				ft_is_right_position(data, i, j);
+				is_valid_position(data, i, j);
 		}
 	}
 }
 
-static void	ft_is_right_position(t_data *data, int i, int j)
+static void	is_valid_position(t_data *data, int i, int j)
 {
 	if (i == 0 || i == data->map_height - 1 || \
 	j == 0 || j == data->map_width - 1)

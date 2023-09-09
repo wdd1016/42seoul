@@ -6,17 +6,17 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:02:53 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/06 19:41:15 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/09 19:50:22 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static void	ft_init_img(t_img *img, t_data *data, int width, int height);
-static void	ft_player_init(t_data *data);
-static void	ft_rays_init(t_data *data);
+static void	init_img(t_img *img, t_data *data, int width, int height);
+static void	player_init(t_data *data);
+static void	rays_init(t_data *data);
 
-void	ft_data_mlx_init(t_data *data)
+void	data_mlx_init(t_data *data)
 {
 	int	i;
 
@@ -32,16 +32,16 @@ void	ft_data_mlx_init(t_data *data)
 	data->win = mlx_new_window(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "cub3D");
 	if (!data->win)
 		error_exit("Error : mlx_new_window failed\n", data);
-	ft_init_img(&data->img, data, WINDOW_WIDTH, WINDOW_HEIGHT);
+	init_img(&data->img, data, WINDOW_WIDTH, WINDOW_HEIGHT);
 	i = -1;
 	while (++i < NUM_TEXTURES)
-		ft_init_img(&data->texture[i], data, TEXTURE_WIDTH, TEXTURE_HEIGHT);
-	ft_player_init(data);
-	ft_rays_init(data);
+		init_img(&data->texture[i], data, TEXTURE_WIDTH, TEXTURE_HEIGHT);
+	player_init(data);
+	rays_init(data);
 	data->z_buffer = 0.0;
 }
 
-static void	ft_init_img(t_img *img, t_data *data, int width, int height)
+static void	init_img(t_img *img, t_data *data, int width, int height)
 {
 	img->img = mlx_new_image(data->mlx, width, height);
 	if (!img->img)
@@ -52,7 +52,7 @@ static void	ft_init_img(t_img *img, t_data *data, int width, int height)
 		error_exit("Error : mlx_get_data_addr failed\n", data);
 }
 
-static void	ft_player_init(t_data *data)
+static void	player_init(t_data *data)
 {
 	data->player.x = 0.0;
 	data->player.y = 0.0;
@@ -64,7 +64,7 @@ static void	ft_player_init(t_data *data)
 	data->player.turn_speed = 0.0;
 }
 
-static void	ft_rays_init(t_data *data)
+static void	rays_init(t_data *data)
 {
 	int	i;
 
