@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyeolee <jiyeolee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:02:53 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/09 22:31:40 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/10 15:45:08 by jiyeolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	init_img(t_img *img, t_data *data, int width, int height);
 static void	player_init(t_data *data);
-static void	rays_init(t_data *data);
 
 void	data_mlx_init(t_data *data)
 {

@@ -6,73 +6,25 @@
 /*   By: jiyeolee <jiyeolee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:53:21 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/09 21:54:58 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/10 15:31:37 by jiyeolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../includes/cub3d.h"
-# include "../mlx/mlx.h"
+# include "./includes/cub3d.h"
+# include "./mlx/mlx.h"
 # include <errno.h>
-# include <stdio.h>
-# include <math.h>
-# include <stdlib.h>
 # include <string.h>
 
 // #define mapWidth 24
 // #define mapHeight 24
-#define screenWidth 1280
-#define screenHeight 768
 
-// # define TILE_SIZE 64
-# define MAP_NUM_ROWS 24
-# define MAP_NUM_COLS 24
+// # define MAP_NUM_ROWS 24
+// # define MAP_NUM_COLS 24
 
 // # define WINDOW_WIDTH (MAP_NUM_COLS * TILE_SIZE)
 // # define WINDOW_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
 
-# define TEXTURE_WIDTH 64
-# define TEXTURE_HEIGHT 64
-# define NUM_TEXTURES 5
-
 # define FPS 30	// Frames Per Second
-
-typedef struct s_img
-{
-	void	*img;
-	int		*data;
-	int		size_l;
-	int		bpp;
-	int		endian;
-	int		width;
-	int		height;
-}	t_img;
-
-typedef struct s_player
-{
-	double	x;
-	double	y;
-	float	width;
-	float	height;
-	int		turn_direction;
-	int		walk_direction;
-	float	rotation_angle;
-	float	walk_speed;
-	float	turn_speed;
-}	t_player;
-
-typedef struct s_ray
-{
-	float	ray_angle;
-	float	wall_hit_x;
-	float	wall_hit_y;
-	float	distance;
-	int		was_hit_vertical;
-	int		is_ray_facing_up;
-	int		is_ray_facing_down;
-	int		is_ray_facing_left;
-	int		is_ray_facing_right;
-	int		wall_hit_content;	
-}	t_ray;
 
 typedef struct s_texture
 {
@@ -101,8 +53,8 @@ typedef struct s_data
 	double	rayDirY;
 	double	planeX;
 	double	planeY;
-	double	sideDistX;
-	double	sideDistY;
+	// double	sidedist_x;
+	// double	sidedist_y;
 	double	moveSpeed;
 	double	rotSpeed;
 	// t_img		img;
@@ -113,44 +65,44 @@ typedef struct s_data
 	float		*z_buffer;
 }	t_data;
 
-enum e_xevent
-{
-	DESTROY = 17,
-	KEY_W  = 13,
-	KEY_A  = 0,
-	KEY_S = 1,
-	KEY_D = 2,
-	KEY_LEFT = 123,
-	KEY_RIGHT = 124,
-	KEY_ESC = 53
-};
+// enum e_xevent
+// {
+// 	DESTROY = 17,
+// 	KEY_W  = 13,
+// 	KEY_A  = 0,
+// 	KEY_S = 1,
+// 	KEY_D = 2,
+// 	KEY_LEFT = 123,
+// 	KEY_RIGHT = 124,
+// 	KEY_ESC = 53
+// };
 
-int	map[MAP_NUM_ROWS][MAP_NUM_COLS]=
-{
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,1,0,1,0,1,0,0,0,1},
-  {1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,1},
-  {1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,1,1,0,1,1,0,0,0,0,1,0,1,0,1,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,0,0,0,0,'N',0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
+// int	map[MAP_NUM_ROWS][MAP_NUM_COLS]=
+// {
+//   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,1,0,1,0,1,0,0,0,1},
+//   {1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,1},
+//   {1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,1,1,0,1,1,0,0,0,0,1,0,1,0,1,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,1,0,0,0,0,'N',0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
 
 int	ray_casting(t_data *data)
 {
@@ -163,8 +115,8 @@ int	ray_casting(t_data *data)
 	int	i;
 	
 	//length of ray from current position to next x or y-side
-    double sideDistX;
-    double sideDistY;
+    double sidedist_x;
+    double sidedist_y;
 	double deltaDistX;
 	double deltaDistY;
     double perpWallDist;
@@ -175,12 +127,12 @@ int	ray_casting(t_data *data)
 	int	hit;
 	//was a NS or a EW wall hit?
 	int	side;
-	int lineHeight;
+	int line_h;
 	
-	w = screenWidth;
-	h = screenHeight;
+	w = WINDOW_WIDTH;
+	h = WINDOW_HEIGHT;
 
-	lineHeight = (int)(h / 2);
+	line_h = (int)(h / 2);
 
 	//calculate lowest and highest pixel to fill in current stripe
 	int drawStart;
@@ -231,22 +183,22 @@ int	ray_casting(t_data *data)
       if (data->rayDirX < 0)
       {
         stepX = -1;
-        sideDistX = (data->player.x - mapX) * deltaDistX;
+        sidedist_x = (data->player.x - mapX) * deltaDistX;
       }
       else
       {
         stepX = 1;
-        sideDistX = (mapX + 1.0 - data->player.x) * deltaDistX;
+        sidedist_x = (mapX + 1.0 - data->player.x) * deltaDistX;
       }
       if (data->rayDirY < 0)
       {
         stepY = -1;
-        sideDistY = (data->player.y - mapY) * deltaDistY;
+        sidedist_y = (data->player.y - mapY) * deltaDistY;
       }
       else
       {
         stepY = 1;
-        sideDistY = (mapY + 1.0 - data->player.y) * deltaDistY;
+        sidedist_y = (mapY + 1.0 - data->player.y) * deltaDistY;
       }
     
 	  //perform DDA
@@ -254,15 +206,15 @@ int	ray_casting(t_data *data)
       while (hit == 0)
       {
         //jump to next map square, OR in x-direction, OR in y-direction
-        if (sideDistX < sideDistY)
+        if (sidedist_x < sidedist_y)
         {
-          sideDistX += deltaDistX;
+          sidedist_x += deltaDistX;
           mapX += stepX;
           side = 0;
         }
         else
         {
-          sideDistY += deltaDistY;
+          sidedist_y += deltaDistY;
           mapY += stepY;
           side = 1;
         }
@@ -271,9 +223,9 @@ int	ray_casting(t_data *data)
 			hit = 1;
       }
 		if(side == 0)
-			perpWallDist = (sideDistX - deltaDistX);
+			perpWallDist = (sidedist_x - deltaDistX);
       	else
-			perpWallDist = (sideDistY - deltaDistY);
+			perpWallDist = (sidedist_y - deltaDistY);
 
 	        //Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
 		// if (side == 0)
@@ -282,13 +234,13 @@ int	ray_casting(t_data *data)
 		// 	perpWallDist = (mapY - data->player.y + (1 - stepY) / 2) / rayDirY;
 
       //Calculate height of line to draw on screen
-      lineHeight = (int)(h / perpWallDist);
+      line_h = (int)(h / perpWallDist);
 
       //calculate lowest and highest pixel to fill in current stripe
-	drawStart = -lineHeight / 2 + h / 2;
+	drawStart = -line_h / 2 + h / 2;
       if (drawStart < 0)
 	  	drawStart = 0;
-	drawEnd = lineHeight / 2 + h / 2;
+	drawEnd = line_h / 2 + h / 2;
       if (drawEnd >= h)
 	  	drawEnd = h - 1;
 
@@ -403,10 +355,10 @@ void	init_data(t_data *data)
 	data->mlx = mlx_init(); //그래픽 시스템에 연결. 연결 식별자.
 	if (!data->mlx)
 		error_exit(ENOMEM);
-	data->win = mlx_new_window(data->mlx, screenWidth, screenHeight, "cub3D"); //창 식별자
+	data->win = mlx_new_window(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "cub3D"); //창 식별자
 	if (!data->win)
 		error_exit(ENOMEM);
-	data->img = mlx_new_image(data->mlx, screenWidth, screenHeight);
+	data->img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!data->img)
 		error_exit(ENOMEM);
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, \

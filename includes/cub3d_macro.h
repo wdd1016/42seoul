@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_macro.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyeolee <jiyeolee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:06:31 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/09 22:31:33 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/10 15:27:16 by jiyeolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,22 @@
 # define FLOOR 4
 # define CEILING 5
 
-# define KEY_W 13
-# define KEY_A 0
-# define KEY_S 1
-# define KEY_D 2
-# define KEY_LEFT 123
-# define KEY_RIGHT 124
-# define KEY_ESC 53
-
-# define X_EVENT_KEY_PRESS 2
-# define X_EVENT_KEY_RELEASE 3
-# define X_EVENT_KEY_EXIT 17
-
 # define MINIMAP_SCALE_FACTOR 0.3
 
 # define PI 3.1415926535
+
+enum e_xevent
+{
+	KEY_EXIT = 17,
+	KEY_W = 13,
+	KEY_A = 0,
+	KEY_S = 1,
+	KEY_D = 2,
+	KEY_LEFT = 123,
+	KEY_RIGHT = 124,
+	KEY_ESC = 53
+};
+
 typedef struct s_img
 {
 	void	*img;
@@ -80,6 +81,7 @@ typedef struct s_map
 	int				len;
 	struct s_map	*next;
 }	t_map;
+
 typedef struct s_data
 {
 	void		*mlx;

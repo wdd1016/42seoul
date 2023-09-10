@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: jiyeolee <jiyeolee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/01 12:40:00 by juyojeon          #+#    #+#              #
-#    Updated: 2023/09/01 15:49:01 by juyojeon         ###   ########.fr        #
+#    Updated: 2023/09/10 13:24:48 by jiyeolee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS = -Wall -Wextra -Werror
 NAME = cub3D
-SRCS = ./srcs/
+SRCS = ./main.c
 OBJS = $(SRCS:.c=.o)
 SRCS_BONUS = ./bonus/f
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)

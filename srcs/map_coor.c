@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_coor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyeolee <jiyeolee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 17:07:49 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/09 19:52:44 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/10 19:52:34 by jiyeolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	coordinate_parsing(t_data *data, int fd, char *line)
 	{
 		if (data->player.x == 0.0 && \
 		(line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E'))
-			ft_fill_player(data, data->map_height - 1, line, i);
+			fill_player(data, data->map_height - 1, line, i);
 		if (line[i] != '0' && line[i] != '1' && line[i] != ' ')
 			parsing_error_exit("Error\nInvalid map char\n", fd, line, data);
 	}
@@ -48,10 +48,10 @@ static t_map	*new_tempmap(t_data *data, char *line)
 
 	new = (t_map *)malloc(sizeof(t_map));
 	if (!new)
-		return (NULL);
+		return (0);
 	new->line = line;
 	new->len = ft_strlen(line);
-	new->next = NULL;
+	new->next = 0;
 	if (!data->tempmap)
 		data->tempmap = new;
 	else
@@ -66,13 +66,13 @@ static t_map	*new_tempmap(t_data *data, char *line)
 
 static void	fill_player(t_data *data, int row_idx, char *line, int col_idx)
 {
-	double	x_direction;
 	double	y_direction;
+	double	x_direction;
 
 	data->player.x = col_idx + 0.5;
 	data->player.y = row_idx + 0.5;
-	x_direction = 0.0;
 	y_direction = 0.0;
+	x_direction = 0.0;
 	if (line[col_idx] == 'N')
 		y_direction = -1.0;
 	else if (line[col_idx] == 'S')
@@ -81,8 +81,10 @@ static void	fill_player(t_data *data, int row_idx, char *line, int col_idx)
 		x_direction = -1.0;
 	else if (line[col_idx] == 'E')
 		x_direction = 1.0;
-	data->player.x_dir = x_direction;
-	data->player.y_dir = y_direction;
+	data->player.dir_y = y_direction;
+	data->player.dir_x = x_direction;
+	data->player.plane_y = x_direction * 0.66;
+	data->player.plane_x = y_direction * (-0.66);
 	line[col_idx] = '0';
 }
 
