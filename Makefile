@@ -3,18 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jiyeolee <jiyeolee@student.42.fr>          +#+  +:+       +#+         #
+#    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/01 12:40:00 by juyojeon          #+#    #+#              #
-#    Updated: 2023/09/10 13:24:48 by jiyeolee         ###   ########.fr        #
+#    Updated: 2023/09/10 21:57:33 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFLAGS = -Wall -Wextra -Werror
 NAME = cub3D
-SRCS = ./main.c
+SRCS = ./srcs/hook_move.c ./srcs/hook.c ./srcs/init.c ./srcs/main.c \
+./srcs/map_coor.c ./srcs/map_validation.c ./srcs/map.c ./srcs/print.c \
+./srcs/utils.c ./gnl/get_next_line.c ./gnl/get_next_line_utils.c
 OBJS = $(SRCS:.c=.o)
-SRCS_BONUS = ./bonus/f
+SRCS_BONUS = ./bonus/a
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 all : $(NAME)
