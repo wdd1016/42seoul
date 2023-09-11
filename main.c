@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyeolee <jiyeolee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:53:21 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/10 15:31:37 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/11 22:16:08 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ typedef struct s_data
 int	ray_casting(t_data *data)
 {
 	
-	// int	buffer[screenHeight][screenWidth];
 	int	mapX;
 	int	mapY;
 	int	w;
@@ -129,34 +128,8 @@ int	ray_casting(t_data *data)
 	int	side;
 	int line_h;
 	
-	w = WINDOW_WIDTH;
-	h = WINDOW_HEIGHT;
-
-	line_h = (int)(h / 2);
-
-	//calculate lowest and highest pixel to fill in current stripe
 	int drawStart;
 	int drawEnd;	
-	int	bg_rgb;
-
-	i = 0;
-	while (i < w)
-	{
-		int	y = 0;
-		char	*dst;
-		while (y < h)
-		{
-			if (y < h / 2)
-				bg_rgb = 0;
-			else
-				bg_rgb = 255 << 16 | 255 << 8 | 255;
-
-			dst = data->addr + (y * data->line_length + i * (data->bits_per_pixel / 8));
-			*(unsigned int *)dst = bg_rgb;
-			y++;
-		}
-		i++;
-	}
 
 	
 	i = 0;
