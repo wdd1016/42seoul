@@ -81,10 +81,9 @@ typedef struct s_ray
 	int		step_y;
 	double	side_dist_x;
 	double	side_dist_y;
-
+	int		side;
 	double	perp_wall_dist;
 	double	texpos;
-	int		side;
 }	t_ray;
 
 typedef struct s_player

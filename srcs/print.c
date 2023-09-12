@@ -14,6 +14,8 @@
 
 static void	input_background(t_data *data);
 static void	set_ray(t_player *player, t_ray *r, double camera_i);
+static void	digital_differential_analyzer(t_data *data, t_ray *ray);
+static void	set_perp_wall_dist(t_player *p, t_ray *ray, int map_x, int map_y);
 
 int	print_image(t_data *data)
 {
@@ -26,22 +28,10 @@ int	print_image(t_data *data)
 	{
 		set_ray(&data->player, &ray, 2 * (double)i / (WINDOW_WIDTH - 1) - 1);
 		digital_differential_analyzer(data, &ray);
-		if ()
 		input_vertical_line(data, &ray, i);
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 }
-// 	ray->perpwall_dist = perpetual_wall_dist(ray);
-// 	print_vertical_line(data, ray, i);
-// }
-
-// double	perpetual_wall_dist(t_ray *ray)
-// {
-// 	if(ray->side == 0)
-// 		return (ray->sidedist_x - ray->deltadist_x);
-// 	else
-// 		return (ray->sidedist_y - ray->deltadist_y);
-// }
 
 static void	input_background(t_data *data)
 {
@@ -99,12 +89,10 @@ static void	digital_differential_analyzer(t_data *data, t_ray *ray)
 {
 	int	map_x;
 	int	map_y;
-	int	hit;
 
 	map_x = (int)(data->player.x);
 	map_y = (int)(data->player.y);
-	hit = 0;
-	while (hit == 0)
+	while (1)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
 		{
@@ -119,74 +107,17 @@ static void	digital_differential_analyzer(t_data *data, t_ray *ray)
 			ray->side = 1;
 		}
 		if (data->map[map_y][map_x] > 0)
-			hit = 1;
+			break;
 	}
+	set_perp_wall_dist(&data->player, ray, map_x, map_y);
 }
 
-int	texture_color(t_img *texture, t_player *player, t_ray *ray, int i)
+static void	set_perp_wall_dist(t_player *p, t_ray *ray, int map_x, int map_y)
 {
-	int		color;
-	int		tex_y;
-	int		tex_x;
-	double	wallX; //where exactly the wall was hit
-
-      //calculate value of wallX
-      if (ray->side == 0)
-		wallX = player->y + ray->perpwall_dist * ray->raydir_y;
-      else
-	  	wallX = player->x + ray->perpwall_dist * ray->raydir_x;
-      wallX -= floor(wallX);
-      if(ray->side == 0 && ray->raydir_x > 0)
-	  	tex_x = TEXTURE_WIDTH - wallX * (double)TEXTURE_WIDTH - 1;
-      if(ray->side == 1 && ray->raydir_y < 0)
-	  	tex_x = TEXTURE_WIDTH - wallX * (double)TEXTURE_WIDTH - 1;
-        // Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-		tex_y = (int)ray->texpos & (TEXTURE_HEIGHT - 1);
-        ray->texpos += ray->step;
-		if (ray->side == 0)
-		{
-			if (ray->raydir_x >= 0)
-				color = texture[EAST].addr + TEXTURE_HEIGHT * tex_x + tex_y;
-			else
-				color = texture[WEST].addr + TEXTURE_HEIGHT * tex_x + tex_y;
-		}
-		else
-		{
-			if (ray->raydir_y >= 0)
-				color = texture[SOUTH].addr + TEXTURE_HEIGHT * tex_x + tex_y;
-			else
-				color = texture[NORTH].addr + TEXTURE_HEIGHT * tex_x + tex_y;
-		}
-        //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
-        if(ray->side == 1)
-			color = (color >> 1) & 8355711;
-	return (color);
-}
-
-void	print_vertical_line(t_data *data, t_ray *ray, int i)
-{
-	int		color;
-	int		y;
-	int 	start;
-	int 	end;
-	int 	line_height;
-	char	*dst;
-
-	line_height = (int)(WINDOW_HEIGHT / ray->perpwall_dist);
-	start = -line_height / 2 + WINDOW_HEIGHT / 2;
-    if (start < 0)
-		start = 0;
-	end = line_height / 2 + WINDOW_HEIGHT / 2;
-    if (end >= WINDOW_HEIGHT)
-		end = WINDOW_HEIGHT - 1;	
-	// How much to increase the texture coordinate per screen pixel
-	ray->step = 1.0 * TEXTURE_HEIGHT / line_height;
-	ray->texpos = (start - WINDOW_WIDTH / 2 + line_height / 2) * ray->step;
-	y = start;
-	while (y < end)
-	{
-		dst = data->img.addr + (y * data->img.size_l + i * (data->img.bpp / 8));
-		*(unsigned int *)dst = texture_color(&data->texture, &data->player, ray, i);
-		y++;
-	}
+	if (ray->side == 0)
+		ray->perp_wall_dist = \
+		(map_x - p->x + (1 - ray->step_x) / 2) / ray->ray_dir_x;
+	else
+		ray->perp_wall_dist = \
+		(map_y - p->y + (1 - ray->step_y) / 2) / ray->ray_dir_y;
 }
