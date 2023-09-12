@@ -3,104 +3,124 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/12 21:20:26 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/13 00:00:58 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+static void	input_background(t_data *data);
+static void	set_ray(t_player *player, t_ray *r, double camera_i);
+
 int	print_image(t_data *data)
 {
-	print_background(data);
-	ray_casting(data);
+	t_ray	ray;
+	int		i;
+
+	input_background(data);
+	i = -1;
+	while (++i < WINDOW_WIDTH)
+	{
+		set_ray(&data->player, &ray, 2 * (double)i / (WINDOW_WIDTH - 1) - 1);
+		digital_differential_analyzer(data, &ray);
+		if ()
+		input_vertical_line(data, &ray, i);
+	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 }
+// 	ray->perpwall_dist = perpetual_wall_dist(ray);
+// 	print_vertical_line(data, ray, i);
+// }
 
-void	ray_casting(t_data *data)
+// double	perpetual_wall_dist(t_ray *ray)
+// {
+// 	if(ray->side == 0)
+// 		return (ray->sidedist_x - ray->deltadist_x);
+// 	else
+// 		return (ray->sidedist_y - ray->deltadist_y);
+// }
+
+static void	input_background(t_data *data)
 {
+	int		color;
+	char	*dst;
 	int		i;
-	double	camera_x;
-	t_ray	ray;
 
+	dst = data->img.addr;
+	color = data->ceiling_color;
 	i = 0;
-	while (i < WINDOW_WIDTH)
+	while (i < WINDOW_WIDTH * WINDOW_HEIGHT / 2)
 	{
-		camera_x = 2 * i / (double)WINDOW_WIDTH - 1;
-		calculate_dda(&data->player, &ray, camera_x);
-		perform_dda(data, &data->player, &ray, i);
+		*(unsigned int *)dst = color;
+		dst += data->img.bpp / 8;
 		i++;
 	}
-	return (0);
-}
-
-void	calculate_dda(t_player *player, t_ray *ray, double camera_x)
-{
-	ray->raydir_x = player->dir_x + player->plane_x * camera_x;
-	ray->raydir_y = player->dir_y + player->plane_y * camera_x;
-	ray->deltadist_x = fabs(1 / ray->raydir_x);
-	ray->deltadist_y = fabs(1 / ray->raydir_y);
-	if (ray->raydir_x < 0)
+	color = data->floor_color;
+	while (i < WINDOW_WIDTH * WINDOW_HEIGHT)
 	{
-		ray->step_x = -1;
-		ray->sidedist_x = (player->x - (int)player->x) * ray->deltadist_x;
-	}
-	else
-	{
-		ray->step_x = 1;
-		ray->sidedist_x = ((int)player->x + 1.0 - player->x) * ray->deltadist_x;
-	}
-	if (ray->raydir_y < 0)
-	{
-		ray->step_y = -1;
-		ray->sidedist_y = (player->y - (int)player->y) * ray->deltadist_y;
-	}
-	else
-	{
-		ray->step_y = 1;
-		ray->sidedist_y = ((int)player->y + 1.0 - player->y) * ray->deltadist_y;
+		*(unsigned int *)dst = color;
+		dst += data->img.bpp / 8;
+		i++;
 	}
 }
 
-void	perform_dda(t_data *data, t_player *player, t_ray *ray, int i)
+static void	set_ray(t_player *player, t_ray *r, double camera_i)
 {
-	int		hit;
-	int		side;
-	int		map_x;
-	int		map_y;
-	
-	map_x = (int)player->x;
-	map_y = (int)player->y;
+	r->ray_dir_x = player->dir_x + player->plane_x * camera_i;
+	r->ray_dir_y = player->dir_y + player->plane_y * camera_i;
+	r->delta_dist_x = fabs(1 / r->ray_dir_x);
+	r->delta_dist_y = fabs(1 / r->ray_dir_y);
+	if (r->ray_dir_x < 0)
+	{
+		r->step_x = -1;
+		r->side_dist_x = (player->x - (int)player->x) * r->delta_dist_x;
+	}
+	else
+	{
+		r->step_x = 1;
+		r->side_dist_x = ((int)player->x + 1.0 - player->x) * r->delta_dist_x;
+	}
+	if (r->ray_dir_y < 0)
+	{
+		r->step_y = -1;
+		r->side_dist_y = (player->y - (int)player->y) * r->delta_dist_y;
+	}
+	else
+	{
+		r->step_y = 1;
+		r->side_dist_y = ((int)player->y + 1.0 - player->y) * r->delta_dist_y;
+	}
+}
+
+static void	digital_differential_analyzer(t_data *data, t_ray *ray)
+{
+	int	map_x;
+	int	map_y;
+	int	hit;
+
+	map_x = (int)(data->player.x);
+	map_y = (int)(data->player.y);
 	hit = 0;
 	while (hit == 0)
 	{
-		if (ray->sidedist_x < ray->sidedist_y)
+		if (ray->side_dist_x < ray->side_dist_y)
 		{
-			ray->sidedist_x += ray->deltadist_x;
+			ray->side_dist_x += ray->delta_dist_x;
 			map_x += ray->step_x;
 			ray->side = 0;
 		}
 		else
 		{
-			ray->sidedist_y += ray->deltadist_y;
+			ray->side_dist_y += ray->delta_dist_y;
 			map_y += ray->step_y;
 			ray->side = 1;
 		}
 		if (data->map[map_y][map_x] > 0)
 			hit = 1;
 	}
-	ray->perpwall_dist = perpetual_wall_dist(ray);
-	print_vertical_line(data, ray, i);
-}
-
-double	perpetual_wall_dist(t_ray *ray)
-{
-	if(ray->side == 0)
-		return (ray->sidedist_x - ray->deltadist_x);
-	else
-		return (ray->sidedist_y - ray->deltadist_y);
 }
 
 int	texture_color(t_img *texture, t_player *player, t_ray *ray, int i)
@@ -168,29 +188,5 @@ void	print_vertical_line(t_data *data, t_ray *ray, int i)
 		dst = data->img.addr + (y * data->img.size_l + i * (data->img.bpp / 8));
 		*(unsigned int *)dst = texture_color(&data->texture, &data->player, ray, i);
 		y++;
-	}
-}
-
-void	print_background(t_data *data)
-{
-	int		color;
-	char	*dst;
-	int		i;
-
-	dst = data->img.addr;
-	color = data->ceiling_color;
-	i = 0;
-	while (i < WINDOW_WIDTH * WINDOW_HEIGHT / 2)
-	{
-		*(unsigned int *)dst = color;
-		dst += data->img.bpp / 8;
-		i++;
-	}
-	color = data->floor_color;
-	while (i < WINDOW_WIDTH * WINDOW_HEIGHT)
-	{
-		*(unsigned int *)dst = color;
-		dst += data->img.bpp / 8;
-		i++;
 	}
 }

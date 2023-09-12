@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_macro.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:06:31 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/12 21:06:28 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/12 23:13:16 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,17 @@ typedef struct s_img
 
 typedef struct s_ray
 {
-	double	raydir_x;
-	double	raydir_y;
-	double 	sidedist_x;
-    double 	sidedist_y;
-	double 	deltadist_x;
-	double 	deltadist_y;
-	double	perpwall_dist;
-	double	texpos;
-	double	step;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
 	int		step_x;
 	int		step_y;
+	double	side_dist_x;
+	double	side_dist_y;
+
+	double	perp_wall_dist;
+	double	texpos;
 	int		side;
 }	t_ray;
 

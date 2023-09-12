@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:30:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/12 20:46:50 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/12 22:32:56 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,27 +44,27 @@ void	map_parsing(char *path, t_data *data)
 	}
 }
 
-static void	texture_background_parsing(t_data *data, int fd, char *ln, int *cnt)
+static void	texture_background_parsing(t_data *data, int fd, char *ln, int *bit)
 {
 	int		config_num;
 
 	if (ln[0] == '\n')
 		return ;
-	if (*c & NO_BIT == 0 && ln[0] == 'N' && ln[1] == 'O' && ln[2] == ' ')
+	if (*bit & NO_BIT == 0 && ln[0] == 'N' && ln[1] == 'O' && ln[2] == ' ')
 		config_num = NORTH;
-	else if (*c & SO_BIT == 0 && ln[0] == 'S' && ln[1] == 'O' && ln[2] == ' ')
+	else if (*bit & SO_BIT == 0 && ln[0] == 'S' && ln[1] == 'O' && ln[2] == ' ')
 		config_num = SOUTH;
-	else if (*c & WE_BIT == 0 && ln[0] == 'W' && ln[1] == 'E' && ln[2] == ' ')
+	else if (*bit & WE_BIT == 0 && ln[0] == 'W' && ln[1] == 'E' && ln[2] == ' ')
 		config_num = WEST;
-	else if (*c & EA_BIT == 0 && ln[0] == 'E' && ln[1] == 'A' && ln[2] == ' ')
+	else if (*bit & EA_BIT == 0 && ln[0] == 'E' && ln[1] == 'A' && ln[2] == ' ')
 		config_num = EAST;
-	else if (*c & FLOOR_BIT == 0 && ln[0] == 'F' && ln[1] == ' ')
+	else if (*bit & FLOOR_BIT == 0 && ln[0] == 'F' && ln[1] == ' ')
 		config_num = FLOOR;
-	else if (*c & CEILING_BIT == 0 && ln[0] == 'C' && ln[1] == ' ')
+	else if (*bit & CEILING_BIT == 0 && ln[0] == 'C' && ln[1] == ' ')
 		config_num = CEILING;
 	else
 		parsing_error_exit("Error\nMap file have wrong line\n", fd, ln, data);
-	*c += 1 << config_num;
+	*bit += (1 << config_num);
 	if (texture_background_parsing2(data, ln, config_num) == FAILURE)
 		parsing_error_exit("Error\nMap file have wrong line\n", fd, ln, data);
 	free(ln);
