@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 23:46:21 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/09 19:52:56 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/12 21:09:32 by jiyeolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static void	is_valid_position(t_data *data, int i, int j);
 
-void	is_valid_map(t_data *data, int config_cnt)
+void	is_valid_map(t_data *data, int config_bit)
 {
 	int	i;
 	int	j;
 
 	if (data->player.x == 0.0)
 		error_exit("Error\nNo player\n", data);
-	else if (config_cnt != 0b111111)
+	else if (config_bit != COMPLETE_BIT)
 		error_exit("Error\nMissing config\n", data);
 	i = -1;
 	while (++i < data->map_height)

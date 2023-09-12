@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:53:21 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/11 22:16:08 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/12 15:47:32 by jiyeolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,25 +217,40 @@ int	ray_casting(t_data *data)
       if (drawEnd >= h)
 	  	drawEnd = h - 1;
 
-      //choose wall color
 	int	rgb;
 	rgb = 204 << 16 | 255 << 8 | 255;
+	//give x and y sides different brightness
+	if (side == 1)
+		rgb = rgb / 2;
 
-	// if (map[mapX][mapY] == 1)
-	// 	rgb = 204 << 16 | 255 << 8 | 255;
-	// else if (map[mapX][mapY] == 2)
-	// 	rgb = 204 << 16 | 204 << 8 | 255;
-	// else if (map[mapX][mapY] == 3)
-	// 	rgb = 204 << 16 | 255 << 8 | 255;
-	// else if (map[mapX][mapY] == 4)
-	// 	rgb = 204 << 16 | 255 << 8 | 204;
-	// else
-	// 	rgb = 204 << 16 | 255 << 8 | 0;
+      //texturing calculations
+      int texNum = map[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
 
-      //give x and y sides different brightness
-		if (side == 1)
-			rgb = rgb / 2;
+      //calculate value of wallX
+      double wallX; //where exactly the wall was hit
+      if (side == 0) wallX = posY + perpWallDist * rayDirY;
+      else           wallX = posX + perpWallDist * rayDirX;
+      wallX -= floor((wallX));
 
+      //x coordinate on the texture
+      int texX = int(wallX * double(texWidth));
+      if(side == 0 && rayDirX > 0) texX = texWidth - texX - 1;
+      if(side == 1 && rayDirY < 0) texX = texWidth - texX - 1;
+
+            // How much to increase the texture coordinate per screen pixel
+      double step = 1.0 * texHeight / lineHeight;
+      // Starting texture coordinate
+      double texPos = (drawStart - h / 2 + lineHeight / 2) * step;
+      for(int y = drawStart; y<drawEnd; y++)
+      {
+        // Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
+        int texY = (int)texPos & (texHeight - 1);
+        texPos += step;
+        Uint32 color = texture[texNum][texHeight * texY + texX];
+        //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
+        if(side == 1) color = (color >> 1) & 8355711;
+        buffer[y][x] = color;
+      }
       //draw the pixels of the stripe as a vertical line
 		int	y = drawStart;
 		char	*dst;

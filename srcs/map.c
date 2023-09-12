@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyeolee <jiyeolee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:30:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/10 15:37:49 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/12 20:46:50 by jiyeolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	map_parsing(char *path, t_data *data)
 {
 	int		fd;
 	char	*line;
-	int		config_cnt;
+	int		config_bit;
 
-	config_cnt = 0b000000;
+	config_bit = 0b000000;
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		error_exit("Error : Map file open failed\n", data);
@@ -34,33 +34,33 @@ void	map_parsing(char *path, t_data *data)
 				error_exit("Error : Map file close failed\n", data);
 			if (data->map_height > 0)
 				ft_make_map(data);
-			ft_is_valid_map(data, config_cnt);
+			ft_is_valid_map(data, config_bit);
 			break ;
 		}
-		if (config_cnt & 0b111111 < 0b111111)
-			texture_background_parsing(data, fd, line, &config_cnt);
+		if ((config_bit & COMPLETE_BIT) != COMPLETE_BIT)
+			texture_background_parsing(data, fd, line, &config_bit);
 		else
 			coordinate_parsing(data, fd, line);
 	}
 }
 
-static void	texture_background_parsing(t_data *data, int fd, char *ln, int *c)
+static void	texture_background_parsing(t_data *data, int fd, char *ln, int *cnt)
 {
 	int		config_num;
 
 	if (ln[0] == '\n')
 		return ;
-	if (*c & 0b000001 == 0 && ln[0] == 'N' && ln[1] == 'O' && ln[2] == ' ')
+	if (*c & NO_BIT == 0 && ln[0] == 'N' && ln[1] == 'O' && ln[2] == ' ')
 		config_num = NORTH;
-	else if (*c & 0b000010 == 0 && ln[0] == 'S' && ln[1] == 'O' && ln[2] == ' ')
+	else if (*c & SO_BIT == 0 && ln[0] == 'S' && ln[1] == 'O' && ln[2] == ' ')
 		config_num = SOUTH;
-	else if (*c & 0b000100 == 0 && ln[0] == 'W' && ln[1] == 'E' && ln[2] == ' ')
+	else if (*c & WE_BIT == 0 && ln[0] == 'W' && ln[1] == 'E' && ln[2] == ' ')
 		config_num = WEST;
-	else if (*c & 0b001000 == 0 && ln[0] == 'E' && ln[1] == 'A' && ln[2] == ' ')
+	else if (*c & EA_BIT == 0 && ln[0] == 'E' && ln[1] == 'A' && ln[2] == ' ')
 		config_num = EAST;
-	else if (*c & 0b010000 == 0 && ln[0] == 'F' && ln[1] == ' ')
+	else if (*c & FLOOR_BIT == 0 && ln[0] == 'F' && ln[1] == ' ')
 		config_num = FLOOR;
-	else if (*c & 0b100000 == 0 && ln[0] == 'C' && ln[1] == ' ')
+	else if (*c & CEILING_BIT == 0 && ln[0] == 'C' && ln[1] == ' ')
 		config_num = CEILING;
 	else
 		parsing_error_exit("Error\nMap file have wrong line\n", fd, ln, data);
@@ -84,8 +84,8 @@ static int	texture_background_parsing2(t_data *data, char *ln, int config_num)
 		t->img = mlx_xpm_file_to_image(data->mlx, ln, &t->width, &t->height);
 		if (!t->img)
 			return (FAILURE);
-		t->data = mlx_get_data_addr(t->img, &t->bpp, &t->size_l, &t->endian);
-		if (!t->data)
+		t->addr = mlx_get_data_addr(t->img, &t->bpp, &t->size_l, &t->endian);
+		if (!t->addr)
 			return (FAILURE);
 		return (SUCCESS);
 	}

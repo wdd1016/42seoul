@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyeolee <jiyeolee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:02:53 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/10 15:45:08 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/12 20:30:44 by jiyeolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static void	init_img(t_img *img, t_data *data, int width, int height)
 	img->img = mlx_new_image(data->mlx, width, height);
 	if (!img->img)
 		error_exit("Error : mlx_new_image failed\n", data);
-	img->data = mlx_get_data_addr(img->img, &img->bpp, &img->size_l,
+	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->size_l,
 			&img->endian);
-	if (!img->data)
+	if (!img->addr)
 		error_exit("Error : mlx_get_data_addr failed\n", data);
 }
 

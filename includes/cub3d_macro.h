@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_macro.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyeolee <jiyeolee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:06:31 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/10 15:27:16 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/12 21:06:28 by jiyeolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@
 # define FLOOR 4
 # define CEILING 5
 
+# define NO_BIT 0b000001
+# define SO_BIT 0b000010
+# define WE_BIT 0b000100
+# define EA_BIT 0b001000
+# define FLOOR_BIT 0b010000
+# define CEILING_BIT 0b100000
+# define COMPLETE_BIT 0b111111
+
 # define MINIMAP_SCALE_FACTOR 0.3
 
 # define PI 3.1415926535
@@ -55,13 +63,29 @@ enum e_xevent
 typedef struct s_img
 {
 	void	*img;
-	char	*data;
+	char	*addr;
 	int		size_l;
 	int		bpp;
 	int		endian;
 	int		width;
 	int		height;
 }	t_img;
+
+typedef struct s_ray
+{
+	double	raydir_x;
+	double	raydir_y;
+	double 	sidedist_x;
+    double 	sidedist_y;
+	double 	deltadist_x;
+	double 	deltadist_y;
+	double	perpwall_dist;
+	double	texpos;
+	double	step;
+	int		step_x;
+	int		step_y;
+	int		side;
+}	t_ray;
 
 typedef struct s_player
 {
