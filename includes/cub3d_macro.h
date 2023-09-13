@@ -83,8 +83,15 @@ typedef struct s_ray
 	double	side_dist_y;
 	int		side;
 	double	perp_wall_dist;
-	double	texpos;
 }	t_ray;
+
+typedef struct s_texture
+{
+	int		line_height;
+	double	step;
+	double	pos;
+	int		x;
+}	t_texture;
 
 typedef struct s_player
 {

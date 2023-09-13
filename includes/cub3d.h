@@ -23,9 +23,7 @@
 # include <stdio.h>
 
 void	error_exit(const char *str, t_data *data);
-
 int		is_valid_format(const char *path, const char *format);
-
 void	data_mlx_init(t_data *data);
 
 void	map_parsing(char *path, t_data *data);
@@ -39,5 +37,6 @@ void	move_updown_player(int key, t_player *p, char **map);
 void	move_side_player(int key, t_player *p, char **map);
 
 int		print_image(t_data *data);
+void	input_vertical_line(t_data *data, t_img *img, t_ray *ray, int i);
 
 #endif
