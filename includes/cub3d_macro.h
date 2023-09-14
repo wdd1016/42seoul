@@ -91,6 +91,7 @@ typedef struct s_texture
 	double	step;
 	double	pos;
 	int		x;
+	t_img	curr_tex_img;
 }	t_texture;
 
 typedef struct s_player
