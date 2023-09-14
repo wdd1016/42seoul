@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:30:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/12 22:32:56 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:09:22 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	map_parsing(char *path, t_data *data)
 			if (close(fd) == -1)
 				error_exit("Error : Map file close failed\n", data);
 			if (data->map_height > 0)
-				ft_make_map(data);
-			ft_is_valid_map(data, config_bit);
+				make_map(data);
+			is_valid_map(data, config_bit);
 			break ;
 		}
 		if ((config_bit & COMPLETE_BIT) != COMPLETE_BIT)
@@ -50,17 +50,18 @@ static void	texture_background_parsing(t_data *data, int fd, char *ln, int *bit)
 
 	if (ln[0] == '\n')
 		return ;
-	if (*bit & NO_BIT == 0 && ln[0] == 'N' && ln[1] == 'O' && ln[2] == ' ')
+	config_num = -1;
+	if ((*bit & NO_BIT) == 0 && ln[0] == 'N' && ln[1] == 'O' && ln[2] == ' ')
 		config_num = NORTH;
-	else if (*bit & SO_BIT == 0 && ln[0] == 'S' && ln[1] == 'O' && ln[2] == ' ')
+	else if ((*bit & SO_BIT) == 0 && ln[0] == 'S' && ln[1] == 'O' && ln[2] == ' ')
 		config_num = SOUTH;
-	else if (*bit & WE_BIT == 0 && ln[0] == 'W' && ln[1] == 'E' && ln[2] == ' ')
+	else if ((*bit & WE_BIT) == 0 && ln[0] == 'W' && ln[1] == 'E' && ln[2] == ' ')
 		config_num = WEST;
-	else if (*bit & EA_BIT == 0 && ln[0] == 'E' && ln[1] == 'A' && ln[2] == ' ')
+	else if ((*bit & EA_BIT) == 0 && ln[0] == 'E' && ln[1] == 'A' && ln[2] == ' ')
 		config_num = EAST;
-	else if (*bit & FLOOR_BIT == 0 && ln[0] == 'F' && ln[1] == ' ')
+	else if ((*bit & FLOOR_BIT) == 0 && ln[0] == 'F' && ln[1] == ' ')
 		config_num = FLOOR;
-	else if (*bit & CEILING_BIT == 0 && ln[0] == 'C' && ln[1] == ' ')
+	else if ((*bit & CEILING_BIT) == 0 && ln[0] == 'C' && ln[1] == ' ')
 		config_num = CEILING;
 	else
 		parsing_error_exit("Error\nMap file have wrong line\n", fd, ln, data);
@@ -89,7 +90,7 @@ static int	texture_background_parsing2(t_data *data, char *ln, int config_num)
 			return (FAILURE);
 		return (SUCCESS);
 	}
-	temp = ft_colortoi(ln);
+	temp = color_to_i(ln);
 	if (temp == -1)
 		return (FAILURE);
 	if (config_num == FLOOR)

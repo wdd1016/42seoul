@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/14 19:57:20 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:14:16 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ int	print_image(t_data *data)
 	{
 		set_ray(&data->player, &ray, 2 * (double)i / (WINDOW_WIDTH - 1) - 1);
 		digital_differential_analyzer(data, &ray);
-		input_vertical_line(data, &ray, i);
+		input_vertical_line(data, &data->img, &ray, i);
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
+	return (0);
 }
 
 static void	input_background(t_data *data)

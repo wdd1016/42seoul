@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:39:30 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/09 19:53:25 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:11:38 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	is_valid_format(const char *path, const char *format)
 	return (FAILURE);
 }
 
-int	ft_colortoi(const char *str)
+int	color_to_i(const char *str)
 {
 	int	temp;
 	int	return_value;

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:53:21 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/09 19:51:59 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:04:48 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char *argv[])
 {
 	t_data	data;
 
-	if (argc != 2 || is_validformat(argv[1], ".cub") == FAILURE)
+	if (argc != 2 || is_valid_format(argv[1], ".cub") == FAILURE)
 		error_exit("Argument Error : [Usage] ./cub3D any.cub\n", &data);
 	data_mlx_init(&data);
 	map_parsing(argv[1], &data);

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:12:00 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/01 15:39:38 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:12:42 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ ssize_t	ft_strchrindex(char *s, int c)
 	return (-1);
 }
 
-size_t	ft_strlen(char *s)
+size_t	ft_strlen(const char *s)
 {
-	char	*copy;
+	const char	*copy;
 
 	if (!s)
 		return (0);

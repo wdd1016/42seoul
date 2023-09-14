@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 08:11:21 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/01/25 22:50:06 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:05:16 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_fdlist
 }	t_fdlist;
 
 ssize_t	ft_strchrindex(char *s, int c);
-size_t	ft_strlen(char *s);
+size_t	ft_strlen(const char *s);
 void	ft_bzero(void *s, size_t n);
 void	*ft_gnlfree_all(t_fdlist *firlist, char *str_rtn);
 void	*ft_gnlfree_use(t_fdlist *firlist, t_fdlist *uselist, char *str_rtn);

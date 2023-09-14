@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:56 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/10 21:47:39 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:03:40 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ static int	key_event(int key, t_data *data)
 		move_updown_player(key, &data->player, data->map);
 	else if (key == KEY_A || key == KEY_D)
 		move_side_player(key, &data->player, data->map);
+	else
+		return (0);
+	return (0);
 }
 
 static void	rotate_player(int key, t_player *p)

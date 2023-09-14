@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 23:27:22 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/10 21:46:41 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:14:19 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 void	error_exit(const char *str, t_data *data);
 int		is_valid_format(const char *path, const char *format);
+int		color_to_i(const char *str);
 void	data_mlx_init(t_data *data);
 
 void	map_parsing(char *path, t_data *data);

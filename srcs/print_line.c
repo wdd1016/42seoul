@@ -6,14 +6,14 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/14 20:00:05 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:12:15 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
 static void			set_tex_struct(t_data *data, t_ray *ray, t_texture *tex);
-static unsigned int	texture_color(t_data *data, t_ray *ray, t_texture *tex);
+static unsigned int	texture_color(t_ray *ray, t_texture *tex);
 
 void	input_vertical_line(t_data *data, t_img *img, t_ray *ray, int i)
 {
@@ -35,7 +35,7 @@ void	input_vertical_line(t_data *data, t_img *img, t_ray *ray, int i)
 	while (row_idx <= end_idx)
 	{
 		dst = img->addr + ((row_idx * img->size_l + i) * (img->bpp / 8));
-		*((unsigned int *)dst) = texture_color(data, ray, &tex);
+		*((unsigned int *)dst) = texture_color(ray, &tex);
 		row_idx++;
 	}
 }
@@ -64,7 +64,7 @@ static void	set_tex_struct(t_data *data, t_ray *ray, t_texture *tex)
 		tex->curr_img = &(data->texture)[NORTH];
 }
 
-static unsigned int	texture_color(t_data *data, t_ray *ray, t_texture *tex)
+static unsigned int	texture_color(t_ray *ray, t_texture *tex)
 {
 	int				tex_y;
 	unsigned int	color;
