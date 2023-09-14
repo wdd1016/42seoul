@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:06:31 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/12 23:13:16 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:29:44 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@
 # define FLOOR 4
 # define CEILING 5
 
-# define NO_BIT 0b000001
-# define SO_BIT 0b000010
-# define WE_BIT 0b000100
-# define EA_BIT 0b001000
+# define NBIT 0b000001
+# define SBIT 0b000010
+# define WBIT 0b000100
+# define EBIT 0b001000
 # define FLOOR_BIT 0b010000
 # define CEILING_BIT 0b100000
 # define COMPLETE_BIT 0b111111

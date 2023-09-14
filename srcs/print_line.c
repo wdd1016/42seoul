@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/14 20:12:15 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:57:25 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,14 @@ static void	set_tex_struct(t_data *data, t_ray *ray, t_texture *tex)
 static unsigned int	texture_color(t_ray *ray, t_texture *tex)
 {
 	int				tex_y;
+	char			*tex_color;
 	unsigned int	color;
 
 	tex_y = (int)(tex->pos) & (TEXTURE_HEIGHT - 1);
 	tex->pos += tex->step;
-	color = ((unsigned int *)(tex->curr_img->addr))[TEXTURE_HEIGHT * tex->x + tex_y];
+	tex_color = tex->curr_img->addr + (tex_y * tex->curr_img->size_l + \
+				tex->x * (tex->curr_img->bpp / 8));
+	color = *((unsigned int *)tex_color);
 	if (ray->side == 1)
 		color = (color >> 1) & 0b011111110111111101111111;
 	return (color);

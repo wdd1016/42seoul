@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:30:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/14 20:09:22 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:29:44 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ static void	texture_background_parsing(t_data *data, int fd, char *ln, int *bit)
 	if (ln[0] == '\n')
 		return ;
 	config_num = -1;
-	if ((*bit & NO_BIT) == 0 && ln[0] == 'N' && ln[1] == 'O' && ln[2] == ' ')
+	if ((*bit & NBIT) == 0 && ln[0] == 'N' && ln[1] == 'O' && ln[2] == ' ')
 		config_num = NORTH;
-	else if ((*bit & SO_BIT) == 0 && ln[0] == 'S' && ln[1] == 'O' && ln[2] == ' ')
+	else if ((*bit & SBIT) == 0 && ln[0] == 'S' && ln[1] == 'O' && ln[2] == ' ')
 		config_num = SOUTH;
-	else if ((*bit & WE_BIT) == 0 && ln[0] == 'W' && ln[1] == 'E' && ln[2] == ' ')
+	else if ((*bit & WBIT) == 0 && ln[0] == 'W' && ln[1] == 'E' && ln[2] == ' ')
 		config_num = WEST;
-	else if ((*bit & EA_BIT) == 0 && ln[0] == 'E' && ln[1] == 'A' && ln[2] == ' ')
+	else if ((*bit & EBIT) == 0 && ln[0] == 'E' && ln[1] == 'A' && ln[2] == ' ')
 		config_num = EAST;
 	else if ((*bit & FLOOR_BIT) == 0 && ln[0] == 'F' && ln[1] == ' ')
 		config_num = FLOOR;

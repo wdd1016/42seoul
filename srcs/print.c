@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/14 20:14:16 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:30:52 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	input_background(t_data *data);
 static void	set_ray(t_player *player, t_ray *r, double camera_i);
-static void	digital_differential_analyzer(t_data *data, t_ray *ray);
+static void	dda_algorithm(t_data *data, t_ray *ray);
 static void	set_perp_wall_dist(t_player *p, t_ray *ray, int map_x, int map_y);
 
 int	print_image(t_data *data)
@@ -27,7 +27,7 @@ int	print_image(t_data *data)
 	while (++i < WINDOW_WIDTH)
 	{
 		set_ray(&data->player, &ray, 2 * (double)i / (WINDOW_WIDTH - 1) - 1);
-		digital_differential_analyzer(data, &ray);
+		dda_algorithm(data, &ray);
 		input_vertical_line(data, &data->img, &ray, i);
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
@@ -86,7 +86,7 @@ static void	set_ray(t_player *player, t_ray *r, double camera_i)
 	}
 }
 
-static void	digital_differential_analyzer(t_data *data, t_ray *ray)
+static void	dda_algorithm(t_data *data, t_ray *ray)
 {
 	int	map_x;
 	int	map_y;
