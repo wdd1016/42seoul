@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/13 00:00:58 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/14 19:57:20 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static void	digital_differential_analyzer(t_data *data, t_ray *ray)
 			ray->side = 1;
 		}
 		if (data->map[map_y][map_x] > 0)
-			break;
+			break ;
 	}
 	set_perp_wall_dist(&data->player, ray, map_x, map_y);
 }
