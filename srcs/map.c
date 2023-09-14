@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:30:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/14 20:29:44 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/14 22:29:15 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ static void	texture_background_parsing(t_data *data, int fd, char *ln, int *bit)
 	int		config_num;
 
 	if (ln[0] == '\n')
-		return ;
+		return (free(ln));
 	config_num = -1;
+	if (ln[ft_strlen(ln) - 1] == '\n')
+		ln[ft_strlen(ln) - 1] = '\0';
 	if ((*bit & NBIT) == 0 && ln[0] == 'N' && ln[1] == 'O' && ln[2] == ' ')
 		config_num = NORTH;
 	else if ((*bit & SBIT) == 0 && ln[0] == 'S' && ln[1] == 'O' && ln[2] == ' ')

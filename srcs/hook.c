@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:56 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/14 20:03:40 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/14 22:29:18 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	rotate_player(int key, t_player *p)
 
 	old_dir_x = p->dir_x;
 	old_plane_x = p->plane_x;
-	if (key == KEY_LEFT)
+	if (key == KEY_RIGHT)
 		speed = p->turn_speed;
 	else
 		speed = -(p->turn_speed);

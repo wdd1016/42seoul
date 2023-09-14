@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_coor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyeolee <jiyeolee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 17:07:49 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/10 19:52:34 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/14 22:29:17 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,10 @@ void	make_map(t_data *data)
 		if (!(data->map)[i])
 			error_exit("Error : Allocation failed\n", data);
 		j = -1;
-		while (++j < temp->len)
+		while (++j < data->tempmap->len)
 			(data->map)[i][j] = (data->tempmap->line)[j];
-		while (++j < data->map_width)
-			(data->map)[i][j] = ' ';
+		while (j < data->map_width)
+			(data->map)[i][j++] = ' ';
 		(data->map)[i][j] = '\0';
 		temp = data->tempmap;
 		data->tempmap = data->tempmap->next;

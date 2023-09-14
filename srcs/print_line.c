@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/14 20:57:25 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/14 22:29:20 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	input_vertical_line(t_data *data, t_img *img, t_ray *ray, int i)
 		end_idx = WINDOW_HEIGHT - 1;
 	while (row_idx <= end_idx)
 	{
-		dst = img->addr + ((row_idx * img->size_l + i) * (img->bpp / 8));
+		dst = img->addr + row_idx * img->size_l + i * (img->bpp / 8);
 		*((unsigned int *)dst) = texture_color(ray, &tex);
 		row_idx++;
 	}

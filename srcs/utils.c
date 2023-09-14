@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:39:30 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/14 20:11:38 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/14 22:29:14 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	color_to_i(const char *str)
 		if (temp > 255 || (*str != ',' && i != 3) || (*str != '\0' && i == 3))
 			return (-1);
 		return_value = (return_value << 8) + temp;
-		if (*str == '\0')
+		if (*str == ',')
 			str++;
 	}
 	if (*str != '\0')
