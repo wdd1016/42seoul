@@ -6,7 +6,7 @@
 #    By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/01 12:40:00 by juyojeon          #+#    #+#              #
-#    Updated: 2023/09/14 20:01:48 by juyojeon         ###   ########.fr        #
+#    Updated: 2023/09/14 20:20:27 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ endif
 
 clean :
 	make -C mlx clean
-	rm libmlx.dylib
+	rm -f libmlx.dylib
 	rm -f $(OBJS) $(OBJS_BONUS)
 
 fclean : clean
