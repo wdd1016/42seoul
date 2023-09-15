@@ -6,11 +6,13 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:53:21 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/15 16:46:52 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/15 16:58:17 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+static void	free_allocated_data(t_data *data);
 
 int	main(int argc, char *argv[])
 {
