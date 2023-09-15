@@ -14,9 +14,9 @@
 CFLAGS = -Wall -Wextra -Werror
 NAME = cub3D
 SRCS = ./srcs/hook_move.c ./srcs/hook.c ./srcs/init.c ./srcs/main.c \
-./srcs/map_coor.c ./srcs/map_validation.c ./srcs/map.c ./srcs/print.c \
-./srcs/print_line.c ./srcs/utils.c ./srcs/get_next_line.c \
-./srcs/get_next_line_utils.c ./srcs/rendering.c ./srcs/texture.c
+       ./srcs/map_coor.c ./srcs/map_validation.c ./srcs/map.c ./srcs/utils.c \
+       ./srcs/get_next_line.c ./srcs/get_next_line_utils.c ./srcs/rendering.c \
+       ./srcs/texture.c
 OBJS = $(SRCS:.c=.o)
 SRCS_BONUS = ./bonus
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
