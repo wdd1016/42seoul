@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/14 22:29:20 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/15 15:07:02 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	set_tex_struct(t_data *data, t_ray *ray, t_texture *tex)
 		tex->curr_img = &(data->texture)[WEST];
 	else if (ray->side == 0)
 		tex->curr_img = &(data->texture)[EAST];
-	else if (ray->side == 1 && ray->ray_dir_y >= 0)
+	else if (ray->side == 1 && ray->ray_dir_y < 0)
 		tex->curr_img = &(data->texture)[SOUTH];
 	else
 		tex->curr_img = &(data->texture)[NORTH];

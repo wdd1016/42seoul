@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 17:07:49 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/14 22:29:17 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/15 15:56:43 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	coordinate_parsing(t_data *data, int fd, char *line)
 		(line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E'))
 			fill_player(data, data->map_height - 1, line, i);
 		if (line[i] != '0' && line[i] != '1' && line[i] != ' ')
-			parsing_error_exit("Error\nInvalid map char\n", fd, line, data);
+			parsing_error_exit("Error\nInvalid map char\n", fd, 0, data);
 	}
 }
 
@@ -49,7 +49,9 @@ static t_map	*new_tempmap(t_data *data, char *line)
 	new = (t_map *)malloc(sizeof(t_map));
 	if (!new)
 		return (0);
-	new->line = line;
+	new->line = 0;
+	if (line)
+		new->line = line;
 	new->len = ft_strlen(line);
 	new->next = 0;
 	if (!data->tempmap)

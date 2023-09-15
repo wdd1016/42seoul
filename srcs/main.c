@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:53:21 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/14 20:04:48 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/15 15:47:18 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	error_exit(const char *str, t_data *data)
 		while (data->tempmap)
 		{
 			temp = data->tempmap;
-			free(temp->line);
+			if (temp->line)
+				free(temp->line);
 			data->tempmap = data->tempmap->next;
 			free(temp);
 		}
