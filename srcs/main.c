@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:53:21 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/15 16:58:17 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/15 17:37:39 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int argc, char *argv[])
 	data_mlx_init(&data);
 	map_parsing(argv[1], &data);
 	set_hooks(&data);
+	rendering_image(&data);
 	print_image(&data);
 	mlx_loop_hook(data.mlx, print_image, &data);
 	mlx_loop(data.mlx);
@@ -79,5 +80,5 @@ static void	free_allocated_data(t_data *data)
 			data->tempmap = data->tempmap->next;
 			free(temp);
 		}
-	}		
+	}
 }

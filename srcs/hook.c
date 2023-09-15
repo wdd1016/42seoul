@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:56 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/15 16:45:54 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/15 17:36:19 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static int	key_event(int key, t_data *data)
 		rotate_player(key, &data->player);
 	else
 		return (0);
+	rendering_image(data);
 	return (0);
 }
 
