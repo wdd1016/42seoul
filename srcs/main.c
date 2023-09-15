@@ -6,12 +6,13 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:53:21 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/15 17:37:39 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/15 17:44:38 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+static int	print_image(t_data *data);
 static void	free_allocated_data(t_data *data);
 
 int	main(int argc, char *argv[])
@@ -29,6 +30,12 @@ int	main(int argc, char *argv[])
 	mlx_loop(data.mlx);
 	free_allocated_data(&data);
 	exit(EXIT_SUCCESS);
+}
+
+static int	print_image(t_data *data)
+{
+	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
+	return (0);
 }
 
 void	error_exit(const char *str, t_data *data)

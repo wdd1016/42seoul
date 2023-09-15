@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 23:27:22 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/15 17:33:52 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/15 17:44:44 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,5 @@ void	move_side_player(int key, t_player *p, char **map);
 
 void	rendering_image(t_data *data);
 void	input_vertical_line(t_data *data, t_img *img, t_ray *ray, int i);
-
-int		print_image(t_data *data);
 
 #endif
