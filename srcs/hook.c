@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:56 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/14 22:29:18 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/15 16:35:19 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 static int	window_event(void);
 static int	key_event(int key, t_data *data);
+static int	key_release_event(int key, t_data *data);
 static void	rotate_player(int key, t_player *p);
 
 void	set_hooks(t_data *data)
 {
-	mlx_key_hook(data->win, key_event, data);
+	mlx_hook(data->win, KEY_PRESS, 1L << 0, key_event, data);
 	mlx_hook(data->win, KEY_EXIT, 0, window_event, data);
 }
 
@@ -35,12 +36,12 @@ static int	key_event(int key, t_data *data)
 		write(1, "Enter the ESC key\n", 18);
 		exit(0);
 	}
-	else if (key == KEY_LEFT || key == KEY_RIGHT)
-		rotate_player(key, &data->player);
-	else if (key == KEY_W || key == KEY_S)
+	if (key == KEY_W || key == KEY_S)
 		move_updown_player(key, &data->player, data->map);
 	else if (key == KEY_A || key == KEY_D)
 		move_side_player(key, &data->player, data->map);
+	else if (key == KEY_LEFT || key == KEY_RIGHT)
+		rotate_player(key, &data->player);
 	else
 		return (0);
 	return (0);

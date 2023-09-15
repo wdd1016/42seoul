@@ -6,14 +6,14 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:06:31 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/14 20:29:44 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/15 16:36:33 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_MACRO_H
 # define CUB3D_MACRO_H
 
-# define WALK_SPEED 0.125
+# define WALK_SPEED 0.25
 # define TURN_SPEED 0.125
 
 # define NUM_TEXTURES 4
@@ -57,6 +57,7 @@ enum e_xevent
 	KEY_D = 2,
 	KEY_LEFT = 123,
 	KEY_RIGHT = 124,
+	KEY_PRESS = 2,
 	KEY_ESC = 53
 };
 
