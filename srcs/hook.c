@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:56 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/15 16:35:19 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/15 16:45:54 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static int	window_event(void);
 static int	key_event(int key, t_data *data);
-static int	key_release_event(int key, t_data *data);
 static void	rotate_player(int key, t_player *p);
 
 void	set_hooks(t_data *data)
