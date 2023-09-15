@@ -18,7 +18,12 @@ SRCS = ./srcs/hook_move.c ./srcs/hook.c ./srcs/init.c ./srcs/main.c \
        ./srcs/get_next_line.c ./srcs/get_next_line_utils.c ./srcs/rendering.c \
        ./srcs/texture.c
 OBJS = $(SRCS:.c=.o)
-SRCS_BONUS = ./bonus
+SRCS_BONUS = ./bonus/hook_move_bonus.c ./bonus/hook_bonus.c \
+             ./bonus/init_bonus.c ./bonus/main_bonus.c \
+			 ./bonus/map_coor_bonus.c ./bonus/map_validation_bonus.c \
+			 ./bonus/map_bonus.c ./bonus/utils_bonus.c \
+			 ./srcs/get_next_line.c ./srcs/get_next_line_utils.c \
+			 ./bonus/rendering_bonus.c ./bonus/texture_bonus.c
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 all : $(NAME)
