@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:06:31 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/16 20:06:22 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/16 22:14:11 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define WALK_SPEED 0.25
 # define TURN_SPEED 0.125
 
-# define NUM_TEXTURES 4
+# define NUM_TEXTURES 8
 
 # define TEXTURE_WIDTH 64
 # define TEXTURE_HEIGHT 64
@@ -33,8 +33,13 @@
 # define SOUTH 1
 # define WEST 2
 # define EAST 3
-# define FLOOR 4
-# define CEILING 5
+# define DOOR 4
+# define SP1 5
+# define SP2 6
+# define SP3 7
+# define SP4 8
+# define FLOOR 9
+# define CEILING 10
 
 # define NBIT 0b000001
 # define SBIT 0b000010
