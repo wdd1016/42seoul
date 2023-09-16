@@ -1,7 +1,7 @@
-NO ../block_textures/bluestone.xpm
-SO ../block_textures/redbrick.xpm
-WE ../block_textures/wood.xpm
-EA ../block_textures/greystone.xpm
+NO ./block_textures/bluestone.xpm
+SO ./block_textures/redbrick.xpm
+WE ./block_textures/wood.xpm
+EA ./block_textures/greystone.xpm
 
 F 102,102,255
 C 153,255,255

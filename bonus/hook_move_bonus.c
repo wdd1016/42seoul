@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook_move.c                                        :+:      :+:    :+:   */
+/*   hook_move_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 21:42:16 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/15 17:55:43 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/16 19:59:25 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 void	move_updown_player(int key, t_player *p, char **map)
 {
