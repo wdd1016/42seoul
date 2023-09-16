@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:06:31 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/16 19:59:12 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/16 20:06:22 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ enum e_xevent
 	KEY_A = 0,
 	KEY_S = 1,
 	KEY_D = 2,
+	KEY_N = 45,
 	KEY_M = 46,
 	KEY_LEFT = 123,
 	KEY_RIGHT = 124,
@@ -128,6 +129,7 @@ typedef struct s_data
 	t_player	player;
 	int			floor_color;
 	int			ceiling_color;
+	int			mouse_mode_flag;
 }	t_data;
 
 #endif

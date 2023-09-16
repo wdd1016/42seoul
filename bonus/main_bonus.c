@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:53:21 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/16 19:59:42 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/16 21:19:15 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,25 @@ int	main(int argc, char *argv[])
 
 static int	print_image(t_data *data)
 {
+	int		x;
+	int		y;
+	double	turn_speed;
+
+	if (data->mouse_mode_flag == TRUE)
+	{
+		mlx_mouse_get_pos(data->win, &x, &y);
+		mlx_mouse_move(data->win, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+		if (x != WINDOW_WIDTH / 2)
+		{
+			turn_speed = sqrt((x - WINDOW_WIDTH / 2) * (x - WINDOW_WIDTH / 2) \
+			+ (y - WINDOW_HEIGHT / 2) * (y - WINDOW_HEIGHT / 2)) / 100;
+			if (x > WINDOW_WIDTH / 2)
+				rotate_player(&data->player, turn_speed);
+			else if (x < WINDOW_WIDTH / 2)
+				rotate_player(&data->player, -turn_speed);
+		}
+	}
+	rendering_image(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 	return (0);
 }

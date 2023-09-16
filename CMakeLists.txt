@@ -6,9 +6,7 @@ enable_testing()
 
 project(cubproj)
 
-INCLUDE_DIRECTORIES(bonus)
-
-file(GLOB PROJ_SRC "bonus/*.c" "srcs/get_next_line.c" "srcs/get_next_line_utils.c")
+file(GLOB PROJ_SRC "bonus/*.c")
 add_executable(cubproj ${PROJ_SRC})
 
 FIND_LIBRARY(UNIT_LIB NAMES mlx PATHS /Users/juyojeon/Desktop/Cub3D/mlx)

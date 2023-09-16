@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:02:53 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/16 19:59:35 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/16 20:04:25 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	data_mlx_init(t_data *data)
 	data->map_height = 0;
 	data->floor_color = 0;
 	data->ceiling_color = 0;
+	data->mouse_mode_flag = FALSE;
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		error_exit("Error : mlx_init failed\n", data);

@@ -6,13 +6,12 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/16 20:00:08 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/16 21:06:24 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
-static void	input_background(t_data *data);
 static void	set_ray(t_player *player, t_ray *r, double camera_i);
 static void	dda_algorithm(t_data *data, t_ray *ray);
 static void	set_perp_wall_dist(t_player *p, t_ray *ray, int map_x, int map_y);
@@ -22,37 +21,12 @@ void	rendering_image(t_data *data)
 	t_ray	ray;
 	int		i;
 
-	input_background(data);
 	i = -1;
 	while (++i < WINDOW_WIDTH)
 	{
 		set_ray(&data->player, &ray, 2 * (double)i / (WINDOW_WIDTH - 1) - 1);
 		dda_algorithm(data, &ray);
 		input_vertical_line(data, &data->img, &ray, i);
-	}
-}
-
-static void	input_background(t_data *data)
-{
-	int		color;
-	char	*dst;
-	int		i;
-
-	dst = data->img.addr;
-	color = data->ceiling_color;
-	i = 0;
-	while (i < WINDOW_WIDTH * WINDOW_HEIGHT / 2)
-	{
-		*(unsigned int *)dst = color;
-		dst += data->img.bpp / 8;
-		i++;
-	}
-	color = data->floor_color;
-	while (i < WINDOW_WIDTH * WINDOW_HEIGHT)
-	{
-		*(unsigned int *)dst = color;
-		dst += data->img.bpp / 8;
-		i++;
 	}
 }
 

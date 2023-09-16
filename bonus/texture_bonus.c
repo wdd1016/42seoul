@@ -6,13 +6,14 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/16 20:00:13 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/16 21:10:01 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
 static void			set_tex_struct(t_data *data, t_ray *ray, t_texture *tex);
+static void			input_background(t_data *data, int start, int end, int i);
 static unsigned int	texture_color(t_ray *ray, t_texture *tex);
 
 void	input_vertical_line(t_data *data, t_img *img, t_ray *ray, int i)
@@ -32,6 +33,7 @@ void	input_vertical_line(t_data *data, t_img *img, t_ray *ray, int i)
 	end_idx = (WINDOW_HEIGHT + tex.line_height) / 2;
 	if (end_idx >= WINDOW_HEIGHT)
 		end_idx = WINDOW_HEIGHT - 1;
+	input_background(data, row_idx, end_idx, i);
 	while (row_idx <= end_idx)
 	{
 		dst = img->addr + row_idx * img->size_l + i * (img->bpp / 8);
@@ -62,6 +64,31 @@ static void	set_tex_struct(t_data *data, t_ray *ray, t_texture *tex)
 		tex->curr_img = &(data->texture)[SOUTH];
 	else
 		tex->curr_img = &(data->texture)[NORTH];
+}
+
+static void	input_background(t_data *data, int start, int end, int x)
+{
+	int		color;
+	char	*dst;
+	int		i;
+
+	dst = data->img.addr;
+	color = data->ceiling_color;
+	i = 0;
+	while (i < start)
+	{
+		dst = data->img.addr + i * data->img.size_l + x * (data->img.bpp / 8);
+		*(unsigned int *)dst = color;
+		i++;
+	}
+	color = data->floor_color;
+	i = end + 1;
+	while (i < WINDOW_HEIGHT)
+	{
+		dst = data->img.addr + i * data->img.size_l + x * (data->img.bpp / 8);
+		*(unsigned int *)dst = color;
+		i++;
+	}
 }
 
 static unsigned int	texture_color(t_ray *ray, t_texture *tex)

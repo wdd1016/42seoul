@@ -47,10 +47,10 @@ endif
 
 clean :
 	make -C mlx clean
-	rm -f libmlx.dylib
 	rm -f $(OBJS) $(OBJS_BONUS)
 
 fclean : clean
+	rm -f libmlx.dylib
 	rm -f $(NAME)
 
 re : fclean all
