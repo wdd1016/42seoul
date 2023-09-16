@@ -9,7 +9,7 @@ project(cubproj)
 file(GLOB PROJ_SRC "bonus/*.c")
 add_executable(cubproj ${PROJ_SRC})
 
-FIND_LIBRARY(UNIT_LIB NAMES mlx PATHS /Users/juyojeon/Desktop/Cub3D/mlx)
+FIND_LIBRARY(UNIT_LIB NAMES mlxtest PATHS /Users/juyojeon/Desktop/Cub3D)
 target_link_libraries(cubproj PRIVATE ${UNIT_LIB})
 
 target_link_libraries(cubproj PRIVATE "-framework OpenGL")
