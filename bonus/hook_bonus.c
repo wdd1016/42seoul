@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:56 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/16 21:19:13 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/16 23:12:13 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static int	key_event(int key, t_data *data)
 		rotate_player(&data->player, -(data->player.turn_speed));
 	else if (key == KEY_RIGHT)
 		rotate_player(&data->player, data->player.turn_speed);
+	else if (key == KEY_SPACE)
+		door_change(data, &data->player);
 	else if (key == KEY_N || key == KEY_M)
 		mouse_mode(key, data);
 	else

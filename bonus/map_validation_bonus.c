@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 23:46:21 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/16 20:00:03 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/16 22:32:08 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	is_valid_map(t_data *data, int config_bit)
 		j = -1;
 		while (++j < data->map_width)
 		{
-			if (data->map[i][j] == '0')
+			if (data->map[i][j] == '0' || data->map[i][j] == '2')
 				is_valid_position(data, i, j);
 		}
 	}

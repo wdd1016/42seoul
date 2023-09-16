@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:06:31 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/16 22:14:11 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/16 22:52:27 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define WALK_SPEED 0.25
 # define TURN_SPEED 0.125
 
-# define NUM_TEXTURES 8
+# define NUM_TEXTURES 9
 
 # define TEXTURE_WIDTH 64
 # define TEXTURE_HEIGHT 64
@@ -41,13 +41,18 @@
 # define FLOOR 9
 # define CEILING 10
 
-# define NBIT 0b000001
-# define SBIT 0b000010
-# define WBIT 0b000100
-# define EBIT 0b001000
-# define FLOOR_BIT 0b010000
-# define CEILING_BIT 0b100000
-# define COMPLETE_BIT 0b111111
+# define NBIT 0b00000000001
+# define SBIT 0b00000000010
+# define WBIT 0b00000000100
+# define EBIT 0b00000001000
+# define DBIT 0b00000010000
+# define S1BT 0b00000100000
+# define S2BT 0b00001000000
+# define S3BT 0b00010000000
+# define S4BT 0b00100000000
+# define FLOOR_BIT 0b01000000000
+# define CEILING_BIT 0b10000000000
+# define COMPLETE_BIT 0b11111111111
 
 # define MINIMAP_SCALE_FACTOR 0.3
 
@@ -62,6 +67,7 @@ enum e_xevent
 	KEY_D = 2,
 	KEY_N = 45,
 	KEY_M = 46,
+	KEY_SPACE = 49,
 	KEY_LEFT = 123,
 	KEY_RIGHT = 124,
 	KEY_PRESS = 2,
@@ -121,6 +127,13 @@ typedef struct s_map
 	struct s_map	*next;
 }	t_map;
 
+typedef struct s_door
+{
+	int				x;
+	int				y;
+	struct s_door	*next;
+}	t_door;
+
 typedef struct s_data
 {
 	void		*mlx;
@@ -135,6 +148,7 @@ typedef struct s_data
 	int			floor_color;
 	int			ceiling_color;
 	int			mouse_mode_flag;
+	t_door		*door;
 }	t_data;
 
 #endif
