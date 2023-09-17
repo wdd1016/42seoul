@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 21:42:16 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/17 16:55:13 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/17 23:00:44 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	door_change(t_data *data, t_player *player)
 	int		ans_y;
 
 	temp = data->door;
-	if (temp == NULL)
+	if (temp == 0)
 		return ;
 	ans_x = (int)(player->x);
 	ans_y = (int)(player->y);

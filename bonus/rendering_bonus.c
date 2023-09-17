@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/17 22:57:36 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/17 22:58:16 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	rendering_image(t_data *data)
 	struct timeval	time;
 	int				i;
 
-	gettimeofday(&time, NULL);
+	gettimeofday(&time, 0);
 	data->sprite_selection_over_time = (time.tv_usec % 100000) / 25000;
 	i = -1;
 	while (++i < WINDOW_WIDTH)
