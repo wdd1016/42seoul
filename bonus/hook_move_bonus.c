@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 21:42:16 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/16 23:24:57 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/17 16:46:30 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,37 +48,44 @@ void	move_side_player(int key, t_player *p, char **map)
 	}
 }
 
-void	door_change(t_data *data, t_player *p)
+void	door_change(t_data *data, t_player *player)
 {
-	t_door	*t;
+	t_door	*temp;
+	int		ans_x;
+	int		ans_y;
 
-	t = data->door;
-	while (t->next)
+	temp = data->door;
+	if (temp == NULL)
+		return ;
+	ans_x = (int)(player->x);
+	ans_y = (int)(player->y);
+	if (find_door_pos(player->dir_x, player->dir_y, &ans_x, &ans_y))
+		return ;
+	while (temp)
 	{
-		if (valid_door(p, t))
-			continue ;
-		// if (data->map[t->y][t->x] == '1')
-		// 	data->map[t->y][t->x] = '0';
-		// else if (data->map[t->y][t->x] == '0')
-		// 	data->map[t->y][t->x] = '1';
-		// t = t->next;
+		if (temp->x == ans_x && temp->y == ans_y)
+		{
+			if ((data->map)[temp->y][temp->x] == '2')
+				(data->map)[temp->y][temp->x] = '0';
+			else
+				(data->map)[temp->y][temp->x] = '2';
+			break ;
+		}
+		temp = temp->next;
 	}
 }
 
-static int	valid_door(t_player *p, t_door *d)
+static int	find_door_pos(double dir_x, double dir_y, int *ans_x, int *ans_y)
 {
-		// if (t->x == (int)(p->x) && t->y == (int)(p->y))
-		// 	continue ;
-		// if (p->dir_x > 0 && ((int)(p->x) - t->x < 0 || (int)(p->x) - t->x > 1))
-		// 	continue ;
-		// if (p->dir_x == 0 && ((int)(p->x) - t->x != 0))
-		// 	continue ;
-		// if (p->dir_x < 0 && (t->x - (int)(p->x) < 0 || t->x - (int)(p->x) > 1))
-		// 	continue ;
-		// if (p->dir_y > 0 && ((int)(p->y) - t->y < 0 || (int)(p->y) - t->y > 1))
-		// 	continue ;
-		// if (p->dir_y == 0 && ((int)(p->y) - t->y != 0))
-		// 	continue ;
-		// if (p->dir_y < 0 && (t->y - (int)(p->y) < 0 || t->y - (int)(p->y) > 1))
-		// 	continue ;
+	if (dir_x > 0 && dir_y >= -0.7071 && dir_y <= 0.7071)
+		*ans_x += 1;
+	else if (dir_x < 0 && dir_y >= -0.7071 && dir_y <= 0.7071)
+		*ans_x -= 1;
+	else if (dir_y > 0 && dir_x >= -0.7071 && dir_x <= 0.7071)
+		*ans_y += 1;
+	else if (dir_y < 0 && dir_x >= -0.7071 && dir_x <= 0.7071)
+		*ans_y -= 1;
+	else
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
