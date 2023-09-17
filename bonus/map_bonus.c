@@ -6,13 +6,14 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:30:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/16 22:27:05 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:59:16 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
 static void	texture_background_parsing(t_data *data, int fd, char *ln, int *c);
+static int	config_number(char *ln, int *bit);
 static int	texture_background_parsing2(t_data *data, char *ln, int config_num);
 
 void	map_parsing(char *path, t_data *data)
@@ -97,7 +98,7 @@ static int	texture_background_parsing2(t_data *data, char *ln, int config_num)
 	ln += 2;
 	while (*ln == ' ')
 		ln++;
-	if (config_num <= S4BT)
+	if (config_num <= SP4)
 	{
 		t = &(data->texture[config_num]);
 		t->img = mlx_xpm_file_to_image(data->mlx, ln, &t->width, &t->height);

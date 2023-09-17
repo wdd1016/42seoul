@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:06:31 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/16 22:52:27 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/17 16:59:16 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_ray
 	double	side_dist_y;
 	int		side;
 	double	perp_wall_dist;
+	char	texture_type;
 }	t_ray;
 
 typedef struct s_texture

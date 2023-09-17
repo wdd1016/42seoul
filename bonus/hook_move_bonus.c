@@ -6,11 +6,13 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 21:42:16 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/17 16:46:30 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/17 16:55:13 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
+
+static int	find_door_pos(double dir_x, double dir_y, int *ans_x, int *ans_y);
 
 void	move_updown_player(int key, t_player *p, char **map)
 {

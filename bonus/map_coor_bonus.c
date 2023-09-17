@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 17:07:49 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/16 22:55:42 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/17 16:55:42 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static t_map	*new_tempmap(t_data *data, char *line);
 static void		fill_player(t_data *data, int rowidx, char *line, int idx);
+static void		door_store(t_data *data, int row_idx, int col_idx, int fd);
 
 void	coordinate_parsing(t_data *data, int fd, char *line)
 {

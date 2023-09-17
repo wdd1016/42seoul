@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/16 21:06:24 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:00:04 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ static void	dda_algorithm(t_data *data, t_ray *ray)
 		if (data->map[map_y][map_x] != '0')
 			break ;
 	}
+	ray->texture_type = data->map[map_y][map_x];
 	set_perp_wall_dist(&data->player, ray, map_x, map_y);
 }
 
