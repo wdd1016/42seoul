@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_macro_bonus.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:06:31 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/17 22:41:52 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/17 22:56:29 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ typedef struct s_data
 	int			ceiling_color;
 	int			mouse_mode_flag;
 	t_door		*door;
+	int			sprite_selection_over_time;
 }	t_data;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 23:27:22 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/16 23:11:45 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/17 22:56:41 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "cub3d_macro_bonus.h"
 # include "../mlx/mlx.h"
 # include "get_next_line.h"
+# include <sys/time.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>

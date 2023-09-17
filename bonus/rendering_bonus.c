@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/17 22:41:11 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/17 22:57:36 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,12 @@ static void	set_perp_wall_dist(t_player *p, t_ray *ray, int map_x, int map_y);
 
 void	rendering_image(t_data *data)
 {
-	t_ray	ray;
-	int		i;
+	t_ray			ray;
+	struct timeval	time;
+	int				i;
 
+	gettimeofday(&time, NULL);
+	data->sprite_selection_over_time = (time.tv_usec % 100000) / 25000;
 	i = -1;
 	while (++i < WINDOW_WIDTH)
 	{
