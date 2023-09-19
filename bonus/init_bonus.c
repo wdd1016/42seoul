@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:02:53 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/17 22:57:15 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/19 23:10:41 by jiyeolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,12 @@ void	data_mlx_init(t_data *data)
 	init_img(&data->img, data, WINDOW_WIDTH, WINDOW_HEIGHT);
 	i = -1;
 	while (++i < NUM_TEXTURES)
-		init_img(&data->texture[i], data, TEXTURE_WIDTH, TEXTURE_HEIGHT);
+	{
+		if (i == PLAYER)
+			init_img(&data->texture[i], data, TILE_SIZE, TILE_SIZE);
+		else
+			init_img(&data->texture[i], data, TEXTURE_WIDTH, TEXTURE_HEIGHT);
+	}
 	player_init(data);
 }
 

@@ -1,0 +1,19 @@
+NO ./block_textures/bluestone.xpm
+SO ./block_textures/redbrick.xpm
+WE ./block_textures/wood.xpm
+EA ./block_textures/greystone.xpm
+DO ./sprite_textures/door.xpm
+S1 ./sprite_textures/fire1.xpm
+S2 ./sprite_textures/fire2.xpm
+S3 ./sprite_textures/fire3.xpm
+S4 ./sprite_textures/fire4.xpm
+P ./sprite_textures/buttercup.xpm
+
+F 102,102,255
+C 153,255,255
+
+1111111111111111111111111
+1000000000110000000000001
+1011000001110000000000001
+10010000000000000000000S1
+1111111111111111111111111

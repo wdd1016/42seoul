@@ -5,13 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< Updated upstream
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/09/18 21:26:04 by jiyeolee         ###   ########.fr       */
-=======
-/*   Created: 2023/08/18 23:27:22 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/17 22:51:39 by jiyeolee         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2023/09/18 21:34:04 by jiyeolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

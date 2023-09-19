@@ -6,7 +6,7 @@
 /*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:06:31 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/18 21:26:34 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/19 23:02:48 by jiyeolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@
 # define WALK_SPEED 0.25
 # define TURN_SPEED 0.125
 
-# define NUM_TEXTURES 9
+# define NUM_TEXTURES 10
 
 # define TEXTURE_WIDTH 64
 # define TEXTURE_HEIGHT 64
 # define TILE_SIZE 64
 
+// # define MINIMAP_SIZE 200
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 768
 
@@ -38,21 +39,23 @@
 # define SP2 6
 # define SP3 7
 # define SP4 8
-# define FLOOR 9
-# define CEILING 10
+# define PLAYER 9
+# define FLOOR 10
+# define CEILING 11
 
-# define NBIT 0b00000000001
-# define SBIT 0b00000000010
-# define WBIT 0b00000000100
-# define EBIT 0b00000001000
-# define DBIT 0b00000010000
-# define S1BT 0b00000100000
-# define S2BT 0b00001000000
-# define S3BT 0b00010000000
-# define S4BT 0b00100000000
-# define FLOOR_BIT 0b01000000000
-# define CEILING_BIT 0b10000000000
-# define COMPLETE_BIT 0b11111111111
+# define NBIT 0b000000000001
+# define SBIT 0b000000000010
+# define WBIT 0b000000000100
+# define EBIT 0b000000001000
+# define DBIT 0b000000010000
+# define S1BT 0b000000100000
+# define S2BT 0b000001000000
+# define S3BT 0b000010000000
+# define S4BT 0b000100000000
+# define PLAYER_BIT 0b001000000000
+# define FLOOR_BIT 0b010000000000
+# define CEILING_BIT 0b100000000000
+# define COMPLETE_BIT 0b111111111111
 
 # define MINIMAP_SCALE 1
 

@@ -34,12 +34,14 @@ bonus : $(NAME)
 ifeq ($(findstring bonus, $(MAKECMDGOALS)), bonus)
 $(NAME): $(OBJS_BONUS)
 	make -C mlx
-	cp mlx/libmlx.dylib .
+	# cp mlx/libmlx.dylib .
+	cp mlx/libmlx.a .
 	cc $(CFLAGS) -Lmlx -lmlx -framework OpenGL -framework AppKit $(OBJS_BONUS) -o $@
 else
 $(NAME): $(OBJS)
 	make -C mlx
-	cp mlx/libmlx.dylib .
+	# cp mlx/libmlx.dylib .
+	cp mlx/libmlx.a .
 	cc $(CFLAGS) -Lmlx -lmlx -framework OpenGL -framework AppKit $(OBJS) -o $@
 endif
 
@@ -51,7 +53,8 @@ clean :
 	rm -f $(OBJS) $(OBJS_BONUS)
 
 fclean : clean
-	rm -f libmlx.dylib
+	# rm -f libmlx.dylib
+	rm -f libmlx.a
 	rm -f $(NAME)
 
 re : fclean all
