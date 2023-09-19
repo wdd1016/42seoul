@@ -1,7 +1,7 @@
-NO ./block_textures/bluestone.xpm
-SO ./block_textures/redbrick.xpm
-WE ./block_textures/wood.xpm
-EA ./block_textures/greystone.xpm
+NO ./block_textures/1.xpm
+SO ./block_textures/2.xpm
+WE ./block_textures/3.xpm
+EA ./block_textures/4.xpm
 DO ./sprite_textures/door.xpm
 S1 ./sprite_textures/fire1.xpm
 S2 ./sprite_textures/fire2.xpm

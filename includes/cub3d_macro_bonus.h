@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_macro_bonus.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:06:31 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/17 22:56:29 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/18 21:26:34 by jiyeolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@
 # define CEILING_BIT 0b10000000000
 # define COMPLETE_BIT 0b11111111111
 
-# define MINIMAP_SCALE 0.3
+# define MINIMAP_SCALE 1
 
 # define PI 3.1415926535
 

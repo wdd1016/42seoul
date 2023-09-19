@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 15:53:21 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/17 17:47:51 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/17 23:19:27 by jiyeolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ int	main(int argc, char *argv[])
 		error_exit("Argument Error : [Usage] ./cub3D any.cub\n", &data);
 	map_parsing(argv[1], &data);
 	set_hooks(&data);
-	rendering_image(&data);
-	print_image(&data);
 	mlx_loop_hook(data.mlx, print_image, &data);
 	mlx_loop(data.mlx);
 	free_allocated_data(&data);

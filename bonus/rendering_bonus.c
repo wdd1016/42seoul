@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/17 22:58:16 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/18 21:26:30 by jiyeolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	rendering_image(t_data *data)
 		dda_algorithm(data, &ray);
 		input_vertical_line(data, &data->img, &ray, i);
 	}
-	// input_minimap(data);
+	input_minimap(data);
 }
 
 static void	set_ray(t_player *player, t_ray *r, double camera_i)

@@ -3,12 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+<<<<<<< Updated upstream
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/09/18 21:26:04 by jiyeolee         ###   ########.fr       */
+=======
 /*   Created: 2023/08/18 23:27:22 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/17 22:56:41 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/17 22:51:39 by jiyeolee         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef CUB3D_BONUS_H
 # define CUB3D_BONUS_H
@@ -42,5 +48,7 @@ void	door_change(t_data *data, t_player *p);
 
 void	rendering_image(t_data *data);
 void	input_vertical_line(t_data *data, t_img *img, t_ray *ray, int i);
+
+void	input_minimap(t_data *data);
 
 #endif

@@ -6,16 +6,17 @@
 /*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 13:35:55 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/17 22:28:42 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/18 20:25:16 by jiyeolee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
 
-static int	set_minimap_color(char *type)
+static int	minimap_color(char type)
 {
 	int	rgb;
 
+	rgb = 0;
 	if (type == '0')
 		rgb = 236 << 16 | 238 << 8 | 129;
 	else if (type == '1')
@@ -27,21 +28,20 @@ static int	set_minimap_color(char *type)
 	return (rgb);
 }
 
-static void	input_square(t_data *data, char *type, int x, int y)
+static void	input_square(t_data *data, char type, int x, int y)
 {	
 	int		i;
 	int		j;
 	char	*dst;
 
-	dst = data->img.addr;
 	i = 0;
 	while (i < TILE_SIZE * MINIMAP_SCALE)
 	{
 		j = 0;
 		while (j < TILE_SIZE * MINIMAP_SCALE)
 		{
-			dst = data->img.addr + x * i + y * j;
-			*((unsigned int *)dst) = set_minimap_color(type);
+			dst = data->img.addr + WINDOW_WIDTH / 2 * (x + i) + y + j;
+			*((unsigned int *)dst) = minimap_color(type);
 			j++;
 		}
 		i++;
@@ -51,19 +51,21 @@ static void	input_square(t_data *data, char *type, int x, int y)
 
 void	input_minimap(t_data *data)
 {
-	int	x;
-	int	y;
+	int	row;
+	int	col;
 	
-	x = 0;
-	while (x < data->map_width)
+	row = 0;
+	while (row < data->map_width)
 	{
-		y = 0;
-		while (y < data->map_height)
+		col = 0;
+		while (col < data->map_height)
 		{
-			input_square(data, data->map[y][x], TILE_SIZE * MINIMAP_SCALE * x, \
-						TILE_SIZE * MINIMAP_SCALE * y);
-			y++;
+			input_square(data, data->map[col][row], MINIMAP_SCALE * col * TILE_SIZE, MINIMAP_SCALE * row * TILE_SIZE);
+
+			// input_square(data, data->map[y][x], TILE_SIZE * MINIMAP_SCALE * x, \
+			// 			TILE_SIZE * MINIMAP_SCALE * y);
+			col++;
 		}
-		x++;
+		row++;
 	}
 }
