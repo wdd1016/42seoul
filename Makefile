@@ -11,7 +11,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -O2 -Wall -Wextra -Werror
 NAME = cub3D
 SRCS = ./srcs/hook_move.c ./srcs/hook.c ./srcs/init.c ./srcs/main.c \
        ./srcs/map_coor.c ./srcs/map_validation.c ./srcs/map.c ./srcs/utils.c \
@@ -24,7 +24,7 @@ SRCS_BONUS = ./bonus/hook_move_bonus.c ./bonus/hook_bonus.c \
 			 ./bonus/map_bonus.c ./bonus/utils_bonus.c \
 			 ./bonus/get_next_line_bonus.c ./bonus/get_next_line_utils_bonus.c \
 			 ./bonus/rendering_bonus.c ./bonus/texture_bonus.c \
-			 ./bonus/minimap_bonus.c
+			 ./bonus/minimap_bonus.c ./bonus/sprite_bonus.c
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 all : $(NAME)

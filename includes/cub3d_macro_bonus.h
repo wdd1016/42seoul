@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_macro_bonus.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:06:31 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/19 23:02:48 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/21 22:42:12 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,12 @@
 
 # define NUM_TEXTURES 10
 
-# define TEXTURE_WIDTH 64
-# define TEXTURE_HEIGHT 64
+# define WALL_WIDTH 64
+# define WALL_HEIGHT 64
+# define DOOR_WIDTH 512
+# define DOOR_HEIGHT 512
+# define SPRITE_WIDTH 140
+# define SPRITE_HEIGHT 140
 # define TILE_SIZE 64
 
 // # define MINIMAP_SIZE 200
@@ -57,7 +61,8 @@
 # define CEILING_BIT 0b100000000000
 # define COMPLETE_BIT 0b111111111111
 
-# define MINIMAP_SCALE 1
+# define MINIMAP_SCALE 0.3
+# define SPRITE_SIZE 100
 
 # define PI 3.1415926535
 
@@ -138,6 +143,13 @@ typedef struct s_door
 	struct s_door	*next;
 }	t_door;
 
+typedef struct s_sprite
+{
+	double	x;
+	double	y;
+	double	dist;
+}	t_sprite;
+
 typedef struct s_data
 {
 	void		*mlx;
@@ -153,7 +165,9 @@ typedef struct s_data
 	int			ceiling_color;
 	int			mouse_mode_flag;
 	t_door		*door;
-	int			sprite_selection_over_time;
+	t_sprite	sprite[SPRITE_SIZE];
+	int			num_sprites;
+	double		z_buffer[WINDOW_WIDTH];
 }	t_data;
 
 #endif

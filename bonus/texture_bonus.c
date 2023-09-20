@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/19 17:16:29 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/21 22:40:29 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	input_vertical_line(t_data *data, t_img *img, t_ray *ray, int i)
 	row_idx = (WINDOW_HEIGHT - tex.line_height) / 2;
 	if (row_idx < 0)
 		row_idx = 0;
-	tex.step = TEXTURE_HEIGHT / (double)(tex.line_height);
-	tex.pos = (row_idx + (tex.line_height - WINDOW_HEIGHT) / 2) * tex.step;
 	set_tex_struct(data, ray, &tex);
+	tex.step = tex.curr_img->height / (double)(tex.line_height);
+	tex.pos = (row_idx + (tex.line_height - WINDOW_HEIGHT) / 2) * tex.step;
 	end_idx = (WINDOW_HEIGHT + tex.line_height) / 2;
 	if (end_idx >= WINDOW_HEIGHT)
 		end_idx = WINDOW_HEIGHT - 1;
@@ -46,20 +46,8 @@ static void	set_tex_struct(t_data *data, t_ray *ray, t_texture *tex)
 {
 	double	wall_x;
 
-	if (ray->side == 0)
-		wall_x = data->player.y + ray->perp_wall_dist * ray->ray_dir_y;
-	else
-		wall_x = data->player.x + ray->perp_wall_dist * ray->ray_dir_x;
-	wall_x -= floor(wall_x);
-	tex->x = (int)(wall_x * (double)TEXTURE_WIDTH);
-	if (ray->side == 0 && ray->ray_dir_x > 0)
-		tex->x = TEXTURE_WIDTH - tex->x - 1;
-	else if (ray->side == 1 && ray->ray_dir_y < 0)
-		tex->x = TEXTURE_WIDTH - tex->x - 1;
 	if (ray->texture_type == '2')
 		tex->curr_img = &(data->texture)[DOOR];
-	else if (ray->texture_type == '3')
-		tex->curr_img = &(data->texture)[data->sprite_selection_over_time + 5];
 	else if (ray->side == 0 && ray->ray_dir_x >= 0)
 		tex->curr_img = &(data->texture)[WEST];
 	else if (ray->side == 0)
@@ -68,6 +56,16 @@ static void	set_tex_struct(t_data *data, t_ray *ray, t_texture *tex)
 		tex->curr_img = &(data->texture)[SOUTH];
 	else
 		tex->curr_img = &(data->texture)[NORTH];
+	if (ray->side == 0)
+		wall_x = data->player.y + ray->perp_wall_dist * ray->ray_dir_y;
+	else
+		wall_x = data->player.x + ray->perp_wall_dist * ray->ray_dir_x;
+	wall_x -= floor(wall_x);
+	tex->x = (int)(wall_x * tex->curr_img->width);
+	if (ray->side == 0 && ray->ray_dir_x > 0)
+		tex->x = tex->curr_img->width - tex->x - 1;
+	else if (ray->side == 1 && ray->ray_dir_y < 0)
+		tex->x = tex->curr_img->width - tex->x - 1;
 }
 
 static void	input_background(t_data *data, int start, int end, int x)
@@ -101,7 +99,9 @@ static unsigned int	texture_color(t_ray *ray, t_texture *tex)
 	char			*tex_color;
 	unsigned int	color;
 
-	tex_y = (int)(tex->pos) & (TEXTURE_HEIGHT - 1);
+	tex_y = (int)(tex->pos);
+	if (tex_y > tex->curr_img->height - 1)
+		tex_y = tex->curr_img->height - 1;
 	tex->pos += tex->step;
 	tex_color = tex->curr_img->addr + (tex_y * tex->curr_img->size_l + \
 				tex->x * (tex->curr_img->bpp / 8));
