@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 13:35:55 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/19 22:50:53 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/21 21:22:03 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	input_player(t_data *data, int x, int y)
 		{
 			dst = img->addr + (int)(y * WINDOW_WIDTH) + j * img->size_l \
 				+ x + i * (img->bpp / 8);
-			*((unsigned int *)dst) = player_color(i, j, &(data->texture)[PLAYER]);
+			*((unsigned int *)dst) = player_color(i, j, &(data->texture)[DOOR]);
 			j++;
 		}
 		i++;
