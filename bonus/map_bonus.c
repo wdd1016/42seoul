@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:30:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/19 23:07:39 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:59:16 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ static int	config_number(char *ln, int *bit)
 		return (SP3);
 	else if ((*bit & S4BT) == 0 && ln[0] == 'S' && ln[1] == '4' && ln[2] == ' ')
 		return (SP4);
-	else if ((*bit & PLAYER_BIT) == 0 && ln[0] == 'P' && ln[1] == ' ')
-		return (PLAYER);
 	else if ((*bit & FLOOR_BIT) == 0 && ln[0] == 'F' && ln[1] == ' ')
 		return (FLOOR);
 	else if ((*bit & CEILING_BIT) == 0 && ln[0] == 'C' && ln[1] == ' ')
@@ -100,7 +98,7 @@ static int	texture_background_parsing2(t_data *data, char *ln, int config_num)
 	ln += 2;
 	while (*ln == ' ')
 		ln++;
-	if (config_num <= PLAYER)
+	if (config_num <= SP4)
 	{
 		t = &(data->texture[config_num]);
 		t->img = mlx_xpm_file_to_image(data->mlx, ln, &t->width, &t->height);
