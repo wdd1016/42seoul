@@ -1,59 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rendering.c                                        :+:      :+:    :+:   */
+/*   rendering_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:20:52 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/15 17:39:43 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/21 22:47:33 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
-static void	input_background(t_data *data);
 static void	set_ray(t_player *player, t_ray *r, double camera_i);
 static void	dda_algorithm(t_data *data, t_ray *ray);
 static void	set_perp_wall_dist(t_player *p, t_ray *ray, int map_x, int map_y);
 
 void	rendering_image(t_data *data)
 {
-	t_ray	ray;
-	int		i;
+	t_ray			ray;
+	int				i;
+	struct timeval	time;
+	t_img			*sprite_img;
 
-	input_background(data);
 	i = -1;
 	while (++i < WINDOW_WIDTH)
 	{
 		set_ray(&data->player, &ray, 2 * (double)i / (WINDOW_WIDTH - 1) - 1);
 		dda_algorithm(data, &ray);
+		data->z_buffer[i] = ray.perp_wall_dist;
 		input_vertical_line(data, &data->img, &ray, i);
 	}
-}
-
-static void	input_background(t_data *data)
-{
-	int		color;
-	char	*dst;
-	int		i;
-
-	dst = data->img.addr;
-	color = data->ceiling_color;
-	i = 0;
-	while (i < WINDOW_WIDTH * WINDOW_HEIGHT / 2)
-	{
-		*(unsigned int *)dst = color;
-		dst += data->img.bpp / 8;
-		i++;
-	}
-	color = data->floor_color;
-	while (i < WINDOW_WIDTH * WINDOW_HEIGHT)
-	{
-		*(unsigned int *)dst = color;
-		dst += data->img.bpp / 8;
-		i++;
-	}
+	gettimeofday(&time, 0);
+	sprite_img = &(data->texture[SP1 + (time.tv_usec % 0x80000) / 0x20000]);
+	sort_sprites(data);
+	i = -1;
+	while (++i < data->num_sprites)
+		input_sprite(data, sprite_img, &(data->sprite[i]));
+	input_minimap(data);
 }
 
 static void	set_ray(t_player *player, t_ray *r, double camera_i)
@@ -105,9 +89,10 @@ static void	dda_algorithm(t_data *data, t_ray *ray)
 			map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (data->map[map_y][map_x] != '0')
+		if (data->map[map_y][map_x] == '1' || data->map[map_y][map_x] == '2')
 			break ;
 	}
+	ray->texture_type = data->map[map_y][map_x];
 	set_perp_wall_dist(&data->player, ray, map_x, map_y);
 }
 

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 17:39:30 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/15 15:27:27 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/16 20:00:19 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 int	is_valid_format(const char *path, const char *format)
 {

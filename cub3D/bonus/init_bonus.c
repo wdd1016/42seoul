@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiyeolee <jiyeolee@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:02:53 by jiyeolee          #+#    #+#             */
-/*   Updated: 2023/09/12 20:30:44 by jiyeolee         ###   ########.fr       */
+/*   Updated: 2023/09/22 00:38:24 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 static void	init_img(t_img *img, t_data *data, int width, int height);
 static void	player_init(t_data *data);
+static void	sprite_init(t_data *data);
 
 void	data_mlx_init(t_data *data)
 {
@@ -25,6 +26,8 @@ void	data_mlx_init(t_data *data)
 	data->map_height = 0;
 	data->floor_color = 0;
 	data->ceiling_color = 0;
+	data->mouse_mode_flag = FALSE;
+	data->door = 0;
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		error_exit("Error : mlx_init failed\n", data);
@@ -32,10 +35,14 @@ void	data_mlx_init(t_data *data)
 	if (!data->win)
 		error_exit("Error : mlx_new_window failed\n", data);
 	init_img(&data->img, data, WINDOW_WIDTH, WINDOW_HEIGHT);
-	i = -1;
-	while (++i < NUM_TEXTURES)
-		init_img(&data->texture[i], data, TEXTURE_WIDTH, TEXTURE_HEIGHT);
+	i = 0;
+	while (i <= EAST)
+		init_img(&data->texture[i++], data, WALL_WIDTH, WALL_HEIGHT);
+	init_img(&data->texture[i++], data, DOOR_WIDTH, DOOR_HEIGHT);
+	while (i < NUM_TEXTURES)
+		init_img(&data->texture[i++], data, SPRITE_WIDTH, SPRITE_HEIGHT);
 	player_init(data);
+	sprite_init(data);
 }
 
 static void	init_img(t_img *img, t_data *data, int width, int height)
@@ -59,4 +66,27 @@ static void	player_init(t_data *data)
 	data->player.plane_y = 0.0;
 	data->player.walk_speed = WALK_SPEED;
 	data->player.turn_speed = TURN_SPEED;
+	data->minimap_height = ceil(WINDOW_HEIGHT * MINIMAP_SCALE);
+	data->minimap_width = ceil(WINDOW_WIDTH * MINIMAP_SCALE);
+}
+
+static void	sprite_init(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	data->num_sprites = 0;
+	while (i < SPRITE_SIZE)
+	{
+		data->sprite[i].x = -1.0;
+		data->sprite[i].y = -1.0;
+		data->sprite[i].dist = -1.0;
+		i++;
+	}
+	i = 0;
+	while (i < WINDOW_WIDTH)
+	{
+		data->z_buffer[i] = -1.0;
+		i++;
+	}
 }

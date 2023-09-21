@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_coor.c                                         :+:      :+:    :+:   */
+/*   map_coor_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 17:07:49 by juyojeon          #+#    #+#             */
-/*   Updated: 2023/09/15 15:56:43 by juyojeon         ###   ########.fr       */
+/*   Updated: 2023/09/17 16:55:42 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../includes/cub3d_bonus.h"
 
 static t_map	*new_tempmap(t_data *data, char *line);
 static void		fill_player(t_data *data, int rowidx, char *line, int idx);
+static void		door_store(t_data *data, int row_idx, int col_idx, int fd);
 
 void	coordinate_parsing(t_data *data, int fd, char *line)
 {
@@ -36,7 +37,9 @@ void	coordinate_parsing(t_data *data, int fd, char *line)
 		if (data->player.x == 0.0 && \
 		(line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E'))
 			fill_player(data, data->map_height - 1, line, i);
-		if (line[i] != '0' && line[i] != '1' && line[i] != ' ')
+		else if (line[i] == '2')
+			door_store(data, data->map_height - 1, i, fd);
+		if ((line[i] < '0' || line[i] > '3') && line[i] != ' ')
 			parsing_error_exit("Error\nInvalid map char\n", fd, 0, data);
 	}
 }
@@ -88,6 +91,28 @@ static void	fill_player(t_data *data, int row_idx, char *line, int col_idx)
 	data->player.plane_y = x_direction * 0.66;
 	data->player.plane_x = y_direction * (-0.66);
 	line[col_idx] = '0';
+}
+
+static void	door_store(t_data *data, int row_idx, int col_idx, int fd)
+{
+	t_door	*new;
+	t_door	*temp;
+
+	new = (t_door *)malloc(sizeof(t_door));
+	if (!new)
+		parsing_error_exit("Error : Allocation failed\n", fd, 0, data);
+	new->x = col_idx;
+	new->y = row_idx;
+	new->next = 0;
+	if (!data->door)
+		data->door = new;
+	else
+	{
+		temp = data->door;
+		while (temp->next)
+			temp = temp->next;
+		temp->next = new;
+	}
 }
 
 void	make_map(t_data *data)
