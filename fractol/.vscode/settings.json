@@ -1,7 +1,0 @@
-{
-	"cmake.debugConfig": {
-	"args": [
-		"mandelbrot"
-	]
-	}
-}
