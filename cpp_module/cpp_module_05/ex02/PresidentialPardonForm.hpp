@@ -3,7 +3,7 @@
 
 #include "AForm.hpp"
 
-class PresidentialPardonForm : public AForm {
+class PresidentialPardonForm : public Form {
  private:
   std::string _target;
 
@@ -16,6 +16,7 @@ class PresidentialPardonForm : public AForm {
 
   PresidentialPardonForm &operator=(const PresidentialPardonForm &copy);
 
+  const std::string &getTarget() const;
   void execute(Bureaucrat const &executor) const;
 };
 

@@ -37,20 +37,20 @@ int Form::getExecGrade() const { return (_execGrade); }
 
 void Form::beSigned(const Bureaucrat &b) {
   if (b.getGrade() > _signGrade) {
-    throw Form::GradeTooLowException();
+    throw Form::GradeTooLowSignedException();
   } else if (_signed == true) {
     throw Form::AlreadySignedException();
   }
   _signed = true;
 }
 
-// void Form::execute(Bureaucrat const &executor) const {
-//   if (executor.getGrade() > _execGrade) {
-//     throw Form::GradeTooLowException();
-//   } else if (_signed == false) {
-//     throw Form::AlreadySignedException();
-//   }
-// }
+void Form::isExecutable(Bureaucrat const &executor) const {
+  if (_signed == false) {
+    throw Form::UnsignedException();
+  } else if (executor.getGrade() > _execGrade) {
+    throw Form::GradeTooLowExcutedException();
+  }
+}
 
 const char *Form::GradeTooHighException::what() const throw() {
   return ("The grade is too high");
@@ -60,8 +60,20 @@ const char *Form::GradeTooLowException::what() const throw() {
   return ("The grade is too low");
 }
 
+const char *Form::GradeTooLowSignedException::what() const throw() {
+  return ("The grade is too low to sign");
+}
+
 const char *Form::AlreadySignedException::what() const throw() {
   return ("The form is already signed");
+}
+
+const char *Form::GradeTooLowExcutedException::what() const throw() {
+  return ("The grade is too low to excute");
+}
+
+const char *Form::UnsignedException::what() const throw() {
+  return ("The form is unsigned and cannot be executed.");
 }
 
 std::ostream &operator<<(std::ostream &out, const Form &form) {
