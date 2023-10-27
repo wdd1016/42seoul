@@ -23,7 +23,7 @@ const std::string &RobotomyRequestForm::getTarget() const { return (_target); }
 
 void RobotomyRequestForm::execute(Bureaucrat const &executor) const {
   isExecutable(executor);
-  srand(time(NULL));
+  srand(time(NULL) + clock());
   if (rand() % 2 == 0) {
     std::cout << "Informs that " << _target
               << " has been robotomized successfully." << std::endl;
