@@ -12,17 +12,17 @@ int main() {
     RobotomyRequestForm rF = RobotomyRequestForm(target);
     PresidentialPardonForm pF = PresidentialPardonForm(target);
 
-    std::cout << "ShrubberyCreationForm" << std::endl;
+    std::cout << "ShrubberyCreation Form" << std::endl;
     bc.signForm(sF);
     bc.executeForm(sF);
     std::cout << std::endl;
 
-    std::cout << "RobotomyRequestForm" << std::endl;
+    std::cout << "RobotomyRequest Form" << std::endl;
     bc.signForm(rF);
     bc.executeForm(rF);
     std::cout << std::endl;
 
-    std::cout << "PresidentialPardonForm" << std::endl;
+    std::cout << "PresidentialPardon Form" << std::endl;
     bc.signForm(pF);
     bc.executeForm(pF);
   } catch (std::exception &e) {
@@ -38,17 +38,17 @@ int main() {
     RobotomyRequestForm rF = RobotomyRequestForm(target);
     PresidentialPardonForm pF = PresidentialPardonForm(target);
 
-    std::cout << "ShrubberyCreationForm" << std::endl;
+    std::cout << "ShrubberyCreation Form" << std::endl;
     bc.signForm(sF);
     bc.executeForm(sF);
     std::cout << std::endl;
 
-    std::cout << "RobotomyRequestForm" << std::endl;
+    std::cout << "RobotomyRequest Form" << std::endl;
     bc.signForm(rF);
     bc.executeForm(rF);
     std::cout << std::endl;
 
-    std::cout << "PresidentialPardonForm" << std::endl;
+    std::cout << "PresidentialPardon Form" << std::endl;
     bc.signForm(pF);
     bc.executeForm(pF);
   } catch (std::exception &e) {
@@ -64,17 +64,17 @@ int main() {
     RobotomyRequestForm rF = RobotomyRequestForm(target);
     PresidentialPardonForm pF = PresidentialPardonForm(target);
 
-    std::cout << "ShrubberyCreationForm" << std::endl;
+    std::cout << "ShrubberyCreation Form" << std::endl;
     bc.signForm(sF);
     bc.executeForm(sF);
     std::cout << std::endl;
 
-    std::cout << "RobotomyRequestForm" << std::endl;
+    std::cout << "RobotomyRequest Form" << std::endl;
     bc.signForm(rF);
     bc.executeForm(rF);
     std::cout << std::endl;
 
-    std::cout << "PresidentialPardonForm" << std::endl;
+    std::cout << "PresidentialPardon Form" << std::endl;
     bc.signForm(pF);
     bc.executeForm(pF);
   } catch (std::exception &e) {
@@ -90,17 +90,17 @@ int main() {
     RobotomyRequestForm rF = RobotomyRequestForm(target);
     PresidentialPardonForm pF = PresidentialPardonForm(target);
 
-    std::cout << "ShrubberyCreationForm" << std::endl;
+    std::cout << "ShrubberyCreation Form" << std::endl;
     bc.signForm(sF);
     bc.executeForm(sF);
     std::cout << std::endl;
 
-    std::cout << "RobotomyRequestForm" << std::endl;
+    std::cout << "RobotomyRequest Form" << std::endl;
     bc.signForm(rF);
     bc.executeForm(rF);
     std::cout << std::endl;
 
-    std::cout << "PresidentialPardonForm" << std::endl;
+    std::cout << "PresidentialPardon Form" << std::endl;
     bc.signForm(pF);
     bc.executeForm(pF);
   } catch (std::exception &e) {
