@@ -64,6 +64,7 @@ int main() {
   identify(base);
   std::cout << "Identify by reference : ";
   identify(*base);
+  delete base;
 
   std::cout << std::endl << "Third test" << std::endl;
   base = generate();
@@ -71,6 +72,7 @@ int main() {
   identify(base);
   std::cout << "Identify by reference : ";
   identify(*base);
+  delete base;
 
   return 0;
 }
