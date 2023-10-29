@@ -40,5 +40,6 @@ Form *Intern::makeForm(const char *name, const char *target) {
 }
 
 const char *Intern::InvaildFormNameException::what() const throw() {
-  return ("The form name is invalid.");
+  return (
+      "Intern couldn't create the form because the form's name is invalid.");
 }

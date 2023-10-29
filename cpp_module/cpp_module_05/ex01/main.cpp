@@ -13,6 +13,7 @@ int main() {
     std::cout << f2 << std::endl;
     b2.signForm(f1);
     b1.signForm(f1);
+    b1.signForm(f1);
     b2.signForm(f2);
     std::cout << f1 << std::endl;
     std::cout << f2 << std::endl;

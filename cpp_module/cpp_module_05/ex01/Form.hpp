@@ -24,7 +24,7 @@ class Form {
 
   Form &operator=(const Form &copy);
 
-  const std::string getName() const;
+  const std::string &getName() const;
   bool getSigned() const;
   int getSignGrade() const;
   int getExecGrade() const;

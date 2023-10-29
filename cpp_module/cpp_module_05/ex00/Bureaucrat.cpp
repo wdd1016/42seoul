@@ -22,7 +22,7 @@ Bureaucrat &Bureaucrat::operator=(const Bureaucrat &copy) {
   return (*this);
 }
 
-const std::string Bureaucrat::getName() const { return (_name); }
+const std::string &Bureaucrat::getName() const { return (_name); }
 
 int Bureaucrat::getGrade() const { return (_grade); }
 

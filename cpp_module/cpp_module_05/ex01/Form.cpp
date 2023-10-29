@@ -27,7 +27,7 @@ Form &Form::operator=(const Form &copy) {
   return (*this);
 }
 
-const std::string Form::getName() const { return (_name); }
+const std::string &Form::getName() const { return (_name); }
 
 bool Form::getSigned() const { return (_signed); }
 
@@ -45,15 +45,15 @@ void Form::beSigned(const Bureaucrat &b) {
 }
 
 const char *Form::GradeTooHighException::what() const throw() {
-  return ("The grade is too high");
+  return ("The grade is too high.");
 }
 
 const char *Form::GradeTooLowException::what() const throw() {
-  return ("The grade is too low");
+  return ("The grade is too low.");
 }
 
 const char *Form::AlreadySignedException::what() const throw() {
-  return ("The form is already signed");
+  return ("The form is already signed.");
 }
 
 std::ostream &operator<<(std::ostream &out, const Form &form) {

@@ -24,7 +24,7 @@ class Form {
 
   Form &operator=(const Form &copy);
 
-  const std::string getName() const;
+  const std::string &getName() const;
   bool getSigned() const;
   int getSignGrade() const;
   int getExecGrade() const;
@@ -43,17 +43,7 @@ class Form {
     virtual const char *what() const throw();
   };
 
-  class GradeTooLowSignedException : public std::exception {
-   public:
-    virtual const char *what() const throw();
-  };
-
   class AlreadySignedException : public std::exception {
-   public:
-    virtual const char *what() const throw();
-  };
-
-  class GradeTooLowExcutedException : public std::exception {
    public:
     virtual const char *what() const throw();
   };
