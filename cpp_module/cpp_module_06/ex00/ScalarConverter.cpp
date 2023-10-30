@@ -20,6 +20,7 @@ bool Scalarconverter::isDecimal(const char *str, bool &isZero) {
 
   while (std::isspace(str[i]) == true) i++;
   if (str[i] == '+' || str[i] == '-') i++;
+  if (str[i] == '\0') return false;
   while (str[i] == '0') i++;
   while (str[i] != '\0') {
     if (str[i] == '.') {
@@ -42,7 +43,10 @@ bool Scalarconverter::isDecimal(const char *str, bool &isZero) {
     }
     i++;
   }
-  return true;
+  if (isZero == true && (isDot == true || isScientificNotation == true))
+    return false;
+  else
+    return true;
 }
 
 void Scalarconverter::decimalPrint(const double &doubleNumber,
