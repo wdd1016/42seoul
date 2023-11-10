@@ -16,13 +16,13 @@ class Array {
   Array() : _data(NULL), _size(0) {}
   Array(unsigned int n) : _data(new T[n]), _size(n) {}
   ~Array() {
-    if (_size > 0) delete[] _data;
+    if (_data) delete[] _data;
   }
-  Array(const Array &copy) : _size(0) { *this = copy; }
+  Array(const Array &copy) : _data(NULL), _size(0) { *this = copy; }
 
   Array &operator=(const Array &copy) {
     if (this == &copy) return (*this);
-    if (_size != 0) delete[] _data;
+    if (_data) delete[] _data;
     this->_size = copy.size();
     if (_size != 0)
       this->_data = new T[_size];
@@ -34,7 +34,7 @@ class Array {
     return (*this);
   }
 
-  T &operator[](int i) {
+  T &operator[](int i) const {
     if (i < 0 ||
         _size > static_cast<unsigned int>(std::numeric_limits<int>::max()) ||
         i >= static_cast<int>(_size))
@@ -42,7 +42,7 @@ class Array {
     return _data[i];
   }
 
-  T &operator[](unsigned int i) {
+  T &operator[](unsigned int i) const {
     if (i >= _size) throw std::out_of_range("This approach is out of range.");
     return _data[i];
   }
