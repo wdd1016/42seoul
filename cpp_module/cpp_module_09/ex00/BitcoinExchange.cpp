@@ -68,7 +68,7 @@ void BitcoinExchange::setData(const char *baseFileName) {
   buffer.clear();
   while (baseFile) {
     std::getline(baseFile, buffer);
-    if (baseFile.eof() == false && baseFile.fail() == true)
+    if (baseFile.fail() == true && baseFile.eof() == false)
       throw std::runtime_error("Error : Failed to read data file.");
     if (buffer == "") continue;
     if (buffer.size() < 12 || buffer[10] != ',' ||
@@ -83,9 +83,10 @@ void BitcoinExchange::setData(const char *baseFileName) {
 
 void BitcoinExchange::printValue(const char *inputFileName) {
   std::ifstream inputFile(inputFileName);
-  std::string delimiter;
   std::string buffer;
   std::string date;
+  std::string priceStr;
+  double price;
   std::map<std::string, double>::iterator temp;
 
   if (inputFile.is_open() == false)
@@ -108,17 +109,17 @@ void BitcoinExchange::printValue(const char *inputFileName) {
       if (buffer.size() < 14 || buffer.find(" | ") != 10 ||
           checkDate(date) == false || date < (*_data.begin()).first)
         throw std::runtime_error(buffer.insert(0, "Error : bad input => "));
-      else if (std::atof(buffer.substr(13).c_str()) <= 0 ||
-               isDecimal(buffer.substr(13).c_str()) == false)
+      priceStr = buffer.substr(13);
+      price = std::atof(priceStr.c_str());
+      if (price <= 0 || isDecimal(priceStr.c_str()) == false)
         throw std::runtime_error("Error: not a positive number.");
-      else if (std::atof(buffer.substr(13).c_str()) >= 1000)
+      else if (price >= 1000)
         throw std::runtime_error("Error: too large a number.");
       temp = _data.lower_bound(date);
-      if (temp != _data.find(date)) {
+      if (temp != _data.find(date) || temp == _data.end()) {
         temp--;
       }
-      std::cout << (*temp).first << " => " << buffer.substr(13) << " = "
-                << (*temp).second * std::atof(buffer.substr(13).c_str())
+      std::cout << date << " => " << price << " = " << (*temp).second * price
                 << std::endl;
     } catch (std::exception &e) {
       std::cerr << e.what() << std::endl;
