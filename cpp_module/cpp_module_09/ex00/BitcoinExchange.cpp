@@ -122,7 +122,7 @@ void BitcoinExchange::printValue(const char *inputFileName) {
       std::cout << date << " => " << price << " = " << (*temp).second * price
                 << std::endl;
     } catch (std::exception &e) {
-      std::cerr << e.what() << std::endl;
+      std::cout << e.what() << std::endl;
     }
     buffer.clear();
   }
