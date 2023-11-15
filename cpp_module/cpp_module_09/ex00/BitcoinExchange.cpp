@@ -65,6 +65,8 @@ void BitcoinExchange::setData(const char *baseFileName) {
   std::getline(baseFile, buffer);
   if (baseFile.fail() == true)
     throw std::runtime_error("Error : Failed to read data file.");
+  else if (buffer != "date,exchange_rate")
+    throw std::runtime_error(buffer.insert(0, "Error : bad input => "));
   buffer.clear();
   while (baseFile) {
     std::getline(baseFile, buffer);
@@ -94,7 +96,7 @@ void BitcoinExchange::printValue(const char *inputFileName) {
   std::getline(inputFile, buffer);
   if (inputFile.fail() == true)
     throw std::runtime_error("Error : Failed to read input file.");
-  if (buffer != "date | value")
+  else if (buffer != "date | value")
     throw std::runtime_error(buffer.insert(0, "Error : bad input => "));
   buffer.clear();
   while (inputFile) {
