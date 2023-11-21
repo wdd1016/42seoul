@@ -10,26 +10,23 @@
 
 class PmergeMe {
  private:
- public:
   PmergeMe();
-  ~PmergeMe();
 
-  typedef std::vector<int> Container;
+  template <typename Container>
+  static void fordJohnsonRecursion(Container &numbers, size_t elementSize,
+                                   size_t pairCount) {
+    bool unpairedFlag;
 
-  void fordJohnsonSort(Container &numbers, Container::iterator end,
-                       size_t elementSize, size_t pairCount) {
-    Container::iterator nextEnd;
-
-    nextEnd = pairComparison(numbers, elementSize, pairCount);
+    unpairedFlag = pairComparison(numbers, elementSize, pairCount);
     if (pairCount != 1)
-      fordJohnsonSort(numbers, nextEnd, elementSize * 2, pairCount / 2);
-    remainedElementsInsertion(numbers, end, elementSize, pairCount);
+      fordJohnsonRecursion(numbers, elementSize * 2, pairCount / 2);
+    pendingElementsInsertion(numbers, unpairedFlag, elementSize, pairCount);
   }
-
-  Container::iterator pairComparison(Container &numbers, size_t elementSize,
-                                     size_t pairCount) {
-    Container::iterator fir = numbers.begin();
-    Container::iterator sec;
+  template <typename Container>
+  static bool pairComparison(Container &numbers, size_t elementSize,
+                             size_t pairCount) {
+    typename Container::iterator fir = numbers.begin();
+    typename Container::iterator sec;
 
     for (size_t i = 0; i < pairCount; i++) {
       sec = fir + elementSize;
@@ -38,58 +35,52 @@ class PmergeMe {
       else
         fir = sec + elementSize;
     }
-    return fir;
+    if (static_cast<size_t>(std::distance(fir, numbers.end())) >= elementSize)
+      return true;
+    else
+      return false;
   }
+  static void pendingElementsInsertion(std::vector<int> &numbers,
+                                       bool unpairedFlag, size_t elementSize,
+                                       size_t pairCount);
+  static void pendingElementsInsertion(std::list<int> &numbers,
+                                       bool unpairedFlag, size_t elementSize,
+                                       size_t pairCount);
+  static void pendingElementsInsertion(std::deque<int> &numbers,
+                                       bool unpairedFlag, size_t elementSize,
+                                       size_t pairCount);
 
-  void remainedElementsInsertion(Container &numbers, Container::iterator end,
-                                 size_t elementSize, size_t pairCount) {
-    Container largerElements(elementSize * pairCount);
-    Container remainedElements(elementSize * pairCount);
-    Container::iterator numbersIt = numbers.begin();
-    Container::iterator largeIt = largerElements.begin();
-    Container::iterator remainIt = remainedElements.begin();
-    Container::iterator tempIt;
+  static void binarySearchInsertion(std::vector<int> &lgElements,
+                                    std::vector<int>::iterator &compIt,
+                                    std::vector<int>::iterator &endIt,
+                                    size_t elementSize) {
+    std::vector<int>::iterator low = lgElements.begin();
+    std::vector<int>::iterator high = lgElements.end();
+    std::vector<int>::iterator mid;
+    size_t distance;
 
-    for (size_t i = 0; i < pairCount; i++) {
-      tempIt = numbersIt + elementSize;
-      largeIt = std::copy(numbersIt, tempIt, largeIt);
-      numbersIt = tempIt;
-      tempIt = numbersIt + elementSize;
-      remainIt = std::copy(numbersIt, tempIt, remainIt);
-      numbersIt = tempIt;
-    }
-    if (numbersIt != end)
-      remainedElements.insert(remainedElements.end(), numbersIt, end);
-    remainIt = remainedElements.begin();
-    while (remainIt != remainedElements.end()) {
-      tempIt = remainIt + elementSize;
-      binarySearchInsertion(largerElements, remainIt, tempIt, elementSize);
-      remainIt = tempIt;
-    }
-    std::copy(largerElements.begin(), largerElements.end(), numbers.begin());
-  }
-
-  void binarySearchInsertion(Container &lgElements, Container::iterator &compIt,
-                             Container::iterator &endIt, size_t elementSize) {
-    int compNumber = *compIt;
-    size_t low = 0;
-    size_t high = (lgElements.size() / elementSize) - 1;
-    size_t mid;
-
-    if (compNumber <= lgElements[0]) {
-      lgElements.insert(lgElements.begin(), compIt, endIt);
+    if (*compIt <= *low) {
+      lgElements.insert(low, compIt, endIt);
       return;
     }
-    while (low <= high) {
-      mid = (low + high / 2);
-      if (compNumber > lgElements[mid * elementSize])
-        high = mid - 1;
-      else {
-        lgElements.insert(lgElements.begin() + mid * elementSize, compIt,
-                          endIt);
-        return;
-      }
+    while (low + elementSize < high) {
+      distance = (std::distance(low, high) / 2);
+      distance = distance - (distance % elementSize);
+      mid = low + distance;
+      if (*compIt >= *mid)
+        low = mid;
+      else
+        high = mid;
     }
+    lgElements.insert(high, compIt, endIt);
+  }
+
+ public:
+  ~PmergeMe();
+
+  template <typename Container>
+  static void fordfordJohnsonSort(Container &numbers) {
+    fordJohnsonRecursion(numbers, 1, numbers.size() / 2);
   }
 };
 
