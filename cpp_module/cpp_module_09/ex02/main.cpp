@@ -1,11 +1,9 @@
-#include <algorithm>
-#include <iostream>
-#include <vector>
-
 #include "PmergeMe.hpp"
 
 int main(int argc, const char *argv[]) {
   std::vector<int> vec;
+  std::list<int> lst;
+  std::deque<int> deq;
 
   (void)argc;
   (void)argv;
@@ -24,7 +22,7 @@ int main(int argc, const char *argv[]) {
   vec.push_back(2);
   PmergeMe::fordfordJohnsonSort(vec);
 
-  for (size_t i = 0; i < vec.size(); i++)
-    std::cout << " " << vec[i] << std::endl;
+  for (std::vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
+    std::cout << *it << std::endl;
   return EXIT_SUCCESS;
 }

@@ -8,72 +8,62 @@
 #include <utility>
 #include <vector>
 
+typedef std::vector<int> vector;
+typedef std::list<int> list;
+typedef std::deque<int> deque;
+typedef std::vector<int>::iterator vectorIt;
+typedef std::list<int>::iterator listIt;
+typedef std::deque<int>::iterator dequeIt;
+
 class PmergeMe {
  private:
   PmergeMe();
+  PmergeMe(const PmergeMe &src);
+  PmergeMe &operator=(const PmergeMe &src);
 
   template <typename Container>
   static void fordJohnsonRecursion(Container &numbers, size_t elementSize,
                                    size_t pairCount) {
-    bool unpairedFlag;
-
-    unpairedFlag = pairComparison(numbers, elementSize, pairCount);
-    if (pairCount != 1)
-      fordJohnsonRecursion(numbers, elementSize * 2, pairCount / 2);
-    pendingElementsInsertion(numbers, unpairedFlag, elementSize, pairCount);
-  }
-  template <typename Container>
-  static bool pairComparison(Container &numbers, size_t elementSize,
-                             size_t pairCount) {
     typename Container::iterator fir = numbers.begin();
     typename Container::iterator sec;
+    bool unpairedFlag = false;
 
+    // Pair 내부의 앞을 비교하여 큰 순으로 배열
     for (size_t i = 0; i < pairCount; i++) {
-      sec = fir + elementSize;
+      sec = fir;
+      std::advance(sec, elementSize);
       if (*fir < *sec)
         fir = std::swap_ranges(fir, sec, sec);
-      else
-        fir = sec + elementSize;
+      else {
+        fir = sec;
+        std::advance(fir, elementSize);
+      }
     }
+    // Pair을 이루지 못한 수가 있는지 확인
     if (static_cast<size_t>(std::distance(fir, numbers.end())) >= elementSize)
-      return true;
-    else
-      return false;
+      unpairedFlag = true;
+    // Pair가 하나가 될때까지 재귀적 반복
+    if (pairCount != 1)
+      fordJohnsonRecursion(numbers, elementSize * 2, pairCount / 2);
+    // Binary Search를 이용한 Insertion
+    pendingElementsInsertion(numbers, unpairedFlag, elementSize, pairCount);
   }
-  static void pendingElementsInsertion(std::vector<int> &numbers,
-                                       bool unpairedFlag, size_t elementSize,
-                                       size_t pairCount);
-  static void pendingElementsInsertion(std::list<int> &numbers,
-                                       bool unpairedFlag, size_t elementSize,
-                                       size_t pairCount);
-  static void pendingElementsInsertion(std::deque<int> &numbers,
-                                       bool unpairedFlag, size_t elementSize,
-                                       size_t pairCount);
 
-  static void binarySearchInsertion(std::vector<int> &lgElements,
-                                    std::vector<int>::iterator &compIt,
-                                    std::vector<int>::iterator &endIt,
-                                    size_t elementSize) {
-    std::vector<int>::iterator low = lgElements.begin();
-    std::vector<int>::iterator high = lgElements.end();
-    std::vector<int>::iterator mid;
-    size_t distance;
+  static void pendingElementsInsertion(vector &numbers, bool upFlag,
+                                       size_t elemSize, size_t pairCnt);
+  static void binarySearchInsertion(vector &lgElements, vectorIt &compIt,
+                                    vectorIt &endIt, size_t elemSize);
 
-    if (*compIt <= *low) {
-      lgElements.insert(low, compIt, endIt);
-      return;
-    }
-    while (low + elementSize < high) {
-      distance = (std::distance(low, high) / 2);
-      distance = distance - (distance % elementSize);
-      mid = low + distance;
-      if (*compIt >= *mid)
-        low = mid;
-      else
-        high = mid;
-    }
-    lgElements.insert(high, compIt, endIt);
-  }
+  static void pendingElementsInsertion(list &numbers, bool upFlag,
+                                       size_t elemSize, size_t pairCnt);
+  static void binarySearchInsertion(list &lgElements, list &pdElements,
+                                    listIt &compIt, listIt &endIt,
+                                    size_t elemSize);
+
+  static void pendingElementsInsertion(deque &numbers, bool upFlag,
+                                       size_t elemSize, size_t pairCnt);
+  static void binarySearchInsertion(deque &lgElements, dequeIt &compIt,
+                                    dequeIt &endIt, size_t elemSize);
 
  public:
   ~PmergeMe();
