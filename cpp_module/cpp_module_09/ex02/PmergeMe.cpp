@@ -1,5 +1,9 @@
 #include "PmergeMe.hpp"
 
+vector PmergeMe::_vec;
+list PmergeMe::_lst;
+deque PmergeMe::_deq;
+
 PmergeMe::PmergeMe() {}
 
 PmergeMe::~PmergeMe() {}
@@ -11,14 +15,82 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &src) {
   return *this;
 }
 
+void PmergeMe::fordJohnsonSort(int argc, const char *argv[]) {
+  clock_t vecTime;
+  clock_t lstTime;
+  clock_t deqTime;
+
+  validationTransformContainers(argc, argv);
+  std::cout << "Before: ";
+  for (size_t i = 0; i < _vec.size(); i++) std::cout << " " << _vec[i];
+  std::cout << std::endl;
+
+  vecTime = playFordJohnsonCountTime(_vec);
+  lstTime = playFordJohnsonCountTime(_lst);
+  deqTime = playFordJohnsonCountTime(_deq);
+
+  std::cout << "After:";
+  for (size_t i = 0; i < _vec.size(); i++) std::cout << " " << _vec[i];
+  std::cout << std::endl;
+  std::cout << "Time to process a range of " << _vec.size()
+            << " elements with std::vector : " << vecTime << " us" << std::endl;
+  std::cout << "Time to process a range of " << _lst.size()
+            << " elements with std::list : " << lstTime << " us" << std::endl;
+  std::cout << "Time to process a range of " << _deq.size()
+            << " elements with std::deque : " << deqTime << " us" << std::endl;
+}
+
+void PmergeMe::validationTransformContainers(int argc, const char *argv[]) {
+  std::string temp;
+  long long num;
+  unsigned int numUInt;
+
+  for (int i = 1; i < argc; i++) {
+    std::stringstream ss(argv[i]);
+
+    while (ss >> temp) {
+      for (size_t i = 0; i < temp.size(); i++)
+        if (std::isdigit(temp[i]) == false)
+          throw std::runtime_error("Non-numeric Argument Error");
+      num = std::atoll(temp.c_str());
+      if (temp.size() > 10 || num < 0 ||
+          num > std::numeric_limits<unsigned int>::max())
+        throw std::runtime_error("Argument Range Error.");
+      numUInt = static_cast<unsigned int>(num);
+      _vec.push_back(numUInt);
+      _lst.push_back(numUInt);
+      _deq.push_back(numUInt);
+      temp.clear();
+    }
+  }
+}
+
+bool PmergeMe::pairComparison(vector &numbers, size_t elementSize,
+                              size_t pairCount) {
+  vectorIt fir = numbers.begin();
+  vectorIt sec;
+  for (size_t i = 0; i < pairCount; i++) {
+    sec = fir + elementSize;
+    if (*fir < *sec)
+      fir = std::swap_ranges(fir, sec, sec);
+    else
+      fir = sec + elementSize;
+  }
+  // Pair을 이루지 못한 element가 있는지 확인 -> 단, 현재 나의 elementSize 기준
+  if (static_cast<size_t>(std::distance(fir, numbers.end())) >= elementSize)
+    return true;
+  else
+    return false;
+}
+
 void PmergeMe::pendingElementsInsertion(vector &numbers, bool upFlag,
                                         size_t elemSize, size_t pairCnt) {
-  std::vector<int> largerElements(elemSize * pairCnt);
-  std::vector<int> pendingElements(elemSize * (pairCnt + upFlag));
-  std::vector<int>::iterator numbersIt = numbers.begin();
-  std::vector<int>::iterator largeIt = largerElements.begin();
-  std::vector<int>::iterator pendingIt = pendingElements.begin();
-  std::vector<int>::iterator tempIt;
+  vector largerElements(elemSize * pairCnt);
+  vector pendingElements(elemSize * (pairCnt + upFlag));
+  vectorIt numbersIt = numbers.begin();
+  vectorIt largeIt = largerElements.begin();
+  vectorIt pendingIt = pendingElements.begin();
+  vectorIt tempIt;
 
   for (size_t i = 0; i < pairCnt; i++) {
     tempIt = numbersIt + elemSize;
@@ -40,9 +112,9 @@ void PmergeMe::pendingElementsInsertion(vector &numbers, bool upFlag,
 
 void PmergeMe::binarySearchInsertion(vector &lgElements, vectorIt &compIt,
                                      vectorIt &endIt, size_t elemSize) {
-  std::vector<int>::iterator low = lgElements.begin();
-  std::vector<int>::iterator high = lgElements.end();
-  std::vector<int>::iterator mid;
+  vectorIt low = lgElements.begin();
+  vectorIt high = lgElements.end();
+  vectorIt mid;
   size_t halfDis;
 
   if (*compIt <= *low) {
@@ -60,13 +132,36 @@ void PmergeMe::binarySearchInsertion(vector &lgElements, vectorIt &compIt,
   lgElements.insert(high, compIt, endIt);
 }
 
+// vector와 차이점 : std::advance ( + oprator overloading이 없음)
+bool PmergeMe::pairComparison(list &numbers, size_t elementSize,
+                              size_t pairCount) {
+  listIt fir = numbers.begin();
+  listIt sec;
+  for (size_t i = 0; i < pairCount; i++) {
+    sec = fir;
+    std::advance(sec, elementSize);
+    if (*fir < *sec)
+      fir = std::swap_ranges(fir, sec, sec);
+    else {
+      fir = sec;
+      std::advance(fir, elementSize);
+    }
+  }
+  // Pair을 이루지 못한 element가 있는지 확인 -> 단, 현재 나의 elementSize 기준
+  if (static_cast<size_t>(std::distance(fir, numbers.end())) >= elementSize)
+    return true;
+  else
+    return false;
+}
+
+// vector와 차이점 : std::advance, splice member function
 void PmergeMe::pendingElementsInsertion(list &numbers, bool upFlag,
                                         size_t elemSize, size_t pairCnt) {
-  std::list<int> pendingElements;
-  std::list<int> remainElements;
-  std::list<int>::iterator largeIt = numbers.begin();
-  std::list<int>::iterator pendingIt = pendingElements.end();
-  std::list<int>::iterator tempIt;
+  list pendingElements;
+  list remainElements;
+  listIt largeIt = numbers.begin();
+  listIt pendingIt = pendingElements.end();
+  listIt tempIt;
 
   for (size_t i = 0; i < pairCnt; i++) {
     std::advance(largeIt, elemSize);
@@ -92,12 +187,13 @@ void PmergeMe::pendingElementsInsertion(list &numbers, bool upFlag,
   numbers.splice(numbers.end(), remainElements);
 }
 
+// vector와 차이점 : std::advance, splice member function
 void PmergeMe::binarySearchInsertion(list &lgElements, list &pdElements,
                                      listIt &compIt, listIt &endIt,
                                      size_t elemSize) {
-  std::list<int>::iterator low = lgElements.begin();
-  std::list<int>::iterator high = lgElements.end();
-  std::list<int>::iterator mid;
+  listIt low = lgElements.begin();
+  listIt high = lgElements.end();
+  listIt mid;
   size_t halfDis;
 
   if (*compIt <= *low) {
@@ -116,14 +212,34 @@ void PmergeMe::binarySearchInsertion(list &lgElements, list &pdElements,
   lgElements.splice(high, pdElements, compIt, endIt);
 }
 
+// vector와 차이점 : 없음
+bool PmergeMe::pairComparison(deque &numbers, size_t elementSize,
+                              size_t pairCount) {
+  dequeIt fir = numbers.begin();
+  dequeIt sec;
+  for (size_t i = 0; i < pairCount; i++) {
+    sec = fir + elementSize;
+    if (*fir < *sec)
+      fir = std::swap_ranges(fir, sec, sec);
+    else
+      fir = sec + elementSize;
+  }
+  // Pair을 이루지 못한 element가 있는지 확인 -> 단, 현재 나의 elementSize 기준
+  if (static_cast<size_t>(std::distance(fir, numbers.end())) >= elementSize)
+    return true;
+  else
+    return false;
+}
+
+// vector와 차이점 : 없음
 void PmergeMe::pendingElementsInsertion(deque &numbers, bool upFlag,
                                         size_t elemSize, size_t pairCnt) {
-  std::deque<int> largerElements(elemSize * pairCnt);
-  std::deque<int> pendingElements(elemSize * (pairCnt + upFlag));
-  std::deque<int>::iterator numbersIt = numbers.begin();
-  std::deque<int>::iterator largeIt = largerElements.begin();
-  std::deque<int>::iterator pendingIt = pendingElements.begin();
-  std::deque<int>::iterator tempIt;
+  deque largerElements(elemSize * pairCnt);
+  deque pendingElements(elemSize * (pairCnt + upFlag));
+  dequeIt numbersIt = numbers.begin();
+  dequeIt largeIt = largerElements.begin();
+  dequeIt pendingIt = pendingElements.begin();
+  dequeIt tempIt;
 
   for (size_t i = 0; i < pairCnt; i++) {
     tempIt = numbersIt + elemSize;
@@ -143,11 +259,12 @@ void PmergeMe::pendingElementsInsertion(deque &numbers, bool upFlag,
   std::copy(largerElements.begin(), largerElements.end(), numbers.begin());
 }
 
+// vector와 차이점 : 없음
 void PmergeMe::binarySearchInsertion(deque &lgElements, dequeIt &compIt,
                                      dequeIt &endIt, size_t elemSize) {
-  std::deque<int>::iterator low = lgElements.begin();
-  std::deque<int>::iterator high = lgElements.end();
-  std::deque<int>::iterator mid;
+  dequeIt low = lgElements.begin();
+  dequeIt high = lgElements.end();
+  dequeIt mid;
   size_t halfDis;
 
   if (*compIt <= *low) {
