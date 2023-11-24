@@ -21,7 +21,6 @@ void RPN::operation(char optr) {
     throw std::runtime_error("Error : Not enough numbers for the operation.");
   b = _numbers.top();
   _numbers.pop();
-
   if (_numbers.empty())
     throw std::runtime_error("Error : Not enough numbers for the operation.");
   a = _numbers.top();
@@ -31,42 +30,25 @@ void RPN::operation(char optr) {
     case '+':
       _numbers.push(a + b);
       break;
-
     case '-':
       _numbers.push(a - b);
       break;
-
     case '*':
       _numbers.push(a * b);
       break;
-
     case '/':
       if (b == 0) throw std::runtime_error("Error : Division by zero.");
       _numbers.push(a / b);
       break;
-
     default:
       break;
   }
 }
 
-int RPN::convertInteger(const std::string &num) {
-  const char *temp = num.c_str();
-  double numF = std::atof(num.c_str());
-
-  while (*temp == '+' || *temp == '-') temp++;
-  while (*temp >= '0' && *temp <= '9') temp++;
-  if (*temp != '\0') {
-    throw std::runtime_error("Error : Invalid argument.");
-  }
-  if (numF < -9.0 || numF > 9.0)
-    throw std::runtime_error("Error : Out of range number.");
-  return std::atoi(num.c_str());
-}
-
 void RPN::calculation(const char *str) {
   std::string temp = str;
   std::stringstream ss(temp);
+  char *str_end;
 
   temp.clear();
   try {
@@ -74,7 +56,12 @@ void RPN::calculation(const char *str) {
       if (temp == "*" || temp == "/" || temp == "+" || temp == "-") {
         operation(temp[0]);
       } else {
-        _numbers.push(convertInteger(temp));
+        errno = 0;
+        _numbers.push(std::strtol(temp.c_str(), &str_end, 10));
+        if (*str_end != '\0')
+          throw std::runtime_error("Error : Invalid argument.");
+        else if (errno == ERANGE || _numbers.top() < -9 || _numbers.top() > 9)
+          throw std::runtime_error("Error : Out of range number.");
       }
       temp.clear();
     }

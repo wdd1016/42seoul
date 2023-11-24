@@ -12,7 +12,6 @@ class Scalarconverter {
   Scalarconverter(Scalarconverter const &copy);
   Scalarconverter &operator=(Scalarconverter const &copy);
 
-  static bool isDecimal(const char *str, bool &isZero);
   static void decimalPrint(const double &doubleNumber, const bool &isZero);
   static void nonDecimalPrint(const char *str, const double &doubleNumber);
 

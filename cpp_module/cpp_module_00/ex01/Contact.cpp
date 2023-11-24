@@ -13,50 +13,45 @@
 #include "Contact.hpp"
 
 void Contact::addContact() {
-	std::cout << "Please enter contact details." << std::endl;
-	std::cout << "First Name : ";
+  std::cout << "Please enter contact details." << std::endl;
+  std::cout << "First Name : ";
   std::cin >> this->firstName;
-  if (std::cin.eof())
-    exit(1);
+  if (std::cin.eof()) exit(1);
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-	std::cout << "Last Name : ";
+  std::cout << "Last Name : ";
   std::cin >> this->lastName;
-  if (std::cin.eof())
-    exit(1);
+  if (std::cin.eof()) exit(1);
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-	std::cout << "Nickname : ";
+  std::cout << "Nickname : ";
   std::cin >> this->nickName;
-  if (std::cin.eof())
-    exit(1);
+  if (std::cin.eof()) exit(1);
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-  while (1)
-  {
+  while (true) {
+    long longNum;
+    char *stop = NULL;
     std::cout << "Phone Number only number (e.g. 01012345678) : ";
     std::cin >> this->phoneNumber;
-    if (std::cin.eof())
-      exit(1);
+    if (std::cin.eof()) exit(1);
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    if (this->phoneNumber.length() < 10 || this->phoneNumber.length() > 11)
-      continue;
-    else if (this->phoneNumber.compare(0, 2, "01"))
-      continue;
-    else if (std::atoi(this->phoneNumber.c_str()) < 110000000 || std::atoi(this->phoneNumber.c_str()) > 1999999999)
+    errno = 0;
+    longNum = std::strtol(this->phoneNumber.c_str(), &stop, 10);
+    if (errno == ERANGE || *stop != '\0' || longNum < 110000000 ||
+        longNum > 1999999999)
       continue;
     else
       break;
   }
   std::cout << "Darkest Secret : ";
   std::cin >> this->darkestSecret;
-  if (std::cin.eof())
-    exit(1);
+  if (std::cin.eof()) exit(1);
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
 void Contact::showCuttedContact(int i) {
-    std::cout << std::setw(10) << i + 1 << "|"
-    << std::setw(10) << cutString(this->firstName) << "|"
-    << std::setw(10) << cutString(this->lastName) << "|"
-    << std::setw(10) << cutString(this->nickName) << "|" << std::endl;
+  std::cout << std::setw(10) << i + 1 << "|" << std::setw(10)
+            << cutString(this->firstName) << "|" << std::setw(10)
+            << cutString(this->lastName) << "|" << std::setw(10)
+            << cutString(this->nickName) << "|" << std::endl;
 }
 
 std::string Contact::cutString(std::string &str) {
@@ -64,8 +59,7 @@ std::string Contact::cutString(std::string &str) {
 
   if (str.length() <= maxsize)
     return (str);
-  else
-  {
+  else {
     std::string cuttedstr = str.substr(0, 9) + ".";
     return (cuttedstr);
   }

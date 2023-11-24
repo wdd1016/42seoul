@@ -13,28 +13,30 @@
 #ifndef CONTACT_HPP
 #define CONTACT_HPP
 
+#include <cerrno>
+#include <cstdlib>
 #include <iomanip>
 #include <iostream>
 #include <limits>
 
 class Contact {
-  private:
-    std::string firstName;
-    std::string lastName;
-    std::string nickName;
-    std::string phoneNumber;
-    std::string darkestSecret;
+ private:
+  std::string firstName;
+  std::string lastName;
+  std::string nickName;
+  std::string phoneNumber;
+  std::string darkestSecret;
 
-    // return cutted string (max 10 char)
-    std::string cutString(std::string &str); 
+  // return cutted string (max 10 char)
+  std::string cutString(std::string &str);
 
-  public:
-    // add data from stdin
-    void  addContact();
-    // show cutted data on stdout
-    void  showCuttedContact(int i);
-    // show all data on stdout
-    void  showContactDetail();
+ public:
+  // add data from stdin
+  void addContact();
+  // show cutted data on stdout
+  void showCuttedContact(int i);
+  // show all data on stdout
+  void showContactDetail();
 };
 
 #endif

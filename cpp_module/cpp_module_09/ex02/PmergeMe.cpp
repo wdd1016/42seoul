@@ -21,7 +21,7 @@ void PmergeMe::fordJohnsonSort(int argc, const char *argv[]) {
   clock_t deqTime;
 
   validationTransformContainers(argc, argv);
-  std::cout << "Before: ";
+  std::cout << "Before:";
   for (size_t i = 0; i < _vec.size(); i++) std::cout << " " << _vec[i];
   std::cout << std::endl;
 
@@ -42,27 +42,28 @@ void PmergeMe::fordJohnsonSort(int argc, const char *argv[]) {
 
 void PmergeMe::validationTransformContainers(int argc, const char *argv[]) {
   std::string temp;
-  long long num;
-  unsigned int numUInt;
+  unsigned long num;
+  char *str_end;
 
   for (int i = 1; i < argc; i++) {
     std::stringstream ss(argv[i]);
 
     while (ss >> temp) {
-      for (size_t i = 0; i < temp.size(); i++)
-        if (std::isdigit(temp[i]) == false)
-          throw std::runtime_error("Non-numeric Argument Error");
-      num = std::atoll(temp.c_str());
-      if (temp.size() > 10 || num < 0 ||
+      errno = 0;
+      num = std::strtoul(temp.c_str(), &str_end, 10);
+      if (*str_end != '\0')
+        throw std::runtime_error("Non-numeric Argument Error");
+
+      if (errno == ERANGE || num <= 0 ||
           num > std::numeric_limits<unsigned int>::max())
-        throw std::runtime_error("Argument Range Error.");
-      numUInt = static_cast<unsigned int>(num);
-      _vec.push_back(numUInt);
-      _lst.push_back(numUInt);
-      _deq.push_back(numUInt);
+        throw std::runtime_error("Argument Range Error");
+      _vec.push_back(num);
+      _lst.push_back(num);
+      _deq.push_back(num);
       temp.clear();
     }
   }
+  if (_vec.size() < 2) throw std::runtime_error("Argument Count Error");
 }
 
 bool PmergeMe::pairComparison(vector &numbers, size_t elementSize,

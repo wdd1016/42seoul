@@ -5,6 +5,7 @@
 #include <exception>
 #include <fstream>
 #include <iostream>
+#include <limits>
 #include <map>
 
 class BitcoinExchange {
@@ -15,7 +16,6 @@ class BitcoinExchange {
   BitcoinExchange &operator=(const BitcoinExchange &src);
 
   bool checkDate(const std::string &date);
-  bool isDecimal(const char *str);
 
  public:
   BitcoinExchange();

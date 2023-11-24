@@ -14,20 +14,18 @@ BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &src) {
 }
 
 bool BitcoinExchange::checkDate(const std::string &date) {
+  char *str_end;
   int year;
   int month;
   int day;
 
-  for (int i = 0; i < 10; i++) {
-    if ((i == 4 || i == 7) && date[i] == '-')
-      continue;
-    else if (std::isdigit(date[i]) == false)
-      return false;
-  }
-  year = std::atoi(date.substr(0, 4).c_str());
-  month = std::atoi(date.substr(5, 2).c_str());
-  day = std::atoi(date.substr(8, 2).c_str());
-  if (month < 1 || month > 12 || day < 1 || day > 31)
+  if (date[4] != '-' || date[7] != '-') return false;
+  year = std::strtol(date.substr(0, 4).c_str(), &str_end, 10);
+  if (*str_end != '\0') return false;
+  month = std::strtol(date.substr(5, 2).c_str(), &str_end, 10);
+  if (*str_end != '\0') return false;
+  day = std::strtol(date.substr(8, 2).c_str(), &str_end, 10);
+  if (*str_end != '\0' || month < 1 || month > 12 || day < 1 || day > 31)
     return false;
   else if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
     return false;
@@ -40,25 +38,11 @@ bool BitcoinExchange::checkDate(const std::string &date) {
   return true;
 }
 
-bool BitcoinExchange::isDecimal(const char *str) {
-  bool isDot = false;
-  int i = 0;
-
-  while (str[i] != '\0') {
-    if (str[i] == '.') {
-      if (isDot == true) return false;
-      isDot = true;
-    } else if (std::isdigit(str[i]) == false) {
-      return false;
-    }
-    i++;
-  }
-  return true;
-}
-
 void BitcoinExchange::setData(const char *baseFileName) {
   std::ifstream baseFile(baseFileName);
   std::string buffer;
+  double price;
+  char *str_end = NULL;
 
   if (baseFile.is_open() == false)
     throw std::runtime_error(std::string(baseFileName) + " can't open.");
@@ -75,10 +59,13 @@ void BitcoinExchange::setData(const char *baseFileName) {
     if (buffer == "") continue;
     if (buffer.size() < 12 || buffer[10] != ',' ||
         checkDate(buffer.substr(0, 10)) == false ||
-        isDecimal(buffer.substr(11).c_str()) == false ||
         _data.find(buffer.substr(0, 10)) != _data.end())
       throw std::runtime_error(buffer.insert(0, "Error : bad input => "));
-    _data[buffer.substr(0, 10)] = std::atof(buffer.substr(11).c_str());
+    price = std::strtod(buffer.substr(11).c_str(), &str_end);
+    if (*str_end != '\0' || price < 0 ||
+        price == std::numeric_limits<double>::infinity())
+      throw std::runtime_error(buffer.insert(0, "Error : bad input => "));
+    _data[buffer.substr(0, 10)] = price;
     buffer.clear();
   }
 }
@@ -87,8 +74,8 @@ void BitcoinExchange::printValue(const char *inputFileName) {
   std::ifstream inputFile(inputFileName);
   std::string buffer;
   std::string date;
-  std::string priceStr;
   double price;
+  char *str_end = NULL;
   std::map<std::string, double>::iterator temp;
 
   if (inputFile.is_open() == false)
@@ -111,9 +98,8 @@ void BitcoinExchange::printValue(const char *inputFileName) {
       if (buffer.size() < 14 || buffer.find(" | ") != 10 ||
           checkDate(date) == false || date < (*_data.begin()).first)
         throw std::runtime_error(buffer.insert(0, "Error : bad input => "));
-      priceStr = buffer.substr(13);
-      price = std::atof(priceStr.c_str());
-      if (price <= 0 || isDecimal(priceStr.c_str()) == false)
+      price = std::strtod(buffer.substr(13).c_str(), &str_end);
+      if (price <= 0 || *str_end != '\0')
         throw std::runtime_error("Error: not a positive number.");
       else if (price >= 1000)
         throw std::runtime_error("Error: too large a number.");

@@ -13,42 +13,6 @@ Scalarconverter &Scalarconverter::operator=(Scalarconverter const &copy) {
   return *this;
 }
 
-bool Scalarconverter::isDecimal(const char *str, bool &isZero) {
-  bool isDot = false;
-  bool isScientificNotation = false;
-  int i = 0;
-
-  while (std::isspace(str[i]) == true) i++;
-  if (str[i] == '+' || str[i] == '-') i++;
-  if (str[i] == '\0') return false;
-  while (str[i] == '0') i++;
-  while (str[i] != '\0') {
-    if (str[i] == '.') {
-      if (isDot == true) return false;
-      isDot = true;
-    } else if (str[i] == 'e' || str[i] == 'E') {
-      if (isScientificNotation == true) return false;
-      isScientificNotation = true;
-      if (str[i + 1] == '+' || str[i + 1] == '-') {
-        i++;
-      }
-    } else if (std::isdigit(str[i]) == false) {
-      if (str[i] == 'f' && str[i + 1] == '\0')
-        return true;
-      else
-        return false;
-    } else if (isZero == true && isScientificNotation == false &&
-               str[i] != '0') {
-      isZero = false;
-    }
-    i++;
-  }
-  if (isZero == true && (isDot == true || isScientificNotation == true))
-    return false;
-  else
-    return true;
-}
-
 void Scalarconverter::decimalPrint(const double &doubleNumber,
                                    const bool &isZero) {
   int temp_int;
@@ -122,12 +86,15 @@ void Scalarconverter::nonDecimalPrint(const char *str,
 }
 
 void Scalarconverter::convert(const char *str) {
-  double doubleNumber = std::atof(str);
+  double doubleNumber;
   bool isZero = true;
+  char *str_end;
 
-  if (isDecimal(str, isZero) == true) {
+  doubleNumber = std::strtod(str, &str_end);
+  if (*str_end == '\0' || (*str_end == 'f' && *(str_end + 1) == '\0')) {
+    for (size_t i = 0; str[i] != '\0'; i++) {
+    }
     decimalPrint(doubleNumber, isZero);
-  } else {
+  } else
     nonDecimalPrint(str, doubleNumber);
-  }
 }
