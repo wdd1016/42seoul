@@ -31,6 +31,12 @@ void PmergeMe::fordJohnsonSort(int argc, const char *argv[]) {
 
   std::cout << "After:";
   for (size_t i = 0; i < _vec.size(); i++) std::cout << " " << _vec[i];
+  std::cout << std::endl << "After:";
+  for (listIt it = _lst.begin(); it != _lst.end(); it++)
+    std::cout << " " << *it;
+  std::cout << std::endl << "After:";
+  for (dequeIt it = _deq.begin(); it != _deq.end(); it++)
+    std::cout << " " << *it;
   std::cout << std::endl;
   std::cout << "Time to process a range of " << _vec.size()
             << " elements with std::vector : " << vecTime << " us" << std::endl;
@@ -84,53 +90,62 @@ bool PmergeMe::pairComparison(vector &numbers, size_t elementSize,
     return false;
 }
 
+// Jacobsthal number의 사용이 필요함
 void PmergeMe::pendingElementsInsertion(vector &numbers, bool upFlag,
                                         size_t elemSize, size_t pairCnt) {
-  vector largerElements(elemSize * pairCnt);
-  vector pendingElements(elemSize * (pairCnt + upFlag));
+  vector mainchains;
+  vector pendingElem;
   vectorIt numbersIt = numbers.begin();
-  vectorIt largeIt = largerElements.begin();
-  vectorIt pendingIt = pendingElements.begin();
   vectorIt tempIt;
 
+  mainchains.reserve(numbers.size());
+  pendingElem.reserve(elemSize);
   for (size_t i = 0; i < pairCnt; i++) {
     tempIt = numbersIt + elemSize;
-    largeIt = std::copy(numbersIt, tempIt, largeIt);
-    numbersIt = tempIt;
-    tempIt = numbersIt + elemSize;
-    pendingIt = std::copy(numbersIt, tempIt, pendingIt);
-    numbersIt = tempIt;
+    mainchains.insert(mainchains.end(), numbersIt, tempIt);
+    numbersIt = tempIt + elemSize;
+    pendingElem.insert(pendingElem.end(), tempIt, numbersIt);
+    binarySearchInsertion(mainchains, pendingElem, elemSize);
+    pendingElem.clear();
   }
-  if (upFlag) std::copy(numbersIt, numbersIt + elemSize, pendingIt);
-  pendingIt = pendingElements.begin();
-  while (pendingIt != pendingElements.end()) {
-    tempIt = pendingIt + elemSize;
-    binarySearchInsertion(largerElements, pendingIt, tempIt, elemSize);
-    pendingIt = tempIt;
+  if (upFlag) {
+    tempIt = numbersIt;
+    numbersIt += elemSize;
+    pendingElem.insert(pendingElem.end(), tempIt, numbersIt);
+    if (pendingElem.front() >= mainchains[mainchains.size() - elemSize])
+      mainchains.insert(mainchains.end(), pendingElem.begin(),
+                        pendingElem.end());
+    else
+      binarySearchInsertion(mainchains, pendingElem, elemSize);
   }
-  std::copy(largerElements.begin(), largerElements.end(), numbers.begin());
+  if (numbersIt != numbers.end())
+    mainchains.insert(mainchains.end(), numbersIt, numbers.end());
+  numbers.swap(mainchains);
 }
 
-void PmergeMe::binarySearchInsertion(vector &lgElements, vectorIt &compIt,
-                                     vectorIt &endIt, size_t elemSize) {
-  vectorIt low = lgElements.begin();
-  vectorIt high = lgElements.end();
-  vectorIt mid;
-  size_t halfDis;
+void PmergeMe::binarySearchInsertion(vector &mainchains, vector &pdElement,
+                                     size_t elemSize) {
+  size_t low = 0;
+  size_t high = (mainchains.size() / elemSize) - 1;
+  size_t mid;
 
-  if (*compIt <= *low) {
-    lgElements.insert(low, compIt, endIt);
+  if (pdElement.front() <= mainchains.front()) {
+    mainchains.insert(mainchains.begin(), pdElement.begin(), pdElement.end());
     return;
   }
-  while (low + elemSize < high) {
-    halfDis = (std::distance(low, high) / 2);
-    mid = low + halfDis - (halfDis % elemSize);
-    if (*compIt >= *mid)
-      low = mid;
-    else
+  while (low + 1 < high) {
+    mid = (low + high) / 2;
+    if (mainchains[mid * elemSize] == pdElement.front()) {
+      mainchains.insert(mainchains.begin() + (mid * elemSize),
+                        pdElement.begin(), pdElement.end());
+      return;
+    } else if (mainchains[mid * elemSize] > pdElement.front())
       high = mid;
+    else
+      low = mid;
   }
-  lgElements.insert(high, compIt, endIt);
+  mainchains.insert(mainchains.begin() + (high * elemSize), pdElement.begin(),
+                    pdElement.end());
 }
 
 // vector와 차이점 : std::advance ( + oprator overloading이 없음)
@@ -155,62 +170,72 @@ bool PmergeMe::pairComparison(list &numbers, size_t elementSize,
     return false;
 }
 
-// vector와 차이점 : std::advance, splice member function
+// vector와 차이점 : std::advance, splice, Jacobsthal number의 사용이 필요함
 void PmergeMe::pendingElementsInsertion(list &numbers, bool upFlag,
                                         size_t elemSize, size_t pairCnt) {
-  list pendingElements;
-  list remainElements;
-  listIt largeIt = numbers.begin();
-  listIt pendingIt = pendingElements.end();
+  list mainchains;
+  list pendingElem;
   listIt tempIt;
 
   for (size_t i = 0; i < pairCnt; i++) {
-    std::advance(largeIt, elemSize);
-    tempIt = largeIt;
+    tempIt = numbers.begin();
     std::advance(tempIt, elemSize);
-    pendingElements.splice(pendingIt, numbers, largeIt, tempIt);
-    largeIt = tempIt;
+    mainchains.splice(mainchains.end(), numbers, numbers.begin(), tempIt);
+    tempIt = numbers.begin();
+    std::advance(tempIt, elemSize);
+    pendingElem.splice(pendingElem.end(), numbers, numbers.begin(), tempIt);
+    binarySearchInsertion(mainchains, pendingElem, elemSize);
   }
   if (upFlag) {
+    tempIt = numbers.begin();
     std::advance(tempIt, elemSize);
-    pendingElements.splice(pendingIt, numbers, largeIt, tempIt);
-    largeIt = tempIt;
+    pendingElem.splice(pendingElem.end(), numbers, numbers.begin(), tempIt);
+    tempIt = mainchains.end();
+    std::advance(tempIt, -elemSize);
+    if (pendingElem.front() >= *tempIt)
+      mainchains.splice(mainchains.end(), pendingElem);
+    else
+      binarySearchInsertion(mainchains, pendingElem, elemSize);
   }
-  remainElements.splice(remainElements.end(), numbers, largeIt, numbers.end());
-  pendingIt = pendingElements.begin();
-  while (pendingIt != pendingElements.end()) {
-    tempIt = pendingIt;
-    std::advance(tempIt, elemSize);
-    binarySearchInsertion(numbers, pendingElements, pendingIt, tempIt,
-                          elemSize);
-    pendingIt = tempIt;
-  }
-  numbers.splice(numbers.end(), remainElements);
+  numbers.splice(numbers.begin(), mainchains);
 }
 
 // vector와 차이점 : std::advance, splice member function
-void PmergeMe::binarySearchInsertion(list &lgElements, list &pdElements,
-                                     listIt &compIt, listIt &endIt,
+void PmergeMe::binarySearchInsertion(list &lgElements, list &pdElement,
                                      size_t elemSize) {
-  listIt low = lgElements.begin();
-  listIt high = lgElements.end();
-  listIt mid;
-  size_t halfDis;
+  size_t low = 0;
+  size_t high = (lgElements.size() / elemSize) - 1;
+  size_t mid;
+  listIt lowIt = lgElements.begin();
+  listIt highIt = lgElements.end();
+  listIt tempIt;
 
-  if (*compIt <= *low) {
-    lgElements.splice(low, pdElements, compIt, endIt);
+  if (pdElement.front() <= lgElements.front()) {
+    lgElements.splice(lgElements.begin(), pdElement);
     return;
   }
-  while (static_cast<size_t>(std::distance(low, high)) > elemSize) {
-    halfDis = (std::distance(low, high) / 2);
-    mid = low;
-    std::advance(mid, halfDis - (halfDis % elemSize));
-    if (*compIt >= *mid)
-      low = mid;
-    else
+  std::advance(highIt, -elemSize);
+  while (low + 1 < high) {
+    mid = (low + high) / 2;
+    if (mid - low <= high - mid) {
+      tempIt = lowIt;
+      std::advance(tempIt, (mid - low) * elemSize);
+    } else {
+      tempIt = highIt;
+      std::advance(tempIt, (mid - high) * elemSize);
+    }
+    if (*tempIt == pdElement.front()) {
+      lgElements.splice(tempIt, pdElement);
+      return;
+    } else if (*tempIt > pdElement.front()) {
       high = mid;
+      highIt = tempIt;
+    } else {
+      low = mid;
+      lowIt = tempIt;
+    }
   }
-  lgElements.splice(high, pdElements, compIt, endIt);
+  lgElements.splice(highIt, pdElement);
 }
 
 // vector와 차이점 : 없음
@@ -232,53 +257,59 @@ bool PmergeMe::pairComparison(deque &numbers, size_t elementSize,
     return false;
 }
 
-// vector와 차이점 : 없음
+// vector와 차이점 : 없음, Jacobsthal number의 사용이 필요함
 void PmergeMe::pendingElementsInsertion(deque &numbers, bool upFlag,
                                         size_t elemSize, size_t pairCnt) {
-  deque largerElements(elemSize * pairCnt);
-  deque pendingElements(elemSize * (pairCnt + upFlag));
+  deque mainchains;
+  deque pendingElem;
   dequeIt numbersIt = numbers.begin();
-  dequeIt largeIt = largerElements.begin();
-  dequeIt pendingIt = pendingElements.begin();
   dequeIt tempIt;
 
   for (size_t i = 0; i < pairCnt; i++) {
     tempIt = numbersIt + elemSize;
-    largeIt = std::copy(numbersIt, tempIt, largeIt);
-    numbersIt = tempIt;
-    tempIt = numbersIt + elemSize;
-    pendingIt = std::copy(numbersIt, tempIt, pendingIt);
-    numbersIt = tempIt;
+    mainchains.insert(mainchains.end(), numbersIt, tempIt);
+    numbersIt = tempIt + elemSize;
+    pendingElem.insert(pendingElem.end(), tempIt, numbersIt);
+    binarySearchInsertion(mainchains, pendingElem, elemSize);
+    pendingElem.clear();
   }
-  if (upFlag) std::copy(numbersIt, numbersIt + elemSize, pendingIt);
-  pendingIt = pendingElements.begin();
-  while (pendingIt != pendingElements.end()) {
-    tempIt = pendingIt + elemSize;
-    binarySearchInsertion(largerElements, pendingIt, tempIt, elemSize);
-    pendingIt = tempIt;
+  if (upFlag) {
+    tempIt = numbersIt;
+    numbersIt += elemSize;
+    pendingElem.insert(pendingElem.end(), tempIt, numbersIt);
+    if (pendingElem.front() >= mainchains[mainchains.size() - elemSize])
+      mainchains.insert(mainchains.end(), pendingElem.begin(),
+                        pendingElem.end());
+    else
+      binarySearchInsertion(mainchains, pendingElem, elemSize);
   }
-  std::copy(largerElements.begin(), largerElements.end(), numbers.begin());
+  if (numbersIt != numbers.end())
+    mainchains.insert(mainchains.end(), numbersIt, numbers.end());
+  numbers.swap(mainchains);
 }
 
 // vector와 차이점 : 없음
-void PmergeMe::binarySearchInsertion(deque &lgElements, dequeIt &compIt,
-                                     dequeIt &endIt, size_t elemSize) {
-  dequeIt low = lgElements.begin();
-  dequeIt high = lgElements.end();
-  dequeIt mid;
-  size_t halfDis;
+void PmergeMe::binarySearchInsertion(deque &mainchains, deque &pdElement,
+                                     size_t elemSize) {
+  size_t low = 0;
+  size_t high = (mainchains.size() / elemSize) - 1;
+  size_t mid;
 
-  if (*compIt <= *low) {
-    lgElements.insert(low, compIt, endIt);
+  if (pdElement.front() <= mainchains.front()) {
+    mainchains.insert(mainchains.begin(), pdElement.begin(), pdElement.end());
     return;
   }
-  while (low + elemSize < high) {
-    halfDis = (std::distance(low, high) / 2);
-    mid = low + halfDis - (halfDis % elemSize);
-    if (*compIt >= *mid)
-      low = mid;
-    else
+  while (low + 1 < high) {
+    mid = (low + high) / 2;
+    if (mainchains[mid * elemSize] == pdElement.front()) {
+      mainchains.insert(mainchains.begin() + (mid * elemSize),
+                        pdElement.begin(), pdElement.end());
+      return;
+    } else if (mainchains[mid * elemSize] > pdElement.front())
       high = mid;
+    else
+      low = mid;
   }
-  lgElements.insert(high, compIt, endIt);
+  mainchains.insert(mainchains.begin() + (high * elemSize), pdElement.begin(),
+                    pdElement.end());
 }

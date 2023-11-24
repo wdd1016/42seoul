@@ -57,23 +57,22 @@ class PmergeMe {
                              size_t pairCount);
   static void pendingElementsInsertion(vector &numbers, bool upFlag,
                                        size_t elemSize, size_t pairCnt);
-  static void binarySearchInsertion(vector &lgElements, vectorIt &compIt,
-                                    vectorIt &endIt, size_t elemSize);
+  static void binarySearchInsertion(vector &lgElements, vector &pdElement,
+                                    size_t elemSize);
 
   static bool pairComparison(list &numbers, size_t elementSize,
                              size_t pairCount);
   static void pendingElementsInsertion(list &numbers, bool upFlag,
                                        size_t elemSize, size_t pairCnt);
   static void binarySearchInsertion(list &lgElements, list &pdElements,
-                                    listIt &compIt, listIt &endIt,
                                     size_t elemSize);
 
   static bool pairComparison(deque &numbers, size_t elementSize,
                              size_t pairCount);
   static void pendingElementsInsertion(deque &numbers, bool upFlag,
                                        size_t elemSize, size_t pairCnt);
-  static void binarySearchInsertion(deque &lgElements, dequeIt &compIt,
-                                    dequeIt &endIt, size_t elemSize);
+  static void binarySearchInsertion(deque &lgElements, deque &pdElement,
+                                    size_t elemSize);
 
  public:
   ~PmergeMe();
