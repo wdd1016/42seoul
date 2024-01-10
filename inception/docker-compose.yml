@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  mariadb:
+    build: ./requirements/mariadb
+    image: mariadb
+    env_file: .env
+    networks:
+      - inception
+    volumes:
+      - db:/var/lib/mysql
+    restart: on-failure
+  
+  wordpress:
+    build: ./requirements/wordpress
+    image: wordpress
+    env_file: .env
+    networks:
+      - inception
+    volumes:
+      - wp:/var/www/wordpress
+    depends_on:
+      - mariadb
+    restart: on-failure
+
+  nginx:
+    build: ./requirements/nginx
+    image: nginx
+    networks:
+      - inception
+    ports:
+      - "443:443"
+    depends_on:
+      - wordpress
+    restart: on-failure
+
+networks:
+  inception:
+
+volumes:
+  db:
+  wp:
