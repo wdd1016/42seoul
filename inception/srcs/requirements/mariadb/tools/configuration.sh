@@ -9,7 +9,7 @@ fi
 rc default
 
 # SQL 쿼리문을 넣기위해 잠시 실행한다.
-rc-service mariadb start
+service mariadb start
 
 if [ ! -d "/var/lib/mysql/wordpress" ]; then
 	# mysql_installation 설정
@@ -24,7 +24,7 @@ if [ ! -d "/var/lib/mysql/wordpress" ]; then
 	mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';"
 fi
 
-rc-service mariadb stop
+service mariadb stop
 
 chown -R mysql:mysql /var/lib/mysql
 

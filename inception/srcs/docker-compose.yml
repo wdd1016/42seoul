@@ -3,31 +3,38 @@ version: '3.9'
 services:
   mariadb:
     build: ./requirements/mariadb
-    image: mariadb
+    container_name: mariadb
     env_file: .env
     networks:
       - inception
     volumes:
       - db:/var/lib/mysql
+      - /sys/fs/cgroup
+    expose:
+      - "3306"
     restart: on-failure
   
   wordpress:
     build: ./requirements/wordpress
-    image: wordpress
+    container_name: wordpress
     env_file: .env
     networks:
       - inception
     volumes:
-      - wp:/var/www/wordpress
+      - wp:/var/www
+    expose:
+      - "9000"
     depends_on:
       - mariadb
     restart: on-failure
 
   nginx:
     build: ./requirements/nginx
-    image: nginx
+    container_name: nginx
     networks:
       - inception
+    volumes:
+      - wp:/var/www
     ports:
       - "443:443"
     depends_on:
@@ -39,4 +46,12 @@ networks:
 
 volumes:
   db:
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/juyojeon/data/mysql
   wp:
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/juyojeon/data/www

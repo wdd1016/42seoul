@@ -7,7 +7,11 @@ up:
 down:
 		@docker-compose -f srcs/docker-compose.yml down
 
-clean:
+clean: down
+		@docker system prune -a
+
+
+fclean: down
 		@chmod 744 clean.sh
 		@sh clean.sh
 
