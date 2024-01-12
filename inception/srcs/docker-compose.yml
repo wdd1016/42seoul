@@ -88,6 +88,15 @@ services:
       - "3000:3000"
     restart: on-failure
 
+  minecraft:
+    build: ./requirements/bonus/minecraft
+    container_name: minecraft
+    ports:
+      - "25565:25565"
+    volumes:
+      - mine:/server
+    restart: on-failure
+
 
 networks:
   inception:
@@ -103,3 +112,4 @@ volumes:
       type: none
       o: bind
       device: /home/juyojeon/data/www
+  mine:
