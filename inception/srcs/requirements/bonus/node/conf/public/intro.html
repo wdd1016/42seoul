@@ -1,0 +1,248 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THE 스튜디오</title>
+<style>
+* { margin: 0; padding: 0; 
+    box-sizing: border-box; 
+}
+body { font-family: "돋움"}
+a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    color: #000000;
+}
+li { list-style-type: none; }
+/* 기본 CSS, 스마트 폰 CSS */
+header {
+    position: relative;
+    height: 70px;
+}
+header .logo {
+    position: absolute;
+    top: 23px;
+    left: 20px;
+    font-size: 1.3em;
+}
+header .logo span {
+    color: #1f5abb;
+    font-weight: bold;
+} 
+header .menu {
+    display:none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+header .menu_btn {
+    width:20px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+header .menu_btn li {
+    border-bottom: solid 2px #000000;
+    padding: 3px 0;
+}
+.sub_image { 
+    background: url("./img/sub_intro.jpg");
+    background-position: top center;
+    background-repeat: no-repeat;
+    height: 150px;
+    text-align: center;
+    color: #f9f5db;
+}
+.sub_image h1 { 
+    padding-top: 40px; 
+    font-size: 2.0em; 
+    font-weight: normal; 
+}
+.sub_image span { 
+    display: block;
+    margin-top: 10px;
+}
+.intro .item:first-child { padding: 50px 0; }
+.intro .item:last-child {
+    padding: 50px 0;
+    background-color: #eeeeee;    
+}
+.intro .item::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+.intro img {
+    display: block;
+    max-width: 100%;
+} 
+.intro::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+.intro .text { padding: 30px 30px 0 30px; }
+.intro .text h4 { margin-top: 10px; }
+.intro .text p {
+    margin-top: 20px; 
+    line-height: 180%;
+} 
+footer {
+    color: #ffffff;
+    background-color: #292c32;
+    padding-bottom: 80px;
+}
+footer .box div { padding: 60px 0 0 20px; }
+footer .box div:first-child h1 { margin-top: 20px; }
+footer .box div:nth-child(2) p { 
+    margin-top: 20px; 
+    line-height: 150%;
+}  
+footer .box div:nth-child(2) li {
+    display: inline-block;
+    margin-right: 10px;
+}
+footer .box div:last-child {
+    text-align: right;
+    padding-right: 20px;
+}
+footer::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+[class*="col_"] {  float: left; }
+.col_s_1 { width: 8.33%; }   .col_s_2 {  width: 16.66%;  }
+.col_s_3 { width: 25%; }     .col_s_4 {  width: 33.33%;  }
+.col_s_5 { width: 41.66%; }  .col_s_6 {  width: 50%;  }
+.col_s_7 { width: 58.33%; }  .col_s_8 {  width: 66.66%;  }
+.col_s_9 { width: 75%; }     .col_s_10 {  width: 83.33%;  }
+.col_s_11 { width: 91.66%; } .col_s_12 { width: 100%; }
+@media only screen and (min-width: 768px) {
+    /* 테블릿 */
+    .col_m_1 { width: 8.33%; }   .col_m_2 { width: 16.66%; }
+    .col_m_3 { width: 25%; }     .col_m_4 { width: 33.33%;  }
+    .col_m_5 { width: 41.66%; }  .col_m_6 { width: 50%; }
+    .col_m_7 { width: 58.33%; }  .col_m_8 { width: 66.66%; }
+    .col_m_9 { width: 75%; }     .col_m_10 { width: 83.33%; }
+    .col_m_11 { width: 91.66%; } .col_m_12 { width: 100%; }
+    .box { 
+        max-width: 1170px; 
+        margin: 0 auto; 
+        position: relative;
+    }
+    .sub_image { height: 220px; }
+    .sub_image h1 { padding-top: 75px; }
+    .intro .item:last-child .image {
+        float: right;
+    }
+    .intro .item:first-child { padding: 80px 0; }
+    .intro .item:last-child { padding: 80px 0; }
+}
+@media only screen and (min-width: 1200px) {
+    /* 데스크톱 */
+    .col_1 { width: 8.33%; }   .col_2 { width: 16.66%; }
+    .col_3 { width: 25%; }     .col_4 { width: 33.33%; }
+    .col_5 { width: 41.66%; }  .col_6 { width: 50%; }
+    .col_7 { width: 58.33%; }  .col_8 { width: 66.66%; }
+    .col_9 { width: 75%; }     .col_10 { width: 83.33%; }
+    .col_11 { width: 91.66%; } .col_12 { width: 100%; }
+    header .menu_btn { display: none; } 
+    header .menu { display: block; } 
+    header .menu li {
+        display: inline-block;
+        margin: 5px 0 0 50px;
+    }
+    .box {
+        max-width: 1170px;
+        margin: 0 auto;
+        position: relative;
+    }
+    .sub_image { height: 350px; }
+    .sub_image h1 { padding-top: 130px; }
+    .intro .item:last-child .image { float: right; }
+    .intro .item:first-child { padding: 100px 0; }
+    .intro .item:last-child { padding: 100px 0; }
+}
+</style>
+</head>
+<body>
+<header>
+    <div class="box">
+        <h1 class="logo"><a href="index.html"><span>THE</span> 스튜디오</a></h1>
+        <nav>
+            <ul class="menu">
+            <li><a href="intro.html">스튜디오 소개</a></li>
+            <li><a href="reservation.html">스튜디오 예약</a></li>
+            <li><a href="">블로그</a></li>
+            <li><a href="">포토 갤러리</a></li>
+            <li><a href="">오시는 길</a></li>
+            </ul>
+        </nav>
+        <ul class="menu_btn">
+            <li></li> <li></li> <li></li>
+        </ul>
+    </div> 
+</header>
+<section class="sub_image">
+    <h1>스튜디오 소개</h1>
+    <span>제품 사진 촬영을 위한 스튜디오 임대!</span>
+</section>
+<section class="intro">
+    <div class="item">
+        <div class=" box">
+            <div class="image col_s_12 col_m_6 col_6">
+                <img src="./img/intro1.jpg">
+            </div> <!-- image -->
+            <div class="text col_s_12 col_m_6 col_6">
+                <h1>최상의 결과</h1>
+                <h4>"하나의 목표를 위해 최선의 노력을"</h4>
+                <p>스튜디오 촬영용 세트를 만드는 데에 통상 많은 비용이 들어 제작비를 상승시키는 주원인이 됩니다.</p>
+                <p>그러나 THE 스튜디오에서는 변수가 생기지 않도록 완벽한 촬영 준비와 함께 기획 단계에 같이 참여하여 최상의 결과물을 얻을 수 있게 합니다.</p>
+            </div> <!-- text -->
+        </div> <!-- box -->    
+    </div> <!-- item -->
+    <div class="item">
+        <div class=" box">
+            <div class="image col_s_12 col_m_6 col_6">
+                <img src="./img/intro2.jpg">
+            </div> <!-- image -->
+            <div class="text col_s_12 col_m_6 col_6">
+                <h1>최적의 환경 </h1>
+                <h4>"고품질의 작품 탄생을 위한 최적의 환경"</h4>
+                <p>모던한 스튜디오의 인테리어, 다양하고 멋진 소품, 빛 예술을 구현하는 최적의 조명을 제공하여 다양한 이미지를 연출할 수 있습니다.</p>
+                <p>고객의 편안한 대기를 위해 로비 라운지를 운영하고 있으며 최대 20대까지 주차할 수 있는 주차장을 보유하고 있습니다.</p>
+            </div> <!-- text -->
+        </div> <!-- box -->    
+    </div> <!-- item -->  
+</section>
+<footer>
+    <div class="box">
+        <div class="col_m_4 col_4">
+            <h3>고객 센터</h3>
+            <h1>Tel : 1588-1588</h1>
+        </div>
+        <div class="col_m_6 col_6">
+            <ul>
+                <li>회사소개</li>
+                <li>|</li>
+                <li>개인정보처리방침</li>
+                <li>|</li>
+                <li>이용약관</li>
+                <li>|</li>
+                <li>제휴안내</li>
+            </ul>
+            <p>주소 : 경기도 용인시 수지구 정평로 123<br>
+               email : photo@korea.com<br>
+               COPYRIGHT ⓒ 2021 The 스튜디오. ALL RIGHTS RESERVED.
+            </p>
+        </div>      
+        <div class="col_m_2 col_2">
+            <a href="#"><img src="./img/facebook.png"></a>
+            <a href="#"><img src="./img/blog.png"></a>
+            <a href="#"><img src="./img/instagram.png"></a>
+        </div>   
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THE 스튜디오</title>
+<style>
+* { margin: 0; padding: 0; 
+    box-sizing: border-box; 
+}
+body { font-family: "돋움"}
+a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    color: #000000;
+}
+li { list-style-type: none; }
+/* 기본 CSS, 스마트 폰 CSS */
+header {
+    position: relative;
+    height: 70px;
+}
+header .logo {
+    position: absolute;
+    top: 23px;
+    left: 20px;
+    font-size: 1.3em;
+}
+header .logo span {
+    color: #1f5abb;
+    font-weight: bold;
+} 
+header .menu {
+    display:none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+header .menu_btn {
+    width:20px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+header .menu_btn li {
+    border-bottom: solid 2px #000000;
+    padding: 3px 0;
+}
+.sub_image { 
+    background: url("./img/sub_reservation.jpg");
+    background-position: top center;
+    background-repeat: no-repeat;
+    height: 150px;
+    text-align: center;
+    color: #f9f5db;
+}
+.sub_image h1 { padding-top: 40px; font-size: 2.0em; font-weight: normal; }
+.sub_image span { 
+    display: block;
+    margin-top: 10px;
+}
+.reservation .calendar {
+    margin-top: 40px;
+    padding-top: 50px;
+    background-color: #fcf9ea;
+    text-align: center;
+    color: #444444;
+}
+.reservation .calendar h4 { font-weight: normal; }
+.reservation .calendar .month {
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+.reservation .calendar .month span { font-size: 1.2em; }
+.reservation table, .reservation td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+.reservation table {
+    width: 90%;
+    margin: 20px auto;
+    margin-bottom: 50px;
+    font-size: 0.9em;
+    background-color: #ffffff;    
+    color: #000000;
+    text-align: left;
+}
+.reservation tr { height: 100px; }
+.reservation tr:first-child {
+    height: 30px;
+    text-align: center;
+}
+.reservation td {
+    vertical-align: top;
+    padding: 5px;
+}
+.reservation tr td:first-child {
+    color: #ff0000;
+    width: 14.2857%;
+}
+.reservation tr td:nth-child(2) { width: 14.2857%; }
+.reservation tr td:nth-child(3) { width: 14.2857%; }
+.reservation tr td:nth-child(4) { width: 14.2857%; }
+.reservation tr td:nth-child(5) { width: 14.2857%; }
+.reservation tr td:nth-child(6) { width: 14.2857%; }
+.reservation tr td:last-child { width: 14.2857%; }
+.reservation .info { padding: 30px; }
+.reservation .info h2 {
+    margin: 20px 0 20px 0;
+    border-left: solid 8px #444444;
+    padding-left: 10px;
+}
+.reservation .info ul { margin-bottom: 40px; }
+.reservation .info li { margin-top: 12px; }
+.reservation .info li span {
+    display: block;
+    margin-top: 20px;
+    color: green;
+}
+.reservation::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+footer {
+    color: #ffffff;
+    background-color: #292c32;
+    padding-bottom: 80px;
+}
+footer .box div { padding: 60px 0 0 20px; }
+footer .box div:first-child h1 { margin-top: 20px; }
+footer .box div:nth-child(2) li {
+    display: inline-block;
+    margin-right: 5px;
+}
+footer .box div:nth-child(2) p { 
+    margin-top: 20px; 
+    line-height: 150%;
+}  
+footer .box div:last-child {
+    text-align: right;
+    padding-right: 20px;
+}
+footer::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+[class*="col_"] {  float: left; }
+.col_s_1 { width: 8.33%; }   .col_s_2 {  width: 16.66%;  }
+.col_s_3 { width: 25%; }     .col_s_4 {  width: 33.33%;  }
+.col_s_5 { width: 41.66%; }  .col_s_6 {  width: 50%;  }
+.col_s_7 { width: 58.33%; }  .col_s_8 {  width: 66.66%;  }
+.col_s_9 { width: 75%; }     .col_s_10 {  width: 83.33%;  }
+.col_s_11 { width: 91.66%; } .col_s_12 { width: 100%; }
+@media only screen and (min-width: 768px) {
+    /* 테블릿 */
+    .col_m_1 { width: 8.33%; }   .col_m_2 { width: 16.66%; }
+    .col_m_3 { width: 25%; }     .col_m_4 { width: 33.33%;  }
+    .col_m_5 { width: 41.66%; }  .col_m_6 { width: 50%; }
+    .col_m_7 { width: 58.33%; }  .col_m_8 { width: 66.66%; }
+    .col_m_9 { width: 75%; }     .col_m_10 { width: 83.33%; }
+    .col_m_11 { width: 91.66%; } .col_m_12 { width: 100%; }
+    .box { 
+        max-width: 1170px; 
+        margin: 0 auto; 
+        position: relative;        
+    }
+    .sub_image { height: 220px; }
+    .sub_image h1 { padding-top: 75px; }
+    .reservation { margin: 40px 0 90px 0; }
+    .reservation .info { margin-top: 20px; }
+}
+@media only screen and (min-width: 1200px) {
+    /* 데스크톱 */
+    .col_1 { width: 8.33%; }   .col_2 { width: 16.66%; }
+    .col_3 { width: 25%; }     .col_4 { width: 33.33%; }
+    .col_5 { width: 41.66%; }  .col_6 { width: 50%; }
+    .col_7 { width: 58.33%; }  .col_8 { width: 66.66%; }
+    .col_9 { width: 75%; }     .col_10 { width: 83.33%; }
+    .col_11 { width: 91.66%; } .col_12 { width: 100%; }
+    header .menu_btn { display: none; } 
+    header .menu { display: block; } 
+    header .menu li {
+        display: inline-block;
+        margin: 5px 0 0 50px;
+    }
+    .box {
+        max-width: 1170px;
+        margin: 0 auto;
+        position: relative;
+    }
+    .sub_image { height: 350px; }
+    .sub_image h1 { padding-top: 130px; }
+    .reservation { margin: 40px 0 90px 0; }
+    .reservation .info { margin-top: 20px; }
+}
+</style>
+</head>
+<body>
+<header>
+    <div class="box">
+        <h1 class="logo"><a href="index.html"><span>THE</span> 스튜디오</a></h1>
+        <nav>
+            <ul class="menu">
+            <li><a href="intro.html">스튜디오 소개</a></li>
+            <li><a href="reservation.html">스튜디오 예약</a></li>
+            <li><a href="">블로그</a></li>
+            <li><a href="">포토 갤러리</a></li>
+            <li><a href="">오시는 길</a></li>
+            </ul>
+        </nav>
+        <ul class="menu_btn">
+            <li></li> <li></li> <li></li>
+        </ul>
+    </div>
+</header>
+<section class="sub_image">
+    <h1>스튜디오 예약</h1>
+    <span>사전에 인터넷으로 예약해주세요.</span>
+</section>
+<section class="reservation">
+    <div class="box">
+        <div class="calendar col_s_12 col_m_8 col_8">
+            <h4>예약 날짜를 선택해 주세요.</h4>
+            <div class="month">
+                ◀ <span>2021.09</span> ▶
+            </div>
+            <table>
+                <tr>
+                    <td>Sun</td><td>Mon</td>
+                    <td>Tue</td><td>Wed</td>
+                    <td>Thu</td><td>Fri</td>
+                    <td>Sat</td>
+                </tr>
+                <tr>
+                    <td>29</td><td>30</td>
+                    <td>31</td><td>1</td>
+                    <td>2</td><td>3</td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <td>5</td><td>6</td>
+                    <td>7</td><td>8</td>
+                    <td>9</td><td>10</td>
+                    <td>11</td>
+                </tr>
+                <tr>
+                    <td>12</td><td>13</td>
+                    <td>14</td><td>15</td>
+                    <td>16</td><td>17</td>
+                    <td>18</td>
+                </tr>
+                <tr>
+                    <td>19</td><td>20</td>
+                    <td>21</td><td>22</td>
+                    <td>23</td><td>24</td>
+                    <td>25</td>
+                </tr>
+                <tr>
+                    <td>26</td><td>27</td>
+                    <td>28</td><td>29</td>
+                    <td>30</td><td> </td>
+                    <td> </td>
+                </tr>
+            </table>
+        </div> <!-- calendar -->
+        <div class="info col_s_12 col_m_4 col_4">
+            <h2>예약 안내</h2>
+            <ul>
+                <li>· 1일전 예약해 주세요.</li>
+                <li>· 사용 일주일 이후에 취소는 환불됩니다.</li>
+                <li>· 이용 시간은 촬영과 준비 모두 포함입니다.</li>
+                <li>· 일요일은 휴일입니다.</li>
+            </ul>
+            <h2>이용 요금</h2>
+            <ul>
+                <li>· 1시간 : 30,000원</li>
+                <li>· 반일 대여 : 100,000원</li>
+                <li>· 전일 대여 : 200,000원
+                <span>※ 자세한 내용은 전화(1588-1588)로 문의 주세요.</span></li>
+            </ul>
+        </div> <!-- info -->
+    </div> <!-- box -->    
+</section>
+<footer>
+    <div class="box">
+        <div class="col_m_4 col_4">
+            <h3>고객 센터</h3>
+            <h1>Tel : 1588-1588</h1>
+        </div>
+        <div class="col_m_6 col_6">
+            <ul>
+                <li>회사소개</li>
+                <li>|</li>
+                <li>개인정보처리방침</li>
+                <li>|</li>
+                <li>이용약관</li>
+                <li>|</li>
+                <li>제휴안내</li>
+            </ul>
+            <p>주소 : 경기도 용인시 수지구 정평로 123<br>
+               email : photo@korea.com<br>
+               COPYRIGHT ⓒ 2021 The 스튜디오. ALL RIGHTS RESERVED.
+            </p>
+        </div>      
+        <div class="col_m_2 col_2">
+            <a href="#"><img src="./img/facebook.png"></a>
+            <a href="#"><img src="./img/blog.png"></a>
+            <a href="#"><img src="./img/instagram.png"></a>
+        </div>   
+    </div>
+</footer>
+</body>
+</html>

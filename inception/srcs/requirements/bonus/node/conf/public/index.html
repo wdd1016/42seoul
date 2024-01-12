@@ -1,0 +1,255 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THE 스튜디오</title>
+<style>
+* { margin: 0; padding: 0; 
+    box-sizing: border-box; 
+}
+body { font-family: "돋움"}
+a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    color: #000000;
+}
+li { list-style-type: none; }
+/* 기본 CSS, 스마트 폰 CSS */
+header {
+    position: relative;
+    height: 70px;
+}
+header .logo {
+    position: absolute;
+    top: 23px;
+    left: 20px;
+    font-size: 1.3em;
+}
+header .logo span {
+    color: #1f5abb;
+    font-weight: bold;
+} 
+header .menu {
+    display:none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+header .menu_btn {
+    width:20px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+header .menu_btn li {
+    border-bottom: solid 2px #000000;
+    padding: 3px 0;
+}
+.main_image img { max-width: 100%; } 
+.banner { padding: 15px; }
+.banner li { float: left; padding: 10px; }
+.banner img { max-width: 100%; }
+.banner p { margin-top: 10px; line-height: 150%; }
+.banners::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+.items {
+    padding: 15px;
+    padding-bottom: 40px;
+    background-color: #f9f9f9; 
+}
+.items img {
+    max-width: 100%;
+    display: block;
+}
+.items ul {
+    background-color: white;
+    margin-bottom: 20px;
+}
+.items li:nth-child(2) { padding: 15px 10px; }
+.items li:last-child { padding: 0px 10px 10px 10px; }
+.items::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+footer {
+    color: #ffffff;
+    background-color: #292c32;
+    padding-bottom: 80px;
+}
+footer .box div { padding: 60px 0 0 20px; }
+footer .box div:first-child h1 { margin-top: 20px; }
+footer .box div:nth-child(2) li {
+    display: inline-block;
+    margin-right: 5px;
+}
+footer .box div:nth-child(2) p { 
+    margin-top: 20px; 
+    line-height: 150%;
+}  
+footer .box div:last-child {
+    text-align: right;
+    padding-right: 20px;
+}
+footer::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+[class*="col_"] {  float: left; }
+.col_s_1 { width: 8.33%; }   .col_s_2 {  width: 16.66%;  }
+.col_s_3 { width: 25%; }     .col_s_4 {  width: 33.33%;  }
+.col_s_5 { width: 41.66%; }  .col_s_6 {  width: 50%;  }
+.col_s_7 { width: 58.33%; }  .col_s_8 {  width: 66.66%;  }
+.col_s_9 { width: 75%; }     .col_s_10 {  width: 83.33%;  }
+.col_s_11 { width: 91.66%; } .col_s_12 { width: 100%; }
+@media only screen and (min-width: 768px) {
+    /* 테블릿 CSS */
+    .col_m_1 { width: 8.33%; }   .col_m_2 { width: 16.66%; }
+    .col_m_3 { width: 25%; }     .col_m_4 { width: 33.33%;  }
+    .col_m_5 { width: 41.66%; }  .col_m_6 { width: 50%; }
+    .col_m_7 { width: 58.33%; }  .col_m_8 { width: 66.66%; }
+    .col_m_9 { width: 75%; }     .col_m_10 { width: 83.33%; }
+    .col_m_11 { width: 91.66%; } .col_m_12 { width: 100%; }
+    .box { 
+        max-width: 1170px; 
+        margin: 0 auto; 
+        position: relative;
+    }
+    .banners { margin: 50px 0; } 
+    .items { padding-top: 60px; }
+    .item { padding-right: 15px; }
+}
+@media only screen and (min-width: 1200px) {
+    /* 데스크톱 CSS */
+    .col_1 { width: 8.33%; }   .col_2 { width: 16.66%; }
+    .col_3 { width: 25%; }     .col_4 { width: 33.33%; }
+    .col_5 { width: 41.66%; }  .col_6 { width: 50%; }
+    .col_7 { width: 58.33%; }  .col_8 { width: 66.66%; }
+    .col_9 { width: 75%; }     .col_10 { width: 83.33%; }
+    .col_11 { width: 91.66%; } .col_12 { width: 100%; }
+    header .menu_btn { display: none; } 
+    header .menu { display: block; } 
+    header .menu li {
+        display: inline-block;
+        margin: 5px 0 0 50px;
+    }
+    .box {
+        max-width: 1170px;
+        margin: 0 auto;
+        position: relative;
+    }
+    .banner { padding-right: 30px; }
+    .items { padding-top: 60px; }
+    .item { padding-right: 15px; }
+}
+</style>
+</head>
+<body>
+<header>
+    <div class="box">
+        <h1 class="logo"><a href="index.html"><span>THE</span> 스튜디오</a></h1>
+        <nav>
+            <ul class="menu">
+            <li><a href="intro.html">스튜디오 소개</a></li>
+            <li><a href="reservation.html">스튜디오 예약</a></li>
+            <li><a href="">블로그</a></li>
+            <li><a href="">포토 갤러리</a></li>
+            <li><a href="">오시는 길</a></li>
+            </ul>
+        </nav>
+        <ul class="menu_btn">
+            <li></li> <li></li> <li></li>
+        </ul>
+    </div>
+</header>
+<section class="main_image">
+    <img src="./img/main.jpg">
+</section>
+<section class="banners">
+    <div class="box">
+        <div class="banner col_m_6 col_6">
+            <ul>
+            <li class="col_s_3"><img src="./img/icon1.png"></li>
+            <li class="col_s_9">
+                <h3>예약 안내</h3>
+                <p>스튜디오 대여는 사전에 인터넷 예약을 하셔야 합니다. 예약은 1일 이전까지 가능합니다.</p>
+            </li>
+            </ul>
+        </div>
+        <div class="banner col_m_6 col_6">
+            <ul>
+            <li class="col_s_3"><img src="./img/icon2.png"></li>
+            <li class="col_s_9">
+                <h3>포토 갤러리</h3>
+                <p>취업 사진, 가족 사진, 프로필 사진, 우정 사진 등 개인 또는 단체가 이용할 수 있습니다. </p>
+            </li>
+            </ul>
+        </div>
+    </div> <!-- box -->    
+</section>
+<section class="items">
+    <div class="box">
+        <div class="item col_m_6 col_3">
+            <ul>
+            <li><img src="./img/image1.jpg"></li>
+            <li><h3>촬영 스튜디오</h3></li>
+            <li>카메라, 조명 등 촬영 장비 완비</li>
+            </ul>
+        </div>    
+        <div class="item col_m_6 col_3">
+            <ul>
+            <li><img src="./img/image2.jpg"></li>
+            <li><h3>촬영 스튜디오</h3></li>
+            <li>카메라, 조명 등 촬영 장비 완비</li>
+            </ul>
+        </div> 
+        <div class="item col_m_6 col_3">
+            <ul>
+            <li><img src="./img/image3.jpg"></li>
+            <li><h3>촬영 스튜디오</h3></li>
+            <li>카메라, 조명 등 촬영 장비 완비</li>
+            </ul>
+        </div> 
+        <div class="item col_m_6 col_3">
+            <ul>
+            <li><img src="./img/image4.jpg"></li>
+            <li><h3>촬영 스튜디오</h3></li>
+            <li>카메라, 조명 등 촬영 장비 완비</li>
+            </ul>
+        </div>
+    </div> <!-- box -->
+</section> <!-- items -->
+<footer>
+    <div class="box">
+        <div class="col_m_4 col_4">
+            <h3>고객 센터</h3>
+            <h1>Tel : 1588-1588</h1>
+        </div>
+        <div class="col_m_6 col_6">
+            <ul>
+                <li>회사소개</li>
+                <li>|</li>
+                <li>개인정보처리방침</li>
+                <li>|</li>
+                <li>이용약관</li>
+                <li>|</li>
+                <li>제휴안내</li>
+            </ul>
+            <p>주소 : 경기도 용인시 수지구 정평로 123<br>
+               email : photo@korea.com<br>
+               COPYRIGHT ⓒ 2021 The 스튜디오. ALL RIGHTS RESERVED.
+            </p>
+        </div>      
+        <div class="col_m_2 col_2">
+            <a href="#"><img src="./img/facebook.png"></a>
+            <a href="#"><img src="./img/blog.png"></a>
+            <a href="#"><img src="./img/instagram.png"></a>
+        </div>   
+    </div>
+</footer>
+</body>
+</html>
