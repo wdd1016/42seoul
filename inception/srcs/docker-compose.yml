@@ -53,6 +53,33 @@ services:
     depends_on:
       - wordpress
     restart: on-failure
+  
+  ftp:
+    build: ./requirements/bonus/ftp
+    container_name: ftp
+    env_file: .env
+    networks:
+      - inception
+    volumes:
+      - wp:/var/www
+      - /sys/fs/cgroup
+    ports:
+      - "21:21"
+    depends_on:
+      - wordpress
+    restart: on-failure
+
+  adminer:
+    build: ./requirements/bonus/adminer
+    container_name: adminer
+    env_file: .env    
+    networks:
+      - inception
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mariadb
+    restart: on-failure
 
 networks:
   inception:
