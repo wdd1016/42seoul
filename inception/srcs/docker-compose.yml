@@ -41,6 +41,19 @@ services:
       - wordpress
     restart: on-failure
 
+  redis:
+    build: ./requirements/bonus/redis
+    container_name: redis
+    networks:
+      - inception
+    volumes:
+      - wp:/var/www
+    expose:
+      - "6379"
+    depends_on:
+      - wordpress
+    restart: on-failure
+
 networks:
   inception:
 

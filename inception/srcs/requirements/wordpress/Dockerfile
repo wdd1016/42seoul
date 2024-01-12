@@ -1,22 +1,26 @@
-FROM alpine:3.18
+FROM debian:bullseye
 
-ARG PHP_VER=81
+RUN apt-get update && apt-get -y install mariadb-client dumb-init \
+    php7.4 php7.4-fpm php7.4-mysql php7.4-cgi \
+    php7.4-json php7.4-curl php7.4-intl \
+    php7.4-common php7.4-mbstring php7.4-gd php7.4-cli \
+    php7.4-xml php7.4-zip \
+    php7.4-redis redis curl
 
-RUN apk update && apk upgrade && apk add --no-cache dumb-init \
-    php${PHP_VER} php${PHP_VER}-fpm php${PHP_VER}-mysqli \
-    php${PHP_VER}-json php${PHP_VER}-curl php${PHP_VER}-dom \
-    php${PHP_VER}-pecl-imagick php${PHP_VER}-pecl-igbinary php${PHP_VER}-intl \
-    php${PHP_VER}-exif php${PHP_VER}-fileinfo php${PHP_VER}-mbstring \
-    php${PHP_VER}-openssl php${PHP_VER}-xml php${PHP_VER}-zip \
-    php${PHP_VER}-redis php${PHP_VER}-phar curl && \
-    sed -i "s|listen = 127.0.0.1:9000|listen = 9000|g" /etc/php${PHP_VER}/php-fpm.d/www.conf
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+  && chmod +x wp-cli.phar \
+  && mv wp-cli.phar /usr/local/bin/wp
+
+COPY ./tools/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+
+RUN mkdir /run/php
+
+EXPOSE 9000
+
+COPY ./tools/configuration.sh /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/configuration.sh
 
 WORKDIR /var/www
 
-# https://make.wordpress.org/cli/handbook/guides/installing/#recommended-installation
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-RUN chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
-
-COPY ./tools/configuration.sh .
-
-ENTRYPOINT [ "/usr/bin/dumb-init", "--", "sh", "configuration.sh" ]
+ENTRYPOINT [ "/usr/bin/dumb-init", "--", "sh", "/usr/local/bin/configuration.sh" ]
