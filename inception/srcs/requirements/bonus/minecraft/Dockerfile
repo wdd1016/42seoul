@@ -1,6 +1,6 @@
 FROM debian:bullseye
 
-RUN apt-get update && apt-get -y upgrade
+RUN apt update && apt -y upgrade
 RUN apt install -y vim iputils-ping wget curl tar dumb-init
 RUN apt install -y openjdk-17-jdk openjdk-17-jre
 

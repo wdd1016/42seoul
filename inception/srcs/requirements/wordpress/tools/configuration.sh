@@ -15,7 +15,7 @@ if [ ! -e "/var/www/wp-config.php" ]; then
   wp config set WP_CACHE true --allow-root
   wp plugin install redis-cache --activate --allow-root
   wp plugin update --all --allow-root
-  chmod 777 -R /var/www/wordpress
+  chmod 777 -R /var/www
 fi
 
 wp redis enable --allow-root
