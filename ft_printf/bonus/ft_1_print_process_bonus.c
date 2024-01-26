@@ -35,21 +35,11 @@ static int	ft_print_format(va_list ap, t_para *para, int *print_count)
 
 static int	ft_find_format(const char *str)
 {
-	while (ft_strchr("-0# +", *str))
+	while (ft_strchr("-0# +.123456789", *str))
 		str++;
-	while (ft_strchr("0123456789", *str))
-		str++;
-	if (*str == '.')
-	{
-		str++;
-		if (*str == '+' || *str == '-')
-			str++;
-		while (ft_strchr("0123456789", *str))
-			str++;
-	}
 	if (*str == '\0')
 		return (0);
-	if (ft_strchr("cspdiuxX%", *str))
+	else if (ft_strchr("cspdiuxX%", *str))
 		return (1);
 	else
 		return (0);
@@ -57,6 +47,7 @@ static int	ft_find_format(const char *str)
 
 int	ft_process_print(va_list ap, const char **str, t_para *para, int *p_count)
 {
+	(*str)++;
 	if (**str == '\0')
 		return (0);
 	ft_memset(para, 0, sizeof(t_para));

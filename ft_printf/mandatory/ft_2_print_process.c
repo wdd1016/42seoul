@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_mandatory.h"
+#include "ft_printf.h"
 
 static int	ft_print_format(va_list ap, t_para *para, int *print_count)
 {
@@ -38,6 +38,7 @@ static int	ft_print_format(va_list ap, t_para *para, int *print_count)
 
 int	ft_process_print(va_list ap, const char **str, t_para *para, int *p_count)
 {
+	(*str)++;
 	if (**str == '\0')
 		return (0);
 	ft_memset(para, 0, sizeof(t_para));

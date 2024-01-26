@@ -1,24 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_mandatory.h                              :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 20:07:41 by juyojeon          #+#    #+#             */
-/*   Updated: 2022/12/16 01:04:41 by juyojeon         ###   ########.fr       */
+/*   Created: 2022/11/20 23:20:35 by juyojeon          #+#    #+#             */
+/*   Updated: 2022/12/18 20:09:40 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_MANDATORY_H
-# define FT_PRINTF_MANDATORY_H
+#include "ft_printf.h"
 
-# include "../ft_printf.h"
+int	ft_printf(const char *str, ...)
+{
+	va_list	ap;
+	t_para	parameter;
+	int		count;
 
-int	ft_write_char(va_list ap, int *print_count);
-int	ft_write_string(va_list ap, int *print_count);
-int	ft_write_int(va_list ap, int *print_count, t_para *para);
-int	ft_write_16base(va_list ap, int *print_count, t_para *para);
-int	ft_write_ptr(va_list ap, int *print_count, t_para *para);
-
-#endif
+	count = 0;
+	if (!str)
+		return (-1);
+	va_start(ap, str);
+	while (*str)
+	{
+		if (*str == '%')
+		{
+			if (ft_process_print(ap, &str, &parameter, &count) == -1)
+				return (-1);
+		}
+		else
+		{
+			if (write(1, str, 1) < 0)
+				return (-1);
+			count++;
+			str++;
+		}
+	}
+	va_end(ap);
+	return (count);
+}

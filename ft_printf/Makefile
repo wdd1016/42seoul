@@ -11,15 +11,21 @@
 # **************************************************************************** #
 
 CFLAGS = -Wall -Wextra -Werror
+
 NAME = libftprintf.a
-SRCS = ft_printf.c ft_libft.c ft_abstoa.c ft_ulltox.c
+
+SRCS = ./mandatory/ft_1_printf.c ./mandatory/ft_2_print_process.c \
+./mandatory/ft_3_write_format.c ./mandatory/ft_abstoa.c ./mandatory/ft_libft.c \
+./mandatory/ft_ulltox.c
+
 OBJS = $(SRCS:.c=.o)
-SRCS_MANDATORY = ./mandatory/ft_process_print.c ./mandatory/ft_write_format.c
-ORCS_MANDATORY = $(SRCS_MANDATORY:.c=.o)
-SRCS_BONUS = ./bonus/ft_1_process_print_bonus.c ./bonus/ft_2_make_struct_bonus.c \
-./bonus/ft_3_char_string_bonus.c ./bonus/ft_4_integer_bouns.c \
-./bonus/ft_5_unsigned_int_bonus.c ./bonus/ft_6_16base_bonus.c \
-./bonus/ft_7_write_ptr_bonus.c
+
+SRCS_BONUS = ./bonus/ft_0_printf_bonus.c ./bonus/ft_1_print_process_bonus.c \
+./bonus/ft_2_make_struct_bonus.c ./bonus/ft_3_char_string_bonus.c \
+./bonus/ft_4_integer_bouns.c ./bonus/ft_5_unsigned_int_bonus.c \
+./bonus/ft_6_16base_bonus.c ./bonus/ft_7_write_ptr_bonus.c \
+./bonus/ft_libft_bonus.c ./bonus/ft_abstoa_bonus.c ./bonus/ft_ulltox_bonus.c
+
 OBJS_BOUNS = $(SRCS_BONUS:.c=.o)
 
 all : $(NAME)
@@ -27,23 +33,23 @@ all : $(NAME)
 bonus : $(NAME)
 
 ifeq ($(findstring bonus, $(MAKECMDGOALS)), bonus)
-$(NAME): $(OBJS) $(OBJS_BOUNS)
-	ar -rcs $@ $(OBJS) $(OBJS_BOUNS)
+$(NAME): $(OBJS_BOUNS)
+	ar -rcs $@ $(OBJS_BOUNS)
 else
-$(NAME): $(OBJS) $(ORCS_MANDATORY)
-	ar -rcs $@ $(OBJS) $(ORCS_MANDATORY)
+$(NAME): $(OBJS)
+	ar -rcs $@ $(OBJS)
 endif
 
 ifeq ($(findstring bonus, $(MAKECMDGOALS)), bonus)
 %.o : %.c
-	cc -c $(CFLAGS) $< -o $@ -I . -I ./bonus
+	cc -c $(CFLAGS) $< -o $@ -I ./bonus
 else
 %.o : %.c
-	cc -c $(CFLAGS) $< -o $@ -I . -I ./mandatory
+	cc -c $(CFLAGS) $< -o $@ -I ./mandatory
 endif
 
 clean :
-	rm -f $(OBJS) $(ORCS_MANDATORY) $(OBJS_BOUNS)
+	rm -f $(OBJS) $(OBJS_BOUNS)
 
 fclean : clean
 	rm -f $(NAME)

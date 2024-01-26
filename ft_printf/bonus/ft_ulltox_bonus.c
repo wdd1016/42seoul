@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ulltox.c                                       :+:      :+:    :+:   */
+/*   ft_ulltox_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,11 +10,60 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
-static size_t	ft_len_of_x(size_t nbr);
-static void		ft_convert_to_small(char *str, size_t nbr, size_t nbr_len);
-static void		ft_convert_to_big(char *str, size_t nbr, size_t nbr_len);
+static void	ft_convert_to_small(char *str, size_t nbr, size_t nbr_len)
+{
+	size_t		nbr_idx;
+	const char	*base = "0123456789abcdef";
+
+	nbr_idx = nbr_len - 1;
+	if (nbr > 0)
+	{
+		while (nbr != 0)
+		{
+			str[nbr_idx] = base[nbr % 16];
+			nbr_idx--;
+			nbr /= 16;
+		}
+	}
+	else
+		str[0] = '0';
+}
+
+static void	ft_convert_to_big(char *str, unsigned int nbr, unsigned int nbr_len)
+{
+	size_t		nbr_idx;
+	const char	*base = "0123456789ABCDEF";
+
+	nbr_idx = nbr_len - 1;
+	if (nbr > 0)
+	{
+		while (nbr != 0)
+		{
+			str[nbr_idx] = base[nbr % 16];
+			nbr_idx--;
+			nbr /= 16;
+		}
+	}
+	else
+		str[0] = '0';
+}
+
+size_t	ft_len_of_x(size_t nbr)
+{
+	size_t	nbr_len;
+
+	nbr_len = 0;
+	if (nbr == 0)
+		nbr_len++;
+	while (nbr)
+	{
+		nbr /= 16;
+		nbr_len++;
+	}
+	return (nbr_len);
+}
 
 int	ft_ulltox(size_t n, int *print_count, t_para *para)
 {
@@ -38,57 +87,4 @@ int	ft_ulltox(size_t n, int *print_count, t_para *para)
 	free(str_x);
 	(*print_count) += nbr_len;
 	return (1);
-}
-
-static size_t	ft_len_of_x(size_t nbr)
-{
-	size_t	nbr_len;
-
-	nbr_len = 0;
-	if (nbr == 0)
-		nbr_len++;
-	while (nbr)
-	{
-		nbr /= 16;
-		nbr_len++;
-	}
-	return (nbr_len);
-}
-
-static void	ft_convert_to_small(char *str, size_t nbr, size_t nbr_len)
-{
-	size_t		nbr_idx;
-	const char	*base = "0123456789abcdef";
-
-	nbr_idx = nbr_len - 1;
-	if (nbr > 0)
-	{
-		while (nbr != 0)
-		{
-			str[nbr_idx] = base[nbr % 16];
-			nbr_idx--;
-			nbr /= 16;
-		}
-	}
-	else
-		str[0] = '0';
-}
-
-static void	ft_convert_to_big(char *str, size_t nbr, size_t nbr_len)
-{
-	size_t		nbr_idx;
-	const char	*base = "0123456789ABCDEF";
-
-	nbr_idx = nbr_len - 1;
-	if (nbr > 0)
-	{
-		while (nbr != 0)
-		{
-			str[nbr_idx] = base[nbr % 16];
-			nbr_idx--;
-			nbr /= 16;
-		}
-	}
-	else
-		str[0] = '0';
 }
