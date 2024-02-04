@@ -40,22 +40,22 @@ int	ft_write_char(va_list ap, t_para *para, int *print_count)
 	ch = '%';
 	if (para->format == 'c')
 		ch = va_arg(ap, int);
-	if ((para->flag & FLAG_MINUS) == FLAG_MINUS)
-	{
-		if (write(1, &ch, 1) < 0)
-			return (-1);
-	}
+	if ((para->flag & FLAG_MINUS) == FLAG_MINUS && write(1, &ch, 1) < 0)
+		return (-1);
 	if (para->width > 1)
 	{
-		if (ft_write_spacezero(para->width - 1, ' ') < 0)
+		if (ch == '%' && (para->flag & FLAG_MINUS) == 0 \
+		&& (para->flag & FLAG_ZERO) == FLAG_ZERO)
+		{
+			if (ft_write_spacezero(para->width - 1, '0') < 0)
+				return (-1);
+		}
+		else if (ft_write_spacezero(para->width - 1, ' ') < 0)
 			return (-1);
 		(*print_count) += para->width - 1;
 	}
-	if ((para->flag & FLAG_MINUS) == 0)
-	{
-		if (write(1, &ch, 1) < 0)
-			return (-1);
-	}
+	if ((para->flag & FLAG_MINUS) == 0 && write(1, &ch, 1) < 0)
+		return (-1);
 	(*print_count)++;
 	return (1);
 }
