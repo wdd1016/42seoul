@@ -2,6 +2,8 @@ version: '3.9'
 
 services:
   mariadb:
+    image: mariadb
+    pull_policy: never
     build: ./requirements/mariadb
     container_name: mariadb
     env_file: .env
@@ -15,6 +17,8 @@ services:
     restart: on-failure
   
   wordpress:
+    image: wordpress
+    pull_policy: never
     build: ./requirements/wordpress
     container_name: wordpress
     env_file: .env
@@ -29,6 +33,8 @@ services:
     restart: on-failure
 
   nginx:
+    image: nginx
+    pull_policy: never
     build: ./requirements/nginx
     container_name: nginx
     networks:
@@ -42,6 +48,8 @@ services:
     restart: on-failure
 
   redis:
+    image: redis
+    pull_policy: never
     build: ./requirements/bonus/redis
     container_name: redis
     networks:
@@ -55,6 +63,8 @@ services:
     restart: on-failure
   
   ftp:
+    image: ftp
+    pull_policy: never
     build: ./requirements/bonus/ftp
     container_name: ftp
     env_file: .env
@@ -70,6 +80,8 @@ services:
     restart: on-failure
 
   adminer:
+    image: adminer
+    pull_policy: never
     build: ./requirements/bonus/adminer
     container_name: adminer
     env_file: .env    
@@ -82,6 +94,8 @@ services:
     restart: on-failure
   
   node:
+    image: node
+    pull_policy: never
     build: ./requirements/bonus/node
     container_name: node
     ports:
@@ -89,6 +103,8 @@ services:
     restart: on-failure
 
   minecraft:
+    image: minecraft
+    pull_policy: never
     build: ./requirements/bonus/minecraft
     container_name: minecraft
     ports:
