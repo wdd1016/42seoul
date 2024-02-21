@@ -17,15 +17,6 @@
 # include <unistd.h>
 # include <stdarg.h>
 
-# define FLAG_MINUS 1
-# define FLAG_ZERO 2
-# define FLAG_SHARP 4
-# define FLAG_SPACE 8
-# define FLAG_PLUS 16
-# define P_OFF 0
-# define P_ON 1
-# define P_OVERFLOW 2
-
 typedef struct s_para
 {
 	int	flag;
@@ -45,13 +36,10 @@ size_t	ft_len_of_x(size_t nbr);
 int		ft_printf(const char *str, ...);
 int		ft_process_print(va_list ap, const char **str, \
 t_para *para, int *p_count);
-int		ft_make_struct(const char **str, t_para *para);
-int		ft_write_spacezero(int count, char target);
-int		ft_write_char(va_list ap, t_para *para, int *print_count);
-int		ft_write_string(va_list ap, t_para *para, int *print_count);
-int		ft_write_int(va_list ap, t_para *para, int *print_count);
-int		ft_write_unsigned(va_list ap, t_para *para, int *print_count);
-int		ft_write_16base(va_list ap, t_para *para, int *print_count);
-int		ft_write_ptr(va_list ap, t_para *para, int *print_count);
+int		ft_write_char(va_list ap, int *print_count);
+int		ft_write_string(va_list ap, int *print_count);
+int		ft_write_int(va_list ap, int *print_count, t_para *para);
+int		ft_write_16base(va_list ap, int *print_count, t_para *para);
+int		ft_write_ptr(va_list ap, int *print_count, t_para *para);
 
 #endif

@@ -31,9 +31,11 @@ bonus : $(NAME)
 
 ifeq ($(findstring bonus, $(MAKECMDGOALS)), bonus)
 $(NAME): $(OBJS) $(OBJS_BOUNS)
+	rm -f $@
 	ar -rcs $@ $(OBJS) $(OBJS_BOUNS)
 else
 $(NAME): $(OBJS)
+	rm -f $@
 	ar -rcs $@ $(OBJS)
 endif
 

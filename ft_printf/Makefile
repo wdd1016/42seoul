@@ -14,9 +14,11 @@ CFLAGS = -Wall -Wextra -Werror
 
 NAME = libftprintf.a
 
-SRCS = ./mandatory/ft_1_printf.c ./mandatory/ft_2_print_process.c \
-./mandatory/ft_3_write_format.c ./mandatory/ft_abstoa.c ./mandatory/ft_libft.c \
-./mandatory/ft_ulltox.c
+SRCS = ./mandatory/ft_0_printf.c ./mandatory/ft_1_print_process.c \
+./mandatory/ft_2_make_struct.c ./mandatory/ft_3_char_string.c \
+./mandatory/ft_4_integer.c ./mandatory/ft_5_unsigned_int.c \
+./mandatory/ft_6_16base.c ./mandatory/ft_7_write_ptr.c \
+./mandatory/ft_libft.c ./mandatory/ft_abstoa.c ./mandatory/ft_ulltox.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -34,9 +36,11 @@ bonus : $(NAME)
 
 ifeq ($(findstring bonus, $(MAKECMDGOALS)), bonus)
 $(NAME): $(OBJS_BOUNS)
+	rm -f $@
 	ar -rcs $@ $(OBJS_BOUNS)
 else
 $(NAME): $(OBJS)
+	rm -f $@
 	ar -rcs $@ $(OBJS)
 endif
 
