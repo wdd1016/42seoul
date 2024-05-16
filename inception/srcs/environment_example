@@ -1,0 +1,24 @@
+# Basic
+USER=ubuntu
+DOMAIN_NAME=intraid.42.fr
+
+# MYSQL setup
+MYSQL_ROOT_PASSWORD=applegrape
+MYSQL_USER=intraid
+MYSQL_PASSWORD=peachmelon
+DB_NAME=wordpress
+DB_HOST=mariadb
+
+# Wordpress setup
+WP_NAME=inception
+WP_ADMIN_USER=master
+WP_ADMIN_PASSWORD=black
+WP_ADMIN_EMAIL=master@42.fr
+WP_USER=minor
+WP_USER_PASSWORD=white
+WP_USER_EMAIL=minor@42.fr
+
+# ftp setup
+FTP_USER=intraid
+FTP_PASSWORD=ftpfast
+
