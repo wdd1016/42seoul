@@ -21,8 +21,6 @@
     
     [https://aws-hyoh.tistory.com/11](https://aws-hyoh.tistory.com/11)
     
-    ![ssl.png](Inception%20c09f0a75d75b40b2b72ec8f5aa3924e6/ssl.png)
-    
 - 보안
     
     기본적으로 .env파일을 이용하여 버전관리 코드 공유 프로그램에 노출되지 않도록 조심
@@ -39,30 +37,31 @@
     
     기존 [localhost](http://localhost)부분은 유지하고, 맨 아랫줄에 127.0.0.1 intra_id.42.fr 을 추가한다.
 
-Ubuntu Desktop 22.04.4 LTS (https://releases.ubuntu.com/jammy/)
+- 진행 방법
+    Ubuntu Desktop 22.04.4 LTS (https://releases.ubuntu.com/jammy/)
 
-sudo apt install ssh
-sudo apt install docker.io
-sudo apt install make
-sudo vi /etc/hosts
+    sudo apt install ssh
+    sudo apt install docker.io
+    sudo apt install make
+    sudo vi /etc/hosts
 
-https://intraid.42.fr
-https://intraid.42.fr/wp-login.php
-https://intraid.42.fr/wp-admin/options-general.php?page=redis-cache
+    https://intraid.42.fr
+    https://intraid.42.fr/wp-login.php
+    https://intraid.42.fr/wp-admin/options-general.php?page=redis-cache
 
-<node static webpage>
-localhost:3000
+    <node static webpage>
+    localhost:3000
 
-<adminer page>
-localhost:8080
+    <adminer page>
+    localhost:8080
 
-<ftp>
-sudo docker inspect ftp
--> "IPAddress": "A.B.C.D"
+    <ftp>
+    sudo docker inspect ftp
+    -> "IPAddress": "A.B.C.D"
 
-ftp A.B.C.D
-ftp_id 입력
-ftp_pw 입력
+    ftp A.B.C.D
+    ftp_id 입력
+    ftp_pw 입력
 
-ls
-get fillname
+    ls
+    get fillname
