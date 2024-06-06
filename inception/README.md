@@ -16,10 +16,12 @@
     
     sudo apt install docker-compose
     ```
+
     
 - SSL, TLS
     
     [https://aws-hyoh.tistory.com/11](https://aws-hyoh.tistory.com/11)
+
     
 - 보안
     
@@ -28,6 +30,7 @@
     그렇다고 평문으로 저장한 .env파일이 안전한지는 의문 → Docker (compose)의 Secret기능, AWS Secrets Manager, Parameter Store등의 보안장치를 통해 추가적인 안전장치 도입 가능
     
     하지만 subject에 따라 .env파일 이용
+
     
 - Redirect by /etc/hosts
     
@@ -37,7 +40,9 @@
     
     기존 [localhost](http://localhost)부분은 유지하고, 맨 아랫줄에 127.0.0.1 intra_id.42.fr 을 추가한다.
 
+
 - 진행 방법
+
     Ubuntu Desktop 22.04.4 LTS (https://releases.ubuntu.com/jammy/)
 
     sudo apt install ssh
