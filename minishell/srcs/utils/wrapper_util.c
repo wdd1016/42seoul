@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   util3.c                                            :+:      :+:    :+:   */
+/*   wrapper_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 23:56:25 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/18 00:03:17 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/21 01:48:07 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "minishell.h"
 
 void	*malloc_s(size_t size)
 {
@@ -19,8 +19,8 @@ void	*malloc_s(size_t size)
 	ptr = malloc(size);
 	if (ptr == NULL)
 	{
-        write(2, "Allocation Error!\n", 18);
-        exit(1);
+		write(2, "Allocation Error!\n", 18);
+		exit(1);
 	}
 	return (ptr);
 }

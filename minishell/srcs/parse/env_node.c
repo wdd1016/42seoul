@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 21:41:54 by danpark           #+#    #+#             */
-/*   Updated: 2024/08/18 00:40:25 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/21 23:50:00 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ t_envnode	*init_envlist(char **envp)
 		free(tmp);
 		tmp_node = tmp_node->next;
 	}
-	return (head_node);	
+	return (head_node);
 }
 
 static t_envnode	*create_envnode(char *key, char *value)
 {
 	t_envnode	*new_node;
 
-	new_node = (t_envnode *)malloc(sizeof(t_envnode));
+	new_node = (t_envnode *)malloc_s(sizeof(t_envnode));
 	new_node->key = key;
 	new_node->value = value;
 	new_node->next = NULL;

@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_node.c                                       :+:      :+:    :+:   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/09 21:51:14 by danpark           #+#    #+#             */
-/*   Updated: 2024/08/21 23:49:56 by juyojeon         ###   ########.fr       */
+/*   Created: 2024/08/21 23:57:10 by juyojeon          #+#    #+#             */
+/*   Updated: 2024/08/21 23:57:30 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_parsenode	*create_parsenode(t_type type, char **cmd)
+void	heredoc(t_data *data)
 {
-	t_parsenode	*new_node;
+	// char	*line;
 
-	new_node = (t_parsenode *)malloc_s(sizeof(t_parsenode));
-	new_node->type = type;
-	new_node->cmd = cmd;
-	new_node->left_child = NULL;
-	new_node->right_child = NULL;
-	return (new_node);
+	// while (1)
+	// {
+	// 	line = readline("> ");
+	// 	if (!line)
+	// 		break ;
+	// 	if (!ft_strncmp(line, data->token.heredoc_end, \
+	// 		ft_strlen(data->token.heredoc_end) + 1))
+	// 	{
+	// 		free(line);
+	// 		break ;
+	// 	}
+	// 	add_heredoc_line(data, line);
+	// 	free(line);
+	// }
 }

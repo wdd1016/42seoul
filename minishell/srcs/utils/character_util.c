@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_node.c                                        :+:      :+:    :+:   */
+/*   character_util.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/09 22:11:55 by danpark           #+#    #+#             */
-/*   Updated: 2024/08/17 23:59:57 by juyojeon         ###   ########.fr       */
+/*   Created: 2024/08/20 22:21:11 by juyojeon          #+#    #+#             */
+/*   Updated: 2024/08/21 01:47:47 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_pipenode	*create_pipenode(t_parsenode *parse_tree)
+int	ft_isspace(char c)
 {
-	t_pipenode	*new_node;
-
-	new_node = (t_pipenode *)malloc(sizeof(t_pipenode));
-	new_node->parse_tree = parse_tree;
-	new_node->next_pipeline = NULL;
-	return (new_node);
+	return (c == ' ' || c == '\t' || \
+	c == '\n' || c == '\v' || c == '\f' || c == '\r');
 }

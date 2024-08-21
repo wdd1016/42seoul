@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_node.c                                       :+:      :+:    :+:   */
+/*   release.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/09 21:51:14 by danpark           #+#    #+#             */
-/*   Updated: 2024/08/21 23:49:56 by juyojeon         ###   ########.fr       */
+/*   Created: 2024/08/20 23:51:07 by juyojeon          #+#    #+#             */
+/*   Updated: 2024/08/21 21:09:52 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_parsenode	*create_parsenode(t_type type, char **cmd)
+void	free_tokens(t_data *data)
 {
-	t_parsenode	*new_node;
+	t_tokennode	*token;
+	t_tokennode	*next;
 
-	new_node = (t_parsenode *)malloc_s(sizeof(t_parsenode));
-	new_node->type = type;
-	new_node->cmd = cmd;
-	new_node->left_child = NULL;
-	new_node->right_child = NULL;
-	return (new_node);
+	token = data->token.head;
+	while (token)
+	{
+		next = token->next;
+		free(token->parsed_data);
+		free(token);
+		token = next;
+	}
+	data->token.tail = NULL;
 }

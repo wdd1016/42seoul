@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   util2.c                                            :+:      :+:    :+:   */
+/*   split_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 23:16:38 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/17 23:56:35 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/21 01:48:00 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "minishell.h"
 
 static void	ft_insert_words(const char *str, char **s_spt, char set, \
 size_t w_count)
@@ -71,7 +71,7 @@ size_t w_count)
 			j = 0;
 			while (str[i + j] != set && str[i + j])
 				j++;
-			s_spt[w_count - 1] = (char *)malloc(sizeof(char) * (j + 1));
+			s_spt[w_count - 1] = (char *)malloc_s(sizeof(char) * (j + 1));
 			if (s_spt[w_count - 1] == 0)
 				return (ft_free_all_allocation(s_spt, w_count - 1));
 			i += j - 1;
@@ -112,7 +112,7 @@ char	**ft_split(char const *s, char c)
 	size_t	w_count;
 
 	w_count = ft_count_words((const char *)s, c);
-	s_spt = (char **)malloc(sizeof(char *) * (w_count + 1));
+	s_spt = (char **)malloc_s(sizeof(char *) * (w_count + 1));
 	if (!s_spt)
 		return (0);
 	if (ft_malloc_strings((const char *)s, s_spt, c, 0) == 0)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/20 20:04:47 by juyojeon          #+#    #+#             */
+/*   Updated: 2024/08/21 21:12:20 by juyojeon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -22,12 +34,24 @@
 
 int	g_exit_status;
 
+typedef struct s_token_data
+{
+	t_tokennode	*head;
+	t_tokennode	*tail;
+	size_t		start;
+	size_t		end;
+	size_t		bracket_count;
+	int			command_flag;
+	int			syntax_flag;
+}	t_token_data;
+
 typedef struct s_data
 {
-	char		*line;
-	t_envnode	*env_list;
-	t_tokennode	*token_list;
-	t_pipenode	*pipe_list;
+	char			*line;
+	size_t			line_length;
+	t_token_data	token;
+	t_envnode		*env_list;
+	t_parsenode		*parse_tree;
 }	t_data;
 
 #endif
