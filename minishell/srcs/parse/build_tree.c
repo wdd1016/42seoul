@@ -6,41 +6,82 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:00:05 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/25 00:00:14 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/25 23:12:59 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	build_tree(t_data *data)
+t_treenode	*build_tree(t_data *data)
 {
-	t_parsenode	*temp;
-	t_tokennode	*token;
+	t_treenode		*node;
+	t_treenode		*temp;
 
-	token = data->token.head;
-	while (token)
+	node = NULL;
+	while (data->token.temp)
 	{
-		temp = (t_parsenode *)malloc(sizeof(t_parsenode));
-		if (!temp)
-			parse_error(data, "malloc failed\n");
-		temp->cmd = NULL;
-		temp->next = NULL;
-		if (token->type == CMD)
-			cmd_with_symbol_process(data, token);
-		else if (token->type == PIPE)
-			temp->type = PIPE;
-		else if (token->type == SEMICOLON)
-			temp->type = SEMICOLON;
-		else if (token->type == REDIRECT)
-			temp->type = REDIRECT;
-		else if (token->type == END)
-			temp->type = END;
+		if (data->token.temp->type == PRIORITY_START)
+		{
+			temp = build_tree(data);
+			temp->subshell_flag = ON;
+			node = insert_node(node, temp);
+			data->token.temp = data->token.temp->next;
+		}
+		else if (data->token.temp->type == PRIORITY_END)
+			return (node);
 		else
-			parse_error(data, "invalid token\n");
-		if (!data->parse_tree)
-			data->parse_tree = temp;
-		else
-			add_back_parse(&(data->parse_tree), temp);
-		token = token->next;
+			node = insert_node(node, create_pnode(data->token.temp));
+		data->token.temp = data->token.temp->next;
 	}
+	return (node);
+}
+
+t_treenode	*insert_node(t_treenode *head, t_treenode *child)
+{
+	t_treenode	*temp;
+
+	if (!head)
+		return (child);
+	else if (child->type == COMMAND)
+		return (insert_command(head, child));
+	else if (child->type == IO_FILE)
+		return (insert_iofile(head, child));
+	temp = head;
+	while (precedence(head->type) <= precedence(child->type))
+	{
+		if (!head->right_child)
+			head->right_child = child;
+
+	}
+
+}
+
+int	precedence(t_type type)
+{
+	if (type == PRIORITY_START || type == PRIORITY_END || type == SUB_SHELL)
+		return (1);
+	return (0);
+}
+
+t_treenode	*create_pnode(t_tokennode *node)
+{
+	t_treenode	*new_node;
+
+	new_node = (t_treenode *)malloc_s(sizeof(t_treenode));
+	new_node->type = type;
+	if (type == COMMAND)
+		new_node->cmd = cmd;
+	else
+		new_node->cmd = NULL;
+	if (type == IO_FILE)
+		new_node->file = file;
+	else
+		new_node->file = NULL;
+	new_node->left_child = NULL;
+	new_node->right_child = NULL;
+	if (type == RE_IN || type == RE_HERE)
+		new_node->left_child = create_pnode(IO_FILE, NULL, file);
+	else if (type == RE_OUT || type == RE_APPEND)
+		new_node->right_child = create_pnode(IO_FILE, NULL, file);
+	return (new_node);
 }

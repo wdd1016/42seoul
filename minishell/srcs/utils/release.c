@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 23:51:07 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/25 00:48:01 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/25 19:38:46 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_tokens(t_data *data)
 		free(token);
 		token = next;
 	}
-	data->token.tail = NULL;
+	data->token.temp = NULL;
 }
 
 void	system_error(char *msg)

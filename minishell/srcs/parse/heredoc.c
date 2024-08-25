@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 23:57:10 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/25 02:09:01 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/25 19:38:48 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	heredoc(t_data *data, size_t start, size_t end)
 			system_error("Open system call Error!\n");
 		unlink(node->file_name);
 		add_token(data, RE_HERE);
-		free(data->token.tail->parsed_data);
-		data->token.tail->parsed_data = ft_itoa(node->fd);
+		free(data->token.temp->parsed_data);
+		data->token.temp->parsed_data = ft_itoa(node->fd);
 	}
 }
 

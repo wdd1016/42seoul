@@ -6,13 +6,16 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 21:57:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/24 23:58:33 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/25 22:36:48 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	finalize_tokens(t_data *data);
+static void			finalize_tokens(t_data *data);
+static t_tokennode	*command_combination(t_tokennode *node);
+static t_tokennode	*combine_node(t_tokennode *main, t_tokennode *node, \
+t_tokennode *prev);
 
 void	tokenize(t_data *dt)
 {
@@ -37,54 +40,70 @@ void	tokenize(t_data *dt)
 	finalize_tokens(dt);
 }
 
-void	add_token(t_data *dt, t_type type)
-{
-	t_tokennode	*token;
-
-	while (dt->line[dt->token.start] && ft_isspace(dt->line[dt->token.start]))
-		(dt->token.start)++;
-	if (dt->token.start == dt->token.end)
-		return ;
-	token = (t_tokennode *)malloc_s(sizeof(t_tokennode));
-	token->type = type;
-	token->cmd = NULL;
-	token->next = NULL;
-	if (type == COMMAND || type == RE_IN || type == RE_OUT || \
-		type == RE_APPEND || type == RE_HERE)
-		dt->token.command_flag = ON;
-	if (type == PIPE || type == D_VERTICAL || type == D_AMPERSAND || \
-		type == PRIORITY_START)
-		dt->token.command_flag = OFF;
-	token->parsed_data = ft_substr(dt->line, dt->token.start, \
-									dt->token.end - dt->token.start);
-	if (!dt->token.head)
-		dt->token.head = token;
-	else
-		dt->token.tail->next = token;
-	dt->token.tail = token;
-	dt->token.start = dt->token.end;
-}
-// Start index : first character of the token
-// End Index: position after the last character of the token.
-
 static void	finalize_tokens(t_data *data)
 {
 	t_tokennode	*tmp;
 
 	if (data->token.syntax_flag == ON)
 		return ;
-	else if (data->token.command_flag == OFF)
-		return (parse_error(data, "syntax error\n"));
-	else if (data->token.bracket_count != 0)
+	else if (!(data->token.command_flag) || data->token.bracket_count)
 		return (parse_error(data, "syntax error\n"));
 	else
 		add_token(data, COMMAND);
+	command_combination(data->token.head);
 	tmp = data->token.head;
 	while (tmp->next)
 	{
-		if (tmp->type == COMMAND || tmp->type == RE_IN || tmp->type == RE_OUT \
-			|| tmp->type == RE_APPEND || tmp->type == RE_HERE)
-			cmd_with_symbol_process(data, tmp);
+		if (tmp->type == COMMAND)
+			command_symbol_process(data, tmp);
+		else if (tmp->type == IO_FILE)
+			file_symbol_process(data, tmp);
 		tmp = tmp->next;
 	}
+}
+
+static t_tokennode	*command_combination(t_tokennode *node)
+{
+	t_tokennode	*prev;
+	t_tokennode	*main;
+	int			command_flag;
+
+	command_flag = OFF;
+	while (node)
+	{
+		if (node->type == COMMAND && command_flag == OFF)
+		{
+			command_flag = ON;
+			main = node;
+		}
+		else if (node->type == COMMAND && command_flag == ON)
+			node = combine_node(main, node, prev);
+		else if (node->type == PIPE || node->type == D_VERTICAL || \
+				node->type == D_AMPERSAND)
+			command_flag = OFF;
+		else if (node->type == PRIORITY_START)
+			node = command_combination(node->next);
+		else if (node->type == PRIORITY_END)
+			return (node);
+		prev = node;
+		node = node->next;
+	}
+	return (node);
+}
+
+static t_tokennode	*combine_node(t_tokennode *main, t_tokennode *node, \
+t_tokennode *prev)
+{
+	char	*temp;
+	char	*final_data;
+
+	temp = ft_strjoin(main->parsed_data, " ");
+	final_data = ft_strjoin(temp, node->parsed_data);
+	free(main->parsed_data);
+	free(node->parsed_data);
+	free(temp);
+	main->parsed_data = final_data;
+	prev->next = node->next;
+	free(node);
+	return (prev);
 }

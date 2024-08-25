@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 20:04:47 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/25 00:16:53 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/25 22:38:50 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	g_exit_status;
 typedef struct s_token_data
 {
 	t_tokennode	*head;
-	t_tokennode	*tail;
+	t_tokennode	*temp;
 	size_t		start;
 	size_t		end;
 	size_t		bracket_count;
@@ -53,7 +53,7 @@ typedef struct s_data
 	t_token_data	token;
 	t_envnode		*env_list;
 	t_herenode		*heredoc_list;
-	t_parsenode		*parse_tree;
+	t_treenode		*parse_tree;
 }	t_data;
 
 #endif

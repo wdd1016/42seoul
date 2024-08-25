@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 18:30:11 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/24 23:58:00 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/25 22:37:34 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,24 @@
 static void	quote_erase_expansion(t_data *dt, char **str_ptr);
 static void	quote_erase(char **str_ptr,  size_t start, size_t end);
 
-void	cmd_with_symbol_process(t_data *data, t_tokennode *temp)
+size_t	quote(t_data *data, char *string, char character, size_t end)
+{
+	end++;
+	while (string[end] && string[end] != character)
+		end++;
+	if (string[end] == character)
+	{
+		end++;
+		return (end);
+	}
+	else
+	{
+		parse_error(data, "syntax error\n");
+		return (data->line_length);
+	}
+}
+
+void	command_symbol_process(t_data *data, t_tokennode *temp)
 {
 	size_t	i;
 
@@ -42,6 +59,28 @@ void	cmd_with_symbol_process(t_data *data, t_tokennode *temp)
 	}
 }
 
+void	file_symbol_process(t_data *data, t_tokennode *temp)
+{
+	t_tokennode	*new_node;
+	size_t	i;
+
+	i = 0;
+	while (temp->parsed_data[i])
+	{
+		if (temp->parsed_data[i] == '\'')
+			i = quote(data, temp->parsed_data, '\'', i);
+		else if (temp->parsed_data[i] == '\"')
+			i = quote(data, temp->parsed_data, '\"', i);
+		else if (temp->parsed_data[i] == '$' && \
+		temp->parsed_data[i + 1] != ' ' && temp->parsed_data[i + 1] != '\0')
+			i = expansion(data->env_list, &(temp->parsed_data), i + 1, \
+						ft_substr(temp->parsed_data, 0, i));
+		else
+			i++;
+	}
+	quote_erase_expansion(data, &(temp->parsed_data));
+}
+
 static void	quote_erase_expansion(t_data *dt, char **str_ptr)
 {
 	size_t	i;
@@ -63,23 +102,6 @@ static void	quote_erase_expansion(t_data *dt, char **str_ptr)
 								ft_substr(*str_ptr, 0, i));
 			quote_erase(str_ptr, j, quote(dt, *str_ptr, '\"', j) - 1);
 		}
-	}
-}
-
-size_t	quote(t_data *data, char *string, char character, size_t end)
-{
-	end++;
-	while (string[end] && string[end] != character)
-		end++;
-	if (string[end] == character)
-	{
-		end++;
-		return (end);
-	}
-	else
-	{
-		parse_error(data, "syntax error\n");
-		return (data->line_length);
 	}
 }
 

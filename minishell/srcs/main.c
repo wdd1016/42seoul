@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 22:18:14 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/25 01:08:47 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/25 19:38:48 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static t_data	*initialize(int argc, char **argv, char **envp)
 	data->line = NULL;
 	data->line_length = 0;
 	data->token.head = NULL;
-	data->token.tail = NULL;
+	data->token.temp = NULL;
 	data->token.start = 0;
 	data->token.end = 0;
 	data->token.bracket_count = 0;

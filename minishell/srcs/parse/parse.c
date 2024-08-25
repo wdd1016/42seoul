@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 02:21:08 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/21 23:55:14 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/25 20:01:41 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	parse_commands(t_data *data)
 {
 	tokenize(data);
-	build_tree(data);
+	data->token.temp = data->token.head;
+	if (data->token.temp)
+		data->parse_tree = build_tree(data);
 }
 
 void	parse_error(t_data *data, char *msg)
