@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 20:04:47 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/21 21:12:20 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/25 00:16:53 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <string.h>
+# include <time.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <signal.h>
@@ -51,6 +52,7 @@ typedef struct s_data
 	size_t			line_length;
 	t_token_data	token;
 	t_envnode		*env_list;
+	t_herenode		*heredoc_list;
 	t_parsenode		*parse_tree;
 }	t_data;
 

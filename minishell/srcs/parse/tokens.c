@@ -6,60 +6,41 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 22:58:28 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/21 23:53:27 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:35:16 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	finalize_redirect_with_argument(t_data *dt, t_type type);
+static void	finalize_redirect_with_argument(t_data *dt);
 
-void	redirect_token(t_data *data)
+void	redirect_token(t_data *dt)
 {
-	add_token(data, COMMAND);
-	if (ft_strncmp(data->line + data->token.end, "<<", 2) == 0)
-		heredoc(data);
-	else if (ft_strncmp(data->line + data->token.end, ">>", 2) == 0)
+	add_token(dt, COMMAND);
+	if (ft_strncmp(dt->line + dt->token.end, "<<", 2) == 0)
 	{
-		data->token.end += 2;
-		finalize_redirect_with_argument(data, RE_APPEND);
-		add_token(data, RE_APPEND);
+		dt->token.end += 2;
+		finalize_redirect_with_argument(dt);
+		heredoc(dt, dt->token.start, dt->token.end - dt->token.start);
 	}
-	else if (data->line[data->token.end + 1] == '<')
+	else if (ft_strncmp(dt->line + dt->token.end, ">>", 2) == 0)
 	{
-		data->token.end += 1;
-		finalize_redirect_with_argument(data, RE_IN);
-		add_token(data, RE_IN);
+		dt->token.end += 2;
+		finalize_redirect_with_argument(dt);
+		add_token(dt, RE_APPEND);
+	}
+	else if (dt->line[dt->token.end] == '<')
+	{
+		dt->token.end += 1;
+		finalize_redirect_with_argument(dt);
+		add_token(dt, RE_IN);
 	}
 	else
 	{
-		data->token.end += 1;
-		finalize_redirect_with_argument(data, RE_OUT);
-		add_token(data, RE_OUT);
+		dt->token.end += 1;
+		finalize_redirect_with_argument(dt);
+		add_token(dt, RE_OUT);
 	}
-}
-
-static void	finalize_redirect_with_argument(t_data *dt, t_type type)
-{
-	while (dt->line[dt->token.start] && ft_isspace(dt->line[dt->token.end]))
-		(dt->token.end)++;
-	dt->token.start = dt->token.end;
-	while (dt->token.end < dt->line_length)
-	{
-		if (ft_strchr("<>|&() ", dt->line[dt->token.end]))
-			break ;
-		else if (dt->line[dt->token.end] == '\'')
-			single_quote(dt);
-		else if (dt->line[dt->token.end] == '\"')
-			double_quote(dt);
-		else if (dt->line[dt->token.end] == '$' && dt->line[dt->token.end + 1] \
-				!= '\0' && ft_strchr(" \\", dt->line[dt->token.end + 1]) == 0)
-			expansion(dt);
-		else
-			(dt->token.end)++;
-	}
-	if (dt->token.start == dt->token.end)
-		return (parse_error(dt, "syntax error\n"));
 }
 
 void	double_bar_token(t_data *data)
@@ -103,3 +84,23 @@ void	priority_token(t_data *data)
 	}
 }
 // dual bracket : arithmetic comparison
+
+static void	finalize_redirect_with_argument(t_data *dt)
+{
+	while (dt->line[dt->token.end] && ft_isspace(dt->line[dt->token.end]))
+		(dt->token.end)++;
+	dt->token.start = dt->token.end;
+	while (dt->token.end < dt->line_length && dt->token.syntax_flag == OFF)
+	{
+		if (ft_strchr("<>|&() ", dt->line[dt->token.end]))
+			break ;
+		else if (dt->line[dt->token.end] == '\'')
+			dt->token.end = quote(dt, dt->line, '\'', dt->token.end);
+		else if (dt->line[dt->token.end] == '\"')
+			dt->token.end = quote(dt, dt->line, '\"', dt->token.end);
+		else
+			(dt->token.end)++;
+	}
+	if (dt->token.start == dt->token.end && dt->token.syntax_flag == OFF)
+		return (parse_error(dt, "syntax error\n"));
+}

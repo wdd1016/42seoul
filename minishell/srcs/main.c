@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 22:18:14 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/21 21:11:37 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/25 01:08:47 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		rl_catch_signals = 0;
-		signal(SIGINT, signal_handler);
-		signal(SIGQUIT, SIG_IGN);
+		signal_default();
 		data->line = readline("minishell$ ");
 		detect_and_handle_eof(data->line);
 		if (data->line[0] != '\0')
@@ -57,6 +56,7 @@ static t_data	*initialize(int argc, char **argv, char **envp)
 	data->token.command_flag = OFF;
 	data->token.syntax_flag = OFF;
 	data->env_list = init_envlist(envp);
+	data->heredoc_list = NULL;
 	data->parse_tree = NULL;
 }
 
