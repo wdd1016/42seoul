@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 22:18:14 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/25 19:38:48 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/27 00:00:24 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ int	main(int argc, char **argv, char **envp)
 		parse_commands(data);
 		if (data->parse_tree)
 			execute_commands(data);
-		free_parse_data(data);
-		free(data->line);
+		free_data(data);
 	}
 }
 
@@ -58,6 +57,7 @@ static t_data	*initialize(int argc, char **argv, char **envp)
 	data->env_list = init_envlist(envp);
 	data->heredoc_list = NULL;
 	data->parse_tree = NULL;
+	return (data);
 }
 
 static void	detect_and_handle_eof(char *line)
@@ -71,5 +71,12 @@ static void	detect_and_handle_eof(char *line)
 
 static void	free_parse_data(t_data *data)
 {
-	(void)data;
+	free(data->line);
+	data->line = NULL;
+	data->line_length = 0;
+	free_tokens(data);
+	free_parse_tree(data->parse_tree);
+	data->parse_tree = NULL;
+	free_env_list(data);
+	free_heredoc_list_close_fd(data);
 }

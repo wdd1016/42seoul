@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 21:57:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/25 22:36:48 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/26 23:24:22 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_tokennode *prev);
 
 void	tokenize(t_data *dt)
 {
-	dt->line[ft_strlen(dt->line) - 1] = '\0';
 	dt->line_length = ft_strlen(dt->line);
 	while (dt->token.end < dt->line_length && dt->token.syntax_flag == OFF)
 	{
@@ -36,6 +35,8 @@ void	tokenize(t_data *dt)
 			pipe_token(dt);
 		else if (ft_strchr("()", dt->line[dt->token.end]))
 			priority_token(dt);
+		else
+			dt->token.end++;
 	}
 	finalize_tokens(dt);
 }
@@ -46,13 +47,15 @@ static void	finalize_tokens(t_data *data)
 
 	if (data->token.syntax_flag == ON)
 		return ;
-	else if (!(data->token.command_flag) || data->token.bracket_count)
-		return (parse_error(data, "syntax error\n"));
 	else
 		add_token(data, COMMAND);
+	if (!(data->token.command_flag))
+		return (parse_error(data, "command"));
+	else if (data->token.bracket_count)
+		return (parse_error(data, "bracket"));
 	command_combination(data->token.head);
 	tmp = data->token.head;
-	while (tmp->next)
+	while (tmp)
 	{
 		if (tmp->type == COMMAND)
 			command_symbol_process(data, tmp);

@@ -6,11 +6,17 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:00:05 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/25 23:12:59 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/26 22:27:51 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static t_treenode	*insert_node(t_treenode *head, t_treenode *child);
+static int			priority_level(t_treenode *child);
+static t_treenode	*insert_child(t_treenode *parent, t_treenode *child, \
+t_treenode *head);
+static t_treenode	*create_pnode(t_tokennode *node);
 
 t_treenode	*build_tree(t_data *data)
 {
@@ -22,10 +28,10 @@ t_treenode	*build_tree(t_data *data)
 	{
 		if (data->token.temp->type == PRIORITY_START)
 		{
+			data->token.temp = data->token.temp->next;
 			temp = build_tree(data);
 			temp->subshell_flag = ON;
 			node = insert_node(node, temp);
-			data->token.temp = data->token.temp->next;
 		}
 		else if (data->token.temp->type == PRIORITY_END)
 			return (node);
@@ -36,52 +42,77 @@ t_treenode	*build_tree(t_data *data)
 	return (node);
 }
 
-t_treenode	*insert_node(t_treenode *head, t_treenode *child)
+static t_treenode	*insert_node(t_treenode *head, t_treenode *child)
 {
 	t_treenode	*temp;
 
 	if (!head)
 		return (child);
-	else if (child->type == COMMAND)
-		return (insert_command(head, child));
-	else if (child->type == IO_FILE)
-		return (insert_iofile(head, child));
-	temp = head;
-	while (precedence(head->type) <= precedence(child->type))
+	else if (priority_level(head) > priority_level(child))
 	{
-		if (!head->right_child)
-			head->right_child = child;
-
+		child->left_child = head;
+		return (child);
 	}
-
+	temp = head;
+	while (temp)
+	{
+		if (temp->right_child == NULL || \
+			priority_level(temp->right_child) > priority_level(child))
+			return (insert_child(temp, child, head));
+		else
+			temp = temp->right_child;
+	}
+	return (head);
 }
 
-int	precedence(t_type type)
+static int	priority_level(t_treenode *child)
 {
-	if (type == PRIORITY_START || type == PRIORITY_END || type == SUB_SHELL)
+	if (child->subshell_flag == ON)
+		return (6);
+	else if (child->type == COMMAND || child->type == IO_FILE)
+		return (5);
+	else if (child->type == RE_IN || child->type == RE_HERE)
+		return (4);
+	else if (child->type == RE_OUT || child->type == RE_APPEND)
+		return (3);
+	else if (child->type == PIPE)
+		return (2);
+	else if (child->type == D_AMPERSAND || child->type == D_VERTICAL)
 		return (1);
-	return (0);
+	else
+		return (0);
 }
 
-t_treenode	*create_pnode(t_tokennode *node)
+static t_treenode	*insert_child(t_treenode *parent, t_treenode *child, \
+t_treenode *head)
+{
+	if (parent->left_child == NULL && \
+		(child->type == COMMAND || child->type == IO_FILE))
+		parent->left_child = child;
+	else if (parent->right_child == NULL)
+		parent->right_child = child;
+	else
+	{
+		child->left_child = parent->right_child;
+		parent->right_child = child;
+	}
+	return (head);
+}
+
+static t_treenode	*create_pnode(t_tokennode *node)
 {
 	t_treenode	*new_node;
 
 	new_node = (t_treenode *)malloc_s(sizeof(t_treenode));
-	new_node->type = type;
-	if (type == COMMAND)
-		new_node->cmd = cmd;
-	else
-		new_node->cmd = NULL;
-	if (type == IO_FILE)
-		new_node->file = file;
-	else
-		new_node->file = NULL;
+	new_node->type = node->type;
+	new_node->subshell_flag = OFF;
+	new_node->cmd = NULL;
+	new_node->file = NULL;
+	if (new_node->type == COMMAND)
+		new_node->cmd = node->cmd;
+	else if (new_node->type == IO_FILE)
+		new_node->file = node->parsed_data;
 	new_node->left_child = NULL;
 	new_node->right_child = NULL;
-	if (type == RE_IN || type == RE_HERE)
-		new_node->left_child = create_pnode(IO_FILE, NULL, file);
-	else if (type == RE_OUT || type == RE_APPEND)
-		new_node->right_child = create_pnode(IO_FILE, NULL, file);
 	return (new_node);
 }

@@ -6,13 +6,15 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 22:58:28 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/25 22:39:05 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/26 23:25:38 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	finalize_redirect_with_argument(t_data *dt);
+static t_type	get_redirect_type(char *line);
+static void		finalize_redirect_with_argument(t_data *dt);
+static void		parse_redirect_error(t_data *data, char *line, size_t idx);
 
 void	redirect_token(t_data *data)
 {
@@ -36,7 +38,7 @@ void	redirect_token(t_data *data)
 	data->token.temp = file_token;
 }
 
-static t_type	get_redirect_type(char* line)
+static t_type	get_redirect_type(char *line)
 {
 	if (ft_strncmp(line, "<<", 2) == 0)
 		return (RE_HERE);
@@ -65,5 +67,27 @@ static void	finalize_redirect_with_argument(t_data *dt)
 			(dt->token.end)++;
 	}
 	if (dt->token.start == dt->token.end && dt->token.syntax_flag == OFF)
-		return (parse_error(dt, "syntax error\n"));
+		return (parse_redirect_error(dt, dt->line, dt->token.end));
+}
+
+static void	parse_redirect_error(t_data *data, char *line, size_t idx)
+{
+	if (line[idx] == '\0')
+		parse_error(data, "newline");
+	else if (ft_strncmp(line + idx, "||", 2) == 0)
+		parse_error(data, "||");
+	else if (ft_strncmp(line + idx, "&&", 2) == 0)
+		parse_error(data, "&&");
+	else if (line[idx] == '|')
+		parse_error(data, "|");
+	else if (line[idx] == '&')
+		parse_error(data, "&");
+	else if (line[idx] == '(')
+		parse_error(data, "(");
+	else if (line[idx] == ')')
+		parse_error(data, ")");
+	else if (line[idx] == '<')
+		parse_error(data, "<");
+	else if (line[idx] == '>')
+		parse_error(data, ">");
 }

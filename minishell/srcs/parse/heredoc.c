@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 23:57:10 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/25 19:38:48 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/26 21:08:33 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	heredoc(t_data *data, size_t start, size_t end)
 {
 	t_herenode	*node;
 	pid_t		pid;
-	char		*line;
-	char		*target;
 
 	node = add_heredoc_node(data);
 	signal_parent();
@@ -46,29 +44,29 @@ void	heredoc(t_data *data, size_t start, size_t end)
 
 static void	heredoc_child(t_data *data, t_herenode *node, char *target)
 {
-	char	*line;
+	char	*ln;
 	size_t	i;
 
 	signal_child();
 	while (1)
 	{
-		line = readline("> ");
-		if (!line || ft_strcmp(line, target) == 0)
+		ln = readline("> ");
+		if (!ln || ft_strcmp(ln, target) == 0)
 		{
-			free(line);
+			free(ln);
 			exit(0);
 		}
 		i = 0;
-		while (line[i])
+		while (ln[i])
 		{
-			if (line[i] == '$' && line[i + 1] != ' ' && line[i + 1] != '\0')
-				i = expansion(data->env_list, &line, i + 1, ft_substr(line, 0, i));
+			if (ln[i] == '$' && ln[i + 1] != ' ' && ln[i + 1] != '\0')
+				i = expansion(data->env_list, &ln, i + 1, ft_substr(ln, 0, i));
 			else
 				i++;
 		}
-		write(node->fd, line, ft_strlen(line));
+		write(node->fd, ln, ft_strlen(ln));
 		write(node->fd, "\n", 1);
-		free(line);
+		free(ln);
 	}
 	free(target);
 }
@@ -100,4 +98,3 @@ static t_herenode	*add_heredoc_node(t_data *data)
 	}
 	return (temp);
 }
-

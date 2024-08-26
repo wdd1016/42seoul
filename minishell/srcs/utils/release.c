@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 23:51:07 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/25 19:38:46 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/27 00:01:00 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,55 @@
 
 void	free_tokens(t_data *data)
 {
-	t_tokennode	*token;
-	t_tokennode	*next;
-
-	token = data->token.head;
-	while (token)
+	while (data->token.head)
 	{
-		next = token->next;
-		free(token->parsed_data);
-		free(token);
-		token = next;
+		data->token.temp = data->token.head;
+		data->token.head = data->token.head->next;
+		free(data->token.temp->parsed_data);
+		free(data->token.temp->cmd);
+		free(data->token.temp);
 	}
 	data->token.temp = NULL;
+	data->token.start = 0;
+	data->token.end = 0;
+	data->token.bracket_count = 0;
+	data->token.command_flag = OFF;
+	data->token.syntax_flag = OFF;
 }
 
-void	system_error(char *msg)
+void	free_parse_tree(t_treenode *node)
 {
-	write(2, msg, ft_strlen(msg));
-	exit(1);
+	if (node->left_child)
+		free_parse_tree(node->left_child);
+	if (node->right_child)
+		free_parse_tree(node->right_child);
+	free(node);
+}
+
+void	free_env_list(t_data *data)
+{
+	t_envnode	*temp;
+
+	while (data->env_list)
+	{
+		temp = data->env_list;
+		data->env_list = data->env_list->next;
+		free(temp->key);
+		free(temp->value);
+		free(temp);
+	}
+}
+
+void	free_heredoc_list_close_fd(t_data *data)
+{
+	t_herenode	*temp;
+
+	while (data->heredoc_list)
+	{
+		temp = data->heredoc_list;
+		data->heredoc_list = data->heredoc_list->next;
+		close(temp->fd);
+		free(temp->file_name);
+		free(temp);
+	}
 }

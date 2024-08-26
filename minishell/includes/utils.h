@@ -6,18 +6,24 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 20:07:32 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/25 22:38:50 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/27 00:00:59 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
+# include "struct.h"
+
 int		ft_isspace(char c);
 int		ft_isalnum(int c);
 
-void	free_tokens(t_data *data);
+void	parse_error(t_data *data, char *msg);
 void	system_error(char *msg);
+
+void	free_tokens(t_data *data);
+void	free_env_list(t_data *data);
+void	free_heredoc_list_close_fd(t_data *data);
 
 void	signal_handler(int sig);
 void	signal_handler_parent(int sig);
@@ -42,5 +48,6 @@ char	**ft_split(char const *s, char c);
 
 void	*malloc_s(size_t size);
 char	*ft_strdup_s(const char *s1);
+int		fork_s(void);
 
 #endif

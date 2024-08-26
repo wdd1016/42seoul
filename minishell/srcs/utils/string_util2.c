@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:23:47 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/25 00:31:44 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/26 21:14:45 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,25 +82,22 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 char	*generate_random_heredoc_filepath(int length)
 {
-    const char	*charset[] = \
+	const char	charset[63] = \
 	"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    const int	charsetSize = 62;
 	const char	*prefix = "/tmp/.minishell";
-	const int	prefixSize = 15;
 	char		*str;
 	int			i;
 
-	str = (char *)malloc_s(sizeof(char) * (prefixSize + length + 1));
+	str = (char *)malloc_s(sizeof(char) * (15 + length + 1));
 	i = 0;
-	while (i < prefixSize)
+	while (i < 15)
 	{
 		str[i] = prefix[i];
 		i++;
 	}
-	while (i < prefixSize + length)
+	while (i < 15 + length)
 	{
-		int randomIndex = rand() % charsetSize;
-		str[i] = charset[randomIndex];
+		str[i] = charset[rand() % 62];
 		i++;
 	}
 	str[length] = '\0';

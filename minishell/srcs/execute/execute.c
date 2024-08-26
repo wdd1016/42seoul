@@ -6,8 +6,13 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 11:18:28 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/18 11:18:35 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/27 00:01:03 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	execute_commands(t_data *data)
+{
+	
+}

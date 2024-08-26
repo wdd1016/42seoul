@@ -6,7 +6,7 @@
 #    By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/14 22:12:33 by juyojeon          #+#    #+#              #
-#    Updated: 2024/08/14 22:15:21 by juyojeon         ###   ########.fr        #
+#    Updated: 2024/08/26 21:41:11 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAG = -Wall -Wextra -Werror
+CFLAG = -Wall -Wextra -Werror -g
 
 INC = -I./includes/
 
@@ -24,9 +24,13 @@ RM = rm -f
 
 R_INC = -I${HOME}/.brew/opt/readline/include
 
-LIB_FLAG = -Llib -lft
-
-SRC =	main.c
+SRC = main.c ./parse/build_tree.c ./parse/dpp_token.c ./parse/expansion.c \
+	./parse/heredoc.c ./parse/init_env.c ./parse/parse.c \
+	./parse/redirect_token.c ./parse/symbol_process.c ./parse/token_node.c \
+	./parse/tokenize.c \
+	./utils/char_util.c ./utils/release.c ./utils/signal_handler.c \
+	./utils/signal.c ./utils/split_util.c ./utils/string_util1.c \
+	./utils/string_util2.c ./utils/wrapper_util.c
 
 SRC_DIR = ./srcs/
 
@@ -43,23 +47,19 @@ bonus : $(NAME)
 
 ifeq ($(findstring bonus, $(MAKECMDGOALS)), bonus)
 $(NAME): $(OBJS)
-	@make -C lib
-	@$(CC) $(CFLAG) $^ $(LIB_FLAG) $(R_FLAG) -o $@
+	@$(CC) $(CFLAG) $^ $(R_FLAG) -o $@
 	@printf	"Get Ready for the Minishell\n"
 else
 $(NAME): $(OBJS)
-	@make -C lib
-	@$(CC) $(CFLAG) $^ $(LIB_FLAG) $(R_FLAG) -o $@
+	@$(CC) $(CFLAG) $^ $(R_FLAG) -o $@
 	@printf	"Get Ready for the Minishell\n"
 endif
 
 clean :
-	@make clean -C lib
 	@$(RM) $(OBJS)
 	@printf	"Run to Clean\n"
 
 fclean :
-	@make fclean -C lib
 	@$(RM) $(OBJS)
 	@$(RM) $(NAME)
 	@printf	"Run to fClean\n"

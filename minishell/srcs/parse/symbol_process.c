@@ -6,14 +6,14 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 18:30:11 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/25 22:37:34 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/26 23:21:59 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	quote_erase_expansion(t_data *dt, char **str_ptr);
-static void	quote_erase(char **str_ptr,  size_t start, size_t end);
+static void	quote_erase(char **str_ptr, size_t start, size_t end);
 
 size_t	quote(t_data *data, char *string, char character, size_t end)
 {
@@ -21,15 +21,15 @@ size_t	quote(t_data *data, char *string, char character, size_t end)
 	while (string[end] && string[end] != character)
 		end++;
 	if (string[end] == character)
-	{
 		end++;
-		return (end);
-	}
 	else
 	{
-		parse_error(data, "syntax error\n");
-		return (data->line_length);
+		if (character == '\'')
+			parse_error(data, "single quote");
+		else
+			parse_error(data, "double quote");
 	}
+	return (end);
 }
 
 void	command_symbol_process(t_data *data, t_tokennode *temp)
@@ -61,8 +61,7 @@ void	command_symbol_process(t_data *data, t_tokennode *temp)
 
 void	file_symbol_process(t_data *data, t_tokennode *temp)
 {
-	t_tokennode	*new_node;
-	size_t	i;
+	size_t		i;
 
 	i = 0;
 	while (temp->parsed_data[i])
@@ -85,7 +84,6 @@ static void	quote_erase_expansion(t_data *dt, char **str_ptr)
 {
 	size_t	i;
 	size_t	j;
-	char	*new_data;
 
 	i = 0;
 	while ((*str_ptr)[i])
@@ -102,10 +100,12 @@ static void	quote_erase_expansion(t_data *dt, char **str_ptr)
 								ft_substr(*str_ptr, 0, i));
 			quote_erase(str_ptr, j, quote(dt, *str_ptr, '\"', j) - 1);
 		}
+		else
+			i++;
 	}
 }
 
-static void	quote_erase(char **str_ptr,  size_t start, size_t end)
+static void	quote_erase(char **str_ptr, size_t start, size_t end)
 {
 	char	*new_data;
 	size_t	i;

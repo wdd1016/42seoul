@@ -6,16 +6,11 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 21:57:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/25 22:38:55 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/26 21:11:13 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void			finalize_tokens(t_data *data);
-static t_tokennode	*command_combination(t_tokennode *node);
-static t_tokennode	*combine_node(t_tokennode *main, t_tokennode *node, \
-t_tokennode *prev);
 
 void	add_token(t_data *dt, t_type type)
 {
