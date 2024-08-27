@@ -6,17 +6,16 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 22:18:14 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/27 00:00:24 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/28 02:58:14 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_data	*initialize(int argc, char **argv, char **envp);
-static void		detect_and_handle_eof(char *line);
+static t_data	*initialize(int argc, const char **argv, const char **envp);
 static void		free_parse_data(t_data *data);
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc, const char **argv, const char **envp)
 {
 	t_data	*data;
 
@@ -26,6 +25,8 @@ int	main(int argc, char **argv, char **envp)
 		rl_catch_signals = 0;
 		signal_default();
 		data->line = readline("minishell$ ");
+		if (!data->line)
+			eof_exit("exit\n");
 		detect_and_handle_eof(data->line);
 		if (data->line[0] != '\0')
 			add_history(data->line);
@@ -36,7 +37,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 }
 
-static t_data	*initialize(int argc, char **argv, char **envp)
+static t_data	*initialize(int argc, const char **argv, const char **envp)
 {
 	t_data	*data;
 
@@ -58,15 +59,6 @@ static t_data	*initialize(int argc, char **argv, char **envp)
 	data->heredoc_list = NULL;
 	data->parse_tree = NULL;
 	return (data);
-}
-
-static void	detect_and_handle_eof(char *line)
-{
-	if (!line)
-	{
-		write(STDOUT_FILENO, "exit\n", 5);
-		exit(g_exit_status);
-	}
 }
 
 static void	free_parse_data(t_data *data)
