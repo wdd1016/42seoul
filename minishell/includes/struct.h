@@ -6,19 +6,27 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:57:25 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/26 21:00:23 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/28 02:57:00 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 
+# define NULL 0
+# define ON 1
+# define OFF 0
+# define ERROR -1
+
 # include <stdlib.h>
+
+int	g_exit_status;
 
 typedef struct s_envnode
 {
 	char				*key;
 	char				*value;
+	int					total_count;
 	struct s_envnode	*next;
 }	t_envnode;
 // envp to linked list
@@ -65,18 +73,24 @@ typedef struct s_herenode
 	struct s_herenode	*next;
 }	t_herenode;
 
-typedef enum e_func_type
+typedef struct s_filelist
 {
-	EXTERN_FUNC,
-	ECHO_FUNC,
-	CD_FUNC,
-	PWD_FUNC,
-	EXPORT_FUNC,
-	UNSET_FUNC,
-	ENV_FUNC,
-	EXIT_FUNC,
-	DEFAULT,
-}	t_func_type;
+	char				*file_name;
+	int					total_count;
+	struct s_filelist	*next;
+}	t_filelist;
+
+typedef enum e_function_type
+{
+	CD_BUILTIN,
+	ECHO_BUILTIN,
+	ENV_BUILTIN,
+	EXIT_BUILTIN,
+	EXPORT_BUILTIN,
+	PWD_BUILTIN,
+	UNSET_BUILTIN,
+	EXTERN_FUNCTION
+}	t_function_type;
 
 typedef struct s_token_data
 {

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 23:47:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/26 21:08:12 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/28 01:10:47 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,15 @@ size_t end)
 
 	if (env)
 	{
-		temp = ft_strjoin(prev_str, env->value);
-		free(prev_str);
-		prev_str = temp;
+		new_idx = ft_strlen(prev_str) + ft_strlen(env->value);
+		temp = ft_strjoin3(prev_str, env->value, *str_ptr + end);
 	}
-	new_idx = ft_strlen(prev_str);
-	temp = ft_strjoin(prev_str, *str_ptr + end);
+	else
+	{
+		new_idx = ft_strlen(prev_str);
+		temp = ft_strjoin(prev_str, *str_ptr + end);
+	}
+	free(prev_str);
 	free(*str_ptr);
 	*str_ptr = temp;
 	return (new_idx);

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 23:57:10 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/26 21:08:33 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/28 00:43:16 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void	heredoc(t_data *data, size_t start, size_t end)
 	pid_t		pid;
 
 	node = add_heredoc_node(data);
-	signal_parent();
 	pid = fork_s();
 	if (pid == 0)
 		heredoc_child(data, node, ft_substr(data->line, start, end - start));
 	else
 	{
+		signal_parent();
 		wait(&pid);
 		if (WIFSIGNALED(pid))
 			g_exit_status = pid;

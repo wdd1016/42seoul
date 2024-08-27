@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:23:47 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/26 21:14:45 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/28 01:46:03 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,23 +63,6 @@ char	*ft_itoa(int n)
 	return (str_int);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*str;
-	char	*temp;
-
-	str = (char *)malloc_s(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	temp = str;
-	if (s1)
-		while (*s1)
-			*temp++ = *s1++;
-	if (s2)
-		while (*s2)
-			*temp++ = *s2++;
-	*temp = '\0';
-	return (str);
-}
-
 char	*generate_random_heredoc_filepath(int length)
 {
 	const char	charset[63] = \
@@ -102,4 +85,25 @@ char	*generate_random_heredoc_filepath(int length)
 	}
 	str[length] = '\0';
 	return (str);
+}
+
+char	*ft_strdup(const char *s1)
+{
+	size_t	len;
+	char	*copy;
+	char	*temp;
+
+	len = 0;
+	while (s1[len])
+		len++;
+	copy = (char *)malloc_s(sizeof(char) * (len + 1));
+	temp = copy;
+	while (*s1)
+	{
+		*temp = *s1;
+		temp++;
+		s1++;
+	}
+	*temp = '\0';
+	return (copy);
 }

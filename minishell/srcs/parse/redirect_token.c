@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 22:58:28 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/26 23:25:38 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/28 00:07:23 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static t_type	get_redirect_type(char *line);
 static void		finalize_redirect_with_argument(t_data *dt);
 static void		parse_redirect_error(t_data *data, char *line, size_t idx);
+static int		handle_redirect_wildcard(t_data *data);
 
 void	redirect_token(t_data *data)
 {
@@ -31,6 +32,8 @@ void	redirect_token(t_data *data)
 		heredoc(data, data->token.start, data->token.end - data->token.start);
 	else
 		add_token(data, type);
+	if (type != RE_HERE && handle_redirect_wildcard(data) == ERROR)
+		return (parse_error(data, "*"));
 	file_token = create_tokennode(IO_FILE);
 	file_token->parsed_data = data->token.temp->parsed_data;
 	data->token.temp->parsed_data = NULL;
@@ -90,4 +93,28 @@ static void	parse_redirect_error(t_data *data, char *line, size_t idx)
 		parse_error(data, "<");
 	else if (line[idx] == '>')
 		parse_error(data, ">");
+}
+
+static int	handle_redirect_wildcard(t_data *data)
+{
+	char		*file;
+	t_filelist	*file_list;
+	int			count;
+
+	file = data->token.temp->parsed_data;
+	if (ft_strchr(file, '*') == 0)
+		return (OFF);
+	count = 0;
+	file_list = find_wildcard_files(file);
+	if (!file_list)
+		return (OFF);
+	else if (file_list->total_count > 1)
+	{
+		free_file_list(file_list);
+		return (ERROR);
+	}
+	free(data->token.temp->parsed_data);
+	data->token.temp->parsed_data = file_list->file_name;
+	free(file_list);
+	return (ON);
 }

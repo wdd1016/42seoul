@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wrapper_util.c                                     :+:      :+:    :+:   */
+/*   wrapper_directory.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/17 23:56:25 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/28 01:45:50 by juyojeon         ###   ########.fr       */
+/*   Created: 2024/08/27 22:02:58 by juyojeon          #+#    #+#             */
+/*   Updated: 2024/08/28 01:56:45 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	*malloc_s(size_t size)
+struct dirent	*readdir_s(DIR *dir)
 {
-	void	*ptr;
+	struct dirent	*file;
 
-	ptr = malloc(size);
-	if (ptr == NULL)
-		system_error("Allocation Error!\n");
-	return (ptr);
+	file = readdir(dir);
+	if (!file)
+		system_error("readdir error\n");
+	return (file);
 }
 
-int	fork_s(void)
+void	closedir_s(DIR *dir)
 {
-	int	pid;
-
-	pid = fork();
-	if (pid == -1)
-		system_error("Fork Error!\n");
-	return (pid);
+	if (closedir(dir) == -1)
+		system_error("closedir error\n");
 }

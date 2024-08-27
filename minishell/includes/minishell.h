@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 20:04:47 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/26 20:59:33 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/28 00:34:07 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+# include "builtin.h"
+# include "execute.h"
 # include "parse.h"
 # include "struct.h"
 # include "utils.h"
-
-int	g_exit_status;
 
 #endif

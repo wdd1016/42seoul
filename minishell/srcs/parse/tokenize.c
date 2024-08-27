@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 21:57:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/26 23:24:22 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/28 01:05:10 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +97,11 @@ static t_tokennode	*command_combination(t_tokennode *node)
 static t_tokennode	*combine_node(t_tokennode *main, t_tokennode *node, \
 t_tokennode *prev)
 {
-	char	*temp;
 	char	*final_data;
 
-	temp = ft_strjoin(main->parsed_data, " ");
-	final_data = ft_strjoin(temp, node->parsed_data);
+	final_data = ft_strjoin3(main->parsed_data, " ", node->parsed_data);
 	free(main->parsed_data);
 	free(node->parsed_data);
-	free(temp);
 	main->parsed_data = final_data;
 	prev->next = node->next;
 	free(node);

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 23:51:07 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/27 00:01:00 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/27 23:24:49 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,19 @@ void	free_heredoc_list_close_fd(t_data *data)
 		temp = data->heredoc_list;
 		data->heredoc_list = data->heredoc_list->next;
 		close(temp->fd);
+		free(temp->file_name);
+		free(temp);
+	}
+}
+
+void	free_file_list(t_filelist *head)
+{
+	t_filelist	*temp;
+
+	while (head)
+	{
+		temp = head;
+		head = head->next;
 		free(temp->file_name);
 		free(temp);
 	}
