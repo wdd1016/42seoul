@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 21:41:54 by danpark           #+#    #+#             */
-/*   Updated: 2024/08/28 02:43:29 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/29 01:51:35 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ t_envnode	*init_envlist(const char **envp)
 	head.next = NULL;
 	head.total_count = 0;
 	tmp_node = &head;
-	i = 0;
-	while (envp[i])
+	i = -1;
+	while (envp[++i])
 	{
 		tmp = split_env(envp[i]);
-		if (!ft_strcmp(tmp[0], "OLDPWD"))
+		if (ft_strcmp(tmp[0], "OLDPWD") == 0)
 		{
 			free(tmp[1]);
 			tmp[1] = NULL;
@@ -36,55 +36,10 @@ t_envnode	*init_envlist(const char **envp)
 		tmp_node->next = create_envnode(&head, tmp[0], tmp[1]);
 		free(tmp);
 		tmp_node = tmp_node->next;
-		i++;
 	}
 	if (head.next)
 		head.next->total_count = head.total_count;
 	return (head.next);
-}
-
-t_envnode	*create_envnode(t_envnode *head, char *key, char *value)
-{
-	t_envnode	*new_node;
-
-	new_node = (t_envnode *)malloc_s(sizeof(t_envnode));
-	new_node->key = key;
-	new_node->value = value;
-	new_node->total_count = 0;
-	new_node->next = NULL;
-	head->total_count++;
-	return (new_node);
-}
-
-char	**env_list_to_envp(t_envnode *head)
-{
-	char		**envp;
-	int			i;
-
-	envp = (char **)malloc_s(sizeof(char *) * (head->total_count + 1));
-	i = 0;
-	while (head)
-	{
-		if (head->value)
-			envp[i] = ft_strjoin3(head->key, "=", head->value);
-		else
-			envp[i] = ft_strjoin(head->key, "=");
-		i++;
-		head = head->next;
-	}
-	envp[i] = NULL;
-	return (envp);
-}
-
-char	*get_env_value(t_envnode *env_list, char *key)
-{
-	while (env_list)
-	{
-		if (!ft_strcmp(env_list->key, key))
-			return (env_list->value);
-		env_list = env_list->next;
-	}
-	return (NULL);
 }
 
 static char	**split_env(char *str)

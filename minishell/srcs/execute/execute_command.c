@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 19:41:04 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/28 02:59:48 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:52:14 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,7 @@ static void	execute_command_child(t_envnode *env_list, t_treenode *node)
 	envp = env_list_to_envp(env_list);
 	if (execve(path, node->cmd, envp) == -1)
 		execve_error(node->cmd[0]);
-	free(path);
-	free(envp);
+	exit(0);
 }
 
 static char	*find_path(t_treenode *node, t_envnode *env_list, char *command)

@@ -6,11 +6,37 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 01:01:59 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/28 02:33:25 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:59:57 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	size_t		len_str;
+	size_t		i;
+	char		*n_str;
+
+	len_str = ft_strlen(s);
+	if (len_str <= start)
+		len = 0;
+	else
+		len_str -= start;
+	if (len_str < len)
+		len = len_str;
+	n_str = (char *)malloc_s(sizeof(char) * (len + 1));
+	if (!n_str)
+		return (0);
+	i = 0;
+	while (i < len)
+	{
+		n_str[i] = s[start + i];
+		i++;
+	}
+	n_str[i] = '\0';
+	return (n_str);
+}
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

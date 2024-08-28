@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 22:21:11 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/24 22:24:24 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/28 18:02:29 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,11 @@ int	ft_isalnum(int c)
 {
 	return ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || \
 	(c >= 'a' && c <= 'z'));
+}
+
+int	ft_toupper(int c)
+{
+	if (c >= 'a' && c <= 'z')
+		c -= 32;
+	return (c);
 }
