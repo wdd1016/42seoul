@@ -6,11 +6,34 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 23:16:38 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/21 01:48:00 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 03:28:27 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void		ft_insert_words(const char *str, char **s_spt, char set, \
+size_t w_count);
+static int		ft_free_all_allocation(char **s_spt, size_t w_count);
+static int		ft_malloc_strings(const char *str, char **s_spt, char set, \
+size_t w_count);
+static size_t	ft_count_words(const char *str, char set);
+
+char	**ft_split(const char *s, char c)
+{
+	char	**s_spt;
+	size_t	w_count;
+
+	w_count = ft_count_words((const char *)s, c);
+	s_spt = (char **)malloc_s(sizeof(char *) * (w_count + 1));
+	if (!s_spt)
+		return (0);
+	if (ft_malloc_strings((const char *)s, s_spt, c, 0) == 0)
+		return (0);
+	ft_insert_words((const char *)s, s_spt, c, 0);
+	s_spt[w_count] = 0;
+	return (s_spt);
+}
 
 static void	ft_insert_words(const char *str, char **s_spt, char set, \
 size_t w_count)
@@ -104,20 +127,4 @@ static size_t	ft_count_words(const char *str, char set)
 		i++;
 	}
 	return (word_count);
-}
-
-char	**ft_split(char const *s, char c)
-{
-	char	**s_spt;
-	size_t	w_count;
-
-	w_count = ft_count_words((const char *)s, c);
-	s_spt = (char **)malloc_s(sizeof(char *) * (w_count + 1));
-	if (!s_spt)
-		return (0);
-	if (ft_malloc_strings((const char *)s, s_spt, c, 0) == 0)
-		return (0);
-	ft_insert_words((const char *)s, s_spt, c, 0);
-	s_spt[w_count] = 0;
-	return (s_spt);
 }

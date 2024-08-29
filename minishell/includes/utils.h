@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 20:07:32 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 01:26:00 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 03:33:54 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ int			ft_isalnum(int c);
 int			ft_toupper(int c);
 
 t_envnode	*create_envnode(t_envnode *head, char *key, char *value);
-const char	**env_list_to_envp(t_envnode *head);
 t_envnode	*get_env_node(t_envnode *env_list, char *key);
-void		set_env(t_data *data, char *key, char *value);
+void		set_env_node(t_data *data, char *key, char *value);
 
 void		parse_error(t_data *data, char *msg);
 void		system_error(char *msg);
@@ -33,6 +32,7 @@ void		execve_error(char *command);
 void		quick_sort(char **arr, int left, int right);
 
 void		free_tokens(t_data *data);
+void		free_parse_tree(t_treenode *node);
 void		free_env_list(t_data *data);
 void		free_heredoc_list_close_fd(t_data *data);
 void		free_file_list(t_filelist *head);
@@ -46,9 +46,9 @@ void		signal_default(void);
 void		signal_child(void);
 void		signal_parent(void);
 
-char		**ft_split(char const *s, char c);
+char		**ft_split(const char *s, char c);
 
-int			ft_strcmp(char *s1, char *s2);
+int			ft_strcmp(const char *s1, const char *s2);
 int			ft_str_alphabet_cmp(const char *s1, const char *s2);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_strchr(const char *s, int c);
@@ -58,11 +58,9 @@ char		*ft_itoa(int n);
 char		*generate_random_heredoc_filepath(int length);
 char		*ft_strdup(const char *s1);
 
-char		*ft_substr(char const *s, unsigned int start, size_t len);
-char		*ft_strjoin(char const *s1, char const *s2);
-char		*ft_strjoin3(char const *s1, char const *s2, char const *s3);
-
-t_filelist	*find_wildcard_files(char *target_string);
+char		*ft_substr(const char *s, unsigned int start, size_t len);
+char		*ft_strjoin(const char *s1, const char *s2);
+char		*ft_strjoin3(const char *s1, const char *s2, const char *s3);
 
 void		*readdir_s(DIR *dir);
 void		closedir_s(DIR *dir);

@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   command_preprocess.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/18 02:21:08 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/26 23:40:19 by juyojeon         ###   ########.fr       */
+/*   Created: 2024/08/30 03:13:05 by juyojeon          #+#    #+#             */
+/*   Updated: 2024/08/30 03:33:57 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parse_commands(t_data *data)
+const char	**env_list_to_envp(t_envnode *head)
 {
-	tokenize(data);
-	data->token.temp = data->token.head;
-	if (data->token.temp)
-		data->parse_tree = build_tree(data);
+	char		**envp;
+	int			i;
+
+	envp = (char **)malloc_s(sizeof(char *) * (head->total_count + 1));
+	i = 0;
+	while (head)
+	{
+		if (head->value)
+			envp[i] = ft_strjoin3(head->key, "=", head->value);
+		else
+			envp[i] = ft_strdup(head->key);
+		i++;
+		head = head->next;
+	}
+	envp[i] = NULLPOINTER;
+	return (envp);
 }

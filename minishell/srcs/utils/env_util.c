@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 22:21:12 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 01:43:26 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 03:17:41 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,6 @@ t_envnode	*create_envnode(t_envnode *head, char *key, char *value)
 	return (new_node);
 }
 
-const char	**env_list_to_envp(t_envnode *head)
-{
-	char		**envp;
-	int			i;
-
-	envp = (char **)malloc_s(sizeof(char *) * (head->total_count + 1));
-	i = 0;
-	while (head)
-	{
-		if (head->value)
-			envp[i] = ft_strjoin3(head->key, "=", head->value);
-		else
-			envp[i] = ft_strdup(head->key);
-		i++;
-		head = head->next;
-	}
-	envp[i] = NULLPOINTER;
-	return (envp);
-}
-
 t_envnode	*get_env_node(t_envnode *env_list, char *key)
 {
 	while (env_list)
@@ -56,7 +36,7 @@ t_envnode	*get_env_node(t_envnode *env_list, char *key)
 	return (NULLPOINTER);
 }
 
-void	set_env(t_data *data, char *key, char *value)
+void	set_env_node(t_data *data, char *key, char *value)
 {
 	t_envnode	*temp;
 

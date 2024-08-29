@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 22:18:14 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 01:39:07 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 02:58:25 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ int	main(int argc, const char **argv, const char **envp)
 		data->line = readline("minishell$ ");
 		if (!data->line)
 			eof_exit("exit\n");
-		detect_and_handle_eof(data->line);
 		if (data->line[0] != '\0')
 			add_history(data->line);
-		parse_commands(data);
+		tokenize(data);
+		data->token.temp = data->token.head;
+		if (data->token.temp)
+			data->parse_tree = build_tree(data);
 		if (data->parse_tree)
 			execute_commands(data);
 		free_data(data);

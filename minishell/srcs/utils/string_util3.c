@@ -6,13 +6,13 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 01:01:59 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/28 17:59:57 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 03:23:05 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
 	size_t		len_str;
 	size_t		i;
@@ -38,7 +38,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (n_str);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
 	char	*str;
 	char	*temp;
@@ -55,7 +55,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (str);
 }
 
-char	*ft_strjoin3(char const *s1, char const *s2, char const *s3)
+char	*ft_strjoin3(const char *s1, const char *s2, const char *s3)
 {
 	char	*str;
 	char	*temp;

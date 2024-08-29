@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 00:33:21 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 01:02:21 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 03:33:52 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "struct.h"
 
+void	get_function_type(char *command);
 void	execute_builtin_function(t_data *data, t_treenode *node, \
 t_function_type func_type);
 void	execute_cd(t_data *data, t_treenode *node);

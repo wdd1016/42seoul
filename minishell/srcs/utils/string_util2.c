@@ -6,39 +6,13 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:23:47 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/28 01:46:03 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 03:22:14 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_convert_to_c(char *str, int nbr, int nbr_len)
-{
-	int			nbr_idx;
-	const char	*base = "0123456789";
-
-	nbr_idx = nbr_len - 1;
-	if (nbr < 0)
-	{
-		while (nbr != 0)
-		{
-			str[nbr_idx] = base[-(nbr % 10)];
-			nbr_idx--;
-			nbr /= 10;
-		}
-	}
-	else if (nbr > 0)
-	{
-		while (nbr != 0)
-		{
-			str[nbr_idx] = base[nbr % 10];
-			nbr_idx--;
-			nbr /= 10;
-		}
-	}
-	else
-		str[0] = '0';
-}
+static void	ft_convert_to_c(char *str, int nbr, int nbr_len);
 
 char	*ft_itoa(int n)
 {
@@ -106,4 +80,32 @@ char	*ft_strdup(const char *s1)
 	}
 	*temp = '\0';
 	return (copy);
+}
+
+static void	ft_convert_to_c(char *str, int nbr, int nbr_len)
+{
+	int			nbr_idx;
+	const char	*base = "0123456789";
+
+	nbr_idx = nbr_len - 1;
+	if (nbr < 0)
+	{
+		while (nbr != 0)
+		{
+			str[nbr_idx] = base[-(nbr % 10)];
+			nbr_idx--;
+			nbr /= 10;
+		}
+	}
+	else if (nbr > 0)
+	{
+		while (nbr != 0)
+		{
+			str[nbr_idx] = base[nbr % 10];
+			nbr_idx--;
+			nbr /= 10;
+		}
+	}
+	else
+		str[0] = '0';
 }

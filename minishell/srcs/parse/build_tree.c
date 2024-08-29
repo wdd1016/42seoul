@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:00:05 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 01:38:46 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 02:49:24 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,9 @@ static t_treenode	*create_pnode(t_tokennode *node)
 	new_node->type = node->type;
 	new_node->subshell_flag = OFF;
 	new_node->cmd = NULLPOINTER;
-	new_node->file = NULLPOINTER;
-	if (new_node->type == COMMAND)
-		new_node->cmd = node->cmd;
-	else if (new_node->type == IO_FILE)
-		new_node->file = node->parsed_data;
+	new_node->parsed_data = NULLPOINTER;
+	if (new_node->type == COMMAND || IO_FILE)
+		new_node->parsed_data = node->parsed_data;
 	new_node->left_child = NULLPOINTER;
 	new_node->right_child = NULLPOINTER;
 	return (new_node);

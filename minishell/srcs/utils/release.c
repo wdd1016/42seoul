@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 23:51:07 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 01:43:30 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 02:45:18 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	free_tokens(t_data *data)
 		data->token.temp = data->token.head;
 		data->token.head = data->token.head->next;
 		free(data->token.temp->parsed_data);
-		free(data->token.temp->cmd);
 		free(data->token.temp);
 	}
 	data->token.temp = NULLPOINTER;
@@ -33,10 +32,16 @@ void	free_tokens(t_data *data)
 
 void	free_parse_tree(t_treenode *node)
 {
+	int	i;
+
 	if (node->left_child)
 		free_parse_tree(node->left_child);
 	if (node->right_child)
 		free_parse_tree(node->right_child);
+	i = -1;
+	while ((node->cmd)[++i])
+		free((node->cmd)[i]);
+	free(node->cmd);
 	free(node);
 }
 

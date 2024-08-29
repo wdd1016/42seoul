@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 11:19:22 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 01:43:07 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 03:17:41 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ char **cmd)
 	else
 	{
 		if (old_path)
-			set_env(data, ft_strdup("OLDPWD"), ft_strdup(old_path));
+			set_env_node(data, ft_strdup("OLDPWD"), ft_strdup(old_path));
 		else
-			set_env(data, ft_strdup("OLDPWD"), \
+			set_env_node(data, ft_strdup("OLDPWD"), \
 					ft_strdup((get_env_node(data->env_list, "PWD"))->value));
-		set_env(data, ft_strdup("PWD"), getcwd(NULLPOINTER, 0));
+		set_env_node(data, ft_strdup("PWD"), getcwd(NULLPOINTER, 0));
 		g_exit_status = 0;
 	}
 }

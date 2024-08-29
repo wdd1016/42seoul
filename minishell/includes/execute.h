@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 19:09:42 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/28 02:49:13 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 03:33:52 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,8 @@ void	not_found_execute(char *command);
 void	execute_command(t_data *data, t_treenode *node);
 
 void	execute_commands(t_data *data);
+
+size_t	expansion(t_envnode *env, char **str_ptr, size_t start, \
+char *prev_str);
 
 #endif

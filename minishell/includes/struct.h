@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:57:25 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 01:39:07 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 03:33:54 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_tokennode
 {
 	t_type				type;
 	char				*parsed_data;
-	char				**cmd;
 	struct s_tokennode	*next;
 }	t_tokennode;
 // token list before assembled tree
@@ -60,7 +59,7 @@ typedef struct s_treenode
 	t_type				type;
 	int					subshell_flag;
 	char				**cmd;
-	char				*file;
+	char				*parsed_data;
 	struct s_treenode	*left_child;
 	struct s_treenode	*right_child;
 }	t_treenode;

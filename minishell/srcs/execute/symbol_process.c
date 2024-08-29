@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 18:30:11 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/26 23:21:59 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 03:32:47 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,6 @@
 
 static void	quote_erase_expansion(t_data *dt, char **str_ptr);
 static void	quote_erase(char **str_ptr, size_t start, size_t end);
-
-size_t	quote(t_data *data, char *string, char character, size_t end)
-{
-	end++;
-	while (string[end] && string[end] != character)
-		end++;
-	if (string[end] == character)
-		end++;
-	else
-	{
-		if (character == '\'')
-			parse_error(data, "single quote");
-		else
-			parse_error(data, "double quote");
-	}
-	return (end);
-}
 
 void	command_symbol_process(t_data *data, t_tokennode *temp)
 {
@@ -121,4 +104,28 @@ static void	quote_erase(char **str_ptr, size_t start, size_t end)
 	new_data[i - 2] = '\0';
 	free(*str_ptr);
 	*str_ptr = new_data;
+}
+
+int	handle_redirect_wildcard(t_data *data)
+{
+	char		*file;
+	t_filelist	*file_list;
+	int			count;
+
+	file = data->token.temp->parsed_data;
+	if (ft_strchr(file, '*') == 0)
+		return (OFF);
+	count = 0;
+	file_list = find_wildcard_files(file);
+	if (!file_list)
+		return (OFF);
+	else if (file_list->total_count > 1)
+	{
+		free_file_list(file_list);
+		return (ERROR);
+	}
+	free(data->token.temp->parsed_data);
+	data->token.temp->parsed_data = file_list->file_name;
+	free(file_list);
+	return (ON);
 }
