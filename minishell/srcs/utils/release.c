@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 23:51:07 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/27 23:24:49 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/29 20:26:31 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	free_tokens(t_data *data)
 	data->token.bracket_count = 0;
 	data->token.command_flag = OFF;
 	data->token.syntax_flag = OFF;
+	data->token.pipe_flag = OFF;
 }
 
 void	free_parse_tree(t_treenode *node)

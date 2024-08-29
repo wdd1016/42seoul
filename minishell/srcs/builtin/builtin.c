@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 00:29:56 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/28 18:05:13 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:03:43 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ t_function_type func_type)
 	if (func_type == CD_BUILTIN)
 		execute_cd(data, node);
 	else if (func_type == ECHO_BUILTIN)
-		execute_echo(data, node);
+		execute_echo(node);
 	else if (func_type == ENV_BUILTIN)
-		execute_env(data, node);
+		execute_env(data->env_list);
 	else if (func_type == EXIT_BUILTIN)
-		execute_exit(data, node);
+		execute_exit(node, data->token.pipe_flag);
 	else if (func_type == EXPORT_BUILTIN)
 		execute_export(data, node);
 	else if (func_type == PWD_BUILTIN)
-		execute_pwd(data, node);
+		execute_pwd(data->env_list);
 	else if (func_type == UNSET_BUILTIN)
-		execute_unset(data, node);
+		execute_unset(data->env_list, node);
 }

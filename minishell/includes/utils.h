@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 20:07:32 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/29 02:19:19 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:26:00 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 # include "struct.h"
 
 int			ft_isspace(char c);
+int			ft_isalpha(int c);
 int			ft_isalnum(int c);
 int			ft_toupper(int c);
 
 t_envnode	*create_envnode(t_envnode *head, char *key, char *value);
 const char	**env_list_to_envp(t_envnode *head);
-const char	*get_env_value(t_envnode *env_list, char *key);
-void		*set_env(t_envnode **env_list, char *key, char *value);
+t_envnode	*get_env_node(t_envnode *env_list, char *key);
+void		set_env(t_data *data, char *key, char *value);
 
 void		parse_error(t_data *data, char *msg);
 void		system_error(char *msg);

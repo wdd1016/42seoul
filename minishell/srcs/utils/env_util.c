@@ -6,14 +6,11 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 22:21:12 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/29 02:19:12 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:25:45 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	change_insert_envnode(int difference, t_envnode *node, \
-char *key, char *value);
 
 t_envnode	*create_envnode(t_envnode *head, char *key, char *value)
 {
@@ -40,7 +37,7 @@ const char	**env_list_to_envp(t_envnode *head)
 		if (head->value)
 			envp[i] = ft_strjoin3(head->key, "=", head->value);
 		else
-			envp[i] = ft_strjoin(head->key, "=");
+			envp[i] = ft_strdup(head->key);
 		i++;
 		head = head->next;
 	}
@@ -48,54 +45,36 @@ const char	**env_list_to_envp(t_envnode *head)
 	return (envp);
 }
 
-const char	*get_env_value(t_envnode *env_list, char *key)
+t_envnode	*get_env_node(t_envnode *env_list, char *key)
 {
 	while (env_list)
 	{
 		if (!ft_strcmp(env_list->key, key))
-			return (env_list->value);
+			return (env_list);
 		env_list = env_list->next;
 	}
 	return (NULL);
 }
 
-void	set_env(t_envnode **env_list, char *key, char *value)
+void	set_env(t_data *data, char *key, char *value)
 {
-	int			difference;
 	t_envnode	*temp;
 
-	temp = *env_list;
-	difference = ft_strcmp(temp->key, key);
-	if (difference > 0)
+	temp = data->env_list;
+	while (temp)
 	{
-		*env_list = create_envnode(temp, key, value);
-		(*env_list)->total_count = temp->total_count;
-		(*env_list)->next = temp;
-		return ;
+		if (ft_strcmp(temp->key, key) == 0)
+		{
+			free(temp->key);
+			free(temp->value);
+			temp->key = key;
+			temp->value = value;
+			return ;
+		}
+		temp = temp->next;
 	}
-	else if (difference == 0)
-		return (change_insert_envnode(difference, temp, key, value));
-	while (temp->next)
-	{
-		difference = ft_strcmp(temp->key, key);
-		if (difference >= 0)
-			return (change_insert_envnode(difference, temp, key, value));
-	}
-	return (change_insert_envnode(difference, temp, key, value));
-}
-
-static void	change_insert_envnode(int difference, t_envnode *node, \
-char *key, char *value)
-{
-	if (difference == 0)
-	{
-		free(node->key);
-		free(node->value);
-		node->key = key;
-		node->value = value;
-	}
-	else
-	{
-		node->next = create_envnode(node->next, key, value);
-	}
+	temp = create_envnode(data->env_list, key, value);
+	temp->next = data->env_list;
+	temp->total_count = data->env_list->total_count;
+	data->env_list = temp;
 }

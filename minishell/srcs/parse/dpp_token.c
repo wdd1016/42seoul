@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 22:58:28 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/26 23:10:44 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/29 20:27:25 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	pipe_token(t_data *data)
 		return (parse_error(data, "|"));
 	data->token.end += 1;
 	add_token(data, PIPE);
+	data->token.pipe_flag = ON;
 }
 
 void	priority_token(t_data *data)

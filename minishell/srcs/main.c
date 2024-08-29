@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 22:18:14 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/28 02:58:14 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/29 20:26:01 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static t_data	*initialize(int argc, const char **argv, const char **envp)
 	data->token.bracket_count = 0;
 	data->token.command_flag = OFF;
 	data->token.syntax_flag = OFF;
+	data->token.pipe_flag = OFF;
 	data->env_list = init_envlist(envp);
 	data->heredoc_list = NULL;
 	data->parse_tree = NULL;

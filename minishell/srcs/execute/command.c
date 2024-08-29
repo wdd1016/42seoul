@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_command.c                                  :+:      :+:    :+:   */
+/*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 19:41:04 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/28 17:52:14 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/29 23:58:01 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,7 @@ static void	execute_command_child(t_envnode *env_list, t_treenode *node)
 		path = find_path(node, env_list, node->cmd[0]);
 	if (access(path, X_OK) == -1)
 		permission_denied_execute(node->cmd[0]);
-	envp = env_list_to_envp(env_list);
-	if (execve(path, node->cmd, envp) == -1)
+	if (execve(path, node->cmd, env_list_to_envp(env_list)) == -1)
 		execve_error(node->cmd[0]);
 	exit(0);
 }
@@ -124,11 +123,10 @@ static char	*find_path(t_treenode *node, t_envnode *env_list, char *command)
 	char	**path_envp;
 	int		i;
 
-	path_line = get_env_value(env_list, "PATH");
+	path_line = (get_env_node(env_list, "PATH"))->value;
 	if (path_line == NULL)
 		non_exist_execute(node->cmd[0]);
 	path_envp = ft_split(path_line, ':');
-	free(path_line);
 	i = -1;
 	while (path_envp[++i])
 	{

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 21:41:54 by danpark           #+#    #+#             */
-/*   Updated: 2024/08/29 01:51:35 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/29 20:15:28 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char	**split_env(char *str)
 	if (equal_address == NULL)
 	{
 		s_spt = (char **)malloc_s(sizeof(char *) * 2);
-		s_spt[0] = ft_strdup_s(str);
+		s_spt[0] = ft_strdup(str);
 		s_spt[1] = NULL;
 		return (s_spt);
 	}
@@ -63,7 +63,7 @@ static char	**split_env(char *str)
 	while (str[++i] != '=')
 		s_spt[0][i] = str[i];
 	s_spt[0][i] = '\0';
-	s_spt[1] = ft_strdup_s(equal_address + 1);
+	s_spt[1] = ft_strdup(equal_address + 1);
 	s_spt[2] = NULL;
 	return (s_spt);
 }

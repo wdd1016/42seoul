@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:57:25 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/28 02:57:00 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/29 20:25:39 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct s_token_data
 	size_t		bracket_count;
 	int			command_flag;
 	int			syntax_flag;
+	int			pipe_flag;
 }	t_token_data;
 
 typedef struct s_data
