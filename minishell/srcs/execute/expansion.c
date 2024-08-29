@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 23:47:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/28 01:10:47 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 05:12:20 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,31 @@ size_t end)
 	free(*str_ptr);
 	*str_ptr = temp;
 	return (new_idx);
+}
+
+void	cmd_compress(t_treenode *node)
+{
+	char	**new_cmd;
+	int		count;
+	int		i;
+	int		j;
+
+	count = 0;
+	i = -1;
+	while ((node->cmd)[++i])
+		if ((node->cmd)[i][0] != '\0')
+			count++;
+	new_cmd = (char **)malloc_s(sizeof(char *) * (count + 1));
+	i = -1;
+	j = -1;
+	while ((node->cmd)[++i])
+	{
+		if ((node->cmd)[i][0] == '\0')
+			free((node->cmd)[i]);
+		else
+			new_cmd[++j] = (node->cmd)[i];
+	}
+	new_cmd[++j] = NULLPOINTER;
+	free(node->cmd);
+	node->cmd = new_cmd;
 }

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 18:30:11 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 03:32:47 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 04:46:48 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,52 +15,31 @@
 static void	quote_erase_expansion(t_data *dt, char **str_ptr);
 static void	quote_erase(char **str_ptr, size_t start, size_t end);
 
-void	command_symbol_process(t_data *data, t_tokennode *temp)
+void	symbol_process(t_data *data, t_treenode *node)
 {
 	size_t	i;
 
 	i = 0;
-	while (temp->parsed_data[i])
+	while (node->parsed_data[i])
 	{
-		if (temp->parsed_data[i] == '\'')
-			i = quote(data, temp->parsed_data, '\'', i);
-		else if (temp->parsed_data[i] == '\"')
-			i = quote(data, temp->parsed_data, '\"', i);
-		else if (temp->parsed_data[i] == '$' && \
-		temp->parsed_data[i + 1] != ' ' && temp->parsed_data[i + 1] != '\0')
-			i = expansion(data->env_list, &(temp->parsed_data), i + 1, \
-						ft_substr(temp->parsed_data, 0, i));
+		if (node->parsed_data[i] == '\'')
+			i = quote(data, node->parsed_data, '\'', i);
+		else if (node->parsed_data[i] == '\"')
+			i = quote(data, node->parsed_data, '\"', i);
+		else if (node->parsed_data[i] == '$' && \
+		node->parsed_data[i + 1] != ' ' && node->parsed_data[i + 1] != '\0')
+			i = expansion(data->env_list, &(node->parsed_data), i + 1, \
+						ft_substr(node->parsed_data, 0, i));
 		else
 			i++;
-	}
-	temp->cmd = ft_split(temp->parsed_data, ' ');
+	}	
+	node->cmd = ft_split(node->parsed_data, ' ');
 	i = 0;
-	while (temp->cmd[i])
+	while (node->cmd[i])
 	{
-		quote_erase_expansion(data, &(temp->cmd[i]));
+		quote_erase_expansion(data, &(node->cmd[i]));
 		i++;
 	}
-}
-
-void	file_symbol_process(t_data *data, t_tokennode *temp)
-{
-	size_t		i;
-
-	i = 0;
-	while (temp->parsed_data[i])
-	{
-		if (temp->parsed_data[i] == '\'')
-			i = quote(data, temp->parsed_data, '\'', i);
-		else if (temp->parsed_data[i] == '\"')
-			i = quote(data, temp->parsed_data, '\"', i);
-		else if (temp->parsed_data[i] == '$' && \
-		temp->parsed_data[i + 1] != ' ' && temp->parsed_data[i + 1] != '\0')
-			i = expansion(data->env_list, &(temp->parsed_data), i + 1, \
-						ft_substr(temp->parsed_data, 0, i));
-		else
-			i++;
-	}
-	quote_erase_expansion(data, &(temp->parsed_data));
 }
 
 static void	quote_erase_expansion(t_data *dt, char **str_ptr)
@@ -104,28 +83,4 @@ static void	quote_erase(char **str_ptr, size_t start, size_t end)
 	new_data[i - 2] = '\0';
 	free(*str_ptr);
 	*str_ptr = new_data;
-}
-
-int	handle_redirect_wildcard(t_data *data)
-{
-	char		*file;
-	t_filelist	*file_list;
-	int			count;
-
-	file = data->token.temp->parsed_data;
-	if (ft_strchr(file, '*') == 0)
-		return (OFF);
-	count = 0;
-	file_list = find_wildcard_files(file);
-	if (!file_list)
-		return (OFF);
-	else if (file_list->total_count > 1)
-	{
-		free_file_list(file_list);
-		return (ERROR);
-	}
-	free(data->token.temp->parsed_data);
-	data->token.temp->parsed_data = file_list->file_name;
-	free(file_list);
-	return (ON);
 }

@@ -1,50 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wildcard.c                                         :+:      :+:    :+:   */
+/*   wildcard_util.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 22:08:46 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 01:47:12 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 04:56:47 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void			make_file_list(DIR *dir, t_filelist *head, \
-char *target, char *directory);
-static char			*get_directory(char *target_string);
 static int			is_match_file(char *target_string, char *file_name);
 static t_filelist	*create_filenode(t_filelist *head, t_filelist *tail, \
 char *directory, char *file_name);
 
-t_filelist	*find_wildcard_files(char *target_string)
-{
-	DIR				*dir;
-	t_filelist		head;
-	char			*directory;
-
-	directory = get_path(target_string);
-	if (!directory)
-		dir = opendir(".");
-	else
-		dir = opendir(directory);
-	if (!dir)
-	{
-		free(directory);
-		return (NULLPOINTER);
-	}
-	head.total_count = 0;
-	head.next = NULLPOINTER;
-	make_file_list(dir, &head, target_string, directory);
-	if (head.next)
-		head.next->total_count = head.total_count;
-	free(directory);
-	return (head.next);
-}
-
-static void	make_file_list(DIR *dir, t_filelist *head, \
+void	make_file_list(DIR *dir, t_filelist *head, \
 char *target, char *directory)
 {
 	struct dirent	*file;
@@ -63,7 +35,7 @@ char *target, char *directory)
 	closedir_s(dir);
 }
 
-static char	*get_directory(char *target_string)
+char	*get_directory(char *target_string)
 {
 	char	*directory;
 	int		i;
