@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 23:57:10 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/28 00:43:16 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:38:46 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static t_herenode	*add_heredoc_node(t_data *data)
 	t_herenode	*node;
 
 	temp = (t_herenode *)malloc_s(sizeof(t_herenode));
-	temp->next = NULL;
+	temp->next = NULLPOINTER;
 	temp->file_name = generate_random_heredoc_filepath(12);
 	while (access(temp->file_name, F_OK) == 0)
 	{

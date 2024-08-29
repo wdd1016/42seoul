@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:50:00 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 01:25:22 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:43:13 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	execute_export(t_data *data, t_treenode *node)
 	int	i;
 
 	g_exit_status = 0;
-	if (node->cmd[1] == NULL)
+	if (node->cmd[1] == NULLPOINTER)
 		return (export_print(data->env_list));
 	i = 0;
 	while (node->cmd[++i])
@@ -83,15 +83,16 @@ static void	export_declare(t_data *data, char *command, int append_flag)
 	char		*temp;
 
 	equal_ptr = ft_strchr(command, '=');
-	if (equal_ptr == NULL && get_env_node(data->env_list, command) == NULL)
-		return (set_env(data, command, NULL));
-	else if (equal_ptr == NULL)
+	if (equal_ptr == NULLPOINTER && \
+	get_env_node(data->env_list, command) == NULLPOINTER)
+		return (set_env(data, command, NULLPOINTER));
+	else if (equal_ptr == NULLPOINTER)
 		return ;
 	*equal_ptr = '\0';
 	if (append_flag == ON)
 		*(equal_ptr - 1) = '\0';
 	same_key_node = get_env_node(data->env_list, command);
-	if (same_key_node == NULL)
+	if (same_key_node == NULLPOINTER)
 		return (set_env(data, ft_strdup(command), ft_strdup(equal_ptr + 1)));
 	if (append_flag == ON)
 		temp = ft_strjoin(same_key_node->value, equal_ptr + 1);
@@ -122,7 +123,7 @@ static char	**env_list_to_export(t_envnode *head)
 		head = head->next;
 		i++;
 	}
-	envs[i] = NULL;
+	envs[i] = NULLPOINTER;
 	quick_sort(envs, 0, i - 1);
 	return (envs);
 }

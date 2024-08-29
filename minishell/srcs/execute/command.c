@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 19:41:04 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/29 23:58:01 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:43:19 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	execute_command(t_data *data, t_treenode *node)
 		execute_builtin_function(data, node, func_type);
 	else
 	{
-		
 		pid = fork_s();
 		if (pid == 0)
 			execute_command_child(data->env_list, node);
@@ -55,7 +54,7 @@ static void	command_wildcard_process(t_treenode *node)
 	count = 0;
 	while (node->cmd[++i])
 	{
-		if (ft_strchr(node->cmd[i], '*') == NULL)
+		if (ft_strchr(node->cmd[i], '*') == NULLPOINTER)
 			continue ;
 		filelist = find_wildcard_files(node->cmd[i]);
 		if (filelist)
@@ -86,7 +85,7 @@ static char	**expand_cmd(char **cmd, int *index, t_filelist *filelist)
 	*index = i;
 	while (cmd[++before_index])
 		new_cmd[++i] = cmd[before_index];
-	new_cmd[++i] = NULL;
+	new_cmd[++i] = NULLPOINTER;
 	free(cmd);
 	return (new_cmd);
 }
@@ -124,7 +123,7 @@ static char	*find_path(t_treenode *node, t_envnode *env_list, char *command)
 	int		i;
 
 	path_line = (get_env_node(env_list, "PATH"))->value;
-	if (path_line == NULL)
+	if (path_line == NULLPOINTER)
 		non_exist_execute(node->cmd[0]);
 	path_envp = ft_split(path_line, ':');
 	i = -1;
@@ -140,5 +139,5 @@ static char	*find_path(t_treenode *node, t_envnode *env_list, char *command)
 	}
 	free(path_envp);
 	not_found_execute(node->cmd[0]);
-	return (NULL);
+	return (NULLPOINTER);
 }

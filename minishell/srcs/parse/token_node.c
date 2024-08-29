@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 21:57:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/26 21:11:13 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:38:46 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_tokennode	*create_tokennode(t_type type)
 
 	new_node = (t_tokennode *)malloc_s(sizeof(t_tokennode));
 	new_node->type = type;
-	new_node->cmd = NULL;
-	new_node->next = NULL;
+	new_node->cmd = NULLPOINTER;
+	new_node->next = NULLPOINTER;
 	return (new_node);
 }

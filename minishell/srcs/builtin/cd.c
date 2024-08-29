@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 11:19:22 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 00:54:10 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:43:07 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	execute_cd(t_data *data, t_treenode *node)
 	char	*old_path;
 	char	*path;
 
-	old_path = getcwd(NULL, 0);
+	old_path = getcwd(NULLPOINTER, 0);
 	path = find_path(data->env_list, node->cmd, old_path);
 	if (path)
 		cd_process(data, path, old_path, node->cmd);
@@ -33,7 +33,7 @@ static char	*find_path(t_envnode *env_list, char **cmd, char *old_path)
 {
 	char	*path;
 
-	if (cmd[1] == NULL)
+	if (cmd[1] == NULLPOINTER)
 		path = ft_strdup((get_env_node(env_list, "HOME"))->value);
 	else if (cmd[1][0] == '\0')
 		path = ft_strdup(old_path);
@@ -42,11 +42,11 @@ static char	*find_path(t_envnode *env_list, char **cmd, char *old_path)
 	else if (ft_strcmp(cmd[1], "-") == 0)
 	{
 		path = ft_strdup((get_env_node(env_list, "OLDPWD"))->value);
-		if (path == NULL)
+		if (path == NULLPOINTER)
 		{
 			write(STDERR_FILENO, "minishell: cd: OLDPWD not set\n", 30);
 			g_exit_status = 1;
-			return (NULL);
+			return (NULLPOINTER);
 		}
 		write(STDOUT_FILENO, path, ft_strlen(path));
 		write(STDOUT_FILENO, "\n", 1);
@@ -80,7 +80,7 @@ char **cmd)
 		else
 			set_env(data, ft_strdup("OLDPWD"), \
 					ft_strdup((get_env_node(data->env_list, "PWD"))->value));
-		set_env(data, ft_strdup("PWD"), getcwd(NULL, 0));
+		set_env(data, ft_strdup("PWD"), getcwd(NULLPOINTER, 0));
 		g_exit_status = 0;
 	}
 }

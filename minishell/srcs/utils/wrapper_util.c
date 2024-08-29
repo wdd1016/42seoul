@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 23:56:25 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/28 01:45:50 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:43:48 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*malloc_s(size_t size)
 	void	*ptr;
 
 	ptr = malloc(size);
-	if (ptr == NULL)
+	if (ptr == NULLPOINTER)
 		system_error("Allocation Error!\n");
 	return (ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 22:08:46 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/28 02:06:51 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:47:12 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,11 @@ t_filelist	*find_wildcard_files(char *target_string)
 	if (!dir)
 	{
 		free(directory);
-		return (NULL);
+		return (NULLPOINTER);
 	}
 	head.total_count = 0;
-	head.next = NULL;
+	head.next = NULLPOINTER;
 	make_file_list(dir, &head, target_string, directory);
-
 	if (head.next)
 		head.next->total_count = head.total_count;
 	free(directory);
@@ -49,7 +48,7 @@ static void	make_file_list(DIR *dir, t_filelist *head, \
 char *target, char *directory)
 {
 	struct dirent	*file;
-	t_filelist 	*tail;
+	t_filelist		*tail;
 
 	readdir_s(dir);
 	readdir_s(dir);
@@ -69,7 +68,7 @@ static char	*get_directory(char *target_string)
 	char	*directory;
 	int		i;
 
-	directory = NULL;
+	directory = NULLPOINTER;
 	i = ft_strlen(target_string);
 	while (i >= 0 && target_string[i] != '/')
 		i--;
@@ -114,7 +113,7 @@ char *directory, char *file_name)
 	else
 		new_node->file_name = ft_strdup(file_name);
 	new_node->total_count = 0;
-	new_node->next = NULL;
+	new_node->next = NULLPOINTER;
 	tail->next = new_node;
 	head->total_count++;
 	return (new_node);

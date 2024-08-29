@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 23:51:07 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/29 20:26:31 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:43:30 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	free_tokens(t_data *data)
 		free(data->token.temp->cmd);
 		free(data->token.temp);
 	}
-	data->token.temp = NULL;
+	data->token.temp = NULLPOINTER;
 	data->token.start = 0;
 	data->token.end = 0;
 	data->token.bracket_count = 0;

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 20:17:08 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 01:02:23 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:43:11 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	execute_exit(t_treenode *node, int pipe_flag)
 			write(STDERR_FILENO, ": numeric argument required\n", 28);
 			g_exit_status = 255;
 		}
-		else if ((node->cmd)[2] != NULL)
+		else if ((node->cmd)[2] != NULLPOINTER)
 		{
 			write(STDERR_FILENO, "minishell: exit: too many arguments\n", 36);
 			g_exit_status = 1;

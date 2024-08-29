@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:00:05 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/26 22:27:51 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:38:46 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_treenode	*build_tree(t_data *data)
 	t_treenode		*node;
 	t_treenode		*temp;
 
-	node = NULL;
+	node = NULLPOINTER;
 	while (data->token.temp)
 	{
 		if (data->token.temp->type == PRIORITY_START)
@@ -56,7 +56,7 @@ static t_treenode	*insert_node(t_treenode *head, t_treenode *child)
 	temp = head;
 	while (temp)
 	{
-		if (temp->right_child == NULL || \
+		if (temp->right_child == NULLPOINTER || \
 			priority_level(temp->right_child) > priority_level(child))
 			return (insert_child(temp, child, head));
 		else
@@ -86,10 +86,10 @@ static int	priority_level(t_treenode *child)
 static t_treenode	*insert_child(t_treenode *parent, t_treenode *child, \
 t_treenode *head)
 {
-	if (parent->left_child == NULL && \
+	if (parent->left_child == NULLPOINTER && \
 		(child->type == COMMAND || child->type == IO_FILE))
 		parent->left_child = child;
-	else if (parent->right_child == NULL)
+	else if (parent->right_child == NULLPOINTER)
 		parent->right_child = child;
 	else
 	{
@@ -106,13 +106,13 @@ static t_treenode	*create_pnode(t_tokennode *node)
 	new_node = (t_treenode *)malloc_s(sizeof(t_treenode));
 	new_node->type = node->type;
 	new_node->subshell_flag = OFF;
-	new_node->cmd = NULL;
-	new_node->file = NULL;
+	new_node->cmd = NULLPOINTER;
+	new_node->file = NULLPOINTER;
 	if (new_node->type == COMMAND)
 		new_node->cmd = node->cmd;
 	else if (new_node->type == IO_FILE)
 		new_node->file = node->parsed_data;
-	new_node->left_child = NULL;
-	new_node->right_child = NULL;
+	new_node->left_child = NULLPOINTER;
+	new_node->right_child = NULLPOINTER;
 	return (new_node);
 }

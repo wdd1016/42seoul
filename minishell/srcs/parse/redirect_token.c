@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 22:58:28 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/28 00:07:23 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:38:46 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	redirect_token(t_data *data)
 		return (parse_error(data, "*"));
 	file_token = create_tokennode(IO_FILE);
 	file_token->parsed_data = data->token.temp->parsed_data;
-	data->token.temp->parsed_data = NULL;
+	data->token.temp->parsed_data = NULLPOINTER;
 	data->token.temp->next = file_token;
 	data->token.temp = file_token;
 }

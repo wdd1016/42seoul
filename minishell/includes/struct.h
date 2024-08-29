@@ -6,14 +6,14 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:57:25 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/29 20:25:39 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:39:07 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 
-# define NULL 0
+# define NULLPOINTER 0
 # define ON 1
 # define OFF 0
 # define ERROR -1

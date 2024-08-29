@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 22:18:14 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/29 20:26:01 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:39:07 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ static t_data	*initialize(int argc, const char **argv, const char **envp)
 	if (!ft_strcmp(argv[0], "minishell"))
 		exit(1);
 	data = (t_data *)malloc_s(sizeof(t_data));
-	data->line = NULL;
+	data->line = NULLPOINTER;
 	data->line_length = 0;
-	data->token.head = NULL;
-	data->token.temp = NULL;
+	data->token.head = NULLPOINTER;
+	data->token.temp = NULLPOINTER;
 	data->token.start = 0;
 	data->token.end = 0;
 	data->token.bracket_count = 0;
@@ -57,19 +57,19 @@ static t_data	*initialize(int argc, const char **argv, const char **envp)
 	data->token.syntax_flag = OFF;
 	data->token.pipe_flag = OFF;
 	data->env_list = init_envlist(envp);
-	data->heredoc_list = NULL;
-	data->parse_tree = NULL;
+	data->heredoc_list = NULLPOINTER;
+	data->parse_tree = NULLPOINTER;
 	return (data);
 }
 
 static void	free_parse_data(t_data *data)
 {
 	free(data->line);
-	data->line = NULL;
+	data->line = NULLPOINTER;
 	data->line_length = 0;
 	free_tokens(data);
 	free_parse_tree(data->parse_tree);
-	data->parse_tree = NULL;
+	data->parse_tree = NULLPOINTER;
 	free_env_list(data);
 	free_heredoc_list_close_fd(data);
 }

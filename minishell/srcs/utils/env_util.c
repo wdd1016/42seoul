@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 22:21:12 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 01:25:45 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:43:26 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_envnode	*create_envnode(t_envnode *head, char *key, char *value)
 	new_node->key = key;
 	new_node->value = value;
 	new_node->total_count = 0;
-	new_node->next = NULL;
+	new_node->next = NULLPOINTER;
 	head->total_count++;
 	return (new_node);
 }
@@ -41,7 +41,7 @@ const char	**env_list_to_envp(t_envnode *head)
 		i++;
 		head = head->next;
 	}
-	envp[i] = NULL;
+	envp[i] = NULLPOINTER;
 	return (envp);
 }
 
@@ -53,7 +53,7 @@ t_envnode	*get_env_node(t_envnode *env_list, char *key)
 			return (env_list);
 		env_list = env_list->next;
 	}
-	return (NULL);
+	return (NULLPOINTER);
 }
 
 void	set_env(t_data *data, char *key, char *value)
