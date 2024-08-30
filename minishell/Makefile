@@ -6,7 +6,7 @@
 #    By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/14 22:12:33 by juyojeon          #+#    #+#              #
-#    Updated: 2024/08/30 21:49:05 by juyojeon         ###   ########.fr        #
+#    Updated: 2024/08/30 23:00:29 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,9 +35,9 @@ SRC = main.c \
 	./parse/build_tree.c ./parse/env_node.c ./parse/heredoc.c \
 	./parse/token_node.c ./parse/token_redirect.c ./parse/tokenize.c \
 	./utils/char_util.c ./utils/env_util.c ./utils/error.c \
-	./utils/quick_sort.c ./utils/release.c ./utils/signal_handler.c \
-	./utils/signal.c ./utils/split_util.c ./utils/string_util1.c \
-	./utils/string_util2.c ./utils/string_util3.c \
+	./utils/exit_status.c ./utils/quick_sort.c ./utils/release.c \
+	./utils/signal_handler.c ./utils/signal.c ./utils/split_util.c \
+	./utils/string_util1.c ./utils/string_util2.c ./utils/string_util3.c \
 	./utils/wrapper_directory.c ./utils/wrapper_util.c
 
 SRC_DIR = ./srcs/

@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 22:18:14 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 22:02:31 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/31 02:08:19 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, const char **argv, const char **envp)
 		signal_default();
 		data->line = readline("minishell$ ");
 		if (!data->line)
-			eof_exit("exit\n");
+			eof_exit();
 		if (data->line[0] != '\0')
 			add_history(data->line);
 		tokenize(data);
@@ -47,7 +47,7 @@ static t_data	*initialize(int argc, const char **argv, const char **envp)
 		exit(1);
 	if (!ft_strcmp(argv[0], "minishell"))
 		exit(1);
-	g_exit_status = 0;
+	set_exit_status(0);
 	data = (t_data *)malloc_s(sizeof(t_data));
 	data->line = NULLPOINTER;
 	data->line_length = 0;

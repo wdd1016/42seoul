@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 01:03:10 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/26 21:13:57 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/31 02:57:42 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	signal_handler(int sig)
 {
 	(void)sig;
-	g_exit_status = 1;
+	set_exit_status(1);
 	rl_replace_line("", 0);
-	write(1, "\n", 1);
+	write(STDERR_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_redisplay();
 }
@@ -27,27 +27,18 @@ and it should update the global g_exit_status accordingly. */
 void	signal_handler_parent(int sig)
 {
 	(void)sig;
-	g_exit_status = 1;
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
-
-void	signal_handler_heredoc(int sig)
-{
-	(void)sig;
 	write(STDERR_FILENO, "\n", 1);
-	exit(1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
 }
 
 void	signal_handler_quit(int sig)
 {
 	char	*tmp;
 
-	(void)sig;
-	tmp = ft_itoa(g_exit_status);
+	tmp = ft_itoa(sig);
 	write(STDERR_FILENO, "Quit: ", 6);
 	write(STDERR_FILENO, tmp, ft_strlen(tmp));
 	write(STDERR_FILENO, "\n", 1);
 	free(tmp);
-	exit(1);
 }

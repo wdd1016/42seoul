@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 23:39:04 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/28 02:37:15 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/31 01:36:31 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	parse_error(t_data *data, char *msg)
 	write(STDERR_FILENO, "minishell: syntax error near unexpected token `", 47);
 	write(STDERR_FILENO, msg, ft_strlen(msg));
 	write(STDERR_FILENO, "\'\n", 2);
-	g_exit_status = 258;
-	data->token.syntax_flag = ON;
+	set_exit_status(258);
 	free_tokens(data);
+	data->token.syntax_flag = ON;
 }
 
 void	system_error(char *msg)
@@ -28,9 +28,11 @@ void	system_error(char *msg)
 	exit(1);
 }
 
-void	eof_exit(char *msg)
+void	eof_exit(void)
 {
-	write(STDOUT_FILENO, msg, ft_strlen(msg));
+	write(STDOUT_FILENO, "\033[1A", 4);
+	write(STDOUT_FILENO, "\033[11C", 5);
+	write(STDOUT_FILENO, "exit\n", 5);
 	exit(g_exit_status);
 }
 

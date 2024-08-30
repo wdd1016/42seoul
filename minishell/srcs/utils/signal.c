@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 23:11:51 by danpark           #+#    #+#             */
-/*   Updated: 2024/08/26 20:38:05 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/31 03:02:07 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,23 @@ void	signal_default(void)
 void	signal_child(void)
 {
 	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, signal_handler_quit);
+	signal(SIGQUIT, SIG_DFL);
 }
 
 void	signal_parent(void)
 {
-	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, signal_handler_parent);
+	signal(SIGQUIT, signal_handler_quit);
+}
+
+void	signal_heredoc_parent(void)
+{
+	signal(SIGINT, signal_handler_parent);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	signal_heredoc_child(void)
+{
+	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_IGN);
 }

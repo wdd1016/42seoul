@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 20:07:32 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 21:44:50 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/31 03:01:56 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ void			set_env_node(t_data *data, char *key, char *value);
 
 void			parse_error(t_data *data, char *msg);
 void			system_error(char *msg);
-void			eof_exit(char *msg);
+void			eof_exit(void);
 void			execve_error(char *command);
+
+void			set_exit_status(int status);
 
 void			quick_sort(char **arr, int left, int right);
 
@@ -39,12 +41,13 @@ void			free_file_list(t_filelist *head);
 
 void			signal_handler(int sig);
 void			signal_handler_parent(int sig);
-void			signal_handler_heredoc(int sig);
 void			signal_handler_quit(int sig);
 
 void			signal_default(void);
 void			signal_child(void);
 void			signal_parent(void);
+void			signal_heredoc_parent(void);
+void			signal_heredoc_child(void);
 
 char			**ft_split(const char *s, char c);
 

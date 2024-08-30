@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 22:23:47 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 03:22:14 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/31 00:12:55 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*generate_random_heredoc_filepath(int length)
 		str[i] = charset[rand() % 62];
 		i++;
 	}
-	str[length] = '\0';
+	str[i] = '\0';
 	return (str);
 }
 

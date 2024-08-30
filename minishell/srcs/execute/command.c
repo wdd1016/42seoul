@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 19:41:04 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 21:35:42 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 23:04:44 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ void	execute_command(t_data *data, t_treenode *node)
 	symbol_process(data, node);
 	wildcard_process(node);
 	cmd_compress(node);
-	g_exit_status = 0;
 	if (node->cmd[0] == NULLPOINTER)
-		return ;
+		return (set_exit_status(0));
 	if (get_function_type(node->cmd[0]) != EXTERN_FUNCTION)
 		return (execute_builtin_function(data, node, \
 											get_function_type(node->cmd[0])));
@@ -41,9 +40,9 @@ void	execute_command(t_data *data, t_treenode *node)
 	signal_parent();
 	wait(&pid);
 	if (WIFEXITED(pid))
-		g_exit_status = WEXITSTATUS(pid);
+		set_exit_status(WEXITSTATUS(pid));
 	else if (WIFSIGNALED(pid))
-		g_exit_status = WTERMSIG(pid) + 128;
+		set_exit_status(WTERMSIG(pid) + 128);
 	signal_default();
 }
 

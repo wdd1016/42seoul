@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 03:49:40 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 21:37:38 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 23:04:42 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	redirect_preprocess(t_data *data, t_treenode *file_node)
 		write(STDERR_FILENO, file_node->parsed_data, \
 				ft_strlen(file_node->parsed_data));
 		write(STDERR_FILENO, ": ambiguous redirect\n", 21);
-		g_exit_status = 1;
+		set_exit_status(1);
 		return (ERROR);
 	}
 	return (ON);
@@ -67,7 +67,7 @@ static int	execute_in_redirect(const char *file_name_or_fd, t_type type)
 				write(STDERR_FILENO, ": Permission denied\n", 20);
 			else
 				write(STDERR_FILENO, ": No such file or directory\n", 28);
-			g_exit_status = 1;
+			set_exit_status(1);
 			return (ERROR);
 		}
 	}
@@ -88,7 +88,7 @@ static int	execute_out_redirect(const char *file_name, t_type type)
 		write(STDERR_FILENO, "minishell: ", 11);
 		write(STDERR_FILENO, file_name, ft_strlen(file_name));
 		write(STDERR_FILENO, ": Permission denied\n", 20);
-		g_exit_status = 1;
+		set_exit_status(1);
 		return (ERROR);
 	}
 	if (type == RE_OUT)
@@ -100,7 +100,7 @@ static int	execute_out_redirect(const char *file_name, t_type type)
 		write(STDERR_FILENO, "minishell: ", 11);
 		write(STDERR_FILENO, file_name, ft_strlen(file_name));
 		write(STDERR_FILENO, ": No such file or directory\n", 28);
-		g_exit_status = 1;
+		set_exit_status(1);
 		return (ERROR);
 	}
 	dup2(fd, STDOUT_FILENO);

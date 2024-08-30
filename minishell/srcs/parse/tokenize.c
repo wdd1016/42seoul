@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 21:57:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 03:01:57 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 22:51:17 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ size_t	quote(t_data *data, char *string, char character, size_t end)
 static void	finalize_tokens(t_data *data)
 {
 	add_token(data, COMMAND);
-	if (!(data->token.command_flag))
+	if (data->token.command_flag == OFF && data->token.head)
 		return (parse_error(data, "command"));
 	else if (data->token.bracket_count)
 		return (parse_error(data, "bracket"));

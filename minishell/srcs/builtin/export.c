@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:50:00 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 21:35:13 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 23:04:47 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	execute_export(t_data *data, t_treenode *node)
 	int	append_flag;
 	int	i;
 
-	g_exit_status = 0;
+	set_exit_status(0);
 	if (node->cmd[1] == NULLPOINTER)
 		return (export_print(data->env_list));
 	i = 0;
@@ -34,7 +34,7 @@ void	execute_export(t_data *data, t_treenode *node)
 			write(STDERR_FILENO, "minishell: export: `", 20);
 			write(STDERR_FILENO, node->cmd[i], ft_strlen(node->cmd[i]));
 			write(STDERR_FILENO, "': not a valid identifier\n", 26);
-			g_exit_status = 1;
+			set_exit_status(1);
 			continue ;
 		}
 		export_declare(data, node->cmd[i], append_flag);

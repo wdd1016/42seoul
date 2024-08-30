@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 18:57:02 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 01:43:08 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 23:04:49 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	execute_echo(t_treenode *node)
 {
 	size_t	idx;
 
-	g_exit_status = 0;
+	set_exit_status(0);
 	if ((node->cmd)[1] == NULLPOINTER)
 		write(STDOUT_FILENO, "\n", 1);
 	else

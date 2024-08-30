@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 04:49:43 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 04:57:05 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 22:37:41 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	wildcard_process(t_treenode *node)
 	int			count;
 	int			i;
 
-	i = 0;
+	i = -1;
 	count = 0;
 	while (node->cmd[++i])
 	{
@@ -75,13 +75,15 @@ static char	**expand_cmd(char **cmd, int *index, t_filelist *filelist)
 		new_cmd[i] = cmd[i];
 	while (filelist)
 	{
-		new_cmd[++i] = filelist->file_name;
+		new_cmd[i++] = filelist->file_name;
+		filelist->file_name = NULLPOINTER;
 		filelist = filelist->next;
 	}
-	*index = i;
+	*index = i - 1;
+	free(cmd[before_index]);
 	while (cmd[++before_index])
-		new_cmd[++i] = cmd[before_index];
-	new_cmd[++i] = NULLPOINTER;
+		new_cmd[i++] = cmd[before_index];
+	new_cmd[i] = NULLPOINTER;
 	free(cmd);
 	return (new_cmd);
 }

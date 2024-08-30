@@ -6,39 +6,34 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 23:57:10 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 01:38:46 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/31 03:02:43 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void			heredoc_child(t_data *data, t_herenode *node, char *target);
+static void			heredoc_parents(t_data *data, t_herenode *node, pid_t pid);
 static t_herenode	*add_heredoc_node(t_data *data);
 
 void	heredoc(t_data *data, size_t start, size_t end)
 {
-	t_herenode	*node;
-	pid_t		pid;
+	struct termios	old_termios;
+	t_herenode		*node;
+	pid_t			pid;
 
+	tcgetattr(STDIN_FILENO, &old_termios);
 	node = add_heredoc_node(data);
 	pid = fork_s();
 	if (pid == 0)
 		heredoc_child(data, node, ft_substr(data->line, start, end - start));
 	else
 	{
-		signal_parent();
+		signal_heredoc_parent();
 		wait(&pid);
-		if (WIFSIGNALED(pid))
-			g_exit_status = pid;
 		signal_default();
-		close(node->fd);
-		node->fd = open(node->file_name, O_RDONLY);
-		if (node->fd == -1)
-			system_error("Open system call Error!\n");
-		unlink(node->file_name);
-		add_token(data, RE_HERE);
-		free(data->token.temp->parsed_data);
-		data->token.temp->parsed_data = ft_itoa(node->fd);
+		tcsetattr(STDIN_FILENO, TCSANOW, &old_termios);
+		heredoc_parents(data, node, pid);
 	}
 }
 
@@ -47,15 +42,12 @@ static void	heredoc_child(t_data *data, t_herenode *node, char *target)
 	char	*ln;
 	size_t	i;
 
-	signal_child();
+	signal_heredoc_child();
 	while (1)
 	{
 		ln = readline("> ");
-		if (!ln || ft_strcmp(ln, target) == 0)
-		{
-			free(ln);
-			exit(0);
-		}
+		if (ln == NULLPOINTER || ft_strcmp(ln, target) == 0)
+			break ;
 		i = 0;
 		while (ln[i])
 		{
@@ -68,7 +60,33 @@ static void	heredoc_child(t_data *data, t_herenode *node, char *target)
 		write(node->fd, "\n", 1);
 		free(ln);
 	}
-	free(target);
+	if (ln == NULLPOINTER)
+		write(STDOUT_FILENO, "\033[1A\033[2C", 8);
+	close(node->fd);
+	exit(0);
+}
+
+static void	heredoc_parents(t_data *data, t_herenode *node, pid_t pid)
+{
+	if (WIFSIGNALED(pid))
+	{
+		set_exit_status(1);
+		close(node->fd);
+		unlink(node->file_name);
+		free_tokens(data);
+		data->token.syntax_flag = ON;
+	}
+	else
+	{
+		close(node->fd);
+		node->fd = open(node->file_name, O_RDONLY);
+		if (node->fd == -1)
+			system_error("Open system call Error!\n");
+		unlink(node->file_name);
+		add_token(data, RE_HERE);
+		free(data->token.temp->parsed_data);
+		data->token.temp->parsed_data = ft_itoa(node->fd);
+	}
 }
 
 static t_herenode	*add_heredoc_node(t_data *data)

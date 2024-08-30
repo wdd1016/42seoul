@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 20:17:08 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 21:34:55 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 23:14:35 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@ void	execute_exit(t_treenode *node, int pipe_flag)
 		write(STDOUT_FILENO, "exit\n", 5);
 	if ((node->cmd)[1])
 	{
-		g_exit_status = atouc_exit((node->cmd)[1]);
+		set_exit_status(atouc_exit((node->cmd)[1]));
 		if (g_exit_status == -1)
 		{
 			write(STDERR_FILENO, "minishell: exit: ", 17);
 			write(STDERR_FILENO, (node->cmd)[1], ft_strlen((node->cmd)[1]));
 			write(STDERR_FILENO, ": numeric argument required\n", 28);
-			g_exit_status = 255;
+			return (set_exit_status(255));
 		}
 		else if ((node->cmd)[2] != NULLPOINTER)
 		{
 			write(STDERR_FILENO, "minishell: exit: too many arguments\n", 36);
-			g_exit_status = 1;
+			return (set_exit_status(1));
 		}
 	}
 	exit(g_exit_status);
@@ -64,6 +64,8 @@ static int	atouc_exit(char *str)
 			return (-1);
 		number = (number * 10) + (*str - '0');
 		str++;
-	}	
+	}
+	if (*str != '\0')
+		return (-1);
 	return ((unsigned char)(sign * number));
 }

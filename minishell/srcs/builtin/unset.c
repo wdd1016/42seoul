@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 01:03:56 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 01:43:16 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 23:04:45 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	execute_unset(t_envnode *head, t_treenode *node)
 	int		i;
 	int		j;
 
-	g_exit_status = 0;
+	set_exit_status(0);
 	if (node->cmd[1] == NULLPOINTER)
 		return ;
 	i = 0;
@@ -33,7 +33,7 @@ void	execute_unset(t_envnode *head, t_treenode *node)
 		if (command[i] == '\0')
 			delete_env_node(head, command);
 		else
-			g_exit_status = 1;
+			set_exit_status(1);
 	}
 }
 

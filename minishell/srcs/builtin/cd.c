@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 11:19:22 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 21:47:58 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 23:04:49 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char	*find_path(t_envnode *env_list, char **cmd, char *old_path)
 		if (path == NULLPOINTER)
 		{
 			write(STDERR_FILENO, "minishell: cd: OLDPWD not set\n", 30);
-			g_exit_status = 1;
+			set_exit_status(1);
 			return (NULLPOINTER);
 		}
 		write(STDOUT_FILENO, path, ft_strlen(path));
@@ -68,7 +68,7 @@ static void	cd_process(t_data *data, char *path, char *old_path)
 			temp = ft_strjoin3("minishell: cd: ", path, \
 								": Permission denied\n");
 		write(STDERR_FILENO, temp, ft_strlen(temp));
-		g_exit_status = 1;
+		set_exit_status(1);
 		free(temp);
 	}
 	else
@@ -79,6 +79,6 @@ static void	cd_process(t_data *data, char *path, char *old_path)
 			set_env_node(data, ft_strdup("OLDPWD"), \
 					ft_strdup((get_env_node(data->env_list, "PWD"))->value));
 		set_env_node(data, ft_strdup("PWD"), getcwd(NULLPOINTER, 0));
-		g_exit_status = 0;
+		set_exit_status(0);
 	}
 }

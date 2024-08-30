@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 01:46:09 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 21:20:54 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 23:04:44 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	execute_tree_consider_no_command(t_data *data, t_treenode *node)
 		if (execute_redirect(data, node) == ERROR)
 			return (ERROR);
 		else
-			g_exit_status = 0;
+			set_exit_status(0);
 	}
 	else if (node->type == COMMAND)
 		execute_command(data, node);
