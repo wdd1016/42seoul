@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:00:05 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 02:49:24 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 22:01:20 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,12 @@ static int	priority_level(t_treenode *child)
 {
 	if (child->subshell_flag == ON)
 		return (6);
-	else if (child->type == COMMAND || child->type == IO_FILE)
+	else if (child->type == IO_FILE)
 		return (5);
-	else if (child->type == RE_IN || child->type == RE_HERE)
+	else if (child->type == RE_IN || child->type == RE_HERE || \
+				child->type == RE_OUT || child->type == RE_APPEND)
 		return (4);
-	else if (child->type == RE_OUT || child->type == RE_APPEND)
+	else if (child->type == COMMAND)
 		return (3);
 	else if (child->type == PIPE)
 		return (2);
@@ -86,8 +87,7 @@ static int	priority_level(t_treenode *child)
 static t_treenode	*insert_child(t_treenode *parent, t_treenode *child, \
 t_treenode *head)
 {
-	if (parent->left_child == NULLPOINTER && \
-		(child->type == COMMAND || child->type == IO_FILE))
+	if (child->type == IO_FILE && parent->left_child == NULLPOINTER)
 		parent->left_child = child;
 	else if (parent->right_child == NULLPOINTER)
 		parent->right_child = child;
@@ -108,8 +108,8 @@ static t_treenode	*create_pnode(t_tokennode *node)
 	new_node->subshell_flag = OFF;
 	new_node->cmd = NULLPOINTER;
 	new_node->parsed_data = NULLPOINTER;
-	if (new_node->type == COMMAND || IO_FILE)
-		new_node->parsed_data = node->parsed_data;
+	if (new_node->type == COMMAND || new_node->type == IO_FILE)
+		new_node->parsed_data = ft_strdup(node->parsed_data);
 	new_node->left_child = NULLPOINTER;
 	new_node->right_child = NULLPOINTER;
 	return (new_node);

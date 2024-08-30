@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 20:17:08 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 01:43:11 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:34:55 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ static int	atouc_exit(char *str);
 
 void	execute_exit(t_treenode *node, int pipe_flag)
 {
-	unsigned long long	exit_status;
-
 	if (pipe_flag == OFF)
 		write(STDOUT_FILENO, "exit\n", 5);
 	if ((node->cmd)[1])

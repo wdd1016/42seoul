@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 02:50:35 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 02:50:38 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:41:00 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void		parse_redirect_error(t_data *data, char *line, size_t idx);
 
 void	redirect_token(t_data *data)
 {
-	t_tokennode	*file_token;
 	t_type		type;
 
 	add_token(data, COMMAND);

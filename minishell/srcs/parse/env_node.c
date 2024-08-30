@@ -6,13 +6,13 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 21:41:54 by danpark           #+#    #+#             */
-/*   Updated: 2024/08/30 01:38:46 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:40:46 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char			**split_env(char *str);
+static char	**split_env(const char *str);
 
 t_envnode	*init_envlist(const char **envp)
 {
@@ -42,7 +42,7 @@ t_envnode	*init_envlist(const char **envp)
 	return (head.next);
 }
 
-static char	**split_env(char *str)
+static char	**split_env(const char *str)
 {
 	int		i;
 	char	**s_spt;

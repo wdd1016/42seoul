@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 22:18:14 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 02:58:25 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 22:02:31 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, const char **argv, const char **envp)
 			data->parse_tree = build_tree(data);
 		if (data->parse_tree)
 			execute_commands(data);
-		free_data(data);
+		free_parse_data(data);
 	}
 }
 
@@ -47,6 +47,7 @@ static t_data	*initialize(int argc, const char **argv, const char **envp)
 		exit(1);
 	if (!ft_strcmp(argv[0], "minishell"))
 		exit(1);
+	g_exit_status = 0;
 	data = (t_data *)malloc_s(sizeof(t_data));
 	data->line = NULLPOINTER;
 	data->line_length = 0;
@@ -72,6 +73,5 @@ static void	free_parse_data(t_data *data)
 	free_tokens(data);
 	free_parse_tree(data->parse_tree);
 	data->parse_tree = NULLPOINTER;
-	free_env_list(data);
 	free_heredoc_list_close_fd(data);
 }

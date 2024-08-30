@@ -6,15 +6,14 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 11:19:22 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 03:17:41 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:47:58 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static char	*find_path(t_envnode *env_list, char **cmd, char *old_path);
-static void	cd_process(t_data *data, char *path, char *old_path, \
-char **cmd);
+static void	cd_process(t_data *data, char *path, char *old_path);
 
 void	execute_cd(t_data *data, t_treenode *node)
 {
@@ -24,7 +23,7 @@ void	execute_cd(t_data *data, t_treenode *node)
 	old_path = getcwd(NULLPOINTER, 0);
 	path = find_path(data->env_list, node->cmd, old_path);
 	if (path)
-		cd_process(data, path, old_path, node->cmd);
+		cd_process(data, path, old_path);
 	free(old_path);
 	free(path);
 }
@@ -37,7 +36,7 @@ static char	*find_path(t_envnode *env_list, char **cmd, char *old_path)
 		path = ft_strdup((get_env_node(env_list, "HOME"))->value);
 	else if (cmd[1][0] == '\0')
 		path = ft_strdup(old_path);
-	else if (cmd[1][0] == '~' && cmd[1][1] == '/')
+	else if (cmd[1][0] == '~' && (cmd[1][1] == '/' || cmd[1][1] == '\0'))
 		path = ft_strjoin((get_env_node(env_list, "HOME"))->value, cmd[1] + 1);
 	else if (ft_strcmp(cmd[1], "-") == 0)
 	{
@@ -56,8 +55,7 @@ static char	*find_path(t_envnode *env_list, char **cmd, char *old_path)
 	return (path);
 }
 
-static void	cd_process(t_data *data, char *path, char *old_path, \
-char **cmd)
+static void	cd_process(t_data *data, char *path, char *old_path)
 {
 	char	*temp;
 

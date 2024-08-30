@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 22:08:46 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 04:56:47 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:39:23 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_filelist	*create_filenode(t_filelist *head, t_filelist *tail, \
 char *directory, char *file_name);
 
 void	make_file_list(DIR *dir, t_filelist *head, \
-char *target, char *directory)
+						char *target, char *directory)
 {
 	struct dirent	*file;
 	t_filelist		*tail;
@@ -29,7 +29,7 @@ char *target, char *directory)
 	while (file)
 	{
 		if (is_match_file(target + ft_strlen(directory), file->d_name) == ON)
-			tail = create_filenode(&head, tail, directory, file->d_name);
+			tail = create_filenode(head, tail, directory, file->d_name);
 		file = readdir(dir);
 	}
 	closedir_s(dir);

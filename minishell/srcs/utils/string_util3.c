@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 01:01:59 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 03:23:05 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 19:04:55 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,28 @@ char	*ft_strjoin3(const char *s1, const char *s2, const char *s3)
 			*temp++ = *s3++;
 	*temp = '\0';
 	return (str);
+}
+
+int	ft_atoi(const char *str)
+{
+	int			minus;
+	int			sum;
+
+	minus = 1;
+	while ((*str >= 9 && *str <= 13) || *str == 32)
+		str++;
+	if (*str == '-')
+	{
+		minus = -1;
+		str++;
+	}
+	else if (*str == '+')
+		str++;
+	sum = 0;
+	while (*str >= '0' && *str <= '9')
+	{
+		sum = (sum * 10) + minus * (*str - '0');
+		str++;
+	}
+	return (sum);
 }

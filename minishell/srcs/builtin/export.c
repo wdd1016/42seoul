@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:50:00 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 03:27:55 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:35:13 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	execute_export(t_data *data, t_treenode *node)
 	while (node->cmd[++i])
 	{
 		append_flag = OFF;
-		if (inspect_command(node->cmd[i], &append_flag) == ERROR)
+		if (inspect_command_export(node->cmd[i], &append_flag) == ERROR)
 		{
 			write(STDERR_FILENO, "minishell: export: `", 20);
 			write(STDERR_FILENO, node->cmd[i], ft_strlen(node->cmd[i]));

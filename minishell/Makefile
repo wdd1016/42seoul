@@ -6,7 +6,7 @@
 #    By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/14 22:12:33 by juyojeon          #+#    #+#              #
-#    Updated: 2024/08/26 21:41:11 by juyojeon         ###   ########.fr        #
+#    Updated: 2024/08/30 21:49:05 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,15 +24,24 @@ RM = rm -f
 
 R_INC = -I${HOME}/.brew/opt/readline/include
 
-SRC = main.c ./parse/build_tree.c ./parse/dpp_token.c ./parse/expansion.c \
-	./parse/heredoc.c ./parse/init_env.c ./parse/parse.c \
-	./parse/redirect_token.c ./parse/symbol_process.c ./parse/token_node.c \
-	./parse/tokenize.c \
-	./utils/char_util.c ./utils/release.c ./utils/signal_handler.c \
+SRC = main.c \
+	./builtin/builtin.c ./builtin/cd.c ./builtin/echo.c \
+	./builtin/env.c ./builtin/exit.c ./builtin/export.c \
+	./builtin/pwd.c ./builtin/unset.c \
+	./execute/command_exception.c ./execute/command.c \
+	./execute/double_bar.c ./execute/execute.c ./execute/expansion.c \
+	./execute/pipe.c ./execute/redirect.c ./execute/symbol_process.c \
+	./execute/wildcard_process.c ./execute/wildcard_util.c \
+	./parse/build_tree.c ./parse/env_node.c ./parse/heredoc.c \
+	./parse/token_node.c ./parse/token_redirect.c ./parse/tokenize.c \
+	./utils/char_util.c ./utils/env_util.c ./utils/error.c \
+	./utils/quick_sort.c ./utils/release.c ./utils/signal_handler.c \
 	./utils/signal.c ./utils/split_util.c ./utils/string_util1.c \
-	./utils/string_util2.c ./utils/wrapper_util.c
+	./utils/string_util2.c ./utils/string_util3.c \
+	./utils/wrapper_directory.c ./utils/wrapper_util.c
 
 SRC_DIR = ./srcs/
+BONUS_DIR = ./bonus/
 
 OBJS = $(SRCS:.c=.o)
 SRCS = $(addprefix $(SRC_DIR), $(SRC))

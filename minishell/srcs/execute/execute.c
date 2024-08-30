@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 01:46:09 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 05:10:34 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:20:54 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,43 @@ void	execute_commands(t_data *data)
 	close(stdout_dup);
 }
 
-static void	execute_tree(t_data *data, t_treenode *node)
+int	execute_tree_consider_no_command(t_data *data, t_treenode *node)
 {
-	if (node->type == COMMAND)
+	if (node == NULLPOINTER)
+		return (OFF);
+	else if (node->type == RE_IN || node->type == RE_HERE || \
+				node->type == RE_OUT || node->type == RE_APPEND)
+	{
+		if (execute_redirect(data, node) == ERROR)
+			return (ERROR);
+		else
+			g_exit_status = 0;
+	}
+	else if (node->type == COMMAND)
 		execute_command(data, node);
-	else if (node->type == RE_IN || node->type == RE_HERE)
-		execute_in_redirect(data, node);
-	else if (node->type == RE_OUT || node->type == RE_APPEND)
-		execute_out_redirect(data, node);
 	else if (node->type == D_VERTICAL)
 		execute_double_vertical_bar(data, node);
 	else if (node->type == D_AMPERSAND)
 		execute_double_ampersand(data, node);
 	else if (node->type == PIPE)
 		execute_pipe(data, node);
+	return (ON);
+}
+
+int	execute_tree(t_data *data, t_treenode *node)
+{
+	if (node == NULLPOINTER)
+		return (OFF);
+	else if (node->type == RE_IN || node->type == RE_HERE || \
+				node->type == RE_OUT || node->type == RE_APPEND)
+		return (execute_redirect(data, node));
+	else if (node->type == COMMAND)
+		execute_command(data, node);
+	else if (node->type == D_VERTICAL)
+		execute_double_vertical_bar(data, node);
+	else if (node->type == D_AMPERSAND)
+		execute_double_ampersand(data, node);
+	else if (node->type == PIPE)
+		execute_pipe(data, node);
+	return (ON);
 }

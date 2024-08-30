@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 19:41:04 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 05:22:57 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:35:42 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,36 +21,35 @@ static char				**env_list_to_envp(t_envnode *head);
 
 void	execute_command(t_data *data, t_treenode *node)
 {
-	t_function_type	func_type;
-	pid_t			pid;
+	pid_t	pid;
 
+	if (execute_tree(data, node->left_child) == ERROR || \
+		execute_tree(data, node->right_child) == ERROR)
+		return ;
 	symbol_process(data, node);
 	wildcard_process(node);
 	cmd_compress(node);
+	g_exit_status = 0;
 	if (node->cmd[0] == NULLPOINTER)
 		return ;
-	func_type = get_function_type(node->cmd[0]);
-	if (func_type != EXTERN_FUNCTION)
-		return (execute_builtin_function(data, node, func_type));
+	if (get_function_type(node->cmd[0]) != EXTERN_FUNCTION)
+		return (execute_builtin_function(data, node, \
+											get_function_type(node->cmd[0])));
 	pid = fork_s();
 	if (pid == 0)
-		execute_command_child(data->env_list, node);
-	else
-	{
-		signal_parent();
-		wait(&pid);
-		if (WIFEXITED(pid))
-			g_exit_status = WEXITSTATUS(pid);
-		else if (WIFSIGNALED(pid))
-			g_exit_status = WTERMSIG(pid) + 128;
-		signal_default();
-	}
+		return (execute_command_child(data->env_list, node));
+	signal_parent();
+	wait(&pid);
+	if (WIFEXITED(pid))
+		g_exit_status = WEXITSTATUS(pid);
+	else if (WIFSIGNALED(pid))
+		g_exit_status = WTERMSIG(pid) + 128;
+	signal_default();
 }
 
 static void	execute_command_child(t_envnode *env_list, t_treenode *node)
 {
 	char	*path;
-	char	**envp;
 	DIR		*dir;
 
 	signal_child();

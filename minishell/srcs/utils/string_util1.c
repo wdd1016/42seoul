@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 22:21:06 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 01:46:29 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/30 21:47:00 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	ft_str_alphabet_cmp(const char *s1, const char *s2)
 		s1++;
 		s2++;
 	}
-	return (*(unsigned char *)ft_toupper(*s1) - \
-			*(unsigned char *)ft_toupper(*s1));
+	return \
+	((unsigned char)ft_toupper(*s1) - (unsigned char)ft_toupper(*s2));
 }
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
