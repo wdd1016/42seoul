@@ -6,18 +6,20 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 04:49:43 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/09/01 05:15:17 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 06:13:20 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	find_wildcard_files(char *wildcard_string, t_filelist *head);
+static void	find_wildcard_files(char *wildcard_string, t_filelist *head, \
+char *directory);
 static char	**expand_cmd(char **cmd, int *index, t_filelist *filelist, \
 int total_count);
 
 void	wildcard_process(t_treenode *node)
 {
+	char		*fir_directory;
 	t_filelist	head;
 	int			i;
 
@@ -29,7 +31,9 @@ void	wildcard_process(t_treenode *node)
 	{
 		if (ft_strchr(node->cmd[i], '*') == NULLPOINTER)
 			continue ;
-		find_wildcard_files(node->cmd[i], &head);
+		fir_directory = ft_strdup(".");
+		find_wildcard_files(node->cmd[i], &head, fir_directory);
+		free(fir_directory);
 		if (head.next)
 			node->cmd = expand_cmd(node->cmd, &i, head.next, head.total_count);
 		free_file_list(head.next);
@@ -38,14 +42,40 @@ void	wildcard_process(t_treenode *node)
 	}
 }
 
-static void	find_wildcard_files(char *wildcard_string, t_filelist *head)
+static void	find_wildcard_files(char *wildcard_str, t_filelist *head, \
+char *directory)
 {
-	DIR		*dir;
+	char		*temp;
+	char		*next_dir;
+	t_filelist	new;
+	t_filelist	*tmp_node;
+	DIR			*dir;
 
-	dir = opendir(".");
+	dir = opendir(directory);
 	if (!dir)
 		return ;
-	make_file_list(dir, head, wildcard_string);
+	temp = ft_strchr(wildcard_str, '/');
+	if (temp)
+	{
+		new.file_name = NULLPOINTER;
+		new.total_count = 0;
+		new.next = NULLPOINTER;
+		*temp = '\0';
+		make_file_list(dir, &new, wildcard_str, NULLPOINTER);
+		*temp = '/';
+		tmp_node = new.next;
+		while (tmp_node)
+		{
+			next_dir = ft_strjoin3(directory, "/", tmp_node->file_name);
+			find_wildcard_files(temp + 1, head, next_dir);
+			free(next_dir);
+			tmp_node = tmp_node->next;
+		}
+		free_file_list(new.next);
+	}
+	else
+		make_file_list(dir, head, wildcard_str, directory + 2);
+	closedir(dir);
 }
 
 static char	**expand_cmd(char **cmd, int *index, t_filelist *filelist, \

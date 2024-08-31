@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 19:09:42 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/09/01 04:24:22 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 06:03:32 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ void	symbol_process(t_data *data, t_treenode *node);
 
 void	wildcard_process(t_treenode *node);
 
-void	make_file_list(DIR *dir, t_filelist *head, char *target);
+void	make_file_list(DIR *dir, t_filelist *head, char *target, char *dpath);
 
 #endif
