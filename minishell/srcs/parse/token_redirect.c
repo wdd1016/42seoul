@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 02:50:35 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 21:41:00 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 02:53:21 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ void	redirect_token(t_data *data)
 	if (type == RE_HERE || type == RE_APPEND)
 		data->token.end += 1;
 	find_redirect_argument(data);
+	add_token(data, type);
 	if (type == RE_HERE)
-		heredoc(data, data->token.start, data->token.end - data->token.start);
-	else
-		add_token(data, type);
+		heredoc(data);
 }
 
 static void	find_redirect_argument(t_data *dt)

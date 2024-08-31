@@ -6,125 +6,89 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 23:16:38 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 03:28:27 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/31 23:30:52 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		ft_insert_words(const char *str, char **s_spt, char set, \
-size_t w_count);
-static int		ft_free_all_allocation(char **s_spt, size_t w_count);
-static int		ft_malloc_strings(const char *str, char **s_spt, char set, \
-size_t w_count);
-static size_t	ft_count_words(const char *str, char set);
+static size_t	ft_count_words(const char *str, char sep);
+static void		ft_malloc_strings(const char *str, char **s_spt, char sep);
+static size_t	check_quote(const char *str, size_t i);
 
-char	**ft_split(const char *s, char c)
+char	**ft_split(const char *str, char sep)
 {
 	char	**s_spt;
-	size_t	w_count;
+	size_t	word_count;
 
-	w_count = ft_count_words((const char *)s, c);
-	s_spt = (char **)malloc_s(sizeof(char *) * (w_count + 1));
-	if (!s_spt)
-		return (0);
-	if (ft_malloc_strings((const char *)s, s_spt, c, 0) == 0)
-		return (0);
-	ft_insert_words((const char *)s, s_spt, c, 0);
-	s_spt[w_count] = 0;
+	if (str == NULLPOINTER)
+		return (NULLPOINTER);
+	word_count = ft_count_words(str, sep);
+	s_spt = (char **)malloc_s(sizeof(char *) * (word_count + 1));
+	ft_malloc_strings(str, s_spt, sep);
+	s_spt[word_count] = 0;
 	return (s_spt);
 }
 
-static void	ft_insert_words(const char *str, char **s_spt, char set, \
-size_t w_count)
-{
-	size_t	i;
-	size_t	j;
-	int		flag_in_string;
-
-	flag_in_string = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] != set && flag_in_string == 0)
-		{
-			flag_in_string = 1;
-			w_count++;
-			j = 0;
-			while (str[i + j] != set && str[i + j])
-			{
-				*(s_spt[w_count - 1] + j) = str[i + j];
-				j++;
-			}
-			*(s_spt[w_count - 1] + j) = '\0';
-			i += j - 1;
-		}
-		if (str[i] == set)
-			flag_in_string = 0;
-		i++;
-	}
-}
-
-static int	ft_free_all_allocation(char **s_spt, size_t w_count)
-{
-	while (w_count > 0)
-	{
-		w_count--;
-		free(s_spt[w_count]);
-	}
-	free(s_spt);
-	return (0);
-}
-
-static int	ft_malloc_strings(const char *str, char **s_spt, char set, \
-size_t w_count)
-{
-	size_t	i;
-	size_t	j;
-	int		flag_in_string;
-
-	flag_in_string = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] != set && flag_in_string == 0)
-		{
-			flag_in_string = 1;
-			w_count++;
-			j = 0;
-			while (str[i + j] != set && str[i + j])
-				j++;
-			s_spt[w_count - 1] = (char *)malloc_s(sizeof(char) * (j + 1));
-			if (s_spt[w_count - 1] == 0)
-				return (ft_free_all_allocation(s_spt, w_count - 1));
-			i += j - 1;
-		}
-		if (str[i] == set)
-			flag_in_string = 0;
-		i++;
-	}
-	return (1);
-}
-
-static size_t	ft_count_words(const char *str, char set)
+static size_t	ft_count_words(const char *str, char sep)
 {
 	size_t	word_count;
 	size_t	i;
-	int		flag_in_string;
+	int		string_flag;
 
 	word_count = 0;
-	flag_in_string = 0;
+	string_flag = 0;
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] != set && flag_in_string == 0)
+		if (str[i] != sep)
 		{
-			flag_in_string = 1;
 			word_count++;
+			while (str[i] && str[i] != sep)
+			{
+				if (str[i] == '\"' || str[i] == '\'')
+					i = quote(NULLPOINTER, str, str[i], i);
+				else
+					i++;
+			}
 		}
-		if (str[i] == set)
-			flag_in_string = 0;
-		i++;
+		else
+			i++;
 	}
 	return (word_count);
+}
+
+static void	ft_malloc_strings(const char *str, char **s_spt, char sep)
+{
+	size_t	word_count;
+	size_t	i;
+	size_t	j;
+
+	word_count = 0;
+	while (*str)
+	{
+		if (*str != sep)
+		{
+			i = 0;
+			while (str[i] && str[i] != sep)
+				i = check_quote(str, i);
+			s_spt[word_count] = (char *)malloc_s(sizeof(char) * (i + 1));
+			j = -1;
+			while (++j < i)
+				*(s_spt[word_count] + j) = str[j];
+			*(s_spt[word_count] + j) = '\0';
+			word_count++;
+			str += i;
+		}
+		else
+			str++;
+	}
+}
+
+static size_t	check_quote(const char *str, size_t i)
+{
+	if (str[i] == '\"' || str[i] == '\'')
+		return (quote(NULLPOINTER, str, str[i], i));
+	else
+		return (i + 1);
 }

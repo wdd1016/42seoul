@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 20:07:32 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/31 03:01:56 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 04:33:01 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,19 @@ void			free_tokens(t_data *data);
 void			free_parse_tree(t_treenode *node);
 void			free_env_list(t_data *data);
 void			free_heredoc_list_close_fd(t_data *data);
-void			free_file_list(t_filelist *head);
+void			free_file_list(t_filelist *node);
 
 void			signal_handler(int sig);
-void			signal_handler_parent(int sig);
-void			signal_handler_quit(int sig);
+void			signal_after_process(pid_t status);
+void			signal_after_heredoc_process(void);
+void			signal_after_pipe_process(pid_t status);
 
 void			signal_default(void);
 void			signal_child(void);
 void			signal_parent(void);
-void			signal_heredoc_parent(void);
 void			signal_heredoc_child(void);
 
-char			**ft_split(const char *s, char c);
+char			**ft_split(const char *str, char sep);
 
 int				ft_strcmp(const char *s1, const char *s2);
 int				ft_str_alphabet_cmp(const char *s1, const char *s2);

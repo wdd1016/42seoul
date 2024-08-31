@@ -6,13 +6,13 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 00:29:56 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 03:35:11 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 03:09:13 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute_builtin_function(t_data *data, t_treenode *node, \
+int	execute_builtin_function(t_data *data, t_treenode *node, \
 t_function_type func_type)
 {
 	if (func_type == CD_BUILTIN)
@@ -28,5 +28,6 @@ t_function_type func_type)
 	else if (func_type == PWD_BUILTIN)
 		execute_pwd(data->env_list);
 	else if (func_type == UNSET_BUILTIN)
-		execute_unset(data->env_list, node);
+		execute_unset(data, node);
+	return (ON);
 }

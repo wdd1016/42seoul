@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 03:49:40 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 23:04:42 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 02:48:07 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,31 +20,33 @@ int	execute_redirect(t_data *data, t_treenode *node)
 {
 	if (node == NULLPOINTER)
 		return (ON);
-	else if (redirect_preprocess(data, node->left_child) == ERROR)
+	else if (redirect_preprocess(data, node) == ERROR)
 		return (ERROR);
 	else if (node->type == RE_IN || node->type == RE_HERE)
 	{
-		if (execute_in_redirect(node->left_child->cmd[0], node->type) == ERROR)
+		if (execute_in_redirect(node->cmd[0], node->type) == ERROR)
 			return (ERROR);
 	}
 	else if (node->type == RE_OUT || node->type == RE_APPEND)
 	{
-		if (execute_out_redirect(node->left_child->cmd[0], node->type) == ERROR)
+		if (execute_out_redirect(node->cmd[0], node->type) == ERROR)
 			return (ERROR);
 	}
-	return (execute_redirect(data, node->right_child));
+	if (execute_redirect(data, node->right_child) == ERROR)
+		return (ERROR);
+	if (execute_tree_consider_no_command(data, node->left_child) == ERROR)
+		return (ERROR);
+	return (ON);
 }
 
-static int	redirect_preprocess(t_data *data, t_treenode *file_node)
+static int	redirect_preprocess(t_data *data, t_treenode *node)
 {
-	symbol_process(data, file_node);
-	wildcard_process(file_node);
-	cmd_compress(file_node);
-	if (file_node->cmd[0] == NULLPOINTER || file_node->cmd[1])
+	symbol_process(data, node);
+	wildcard_process(node);
+	if (node->cmd[0] == NULLPOINTER || node->cmd[1])
 	{
 		write(STDERR_FILENO, "minishell: ", 11);
-		write(STDERR_FILENO, file_node->parsed_data, \
-				ft_strlen(file_node->parsed_data));
+		write(STDERR_FILENO, node->parsed_data, ft_strlen(node->parsed_data));
 		write(STDERR_FILENO, ": ambiguous redirect\n", 21);
 		set_exit_status(1);
 		return (ERROR);

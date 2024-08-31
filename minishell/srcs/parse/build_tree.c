@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 00:00:05 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 22:01:20 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 02:16:47 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ static t_treenode	*insert_node(t_treenode *head, t_treenode *child)
 static int	priority_level(t_treenode *child)
 {
 	if (child->subshell_flag == ON)
-		return (6);
-	else if (child->type == IO_FILE)
 		return (5);
 	else if (child->type == RE_IN || child->type == RE_HERE || \
 				child->type == RE_OUT || child->type == RE_APPEND)
@@ -87,9 +85,7 @@ static int	priority_level(t_treenode *child)
 static t_treenode	*insert_child(t_treenode *parent, t_treenode *child, \
 t_treenode *head)
 {
-	if (child->type == IO_FILE && parent->left_child == NULLPOINTER)
-		parent->left_child = child;
-	else if (parent->right_child == NULLPOINTER)
+	if (parent->right_child == NULLPOINTER)
 		parent->right_child = child;
 	else
 	{
@@ -108,7 +104,9 @@ static t_treenode	*create_pnode(t_tokennode *node)
 	new_node->subshell_flag = OFF;
 	new_node->cmd = NULLPOINTER;
 	new_node->parsed_data = NULLPOINTER;
-	if (new_node->type == COMMAND || new_node->type == IO_FILE)
+	if (new_node->type == COMMAND || new_node->type == RE_IN || \
+		new_node->type == RE_HERE || new_node->type == RE_OUT || \
+		new_node->type == RE_APPEND)
 		new_node->parsed_data = ft_strdup(node->parsed_data);
 	new_node->left_child = NULLPOINTER;
 	new_node->right_child = NULLPOINTER;

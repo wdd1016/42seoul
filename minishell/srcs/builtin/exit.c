@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 20:17:08 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 23:14:35 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 00:49:56 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	execute_exit(t_treenode *node, int pipe_flag)
 			write(STDERR_FILENO, "minishell: exit: ", 17);
 			write(STDERR_FILENO, (node->cmd)[1], ft_strlen((node->cmd)[1]));
 			write(STDERR_FILENO, ": numeric argument required\n", 28);
-			return (set_exit_status(255));
+			set_exit_status(255);
 		}
 		else if ((node->cmd)[2] != NULLPOINTER)
 		{

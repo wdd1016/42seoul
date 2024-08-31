@@ -6,7 +6,7 @@
 #    By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/14 22:12:33 by juyojeon          #+#    #+#              #
-#    Updated: 2024/08/30 23:00:29 by juyojeon         ###   ########.fr        #
+#    Updated: 2024/09/01 02:59:39 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ SRC = main.c \
 	./execute/pipe.c ./execute/redirect.c ./execute/symbol_process.c \
 	./execute/wildcard_process.c ./execute/wildcard_util.c \
 	./parse/build_tree.c ./parse/env_node.c ./parse/heredoc.c \
-	./parse/token_node.c ./parse/token_redirect.c ./parse/tokenize.c \
+	./parse/token_node.c ./parse/token_redirect.c ./parse/token.c \
+	./parse/tokenize.c \
 	./utils/char_util.c ./utils/env_util.c ./utils/error.c \
 	./utils/exit_status.c ./utils/quick_sort.c ./utils/release.c \
 	./utils/signal_handler.c ./utils/signal.c ./utils/split_util.c \

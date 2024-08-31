@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 23:57:10 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/31 03:02:43 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 02:29:24 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void			heredoc_child(t_data *data, t_herenode *node, char *target);
 static void			heredoc_parents(t_data *data, t_herenode *node, pid_t pid);
 static t_herenode	*add_heredoc_node(t_data *data);
 
-void	heredoc(t_data *data, size_t start, size_t end)
+void	heredoc(t_data *data)
 {
 	struct termios	old_termios;
 	t_herenode		*node;
@@ -26,10 +26,10 @@ void	heredoc(t_data *data, size_t start, size_t end)
 	node = add_heredoc_node(data);
 	pid = fork_s();
 	if (pid == 0)
-		heredoc_child(data, node, ft_substr(data->line, start, end - start));
+		heredoc_child(data, node, data->token.temp->parsed_data);
 	else
 	{
-		signal_heredoc_parent();
+		signal_parent();
 		wait(&pid);
 		signal_default();
 		tcsetattr(STDIN_FILENO, TCSANOW, &old_termios);
@@ -70,7 +70,7 @@ static void	heredoc_parents(t_data *data, t_herenode *node, pid_t pid)
 {
 	if (WIFSIGNALED(pid))
 	{
-		set_exit_status(1);
+		signal_after_heredoc_process();
 		close(node->fd);
 		unlink(node->file_name);
 		free_tokens(data);
@@ -83,7 +83,6 @@ static void	heredoc_parents(t_data *data, t_herenode *node, pid_t pid)
 		if (node->fd == -1)
 			system_error("Open system call Error!\n");
 		unlink(node->file_name);
-		add_token(data, RE_HERE);
 		free(data->token.temp->parsed_data);
 		data->token.temp->parsed_data = ft_itoa(node->fd);
 	}

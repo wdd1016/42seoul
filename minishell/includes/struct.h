@@ -6,14 +6,14 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 20:57:25 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 03:33:54 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 02:12:43 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 
-# define NULLPOINTER 0
+# define NULLPOINTER (void *)0
 # define ON 1
 # define OFF 0
 # define ERROR -1
@@ -42,8 +42,7 @@ typedef enum e_type
 	D_AMPERSAND,
 	PIPE,
 	PRIORITY_START,
-	PRIORITY_END,
-	IO_FILE
+	PRIORITY_END
 }	t_type;
 
 typedef struct s_tokennode

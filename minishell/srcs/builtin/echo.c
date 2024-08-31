@@ -6,50 +6,57 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 18:57:02 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 23:04:49 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 01:03:45 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_option(char *command);
+static size_t	is_option(char **cmd);
 
 void	execute_echo(t_treenode *node)
 {
+	size_t	last_option_idx;
 	size_t	idx;
 
 	set_exit_status(0);
-	if ((node->cmd)[1] == NULLPOINTER)
-		write(STDOUT_FILENO, "\n", 1);
-	else
+	last_option_idx = is_option(node->cmd);
+	idx = last_option_idx + 1;
+	if (node->cmd[idx] == NULLPOINTER)
 	{
-		if (is_option((node->cmd)[1]) == OFF)
-			idx = 1;
-		else
-			idx = 2;
-		while ((node->cmd)[idx])
-		{
-			write(STDOUT_FILENO, (node->cmd)[idx], ft_strlen((node->cmd)[idx]));
-			if ((node->cmd)[idx + 1])
-				write(STDOUT_FILENO, " ", 1);
-			idx++;
-		}
-		if (is_option((node->cmd)[1]) == OFF)
-			write(STDOUT_FILENO, "\n", 1);
+		write(STDOUT_FILENO, "\n", 1);
+		return ;
 	}
+	while ((node->cmd)[idx])
+	{
+		write(STDOUT_FILENO, (node->cmd)[idx], ft_strlen((node->cmd)[idx]));
+		if ((node->cmd)[idx + 1])
+			write(STDOUT_FILENO, " ", 1);
+		idx++;
+	}
+	if (last_option_idx == 0)
+		write(STDOUT_FILENO, "\n", 1);
 }
 
-static int	is_option(char *command)
+static size_t	is_option(char **cmd)
 {
-	int	i;
+	size_t	i;
+	size_t	j;
 
-	if (command[0] == '-' && command[1] == 'n')
+	i = 1;
+	while (cmd[i])
 	{
-		i = 2;
-		while (command[i] == 'n')
-			i++;
-		if (command[i] == '\0')
-			return (ON);
+		if (cmd[i][0] == '-' && cmd[i][1] == 'n')
+		{
+			j = 2;
+			while (cmd[i][j] == 'n')
+				j++;
+			if (cmd[i][j] != '\0')
+				return (i - 1);
+		}
+		else
+			return (i - 1);
+		i++;
 	}
-	return (OFF);
+	return (i - 1);
 }

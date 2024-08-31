@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 21:57:17 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 22:51:17 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 02:56:57 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ void	tokenize(t_data *dt)
 		finalize_tokens(dt);
 }
 
-size_t	quote(t_data *data, char *string, char character, size_t end)
+size_t	quote(t_data *data, const char *str, char character, size_t end)
 {
 	end++;
-	while (string[end] && string[end] != character)
+	while (str[end] && str[end] != character)
 		end++;
-	if (string[end] == character)
+	if (str[end] == character)
 		end++;
 	else
 	{
@@ -66,6 +66,7 @@ static void	finalize_tokens(t_data *data)
 		return (parse_error(data, "command"));
 	else if (data->token.bracket_count)
 		return (parse_error(data, "bracket"));
+	priority_test(data);
 	command_combination(data->token.head);
 }
 

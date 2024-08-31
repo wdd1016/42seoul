@@ -6,12 +6,13 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 19:28:22 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 23:04:43 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 03:26:45 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	pipe_after_process(pid_t pid2);
 static void	execute_pipe_left_child(t_data *data, t_treenode *node, \
 int *pipe_fd);
 static void	execute_pipe_right_child(t_data *data, t_treenode *node, \
@@ -33,12 +34,31 @@ void	execute_pipe(t_data *data, t_treenode *node)
 		execute_pipe_right_child(data, node, pipe_fd);
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
-	wait(&pid);
-	wait(&pid2);
-	if (WIFEXITED(pid2))
-		set_exit_status(WEXITSTATUS(pid2));
-	else if (WIFSIGNALED(pid2))
-		set_exit_status(WTERMSIG(pid2) + 128);
+	pipe_after_process(pid2);
+}
+
+static void	pipe_after_process(pid_t pid2)
+{
+	pid_t	temp;
+	pid_t	status1;
+	pid_t	status2;
+
+	if (wait(&temp) == pid2)
+	{
+		wait(&status1);
+		status2 = temp;
+	}
+	else
+	{
+		wait(&status2);
+		status1 = temp;
+	}
+	set_exit_status(WEXITSTATUS(status2));
+	if (WIFSIGNALED(status2))
+	{
+		set_exit_status(WTERMSIG(status2) + 128);
+		signal_after_pipe_process(status2);
+	}
 }
 
 static void	execute_pipe_left_child(t_data *data, t_treenode *node, \

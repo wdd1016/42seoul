@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:50:00 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 23:04:47 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/08/31 20:37:08 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void	export_declare(t_data *data, char *command, int append_flag)
 	equal_ptr = ft_strchr(command, '=');
 	if (equal_ptr == NULLPOINTER && \
 	get_env_node(data->env_list, command) == NULLPOINTER)
-		return (set_env_node(data, command, NULLPOINTER));
+		return (set_env_node(data, ft_strdup(command), NULLPOINTER));
 	else if (equal_ptr == NULLPOINTER)
 		return ;
 	*equal_ptr = '\0';

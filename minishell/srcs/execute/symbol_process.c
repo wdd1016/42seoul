@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 18:30:11 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 04:46:48 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 01:22:28 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ static void	quote_erase_expansion(t_data *dt, char **str_ptr)
 	while ((*str_ptr)[i])
 	{
 		if ((*str_ptr)[i] == '\'')
+		{
 			quote_erase(str_ptr, i, quote(dt, *str_ptr, '\'', i) - 1);
+			i--;
+		}
 		else if ((*str_ptr)[i] == '\"')
 		{
 			j = i;
@@ -59,8 +62,9 @@ static void	quote_erase_expansion(t_data *dt, char **str_ptr)
 				if ((*str_ptr)[i] == '$' && (*str_ptr)[i + 1] != ' ' && \
 					(*str_ptr)[i + 1] != '\0')
 					i = expansion(dt->env_list, str_ptr, i + 1, \
-								ft_substr(*str_ptr, 0, i));
+								ft_substr(*str_ptr, 0, i)) - 1;
 			quote_erase(str_ptr, j, quote(dt, *str_ptr, '\"', j) - 1);
+			i--;
 		}
 		else
 			i++;
