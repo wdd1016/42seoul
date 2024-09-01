@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 22:08:46 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/09/01 06:15:11 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 19:30:07 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	make_file_list(DIR *dir, t_filelist *head, char *target, char *dpath)
 			tail = create_filenode(head, tail, file->d_name, dpath);
 		file = readdir(dir);
 	}
+	closedir(dir);
 }
 
 static int	is_match_file(char *target_string, char *file_name)

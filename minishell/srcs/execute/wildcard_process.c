@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 04:49:43 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/09/01 06:13:20 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 19:35:30 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	find_wildcard_files(char *wildcard_string, t_filelist *head, \
 char *directory);
+static void	make_dir_list(DIR *dir, t_filelist *new, char *wildcard_str);
 static char	**expand_cmd(char **cmd, int *index, t_filelist *filelist, \
 int total_count);
 
@@ -57,12 +58,7 @@ char *directory)
 	temp = ft_strchr(wildcard_str, '/');
 	if (temp)
 	{
-		new.file_name = NULLPOINTER;
-		new.total_count = 0;
-		new.next = NULLPOINTER;
-		*temp = '\0';
-		make_file_list(dir, &new, wildcard_str, NULLPOINTER);
-		*temp = '/';
+		make_dir_list(dir, &new, wildcard_str);
 		tmp_node = new.next;
 		while (tmp_node)
 		{
@@ -75,7 +71,19 @@ char *directory)
 	}
 	else
 		make_file_list(dir, head, wildcard_str, directory + 2);
-	closedir(dir);
+}
+
+static void	make_dir_list(DIR *dir, t_filelist *new, char *wildcard_str)
+{
+	char	*temp;
+
+	new->file_name = NULLPOINTER;
+	new->total_count = 0;
+	new->next = NULLPOINTER;
+	temp = ft_strchr(wildcard_str, '/');
+	*temp = '\0';
+	make_file_list(dir, new, wildcard_str, NULLPOINTER);
+	*temp = '/';
 }
 
 static char	**expand_cmd(char **cmd, int *index, t_filelist *filelist, \

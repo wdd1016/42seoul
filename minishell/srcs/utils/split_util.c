@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 23:16:38 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/31 23:30:52 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 19:29:10 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@ static size_t	ft_count_words(const char *str, char sep)
 {
 	size_t	word_count;
 	size_t	i;
-	int		string_flag;
 
 	word_count = 0;
-	string_flag = 0;
 	i = 0;
 	while (str[i])
 	{
