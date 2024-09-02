@@ -6,13 +6,14 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 18:30:11 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/09/01 01:22:28 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:50:23 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	quote_erase_expansion(t_data *dt, char **str_ptr);
+static void	tilde_expansion(t_data *data, char **str_ptr);
+static void	double_quote_expansion(t_data *dt, char **str_ptr);
 static void	quote_erase(char **str_ptr, size_t start, size_t end);
 
 void	symbol_process(t_data *data, t_treenode *node)
@@ -32,17 +33,36 @@ void	symbol_process(t_data *data, t_treenode *node)
 						ft_substr(node->parsed_data, 0, i));
 		else
 			i++;
-	}	
+	}
 	node->cmd = ft_split(node->parsed_data, ' ');
+	i = -1;
+	while (node->cmd[++i])
+		tilde_expansion(data, &(node->cmd[i]));
+	i = -1;
+	while (node->cmd[++i])
+		double_quote_expansion(data, &(node->cmd[i]));
+}
+
+static void	tilde_expansion(t_data *data, char **str_ptr)
+{
+	t_envnode	*home;
+	char		*temp;
+	size_t		i;
+
+	home = get_env_node(data->env_list, "HOME");
+	if (!home)
+		return ;
 	i = 0;
-	while (node->cmd[i])
+	if ((*str_ptr)[0] == '~' && \
+		((*str_ptr)[1] == '\0' || (*str_ptr)[1] == '/'))
 	{
-		quote_erase_expansion(data, &(node->cmd[i]));
-		i++;
+		temp = ft_strjoin(home->value, (*str_ptr) + 1);
+		free(*str_ptr);
+		*str_ptr = temp;
 	}
 }
 
-static void	quote_erase_expansion(t_data *dt, char **str_ptr)
+static void	double_quote_expansion(t_data *dt, char **str_ptr)
 {
 	size_t	i;
 	size_t	j;

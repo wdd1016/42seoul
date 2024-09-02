@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:50:00 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/31 20:37:08 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 21:36:32 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static void	export_print(t_envnode *head)
 	char	**envs;
 	int		i;
 
+	if (!head)
+		return ;
 	envs = env_list_to_export(head);
 	i = 0;
 	while (envs[i])
@@ -109,6 +111,8 @@ static char	**env_list_to_export(t_envnode *head)
 	char	*temp;
 	int		i;
 
+	if (!head)
+		return (NULLPOINTER);
 	envs = (char **)malloc_s(sizeof(char *) * (head->total_count + 1));
 	i = 0;
 	while (head)

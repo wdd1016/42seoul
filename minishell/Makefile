@@ -6,7 +6,7 @@
 #    By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/14 22:12:33 by juyojeon          #+#    #+#              #
-#    Updated: 2024/09/01 02:59:39 by juyojeon         ###   ########.fr        #
+#    Updated: 2024/09/02 19:15:37 by juyojeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAG = -Wall -Wextra -Werror -g
+CFLAG = -Wall -Wextra -Werror
 
 INC = -I./includes/
 

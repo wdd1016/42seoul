@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 22:08:46 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/09/01 19:30:07 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 21:42:25 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static int	is_match_file(char *target_string, char *file_name)
 	{
 		if (*target_string == '*')
 		{
-			target_string++;
+			while (*target_string == '*')
+				target_string++;
 			while (*file_name && *target_string != *file_name)
 				file_name++;
 		}

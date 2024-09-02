@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 18:57:02 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/09/01 01:03:45 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:54:44 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,15 @@ void	execute_echo(t_treenode *node)
 	set_exit_status(0);
 	last_option_idx = is_option(node->cmd);
 	idx = last_option_idx + 1;
-	if (node->cmd[idx] == NULLPOINTER)
+	if (node->cmd[idx] != NULLPOINTER)
 	{
-		write(STDOUT_FILENO, "\n", 1);
-		return ;
-	}
-	while ((node->cmd)[idx])
-	{
-		write(STDOUT_FILENO, (node->cmd)[idx], ft_strlen((node->cmd)[idx]));
-		if ((node->cmd)[idx + 1])
-			write(STDOUT_FILENO, " ", 1);
-		idx++;
+		while ((node->cmd)[idx])
+		{
+			write(STDOUT_FILENO, (node->cmd)[idx], ft_strlen((node->cmd)[idx]));
+			if ((node->cmd)[idx + 1])
+				write(STDOUT_FILENO, " ", 1);
+			idx++;
+		}
 	}
 	if (last_option_idx == 0)
 		write(STDOUT_FILENO, "\n", 1);

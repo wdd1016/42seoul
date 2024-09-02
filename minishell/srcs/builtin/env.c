@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 19:18:31 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 23:04:48 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 21:33:45 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	execute_env(t_envnode *head)
 {
 	set_exit_status(0);
+	if (!head)
+		return ;
 	while (head)
 	{
 		if (head->value)

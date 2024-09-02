@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 11:19:22 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/31 21:56:21 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:49:43 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ static char	*find_path_cd(t_envnode *env_list, char **cmd, char *home_path)
 		return (ft_strdup(home_path));
 	else if (cmd[1][0] == '\0')
 		return (getcwd(NULLPOINTER, 0));
-	else if (cmd[1][0] == '~' && (cmd[1][1] == '/' || cmd[1][1] == '\0'))
-		return (ft_strjoin(home_path, cmd[1] + 1));
 	else if (ft_strcmp(cmd[1], "-") == 0)
 	{
 		temp = get_env_node(env_list, "OLDPWD");

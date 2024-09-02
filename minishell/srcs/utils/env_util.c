@@ -6,7 +6,7 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 22:21:12 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/08/30 03:17:41 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 21:37:29 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_envnode	*create_envnode(t_envnode *head, char *key, char *value)
 
 t_envnode	*get_env_node(t_envnode *env_list, char *key)
 {
+	if (!env_list)
+		return (NULLPOINTER);
 	while (env_list)
 	{
 		if (!ft_strcmp(env_list->key, key))

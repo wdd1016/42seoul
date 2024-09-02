@@ -6,12 +6,13 @@
 /*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 21:41:54 by danpark           #+#    #+#             */
-/*   Updated: 2024/08/30 21:40:46 by juyojeon         ###   ########.fr       */
+/*   Updated: 2024/09/01 21:32:27 by juyojeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	head_init(t_envnode *head);
 static char	**split_env(const char *str);
 
 t_envnode	*init_envlist(const char **envp)
@@ -21,10 +22,11 @@ t_envnode	*init_envlist(const char **envp)
 	char		**tmp;
 	int			i;
 
-	head.next = NULLPOINTER;
-	head.total_count = 0;
+	head_init(&head);
 	tmp_node = &head;
 	i = -1;
+	if (!envp)
+		return (NULLPOINTER);
 	while (envp[++i])
 	{
 		tmp = split_env(envp[i]);
@@ -40,6 +42,14 @@ t_envnode	*init_envlist(const char **envp)
 	if (head.next)
 		head.next->total_count = head.total_count;
 	return (head.next);
+}
+
+static void	head_init(t_envnode *head)
+{
+	head->key = NULLPOINTER;
+	head->value = NULLPOINTER;
+	head->next = NULLPOINTER;
+	head->total_count = 0;
 }
 
 static char	**split_env(const char *str)
