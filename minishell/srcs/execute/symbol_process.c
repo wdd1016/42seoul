@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   symbol_process.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/23 18:30:11 by juyojeon          #+#    #+#             */
-/*   Updated: 2024/09/02 18:50:23 by juyojeon         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 static void	tilde_expansion(t_data *data, char **str_ptr);
@@ -47,12 +35,10 @@ static void	tilde_expansion(t_data *data, char **str_ptr)
 {
 	t_envnode	*home;
 	char		*temp;
-	size_t		i;
 
 	home = get_env_node(data->env_list, "HOME");
 	if (!home)
 		return ;
-	i = 0;
 	if ((*str_ptr)[0] == '~' && \
 		((*str_ptr)[1] == '\0' || (*str_ptr)[1] == '/'))
 	{

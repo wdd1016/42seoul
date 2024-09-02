@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: juyojeon <juyojeon@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/08/14 22:12:33 by juyojeon          #+#    #+#              #
-#    Updated: 2024/09/02 19:15:37 by juyojeon         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = minishell
 
 CC = cc
@@ -18,11 +6,21 @@ CFLAG = -Wall -Wextra -Werror
 
 INC = -I./includes/
 
-R_FLAG =  -lreadline -L${HOME}/.brew/opt/readline/lib
+UNAME := $(shell uname -s)
+
+ifeq ($(UNAME), Linux)
+    R_FLAG = -lreadline
+	R_INC = 
+else ifeq ($(UNAME), Darwin)
+    R_FLAG = -lreadline -L/opt/homebrew/opt/readline/lib
+	R_INC = -I/opt/homebrew/opt/readline/include
+endif
+
+# 42seoul
+# R_FLAG = -lreadline -L${HOME}/.brew/opt/readline/lib
+# R_INC = -I${HOME}/.brew/opt/readline/include
 
 RM = rm -f
-
-R_INC = -I${HOME}/.brew/opt/readline/include
 
 SRC = main.c \
 	./builtin/builtin.c ./builtin/cd.c ./builtin/echo.c \
@@ -55,15 +53,9 @@ bonus : $(NAME)
 .c.o:
 	@$(CC) $(CFLAG) $(INC) $(R_INC) -c $< -o $@
 
-ifeq ($(findstring bonus, $(MAKECMDGOALS)), bonus)
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAG) $^ $(R_FLAG) -o $@
 	@printf	"Get Ready for the Minishell\n"
-else
-$(NAME): $(OBJS)
-	@$(CC) $(CFLAG) $^ $(R_FLAG) -o $@
-	@printf	"Get Ready for the Minishell\n"
-endif
 
 clean :
 	@$(RM) $(OBJS)
